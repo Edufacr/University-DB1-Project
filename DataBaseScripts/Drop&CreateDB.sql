@@ -47,8 +47,8 @@ DROP TABLE IF EXISTS dbo.DB1P_CC_onProperties;
 CREATE TABLE dbo.DB1P_CC_onProperties
 	(
 	Id int NOT NULL IDENTITY (1, 1),
-	Property_Id int NOT NULL,
-	ChargeConcept_Id int NOT NULL,
+	Id_Property int NOT NULL,
+	Id_ChargeConcept int NOT NULL,
 	BeginDate date NOT NULL,
 	EndDate date  NULL,
 	Active bit NOT NULL
@@ -58,9 +58,9 @@ DROP TABLE IF EXISTS dbo.DB1P_PropertiesUsers;
 CREATE TABLE dbo.DB1P_PropertiesUsers
 	(
 	Id int NOT NULL IDENTITY (1, 1),
-	Property_Id int NOT NULL,
-	User_Id int NOT NULL,
-	CONSTRAINT AK_PropertyUsersIDs UNIQUE(Property_Id,User_Id),
+	Id_Property int NOT NULL,
+	Id_User int NOT NULL,
+	CONSTRAINT AK_PropertyUsersIDs UNIQUE(Id_Property,Id_User),
 	Active bit NOT NULL
 	)  ON [PRIMARY]
 
@@ -68,9 +68,9 @@ DROP TABLE IF EXISTS dbo.DB1P_PropertyOwners;
 CREATE TABLE dbo.DB1P_PropertyOwners
 	(
 	Id int NOT NULL IDENTITY (1, 1),
-	Property_Id int NOT NULL,
-	Owner_Id int NOT NULL,
-	CONSTRAINT AK_PropertyOwnersIDs UNIQUE(Property_Id,Owner_Id),
+	Id_Property int NOT NULL,
+	Id_Owner int NOT NULL,
+	CONSTRAINT AK_PropertyOwnersIDs UNIQUE(Id_Property,Id_Owner),
 	Active bit NOT NULL
 	)  ON [PRIMARY]
 
@@ -79,9 +79,9 @@ CREATE TABLE dbo.DB1P_LegalOwners
 	(
 	Id int NOT NULL,
 	ResponsibleName varchar(50) NOT NULL,
-	Resp_DocType_Id int NOT NULL,
+	Id_Resp_DocType int NOT NULL,
 	Resp_DocValue VARCHAR(30) NOT NULL,
-	CONSTRAINT AK_Resp_DocValue UNIQUE(Resp_DocValue,Resp_DocType_Id),
+	CONSTRAINT AK_Resp_DocValue UNIQUE(Resp_DocValue,Id_Resp_DocType),
 	Active bit NOT NULL
 	)  ON [PRIMARY]
 
@@ -90,9 +90,9 @@ CREATE TABLE dbo.DB1P_Owners
 	(
 	Id int NOT NULL IDENTITY (1, 1),
 	Name varchar(50) NOT NULL,
-	DocType_Id int NOT NULL,
+	Id_DocType int NOT NULL,
 	DocValue VARCHAR(30) NOT NULL,
-	CONSTRAINT AK_DocValue UNIQUE(DocValue,DocType_Id),
+	CONSTRAINT AK_DocValue UNIQUE(DocValue,Id_DocType),
 	Active bit NOT NULL
 	)  ON [PRIMARY]
 
@@ -165,7 +165,7 @@ ALTER TABLE dbo.DB1P_Owners ADD CONSTRAINT
 ALTER TABLE dbo.DB1P_Owners ADD CONSTRAINT
 	FK_DB1P_Owners_DB1P_Doc_Id_Types FOREIGN KEY
 	(
-	DocType_Id
+	Id_DocType
 	) REFERENCES dbo.DB1P_Doc_Id_Types
 	(
 	Id
@@ -193,7 +193,7 @@ ALTER TABLE dbo.DB1P_LegalOwners ADD CONSTRAINT
 ALTER TABLE dbo.DB1P_LegalOwners ADD CONSTRAINT
 	FK_DB1P_LegalOwners_DB1P_Doc_Id_Types FOREIGN KEY
 	(
-	Resp_DocType_Id
+	Id_Resp_DocType
 	) REFERENCES dbo.DB1P_Doc_Id_Types
 	(
 	Id
@@ -219,7 +219,7 @@ ALTER TABLE dbo.DB1P_PropertiesUsers ADD CONSTRAINT
 ALTER TABLE dbo.DB1P_PropertiesUsers ADD CONSTRAINT
 	FK_DB1P_PropertiesUsers_DB1P_Users FOREIGN KEY
 	(
-	User_Id
+	Id_User
 	) REFERENCES dbo.DB1P_Users
 	(
 	Id
@@ -229,7 +229,7 @@ ALTER TABLE dbo.DB1P_PropertiesUsers ADD CONSTRAINT
 ALTER TABLE dbo.DB1P_PropertiesUsers ADD CONSTRAINT
 	FK_DB1P_PropertiesUsers_DB1P_Properties FOREIGN KEY
 	(
-	Property_Id
+	Id_Property
 	) REFERENCES dbo.DB1P_Properties
 	(
 	Id
@@ -247,7 +247,7 @@ ALTER TABLE dbo.DB1P_PropertyOwners ADD CONSTRAINT
 ALTER TABLE dbo.DB1P_PropertyOwners ADD CONSTRAINT
 	FK_DB1P_PropertyOwners_DB1P_Properties FOREIGN KEY
 	(
-	Property_Id
+	Id_Property
 	) REFERENCES dbo.DB1P_Properties
 	(
 	Id
@@ -257,7 +257,7 @@ ALTER TABLE dbo.DB1P_PropertyOwners ADD CONSTRAINT
 ALTER TABLE dbo.DB1P_PropertyOwners ADD CONSTRAINT
 	FK_DB1P_PropertyOwners_DB1P_Owners FOREIGN KEY
 	(
-	Owner_Id
+	Id_Owner
 	) REFERENCES dbo.DB1P_Owners
 	(
 	Id
@@ -283,7 +283,7 @@ ALTER TABLE dbo.DB1P_CC_onProperties ADD CONSTRAINT
 ALTER TABLE dbo.DB1P_CC_onProperties ADD CONSTRAINT
 	FK_DB1P_CC_onProperties_DB1P_ChargeConcepts FOREIGN KEY
 	(
-	ChargeConcept_Id
+	Id_ChargeConcept
 	) REFERENCES dbo.DB1P_ChargeConcepts
 	(
 	Id
@@ -292,7 +292,7 @@ ALTER TABLE dbo.DB1P_CC_onProperties ADD CONSTRAINT
 ALTER TABLE dbo.DB1P_CC_onProperties ADD CONSTRAINT
 	FK_DB1P_CC_onProperties_DB1P_Properties FOREIGN KEY
 	(
-	Property_Id
+	Id_Property
 	) REFERENCES dbo.DB1P_Properties
 	(
 	Id
