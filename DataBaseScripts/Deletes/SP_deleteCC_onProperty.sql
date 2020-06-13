@@ -1,6 +1,3 @@
-USE [DB1-Project]
-GO
-/****** Object:  StoredProcedure [dbo].[SP_deleteCC_onProperty]    Script Date: 5/30/2020 8:14:17 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON

@@ -1,6 +1,3 @@
-USE [DB1-Project]
-GO
-/****** Object:  StoredProcedure [dbo].[SP_getActivePropertyOwners]    Script Date: 6/1/2020 1:03:01 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON

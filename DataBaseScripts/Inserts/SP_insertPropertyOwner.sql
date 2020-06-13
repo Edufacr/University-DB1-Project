@@ -1,6 +1,3 @@
-USE [DB1-Project]
-GO
-/****** Object:  StoredProcedure [dbo].[SP_insertPropertyOwner]    Script Date: 5/28/2020 11:41:20 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
