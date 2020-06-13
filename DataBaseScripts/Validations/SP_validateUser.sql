@@ -3,7 +3,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 -- =============================================
--- Author:		Jorge Gutiérrez Cordero
+-- Author:		Jorge GutiÃ©rrez Cordero
 -- Create date: 6/12/2020
 -- Description:	Validate if an entered username exists in the database.
 -- =============================================
