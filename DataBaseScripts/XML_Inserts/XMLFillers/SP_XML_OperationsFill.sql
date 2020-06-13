@@ -3,7 +3,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 -- =============================================
--- Author:		Eduardo Madrigal Marín
+-- Author:		Eduardo Madrigal MarÃ­n
 -- Create date: 06/06/2020
 -- Description:	Loads the operations from XML
 -- =============================================

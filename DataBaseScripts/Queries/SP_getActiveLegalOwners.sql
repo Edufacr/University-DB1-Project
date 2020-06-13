@@ -1,4 +1,4 @@
-USE [DB1-FirstProject]
+USE [DB1-Project]
 GO
 /****** Object:  StoredProcedure [dbo].[SP_getActiveLegalOwners]    Script Date: 6/1/2020 12:18:40 AM ******/
 SET ANSI_NULLS ON
