@@ -13,6 +13,18 @@ COMMIT
 --Create tables
 BEGIN TRANSACTION
 GO
+--aqui van las relaciones entre propiedades y corta y reconnecion
+DROP TABLE IF EXISTS dbo.DB1P_ConsumptionMov;
+CREATE TABLE dbo.DB1P_ConsumptionMov
+	(
+	Id int NOT NULL IDENTITY (1, 1),
+	Id_MovType int,
+	Id_Property int,
+	Date Date NOT NULL,
+	AmountM3 int NOT NULL,
+	ConsumptionReading int NOT NULL,
+	NewAccumulatedM3 int NOT NULL,
+	)  ON [PRIMARY]
 
 DROP TABLE IF EXISTS dbo.DB1P_Percentage_CC;
 CREATE TABLE dbo.DB1P_Percentage_CC
@@ -125,6 +137,8 @@ CREATE TABLE dbo.DB1P_Properties
 	Address varchar(100) NOT NULL,
 	PropertyNumber int NOT NULL,
 	CONSTRAINT AK_PropertyNumber UNIQUE(PropertyNumber),
+	AccumalatedM3 int DEFAULT 0,
+	AccumalatedLCM3 int DEFAULT 0,
 	Active bit NOT NULL
 	)  ON [PRIMARY]
 
@@ -134,12 +148,48 @@ CREATE TABLE dbo.DB1P_Doc_Id_Types
 	Id int NOT NULL,
 	Name varchar(50) NOT NULL
 	)  ON [PRIMARY]
+
+DROP TABLE IF EXISTS dbo.DB1P_MovType;
+CREATE TABLE dbo.DB1P_MovType
+	(
+	Id int NOT NULL IDENTITY (1, 1),
+	Name VARCHAR(50) NOT NULL
+	)  ON [PRIMARY]
 GO
 COMMIT
---Adds foreing keys
+
 BEGIN TRANSACTION
 GO
 
+ALTER TABLE dbo.DB1P_MovType ADD CONSTRAINT
+	PK_DB1P_MovType PRIMARY KEY CLUSTERED 
+	(
+	Id
+	) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+ALTER TABLE dbo.DB1P_ConsumptionMov ADD CONSTRAINT
+	PK_DB1P_ConsumptionMov PRIMARY KEY CLUSTERED 
+	(
+	Id
+	) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
+ALTER TABLE dbo.DB1P_ConsumptionMov ADD CONSTRAINT
+	FK_DB1P_ConsumptionMov_DB1P_MovType FOREIGN KEY
+	(
+	Id_MovType
+	) REFERENCES dbo.DB1P_MovType
+	(
+	Id
+	) ON UPDATE  NO ACTION 
+	 ON DELETE  NO ACTION 
+ALTER TABLE dbo.DB1P_ConsumptionMov ADD CONSTRAINT
+	FK_DB1P_ConsumptionMov_DB1P_Properties FOREIGN KEY
+	(
+	Id_Property
+	) REFERENCES dbo.DB1P_Properties
+	(
+	Id
+	) ON UPDATE  NO ACTION 
+	 ON DELETE  NO ACTION 
 ALTER TABLE dbo.DB1P_Users ADD CONSTRAINT
 	PK_DB1P_Users PRIMARY KEY CLUSTERED 
 	(
