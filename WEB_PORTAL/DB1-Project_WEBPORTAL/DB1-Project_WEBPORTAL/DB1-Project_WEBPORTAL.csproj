@@ -5,4 +5,13 @@
     <RootNamespace>DB1_Project_WEBPORTAL</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\Owners" />
+    <Folder Include="Views\Properties" />
+  </ItemGroup>
+
 </Project>
