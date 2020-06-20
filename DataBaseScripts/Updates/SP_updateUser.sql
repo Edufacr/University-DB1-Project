@@ -13,7 +13,7 @@ GO
 
 CREATE OR ALTER PROCEDURE SP_updateUser
 	-- Add the parameters for the stored procedure here
-	@pUsername varchar(50),@pNewUserName varchar(50),@pNewPassword varchar(50),@pNewUserType bit
+	@pUsername varchar(50),@pNewUserName varchar(50),@pNewPassword varchar(50)
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
@@ -25,9 +25,7 @@ BEGIN TRY
         UPDATE DB1P_Users
         set
         Username = @pNewUserName,
-		Password = @pNewPassword,
-		UserType = @pNewUserType
-		from DB1P_Users
+		Password = @pNewPassword
 		where Username = @pUsername;
 	COMMIT
 	return SCOPE_IDENTITY();

@@ -15,7 +15,7 @@ GO
 CREATE or ALTER PROCEDURE dbo.SP_insertLegalOwner
 	
 	@pName varchar(50), 
-	@pResp_DocType_Id int, 
+	@pResp_DocType varchar(50), 
 	@pResp_DocValue VARCHAR(30), 
 	@pLegalOwner_DocValue VARCHAR(30)
 
@@ -23,15 +23,20 @@ AS
 BEGIN
 
 	declare @Id int
+	declare @RespDocType_Id int
 
 	begin try
+
+		select @RespDocType_Id = t.Id
+		from DB1P_Doc_Id_Types as t
+		where t.Name = @pResp_DocType
 		
 		select @Id = o.Id
 		from activeOwners as o
 		where o.DocValue = @pLegalOwner_DocValue
 
 		insert into dbo.DB1P_LegalOwners (Id, ResponsibleName, Resp_DocType_Id, Resp_DocValue, Active)
-		values (@Id, @pName, @pResp_DocType_Id, @pResp_DocValue, 1)
+		values (@Id, @pName, @RespDocType_Id, @pResp_DocValue, 1)
 		return 1
 	
 	end try

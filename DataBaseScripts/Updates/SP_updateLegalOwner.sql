@@ -15,7 +15,7 @@ GO
 CREATE or ALTER PROCEDURE dbo.SP_updateLegalOwner
 	
 	@pNewResponsibleName varchar(50), 
-	@pNewResp_DocId_type int,
+	@pNewResp_DocId_type varchar(50),
 	@pNewResp_DocValue VARCHAR(30), 
 	@pLegalOwner_DocValue VARCHAR(30)
 
@@ -23,8 +23,13 @@ AS
 BEGIN
 	
 	declare @Id int
+	declare @NewDocType_Id int
 
 	begin try
+
+		select @NewDocType_Id = t.Id
+		from DB1P_Doc_Id_Types as t
+		where t.Name = @pNewResp_DocId_type
 		
 		select @Id = o.Id
 		from activeOwners as o
@@ -32,7 +37,7 @@ BEGIN
 
 		update dbo.DB1P_LegalOwners
 		set ResponsibleName = @pNewResponsibleName,
-			Resp_DocType_Id = @pNewResp_DocId_type,
+			Resp_DocType_Id = @NewDocType_Id,
 			Resp_DocValue = @pNewResp_DocValue
 		where Id = @Id
 	

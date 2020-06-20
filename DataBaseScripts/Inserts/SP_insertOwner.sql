@@ -14,13 +14,21 @@ CREATE or ALTER procedure dbo.SP_insertOwner
 	
 	@pName varchar(50), 
 	@pDocValue VARCHAR(30), 
-	@pDocType_Id int
+	@pDocType varchar(50)
 
 as
 begin
+
+	declare @DocType_ID int
+
 	begin try
+
+		select @DocType_ID = t.ID
+		from dbo.DB1P_Doc_Id_Types t
+		where t.Name = @pDocType
+
 		insert into dbo.DB1P_Owners (Name, DocValue, DocType_Id, Active)
-		values (@pName, @pDocValue, @pDocType_Id, 1);
+		values (@pName, @pDocValue, @DocType_ID, 1);
 		return 1
 	end try
 	begin catch
