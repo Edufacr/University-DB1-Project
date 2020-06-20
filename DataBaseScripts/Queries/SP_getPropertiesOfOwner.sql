@@ -12,7 +12,7 @@ GO
 -- TODO Transaction
 
 CREATE OR ALTER PROCEDURE [dbo].[SP_getPropertiesOfOwner]
-	@pDocValue int,
+	@pDocValue varchar(30),
 	@pDocType varchar(50)
 AS
 BEGIN

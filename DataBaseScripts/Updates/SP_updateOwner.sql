@@ -16,23 +16,28 @@ CREATE OR ALTER PROCEDURE dbo.SP_updateOwner
 	@pDocType  varchar(50), 
 	@pNewName varchar(50),
 	@pNewDocValue VARCHAR(30),
-	@pNewDocType_Id int
+	@pNewDocType varchar(50)
 
 AS
 BEGIN
 
 	declare @DocType_Id int
+	declare @NewDocType_Id int
 
 	begin try
 
 		select @DocType_Id = t.Id
 		from DB1P_Doc_Id_Types as t
 		where t.Name = @pDocType
+		
+		select @NewDocType_Id = t.Id
+		from DB1P_Doc_Id_Types as t
+		where t.Name = @pNewDocType
 
 		update dbo.DB1P_Owners
 		set Name = @pNewName,
 			DocValue = @pNewDocValue,
-			DocType_Id = @pNewDocType_Id
+			DocType_Id = @NewDocType_Id
 		where DocValue = @pDocValue and DocType_Id = @DocType_Id
 		return 1
 
