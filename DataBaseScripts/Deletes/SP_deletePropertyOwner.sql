@@ -12,8 +12,8 @@ GO
 --TODO Transaction
 
 CREATE OR ALTER PROCEDURE dbo.SP_deletePropertyOwner
-		@pOwnerDocValue int, 
-		@pOwnerDocType int,
+		@pOwnerDocValue varchar(30), 
+		@pOwnerDocType varchar(50), 
 		@pPropertyPropertyNumber int
 AS
 BEGIN

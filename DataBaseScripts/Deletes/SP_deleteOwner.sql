@@ -13,8 +13,8 @@ GO
 
 
 CREATE OR ALTER PROCEDURE dbo.SP_deleteOwner
-	@pDocValue int, 
-	@pDocType int
+	@pDocValue varchar(30), 
+	@pDocType varchar(50)
 AS
 BEGIN
 
