@@ -12,6 +12,10 @@
         <e p="bin" t="ExcludeRecursive" />
         <e p="Controllers" t="Include">
           <e p="HomeController.cs" t="Include" />
+          <e p="LoginController.cs" t="Include" />
+          <e p="OwnerController.cs" t="Include" />
+          <e p="PropertyController.cs" t="Include" />
+          <e p="UserController.cs" t="Include" />
         </e>
         <e p="DB1-Project_WEBPORTAL.csproj" t="IncludeRecursive" />
         <e p="DBConnection.cs" t="Include" />
@@ -59,12 +63,23 @@
             <e p="Index.cshtml" t="Include" />
             <e p="Privacy.cshtml" t="Include" />
           </e>
-          <e p="Owners" t="Include" />
-          <e p="Properties" t="Include" />
+          <e p="Login" t="Include">
+            <e p="Index.cshtml" t="Include" />
+          </e>
+          <e p="Owner" t="Include">
+            <e p="Index.cshtml" t="Include" />
+          </e>
+          <e p="Property" t="Include">
+            <e p="Index.cshtml" t="Include" />
+          </e>
           <e p="Shared" t="Include">
             <e p="_Layout.cshtml" t="Include" />
+            <e p="_NonHeaderLayout.cshtml" t="Include" />
             <e p="_ValidationScriptsPartial.cshtml" t="Include" />
             <e p="Error.cshtml" t="Include" />
+          </e>
+          <e p="User" t="Include">
+            <e p="Index.cshtml" t="Include" />
           </e>
         </e>
         <e p="wwwroot" t="Include">
