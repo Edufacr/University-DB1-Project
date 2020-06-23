@@ -13,12 +13,10 @@ COMMIT
 --Create tables
 BEGIN TRANSACTION
 GO
-
-DROP TABLE IF EXISTS dbo.DB1P_ReceiptsProofOfPayment;
-CREATE TABLE dbo.DB1P_ReceiptsProofOfPayment
+DROP TABLE IF EXISTS dbo.DB1P_PaidReceipts;
+CREATE TABLE dbo.DB1P_PaidReceipts
 	(
-	Id int NOT NULL IDENTITY (1, 1),
-	Id_Receipt int NOT NULL,
+	Id int NOT NULL,
 	Id_ProofOfPayment int NOT NULL
 	)  ON [PRIMARY]
 
@@ -66,12 +64,13 @@ CREATE TABLE dbo.DB1P_MoratoryInterest_CC
 	Amount money NOT NULL
 	)  ON [PRIMARY]
 
+--TODO
 DROP TABLE IF EXISTS dbo.DB1P_Consumption_CC;
-DROP TABLE IF EXISTS dbo.DB1P_Comsumption_CC;
 CREATE TABLE dbo.DB1P_Consumption_CC
 	(
 	Id int NOT NULL,
-	ConsumptionM3 MONEY NOT NULL
+	ConsumptionM3 MONEY NOT NULL --cambiar nombre por algo mas significativo
+	--MinValue MONEY NOT NULL agregar al crud
 	)  ON [PRIMARY]
 
 DROP TABLE IF EXISTS dbo.DB1P_Fixed_CC;
@@ -204,7 +203,8 @@ CREATE TABLE dbo.DB1P_ProofOfPayment
 	(
 	Id int NOT NULL IDENTITY (1, 1),
 	Date DATE NOT NULL,
-	TotalAmount MONEY NOT NULL
+	TotalAmount MONEY NOT NULL,
+	Active BIT NOT NULL DEFAULT 1
 	)  ON [PRIMARY]
 GO
 COMMIT
@@ -241,8 +241,8 @@ ALTER TABLE dbo.DB1P_ProofOfPayment ADD CONSTRAINT
 	Id
 	) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 
-ALTER TABLE dbo.DB1P_ReceiptsProofOfPayment ADD CONSTRAINT
-	PK_ReceiptsProofOfPayment PRIMARY KEY CLUSTERED 
+ALTER TABLE dbo.DB1P_PaidReceipts ADD CONSTRAINT
+	PK_PaidReceipts PRIMARY KEY CLUSTERED 
 	(
 	Id
 	) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
@@ -286,8 +286,8 @@ ALTER TABLE dbo.DB1P_Properties ADD CONSTRAINT
 	) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 
 --Foreign Keys
-ALTER TABLE dbo.DB1P_ReceiptsProofOfPayment ADD CONSTRAINT
-	FK_ReceiptsProofOfPayment_DB1P_ProofOfPayment FOREIGN KEY
+ALTER TABLE dbo.DB1P_PaidReceipts ADD CONSTRAINT
+	FK_DB1P_PaidReceipts_DB1P_ProofOfPayment FOREIGN KEY
 	(
 	Id_ProofOfPayment
 	) REFERENCES dbo.DB1P_ProofOfPayment
@@ -296,10 +296,10 @@ ALTER TABLE dbo.DB1P_ReceiptsProofOfPayment ADD CONSTRAINT
 	) ON UPDATE  NO ACTION 
 	 ON DELETE  NO ACTION 
 
-ALTER TABLE dbo.DB1P_ReceiptsProofOfPayment ADD CONSTRAINT
-	FK_ReceiptsProofOfPayment_DB1P_Receipt FOREIGN KEY
+ALTER TABLE dbo.DB1P_PaidReceipts ADD CONSTRAINT
+	FK_DB1P_PaidReceipts_DB1P_Receipt FOREIGN KEY
 	(
-	Id_Receipt
+	Id
 	) REFERENCES dbo.DB1P_Receipt
 	(
 	Id
@@ -307,7 +307,7 @@ ALTER TABLE dbo.DB1P_ReceiptsProofOfPayment ADD CONSTRAINT
 	 ON DELETE  NO ACTION 
 	
 ALTER TABLE dbo.DB1P_Disconnection ADD CONSTRAINT
-	FK_Disconnection_DB1P_Properties FOREIGN KEY
+	FK_DB1P_Disconnection_DB1P_Properties FOREIGN KEY
 	(
 	Id_Property
 	) REFERENCES dbo.DB1P_Properties
@@ -317,7 +317,7 @@ ALTER TABLE dbo.DB1P_Disconnection ADD CONSTRAINT
 	 ON DELETE  NO ACTION 
 
 ALTER TABLE dbo.DB1P_Disconnection ADD CONSTRAINT
-	FK_Disconnection_DB1P_ReconnectionReceipt FOREIGN KEY
+	FK_DB1P_Disconnection_DB1P_ReconnectionReceipt FOREIGN KEY
 	(
 	Id_ReconnectionReceipt
 	) REFERENCES dbo.DB1P_ReconnectionReceipt
@@ -326,7 +326,7 @@ ALTER TABLE dbo.DB1P_Disconnection ADD CONSTRAINT
 	) ON UPDATE  NO ACTION 
 	 ON DELETE  NO ACTION 
 ALTER TABLE dbo.DB1P_Reconnection ADD CONSTRAINT
-	FK_Reconnection_DB1P_Properties FOREIGN KEY
+	FK_DB1P_Reconnection_DB1P_Properties FOREIGN KEY
 	(
 	Id_Property
 	) REFERENCES dbo.DB1P_Properties
