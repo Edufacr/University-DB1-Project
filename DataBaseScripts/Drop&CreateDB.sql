@@ -134,16 +134,6 @@ CREATE TABLE dbo.DB1P_Owners
 	Active bit NOT NULL
 	)  ON [PRIMARY]
 
-DROP TABLE IF EXISTS dbo.DB1P_ChargeConcepts;
-CREATE TABLE dbo.DB1P_ChargeConcepts
-	(
-	Id int NOT NULL,
-	Name varchar(50) NOT NULL,
-	MoratoryInterestRate real NOT NULL,
-	ReciptEmisionDay tinyint NOT NULL,
-	ExpirationDays tinyint NOT NULL,
-	)  ON [PRIMARY]
-
 DROP TABLE IF EXISTS dbo.DB1P_Users;
 CREATE TABLE dbo.DB1P_Users
 	(
@@ -152,19 +142,6 @@ CREATE TABLE dbo.DB1P_Users
 	CONSTRAINT AK_Username UNIQUE(Username),
 	Password varchar(50) NOT NULL,
 	UserType bit NOT NULL,
-	Active bit NOT NULL
-	)  ON [PRIMARY]
-
-DROP TABLE IF EXISTS dbo.DB1P_Properties;
-CREATE TABLE dbo.DB1P_Properties
-	(
-	Id int NOT NULL IDENTITY (1, 1),
-	Value money NOT NULL,
-	Address varchar(100) NOT NULL,
-	PropertyNumber int NOT NULL,
-	CONSTRAINT AK_PropertyNumber UNIQUE(PropertyNumber),
-	AccumalatedM3 int NOT NULL DEFAULT 0,
-	AccumalatedLCM3 int NOT NULL DEFAULT 0,
 	Active bit NOT NULL
 	)  ON [PRIMARY]
 
@@ -198,6 +175,28 @@ CREATE TABLE dbo.DB1P_Receipt
 	DueDate DATE NOT NULL,	
 	Amount MONEY NOT NULL,
 	Status TINYINT NOT NULL DEFAULT 0
+	)  ON [PRIMARY]
+	
+DROP TABLE IF EXISTS dbo.DB1P_Properties;
+CREATE TABLE dbo.DB1P_Properties
+	(
+	Id int NOT NULL IDENTITY (1, 1),
+	Value money NOT NULL,
+	Address varchar(100) NOT NULL,
+	PropertyNumber int NOT NULL,
+	CONSTRAINT AK_PropertyNumber UNIQUE(PropertyNumber),
+	AccumalatedM3 int NOT NULL DEFAULT 0,
+	AccumalatedLCM3 int NOT NULL DEFAULT 0,
+	Active bit NOT NULL
+	)  ON [PRIMARY]
+DROP TABLE IF EXISTS dbo.DB1P_ChargeConcepts;
+CREATE TABLE dbo.DB1P_ChargeConcepts
+	(
+	Id int NOT NULL,
+	Name varchar(50) NOT NULL,
+	MoratoryInterestRate real NOT NULL,
+	ReciptEmisionDay tinyint NOT NULL,
+	ExpirationDays tinyint NOT NULL,
 	)  ON [PRIMARY]
 
 DROP TABLE IF EXISTS dbo.DB1P_ProofOfPayment;
@@ -588,8 +587,6 @@ ALTER TABLE dbo.DB1P_Receipt ADD CONSTRAINT
 	Id
 	) ON UPDATE  NO ACTION 
 	 ON DELETE  NO ACTION 
-	
-GO
 ALTER TABLE dbo.DB1P_Receipt ADD CONSTRAINT
 	FK_DB1P_Receipt_DB1P_ChargeConcepts FOREIGN KEY
 	(
@@ -599,5 +596,4 @@ ALTER TABLE dbo.DB1P_Receipt ADD CONSTRAINT
 	Id
 	) ON UPDATE  NO ACTION 
 	 ON DELETE  NO ACTION 
-GO
 COMMIT
