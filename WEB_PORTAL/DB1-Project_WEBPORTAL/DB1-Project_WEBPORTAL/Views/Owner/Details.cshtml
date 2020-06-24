@@ -1,0 +1,37 @@
+﻿@model DB1_Project_WEBPORTAL.Models.OwnerModel
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Propietarios</h1>
+<h4>Información del Propietario</h4>
+<div>
+    <a href='javascript:history.go(-1)'>Volver</a>
+</div>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <p>
+            @Html.DisplayFor(model => model.Name)
+        </p>
+        <hr />
+        <dt>
+            @Html.DisplayNameFor(model => model.DocValue)
+        </dt>
+        <p>
+            @Html.DisplayFor(model => model.DocValue)
+        </p>
+        <hr />
+        <dt>
+            @Html.DisplayNameFor(model => model.DocType)
+        </dt>
+        <p>
+            @Html.DisplayFor(model => model.DocType)
+        </p>
+        <hr />
+    </dl>
+</div>

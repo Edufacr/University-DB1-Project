@@ -27,18 +27,19 @@
           <e p="FixedCC_OnPropertyModel.cs" t="Include" />
           <e p="LegalOwnerModel.cs" t="Include" />
           <e p="ModelControllers" t="Include">
-            <e p="ChargeConceptController.cs" t="Include" />
-            <e p="ConsumptionChargeConceptController.cs" t="Include" />
-            <e p="FixedConceptChargeController.cs" t="Include" />
-            <e p="LegalOwnerController.cs" t="Include" />
-            <e p="MIConceptChargeController.cs" t="Include" />
-            <e p="OwnerController.cs" t="Include" />
-            <e p="PercentageChargeConceptController.cs" t="Include" />
-            <e p="PropertyController.cs" t="Include" />
-            <e p="UserController.cs" t="Include" />
+            <e p="ChargeConceptModelController.cs" t="Include" />
+            <e p="ConsumptionChargeConceptModelController.cs" t="Include" />
+            <e p="FixedConceptChargeModelController.cs" t="Include" />
+            <e p="LegalOwnerModelController.cs" t="Include" />
+            <e p="MIConceptChargeModelController.cs" t="Include" />
+            <e p="OwnerModelController.cs" t="Include" />
+            <e p="PercentageChargeConceptModelController.cs" t="Include" />
+            <e p="PropertyModelController.cs" t="Include" />
+            <e p="UserModelController.cs" t="Include" />
           </e>
           <e p="MoratoryInterestCC_onProperty.cs" t="Include" />
           <e p="OwnerModel.cs" t="Include" />
+          <e p="OwnerUpdateModel.cs" t="Include" />
           <e p="PercentageCC_onPropertyModel.cs" t="Include" />
           <e p="PropertyModel.cs" t="Include" />
           <e p="UserModel.cs" t="Include" />
@@ -67,6 +68,10 @@
             <e p="Index.cshtml" t="Include" />
           </e>
           <e p="Owner" t="Include">
+            <e p="Create.cshtml" t="Include" />
+            <e p="Delete.cshtml" t="Include" />
+            <e p="Details.cshtml" t="Include" />
+            <e p="Edit.cshtml" t="Include" />
             <e p="Index.cshtml" t="Include" />
           </e>
           <e p="Property" t="Include">

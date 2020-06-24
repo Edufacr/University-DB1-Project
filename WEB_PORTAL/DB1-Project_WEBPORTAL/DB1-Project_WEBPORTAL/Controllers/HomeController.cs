@@ -27,6 +27,21 @@ namespace DB1_Project_WEBPORTAL.Controllers
         {
             return View();
         }
+        
+        public IActionResult Properties()
+        {
+            return Redirect("/Property/Index");
+        }
+        
+        public IActionResult Owners()
+        {
+            return Redirect("/Owner/Index");
+        }
+        
+        public IActionResult Users()
+        {
+            return Redirect("/User/Index");
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

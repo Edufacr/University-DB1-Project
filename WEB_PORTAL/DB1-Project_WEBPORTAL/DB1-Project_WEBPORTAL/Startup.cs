@@ -51,6 +51,15 @@ namespace DB1_Project_WEBPORTAL
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Login}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute(
+                    name: "EditOwner",
+                    pattern: "{controller=Owner}/{action=Edit}/{pDocValue}/{pDocType}");
+                endpoints.MapControllerRoute(
+                    name: "DeleteOwner",
+                    pattern: "{controller=Owner}/{action=Delete}/{pDocValue}/{pDocType}");
+                endpoints.MapControllerRoute(
+                    name: "OwnerDetails",
+                    pattern: "{controller=Owner}/{action=Details}/{pDocValue}/{pDocType}");
             });
         }
     }

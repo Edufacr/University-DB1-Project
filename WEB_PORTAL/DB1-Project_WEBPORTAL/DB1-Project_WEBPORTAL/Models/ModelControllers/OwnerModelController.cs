@@ -7,7 +7,7 @@ using DB1_Project_WEBPORTAL.Models.ModelControllers;
 
 namespace DB1_Project_WEBPORTAL.Models.ModelControllers
 {
-    public class OwnerController
+    public class OwnerModelController
     {
         private SqlConnection connection;
         
@@ -23,10 +23,10 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
         private SqlCommand GetOwnersByName;
         private SqlCommand GetOwnersByDocValue;
         
-        public static OwnerController Singleton;
+        public static OwnerModelController Singleton;
 
                 
-        private OwnerController()
+        private OwnerModelController()
         {
             connection = DBConnection.getInstance().Connection;
             
@@ -58,10 +58,10 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
             GetOwnersByDocValue.CommandType = CommandType.StoredProcedure;
         }
         
-        public static OwnerController getInstance()
+        public static OwnerModelController Instance()
         {
             
-            return Singleton ??= new OwnerController();
+            return Singleton ??= new OwnerModelController();
 
         }
 
@@ -84,14 +84,16 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
             
         }
 
-        public int ExecuteUpdateOwner(OwnerModel originalOwner, OwnerModel newOwner)
+        public int ExecuteUpdateOwner(OwnerUpdateModel newOwner)
         {
-            UpdateOwner.Parameters.Add("@pDocValue", SqlDbType.VarChar, 30).Value = originalOwner.DocValue;
-            UpdateOwner.Parameters.Add("@pDocType", SqlDbType.VarChar, 50).Value = originalOwner.DocType;
+            UpdateOwner.Parameters.Add("@pDocValue", SqlDbType.VarChar, 30).Value = newOwner.DocValue;
+     
+
+            UpdateOwner.Parameters.Add("@pDocType", SqlDbType.VarChar, 50).Value = newOwner.DocType;
             
-            UpdateOwner.Parameters.Add("@pNewName", SqlDbType.VarChar, 50).Value = newOwner.Name;
-            UpdateOwner.Parameters.Add("@pNewDocValue", SqlDbType.VarChar, 30).Value = newOwner.DocValue;
-            UpdateOwner.Parameters.Add("@pNewDocType_Id", SqlDbType.VarChar, 50).Value = newOwner.DocType;
+            UpdateOwner.Parameters.Add("@pNewName", SqlDbType.VarChar, 50).Value = newOwner.NewName;
+            UpdateOwner.Parameters.Add("@pNewDocValue", SqlDbType.VarChar, 30).Value = newOwner.NewDocValue;
+            UpdateOwner.Parameters.Add("@pNewDocType", SqlDbType.VarChar, 50).Value = newOwner.NewDocType;
             
             return ExecuteNonQueryCommand(UpdateOwner);
             
@@ -143,10 +145,10 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
         }
         
         
-        public List<OwnerModel> ExcecuteGetOwnersByDocValue(OwnerModel owner)
+        public List<OwnerModel> ExcecuteGetOwnersByDocValue(string pDocValue, string pDocType)
         {
-            GetOwnersByDocValue.Parameters.Add("@pDocValue",SqlDbType.VarChar, 30).Value = owner.DocValue;
-            GetOwnersByDocValue.Parameters.Add("@pDocType", SqlDbType.VarChar, 50).Value = owner.DocType;
+            GetOwnersByDocValue.Parameters.Add("@pDocValue",SqlDbType.VarChar, 30).Value = pDocValue;
+            GetOwnersByDocValue.Parameters.Add("@pDocType", SqlDbType.VarChar, 50).Value = pDocType;
             
             List<OwnerModel> result = ExecuteQueryCommand(GetOwnersByDocValue);
             return result;

@@ -9,5 +9,6 @@ namespace DB1_Project_WEBPORTAL.Controllers
         {
             return View();
         }
+        
     }
 }

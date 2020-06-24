@@ -9,12 +9,19 @@ namespace DB1_Project_WEBPORTAL.Models
         public string Name { get; set; }
         
         [Required]
-        [Display(Name = "Tipo Documento")]
+        [Display(Name = "Tipo Identificación")]
         public string DocType { get; set; }
         
         [Required]
-        [Display(Name = "ID")]
+        [Display(Name = "Identificación")]
         public string DocValue { get; set; }
-
     }
+
+    public class DocTypeModel
+    {
+        [Required]
+        [Display( Name = "Nombre")]
+        public string Name { get; set; }
+    }
+    
 }
