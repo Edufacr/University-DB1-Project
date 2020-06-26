@@ -6,7 +6,7 @@ using DB1_Project_WEBPORTAL.Models.ModelControllers;
 
 namespace DB1_Project_WEBPORTAL.Models.ModelControllers
 {
-    public class PropertyController
+    public class PropertyModelController
     {
         private SqlConnection connection;
 
@@ -19,10 +19,10 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
         private SqlCommand GetPropertyInfoByPropertyNumber;
         private SqlCommand GetActiveProperties;
 
-        public static PropertyController Singleton;
+        public static PropertyModelController Singleton;
 
 
-        private PropertyController()
+        private PropertyModelController()
         {
 
             connection = DBConnection.getInstance().Connection;
@@ -49,9 +49,9 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
             GetActiveProperties.CommandType = CommandType.StoredProcedure;
         }
 
-        public static PropertyController getInstance()
+        public static PropertyModelController getInstance()
         {
-            return Singleton ??= new PropertyController();
+            return Singleton ??= new PropertyModelController();
         }
 
 
@@ -73,9 +73,9 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
             return ExecuteNonQueryCommand(DeleteProperty);
         }
         
-        public int ExecuteUpdateProperty(PropertyModel originalProperty, PropertyModel propertyChanges)
+        public int ExecuteUpdateProperty(int pPropertyNumber, PropertyModel propertyChanges)
         {
-            UpdateProperty.Parameters.Add("@pPropertyNumber", SqlDbType.Int).Value = originalProperty.PropertyNumber;
+            UpdateProperty.Parameters.Add("@pPropertyNumber", SqlDbType.Int).Value = pPropertyNumber;
             UpdateProperty.Parameters.Add("@pNewValue", SqlDbType.Money).Value = propertyChanges.Value;
             UpdateProperty.Parameters.Add("@pNewAddress", SqlDbType.VarChar, 100).Value = propertyChanges.Address;
             UpdateProperty.Parameters.Add("@pNewPropertyNumber", SqlDbType.Int).Value = propertyChanges.PropertyNumber;
@@ -100,10 +100,10 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
             
         }
 
-        public List<PropertyModel> ExecuteGetPropertyInfoByPropertyNumber(PropertyModel property)
+        public List<PropertyModel> ExecuteGetPropertyInfoByPropertyNumber(int pPropertyNumber)
         {
             GetPropertyInfoByPropertyNumber.Parameters.Add("@pPropertyNumber", SqlDbType.Int).Value 
-                = property.PropertyNumber;
+                = pPropertyNumber;
 
             return ExecuteQueryCommand(GetPropertyInfoByPropertyNumber);
         }

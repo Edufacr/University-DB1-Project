@@ -6,7 +6,8 @@ namespace DB1_Project_WEBPORTAL.Controllers
     public class LoginController : Controller
     {
         
-        private readonly Models.ModelControllers.UserController UserModelController = Models.ModelControllers.UserController.getInstance();
+        private readonly Models.ModelControllers.UserModelController UserModelController = 
+            Models.ModelControllers.UserModelController.getInstance();
         
         // GET
         public IActionResult Index(string pUsername,string pPassword)

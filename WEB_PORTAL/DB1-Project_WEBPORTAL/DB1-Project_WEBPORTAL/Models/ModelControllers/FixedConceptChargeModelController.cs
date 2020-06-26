@@ -5,16 +5,25 @@ using System.Data.SqlClient;
 
 namespace DB1_Project_WEBPORTAL.Models.ModelControllers
 {
-    public class FixedConceptChargeController : ChargeConceptController
+    public class FixedConceptChargeModelController : ChargeConceptModelController
     {
         private SqlCommand GetFixedCCsOnProperty;
+        public static FixedConceptChargeModelController Singleton;
+
         
-        protected FixedConceptChargeController()
+        protected FixedConceptChargeModelController()
         {
             
             GetFixedCCsOnProperty = new SqlCommand("SP_getActiveFixedCCs_ofProperty", connection);
             GetFixedCCsOnProperty.CommandType = CommandType.StoredProcedure;
             
+        }
+        
+        public static ChargeConceptModelController getInstance()
+        {
+            
+            return Singleton ??= new FixedConceptChargeModelController();
+
         }
 
         public override List<CC_onPropertyModel> ExecuteGetCCsOnProperty(PropertyModel property)

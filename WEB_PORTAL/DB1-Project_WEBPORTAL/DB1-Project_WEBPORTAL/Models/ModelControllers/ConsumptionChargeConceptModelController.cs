@@ -7,17 +7,25 @@ using DB1_Project_WEBPORTAL.Models.ModelControllers;
 
 namespace DB1_Project_WEBPORTAL.Models.ModelControllers
 {
-    public class ConsumptionChargeConceptController : ChargeConceptController
+    public class ConsumptionChargeConceptModelController : ChargeConceptModelController
     {
         
         private SqlCommand GetConsumptionCCsOnProperty;
+        public static ConsumptionChargeConceptModelController Singleton;
         
-        protected ConsumptionChargeConceptController()
+        protected ConsumptionChargeConceptModelController()
         {
             
             GetConsumptionCCsOnProperty = new SqlCommand("SP_getActiveConsumptionCCs_ofProperty", connection);
             GetConsumptionCCsOnProperty.CommandType = CommandType.StoredProcedure;
             
+        }
+        
+        public static ChargeConceptModelController getInstance()
+        {
+            
+            return Singleton ??= new ConsumptionChargeConceptModelController();
+
         }
 
         public override List<CC_onPropertyModel> ExecuteGetCCsOnProperty(PropertyModel property)

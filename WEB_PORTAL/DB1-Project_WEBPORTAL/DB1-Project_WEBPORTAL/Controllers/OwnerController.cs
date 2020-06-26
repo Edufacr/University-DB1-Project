@@ -10,8 +10,9 @@ namespace DB1_Project_WEBPORTAL.Controllers
     public class OwnerController : Controller
     {
 
-        OwnerModelController ownerController = OwnerModelController.Instance();
-
+        private OwnerModelController ownerController = OwnerModelController.getInstance();
+        private PropertyModelController propertyController = PropertyModelController.getInstance();
+        
         // GET
         public IActionResult Index()
         {
@@ -107,7 +108,7 @@ namespace DB1_Project_WEBPORTAL.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public IActionResult DeleteEmp(OwnerModel owner)
+        public IActionResult DeleteOwner(OwnerModel owner)
         {
             ownerController.ExecuteDeleteOwner(owner);
             return RedirectToAction("Index");
@@ -116,14 +117,20 @@ namespace DB1_Project_WEBPORTAL.Controllers
         [HttpGet]
         public IActionResult Details(string pDocType, string pDocValue)
         {
-             OwnerModel owner = ownerController.ExcecuteGetOwnersByDocValue(pDocValue, pDocType)[0];
-            
+            OwnerModel owner = ownerController.ExcecuteGetOwnersByDocValue(pDocValue, pDocType)[0];
+            List<PropertyModel> properties = propertyController.ExecuteGetPropertiesOfOwner(owner);
+             
             if (owner == null)
             {
                 return NotFound();
             }
+            
+            ViewData["Properties"] = properties;
+            
             return View(owner);
         }
+        
+        
         
         
     }

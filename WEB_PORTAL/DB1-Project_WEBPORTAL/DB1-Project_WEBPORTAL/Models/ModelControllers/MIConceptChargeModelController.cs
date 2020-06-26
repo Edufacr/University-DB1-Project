@@ -5,16 +5,24 @@ using System.Data.SqlClient;
 
 namespace DB1_Project_WEBPORTAL.Models.ModelControllers
 {
-    public class MIConceptChargeController : ChargeConceptController
+    public class MIConceptChargeModelController : ChargeConceptModelController
     {
         private SqlCommand GetMoratoryInterestCCsOnProperty;
+        public static MIConceptChargeModelController Singleton;
         
-        protected MIConceptChargeController()
+        protected MIConceptChargeModelController()
         {
             
             GetMoratoryInterestCCsOnProperty = new SqlCommand("SP_getActiveMoratoryInterestCCs_ofProperty", connection);
             GetMoratoryInterestCCsOnProperty.CommandType = CommandType.StoredProcedure;
             
+        }
+        
+        public static ChargeConceptModelController getInstance()
+        {
+            
+            return Singleton ??= new MIConceptChargeModelController();
+
         }
 
         public override List<CC_onPropertyModel> ExecuteGetCCsOnProperty(PropertyModel property)

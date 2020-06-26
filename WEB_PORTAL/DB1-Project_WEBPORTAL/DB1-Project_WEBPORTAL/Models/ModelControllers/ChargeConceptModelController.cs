@@ -7,7 +7,7 @@ using DB1_Project_WEBPORTAL.Models.ModelControllers;
 
 namespace DB1_Project_WEBPORTAL.Models.ModelControllers
 {
-    public class ChargeConceptController
+    public class ChargeConceptModelController
     {
         protected SqlConnection connection;
 
@@ -17,10 +17,10 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
 
         private SqlCommand GetCCsOnProperty;
         
-        public static ChargeConceptController Singleton;
+        
 
         
-        protected ChargeConceptController()
+        protected ChargeConceptModelController()
         {
             connection = DBConnection.getInstance().Connection;
             
@@ -37,13 +37,6 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
             GetCCsOnProperty.CommandType = CommandType.StoredProcedure;
         }
         
-        public static ChargeConceptController getInstance()
-        {
-            
-            return Singleton ??= new ChargeConceptController();
-
-        }
-
 
         public int ExecuteInsertCCProperty(CC_onPropertyModel chargeConcept, PropertyModel property)
         {

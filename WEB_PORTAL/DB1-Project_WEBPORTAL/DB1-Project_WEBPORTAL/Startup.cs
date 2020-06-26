@@ -60,6 +60,14 @@ namespace DB1_Project_WEBPORTAL
                 endpoints.MapControllerRoute(
                     name: "OwnerDetails",
                     pattern: "{controller=Owner}/{action=Details}/{pDocValue}/{pDocType}");
+                endpoints.MapControllerRoute(
+                    name: "EditProperty",
+                    pattern: "{controller=Property}/{action=Edit}/{pPropertyNumber}");
+                endpoints.MapControllerRoute(
+                    "DeleteProperty",
+                    "{controller=Property}/{action=Delete}/{pPropertyNumber}"
+                    );
+
             });
         }
     }

@@ -1,9 +1,15 @@
 ﻿@model DB1_Project_WEBPORTAL.Models.OwnerModel
+
 @{
     ViewData["Title"] = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@{
+
+    List<PropertyModel> properties = ViewData["Properties"] as List<PropertyModel>;
+    
+}
 <h1>Propietarios</h1>
 <h4>Información del Propietario</h4>
 <div>
@@ -35,3 +41,47 @@
         <hr />
     </dl>
 </div>
+
+ 
+<h3>Propiedades</h3>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => properties[0].PropertyNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => properties[0].Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => properties[0].Value)
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach(var property in properties)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => property.PropertyNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => property.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => property.Value)
+            </td>
+            <td>
+                <a @Html.ActionLink(
+                       "PropertyDetails",
+                       "Details", 
+                       "Property", 
+                       new {property.PropertyNumber},
+                       null)>
+                    <input type="submit" value="Ver" class="btn btn-warning"/>
+                </a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

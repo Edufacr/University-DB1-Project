@@ -2,32 +2,28 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dabc68ef-a88a-4eeb-83a8-22526c9de378" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/OwnerUpdateModel.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Owner/Create.cshtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Owner/Delete.cshtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Owner/Details.cshtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Owner/Edit.cshtml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/Create.cshtml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/Delete.cshtml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/Details.cshtml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/Edit.cshtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.DB1-Project_WEBPORTAL/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DB1-Project_WEBPORTAL/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.DB1-Project_WEBPORTAL/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DB1-Project_WEBPORTAL/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/HomeController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/HomeController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/LoginController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/LoginController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/OwnerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/OwnerController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/UserController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/UserController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/ChargeConceptController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/ChargeConceptModelController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/ConsumptionChargeConceptController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/ConsumptionChargeConceptModelController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/FixedConceptChargeController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/FixedConceptChargeModelController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/LegalOwnerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/LegalOwnerModelController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/MIConceptChargeController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/MIConceptChargeModelController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/OwnerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/OwnerModelController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/PercentageChargeConceptController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/PercentageChargeConceptModelController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/PropertyController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/PropertyModelController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/UserController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/UserModelController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/PropertyController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/PropertyController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/ChargeConceptModelController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/ChargeConceptModelController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/ConsumptionChargeConceptModelController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/ConsumptionChargeConceptModelController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/FixedConceptChargeModelController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/FixedConceptChargeModelController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/MIConceptChargeModelController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/MIConceptChargeModelController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/OwnerModelController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/OwnerModelController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/PercentageChargeConceptModelController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/PercentageChargeConceptModelController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/PropertyModelController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/PropertyModelController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/UserModelController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/UserModelController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/OwnerModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/OwnerModel.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Startup.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Startup.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Home/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Home/Index.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Login/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Login/Index.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Owner/Details.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Owner/Details.cshtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Owner/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Owner/Index.cshtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/Index.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/User/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/User/Index.cshtml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,28 +48,17 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/MoratoryInterestCC_onProperty.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/CC_onPropertyModel.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/FixedConceptChargeModelController.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/MIConceptChargeModelController.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/PercentageChargeConceptModelController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/User/Index.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/ConsumptionChargeConceptModelController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Login/Index.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Program.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Shared/_NonHeaderLayout.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/LoginController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/PropertyController.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/DBConnection.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/UserController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/OwnerController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Home/Privacy.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Startup.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Home/Index.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Shared/_Layout.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/OwnerModel.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/LegalOwnerModel.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/HomeController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ConsumptionCC_onPropertyModel.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ErrorViewModel.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/PropertyModel.cs" root0="FORCE_HIGHLIGHTING" />
@@ -85,25 +70,33 @@
     <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/LegalOwnerModelController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/PropertyModelController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/ChargeConceptModelController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/IConnectionStrings.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/FixedCC_onPropertyModel.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/PercentageCC_onPropertyModel.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/MoratoryInterestCC_onProperty.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/CC_onPropertyModel.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/Details.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/Delete.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/FixedConceptChargeModelController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/MIConceptChargeModelController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/PercentageChargeConceptModelController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/Edit.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/ConsumptionChargeConceptModelController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Program.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Shared/_NonHeaderLayout.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/DBConnection.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Startup.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/HomeController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Owner/Details.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Owner/Edit.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Owner/Delete.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/OwnerUpdateModel.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Owner/Create.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/IConnectionStrings.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/FixedCC_onPropertyModel.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/PercentageCC_onPropertyModel.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/Create.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/IConnectionStrings.cs" />
-        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/FixedCC_OnPropertyModel.cs" />
-        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/PercentageCC_onPropertyModel.cs" />
-        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/FixedCC_onPropertyModel.cs" />
-        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/CC_onPropertyModel.cs" />
-        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ConsumptionCC_onPropertyModel.cs" />
-        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/LegalOwnerModel.cs" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/PercentageCC_onPropertyModel.cs" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/PropertyModel.cs" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/UserModel.cs" />
@@ -117,29 +110,44 @@
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/FixedConceptChargeController.cs" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/PercentageChargeConceptController.cs" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/ChargeConceptController.cs" />
-        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/PropertyController.cs" />
-        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/LoginController.cs" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Shared/_NonHeaderLayout.cshtml" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Shared/_Layout.cshtml" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Login/Index.cshtml" />
-        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/Index.cshtml" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/User/Index.cshtml" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/HomeController.cs" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Home/Index.cshtml" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/OwnerController.cs" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/UserController.cs" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Owner/Create.cshtml.cs" />
-        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/OwnerModel.cs" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Owner/Edit.cshtml.cs" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/OwnerUpdateModel.cs" />
-        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Startup.cs" />
-        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/OwnerModelController.cs" />
-        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/OwnerController.cs" />
-        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Owner/Index.cshtml" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Owner/Create.cshtml" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Owner/Edit.cshtml" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Owner/Delete.cshtml" />
+        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/OwnerModelController.cs" />
+        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Owner/Index.cshtml" />
+        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/OwnerModel.cs" />
+        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/UserModelController.cs" />
+        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/Create.cshtml.cs" />
+        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/Edit.cshtml.cs" />
+        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/Delete.cshtml.cs" />
+        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/Details.cshtml.cs" />
+        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/LoginController.cs" />
+        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/PercentageChargeConceptModelController.cs" />
+        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/ChargeConceptModelController.cs" />
+        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/ConsumptionChargeConceptModelController.cs" />
+        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/FixedConceptChargeModelController.cs" />
+        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/MIConceptChargeModelController.cs" />
+        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/Create.cshtml" />
+        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/PropertyModelController.cs" />
+        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/Edit.cshtml" />
+        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/OwnerController.cs" />
+        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Startup.cs" />
+        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/Index.cshtml" />
+        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/PropertyController.cs" />
+        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/Details.cshtml" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Owner/Details.cshtml" />
+        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/Delete.cshtml" />
       </list>
     </option>
   </component>
@@ -153,6 +161,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="Rider.SolutionExplorerActivator" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="TWShift.3" value="true" />
@@ -211,7 +220,8 @@
       <workItem from="1592696396357" duration="11210000" />
       <workItem from="1592711494118" duration="1372000" />
       <workItem from="1592881681362" duration="14037000" />
-      <workItem from="1592950887699" duration="8447000" />
+      <workItem from="1592950887699" duration="9633000" />
+      <workItem from="1593120268605" duration="16813000" />
     </task>
     <servers />
   </component>
@@ -233,26 +243,29 @@
       </map>
     </option>
   </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
   <component name="WindowStateProjectService">
-    <state width="1157" height="210" key="GridCell.Tab.0.bottom" timestamp="1592958753185">
+    <state width="1157" height="242" key="GridCell.Tab.0.bottom" timestamp="1593154458546">
       <screen x="-1200" y="0" width="1200" height="1560" />
     </state>
-    <state width="1157" height="210" key="GridCell.Tab.0.bottom/0.0.1536.824/-1200.0.1200.1560@-1200.0.1200.1560" timestamp="1592958753185" />
+    <state width="1157" height="242" key="GridCell.Tab.0.bottom/0.0.1536.824/-1200.0.1200.1560@-1200.0.1200.1560" timestamp="1593154458546" />
     <state width="1493" height="210" key="GridCell.Tab.0.bottom/0.0.1536.824/-1200.0.1200.1560@0.0.1536.824" timestamp="1592715222121" />
-    <state width="1157" height="210" key="GridCell.Tab.0.center" timestamp="1592958753185">
+    <state width="1157" height="242" key="GridCell.Tab.0.center" timestamp="1593154458546">
       <screen x="-1200" y="0" width="1200" height="1560" />
     </state>
-    <state width="1157" height="210" key="GridCell.Tab.0.center/0.0.1536.824/-1200.0.1200.1560@-1200.0.1200.1560" timestamp="1592958753185" />
+    <state width="1157" height="242" key="GridCell.Tab.0.center/0.0.1536.824/-1200.0.1200.1560@-1200.0.1200.1560" timestamp="1593154458546" />
     <state width="1493" height="210" key="GridCell.Tab.0.center/0.0.1536.824/-1200.0.1200.1560@0.0.1536.824" timestamp="1592715222121" />
-    <state width="1157" height="210" key="GridCell.Tab.0.left" timestamp="1592958753185">
+    <state width="1157" height="242" key="GridCell.Tab.0.left" timestamp="1593154458546">
       <screen x="-1200" y="0" width="1200" height="1560" />
     </state>
-    <state width="1157" height="210" key="GridCell.Tab.0.left/0.0.1536.824/-1200.0.1200.1560@-1200.0.1200.1560" timestamp="1592958753185" />
+    <state width="1157" height="242" key="GridCell.Tab.0.left/0.0.1536.824/-1200.0.1200.1560@-1200.0.1200.1560" timestamp="1593154458546" />
     <state width="1493" height="210" key="GridCell.Tab.0.left/0.0.1536.824/-1200.0.1200.1560@0.0.1536.824" timestamp="1592715222121" />
-    <state width="1157" height="210" key="GridCell.Tab.0.right" timestamp="1592958753185">
+    <state width="1157" height="242" key="GridCell.Tab.0.right" timestamp="1593154458546">
       <screen x="-1200" y="0" width="1200" height="1560" />
     </state>
-    <state width="1157" height="210" key="GridCell.Tab.0.right/0.0.1536.824/-1200.0.1200.1560@-1200.0.1200.1560" timestamp="1592958753185" />
+    <state width="1157" height="242" key="GridCell.Tab.0.right/0.0.1536.824/-1200.0.1200.1560@-1200.0.1200.1560" timestamp="1593154458546" />
     <state width="1493" height="210" key="GridCell.Tab.0.right/0.0.1536.824/-1200.0.1200.1560@0.0.1536.824" timestamp="1592715222121" />
     <state x="-960" y="484" key="VCS.ChangeListViewerDialog" timestamp="1592892845011">
       <screen x="-1200" y="0" width="1200" height="1560" />

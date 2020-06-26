@@ -58,7 +58,7 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
             GetOwnersByDocValue.CommandType = CommandType.StoredProcedure;
         }
         
-        public static OwnerModelController Instance()
+        public static OwnerModelController getInstance()
         {
             
             return Singleton ??= new OwnerModelController();

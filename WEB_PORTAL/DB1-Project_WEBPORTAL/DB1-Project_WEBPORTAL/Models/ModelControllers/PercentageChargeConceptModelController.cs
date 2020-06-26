@@ -5,16 +5,25 @@ using System.Data.SqlClient;
 
 namespace DB1_Project_WEBPORTAL.Models.ModelControllers
 {
-    public class PercentageChargeConceptController : ChargeConceptController
+    public class PercentageChargeConceptModelController : ChargeConceptModelController
     {
         private SqlCommand GetPercentageCCsOnProperty;
+        public static PercentageChargeConceptModelController Singleton;
+
         
-        protected PercentageChargeConceptController()
+        protected PercentageChargeConceptModelController()
         {
             
             GetPercentageCCsOnProperty = new SqlCommand("SP_getActivePercentageCCs_ofProperty", connection);
             GetPercentageCCsOnProperty.CommandType = CommandType.StoredProcedure;
             
+        }
+        
+        public static ChargeConceptModelController getInstance()
+        {
+            
+            return Singleton ??= new PercentageChargeConceptModelController();
+
         }
 
         public override List<CC_onPropertyModel> ExecuteGetCCsOnProperty(PropertyModel property)

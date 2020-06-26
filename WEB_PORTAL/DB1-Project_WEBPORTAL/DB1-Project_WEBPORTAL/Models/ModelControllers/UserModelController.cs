@@ -6,7 +6,7 @@ using DB1_Project_WEBPORTAL.Models.ModelControllers;
 
 namespace DB1_Project_WEBPORTAL.Models.ModelControllers
 {
-    public class UserController
+    public class UserModelController
     {
         private SqlConnection connection;
         
@@ -25,10 +25,10 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
         private SqlCommand ValidatePassword;
         private SqlCommand GetPassword;
 
-        public static UserController Singleton;
+        public static UserModelController Singleton;
 
 
-        private UserController()
+        private UserModelController()
         {
             connection = DBConnection.getInstance().Connection;
             
@@ -61,9 +61,9 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
 
         }
 
-        public static UserController getInstance()
+        public static UserModelController getInstance()
         {
-            return Singleton ??= new UserController();
+            return Singleton ??= new UserModelController();
         }
             
 
