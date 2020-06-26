@@ -45,9 +45,14 @@
                 <a asp-action="Edit" asp-route-pPropertyNumber="@property.PropertyNumber">
                     <input type="submit" value="Editar" class="btn btn-success"/>
                 </a>
+            </td>
+            <td>
                 <a asp-action="Delete" asp-route-pPropertyNumber="@property.PropertyNumber">
                     <input type="submit" value="Borrar" class="btn btn-danger"/>
+                
                 </a>
+            </td>
+            <td>
                 <a asp-action="Details" asp-route-pPropertyNumber="@property.PropertyNumber">
                     <input type="submit" value="Ver" class="btn btn-warning"/>
                 </a>

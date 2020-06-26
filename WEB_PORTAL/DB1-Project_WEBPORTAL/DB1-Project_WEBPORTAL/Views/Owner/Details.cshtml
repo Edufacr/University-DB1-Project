@@ -72,14 +72,12 @@
                 @Html.DisplayFor(modelItem => property.Value)
             </td>
             <td>
-                <a @Html.ActionLink(
-                       "PropertyDetails",
-                       "Details", 
-                       "Property", 
-                       new {property.PropertyNumber},
-                       null)>
-                    <input type="submit" value="Ver" class="btn btn-warning"/>
-                </a>
+                @Html.ActionLink(
+               "Ver",
+               "Details", 
+               "Property", 
+               new {pPropertyNumber = property.PropertyNumber},
+               new {@class= "btn btn-warning"})
             </td>
         </tr>
     }

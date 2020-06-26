@@ -16,8 +16,8 @@
     
 }
 
-<h1>Propietarios</h1>
-<h4>Información Propietario</h4>
+<h1>Propiedades</h1>
+<h4>Información Propiedad</h4>
 <div>
     <a href='javascript:history.go(-1)'>Volver</a>
 </div>
@@ -78,11 +78,14 @@
             <td>
                 @Html.DisplayFor(modelItem => owner.DocValue)
             </td>
-            <td>
-                @*<a asp-action="Details" asp-route-pDocValue="@owner.DocValue" asp-route-pDocType="@owner.DocType">
-                    <input type="submit" value="Ver" class="btn btn-warning"/>
-                </a>*@
-            </td>
+                <td>
+                    @Html.ActionLink(
+                   "Ver",
+                   "Details", 
+                   "Owner", 
+                   new {pDocValue = owner.DocValue, pDocType = owner.DocType},
+                   new {@class= "btn btn-warning"})
+                </td>
         </tr>
     }
     </tbody>

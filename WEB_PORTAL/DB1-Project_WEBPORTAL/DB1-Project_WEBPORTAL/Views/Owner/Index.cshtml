@@ -43,11 +43,15 @@
             </td>
             <td>
                 <a asp-action="Edit" asp-route-pDocValue="@owner.DocValue" asp-route-pDocType="@owner.DocType">
-                     <input type="submit" value="Editar" class="btn btn-success"/>
+                    <input type="submit" value="Editar" class="btn btn-success"/>
                 </a>
+            </td>
+            <td>
                 <a asp-action="Delete" asp-route-pDocValue="@owner.DocValue" asp-route-pDocType="@owner.DocType">
                     <input type="submit" value="Borrar" class="btn btn-danger"/>
                 </a>
+            </td>
+            <td>
                 <a asp-action="Details" asp-route-pDocValue="@owner.DocValue" asp-route-pDocType="@owner.DocType">
                     <input type="submit" value="Ver" class="btn btn-warning"/>
                 </a>

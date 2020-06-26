@@ -137,7 +137,7 @@ namespace DB1_Project_WEBPORTAL.Controllers
             ViewData["PercentageCCs"] = percentageCcs;
             ViewData["MoratoryIntsCCs"] = moratoryCcs;
             ViewData["FixedCCs"] = fixedCcs;
-            */
+            */  
             
             return View(property);
         }
