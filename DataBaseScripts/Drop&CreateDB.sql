@@ -13,6 +13,42 @@ COMMIT
 --Create tables
 BEGIN TRANSACTION
 GO
+DROP TABLE IF EXISTS dbo.DB1P_PaidReceipts;
+CREATE TABLE dbo.DB1P_PaidReceipts
+	(
+	Id int NOT NULL,
+	Id_ProofOfPayment int NOT NULL
+	)  ON [PRIMARY]
+
+DROP TABLE IF EXISTS dbo.DB1P_Disconnection;
+CREATE TABLE dbo.DB1P_Disconnection
+	(
+	Id int NOT NULL IDENTITY (1, 1),
+	Id_ReconnectionReceipt int NOT NULL,
+	Id_Property int NOT NULL,
+	Date date NOT NULL
+	)  ON [PRIMARY]
+
+DROP TABLE IF EXISTS dbo.DB1P_Reconnection;
+CREATE TABLE dbo.DB1P_Reconnection
+	(
+	Id int NOT NULL IDENTITY (1, 1),
+	Id_ReconnectionReceipt int NOT NULL,
+	Id_Property int NOT NULL,
+	Date date NOT NULL
+	)  ON [PRIMARY]
+--aqui van las relaciones entre propiedades y corta y reconnecion
+DROP TABLE IF EXISTS dbo.DB1P_ConsumptionMov;
+CREATE TABLE dbo.DB1P_ConsumptionMov
+	(
+	Id int NOT NULL IDENTITY (1, 1),
+	Id_MovType int NOT NULL,
+	Id_Property int NOT NULL,
+	Date Date NOT NULL,
+	AmountM3 int NOT NULL,
+	ConsumptionReading int NOT NULL,
+	NewAccumulatedM3 int NOT NULL,
+	)  ON [PRIMARY]
 
 DROP TABLE IF EXISTS dbo.DB1P_Percentage_CC;
 CREATE TABLE dbo.DB1P_Percentage_CC
@@ -28,12 +64,13 @@ CREATE TABLE dbo.DB1P_MoratoryInterest_CC
 	Amount money NOT NULL
 	)  ON [PRIMARY]
 
+--TODO
 DROP TABLE IF EXISTS dbo.DB1P_Consumption_CC;
-DROP TABLE IF EXISTS dbo.DB1P_Comsumption_CC;
 CREATE TABLE dbo.DB1P_Consumption_CC
 	(
 	Id int NOT NULL,
-	ConsumptionM3 MONEY NOT NULL
+	ConsumptionM3 MONEY NOT NULL --cambiar nombre por algo mas significativo
+	--MinValue MONEY NOT NULL agregar al crud
 	)  ON [PRIMARY]
 
 DROP TABLE IF EXISTS dbo.DB1P_Fixed_CC;
@@ -96,16 +133,6 @@ CREATE TABLE dbo.DB1P_Owners
 	Active bit NOT NULL
 	)  ON [PRIMARY]
 
-DROP TABLE IF EXISTS dbo.DB1P_ChargeConcepts;
-CREATE TABLE dbo.DB1P_ChargeConcepts
-	(
-	Id int NOT NULL,
-	Name varchar(50) NOT NULL,
-	MoratoryInterestRate real NOT NULL,
-	ReciptEmisionDay tinyint NOT NULL,
-	ExpirationDays tinyint NOT NULL,
-	)  ON [PRIMARY]
-
 DROP TABLE IF EXISTS dbo.DB1P_Users;
 CREATE TABLE dbo.DB1P_Users
 	(
@@ -117,6 +144,38 @@ CREATE TABLE dbo.DB1P_Users
 	Active bit NOT NULL
 	)  ON [PRIMARY]
 
+DROP TABLE IF EXISTS dbo.DB1P_Doc_Id_Types;
+CREATE TABLE dbo.DB1P_Doc_Id_Types
+	(
+	Id int NOT NULL,
+	Name varchar(50) NOT NULL
+	)  ON [PRIMARY]
+
+DROP TABLE IF EXISTS dbo.DB1P_MovType;
+CREATE TABLE dbo.DB1P_MovType
+	(
+	Id int NOT NULL IDENTITY (1, 1),
+	Name VARCHAR(50) NOT NULL
+	)  ON [PRIMARY]
+
+DROP TABLE IF EXISTS dbo.DB1P_ReconnectionReceipt;
+CREATE TABLE dbo.DB1P_ReconnectionReceipt
+	(
+	Id int NOT NULL
+	)  ON [PRIMARY]
+
+DROP TABLE IF EXISTS dbo.DB1P_Receipt;
+CREATE TABLE dbo.DB1P_Receipt
+	(
+	Id int NOT NULL IDENTITY (1, 1),
+	Id_ChargeConcept int NOT NULL,
+	Id_Property int NOT NULL,
+	Date DATE NOT NULL,
+	DueDate DATE NOT NULL,	
+	Amount MONEY NOT NULL,
+	Status TINYINT NOT NULL DEFAULT 0
+	)  ON [PRIMARY]
+	
 DROP TABLE IF EXISTS dbo.DB1P_Properties;
 CREATE TABLE dbo.DB1P_Properties
 	(
@@ -125,20 +184,79 @@ CREATE TABLE dbo.DB1P_Properties
 	Address varchar(100) NOT NULL,
 	PropertyNumber int NOT NULL,
 	CONSTRAINT AK_PropertyNumber UNIQUE(PropertyNumber),
+	AccumalatedM3 int NOT NULL DEFAULT 0,
+	AccumalatedLCM3 int NOT NULL DEFAULT 0,
 	Active bit NOT NULL
 	)  ON [PRIMARY]
-
-DROP TABLE IF EXISTS dbo.DB1P_Doc_Id_Types;
-CREATE TABLE dbo.DB1P_Doc_Id_Types
+DROP TABLE IF EXISTS dbo.DB1P_ChargeConcepts;
+CREATE TABLE dbo.DB1P_ChargeConcepts
 	(
 	Id int NOT NULL,
-	Name varchar(50) NOT NULL
+	Name varchar(50) NOT NULL,
+	MoratoryInterestRate real NOT NULL,
+	ReciptEmisionDay tinyint NOT NULL,
+	ExpirationDays tinyint NOT NULL,
+	)  ON [PRIMARY]
+
+DROP TABLE IF EXISTS dbo.DB1P_ProofOfPayment;
+CREATE TABLE dbo.DB1P_ProofOfPayment
+	(
+	Id int NOT NULL IDENTITY (1, 1),
+	Date DATE NOT NULL,
+	TotalAmount MONEY NOT NULL,
+	Active BIT NOT NULL DEFAULT 1
 	)  ON [PRIMARY]
 GO
 COMMIT
---Adds foreing keys
+
 BEGIN TRANSACTION
 GO
+ALTER TABLE dbo.DB1P_Receipt ADD CONSTRAINT
+	PK_DB1P_Receipt PRIMARY KEY CLUSTERED 
+	(
+	Id
+	) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
+ALTER TABLE dbo.DB1P_ReconnectionReceipt ADD CONSTRAINT
+	PK_DB1P_ReconnectionReceipt PRIMARY KEY CLUSTERED 
+	(
+	Id
+	) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
+ALTER TABLE dbo.DB1P_Reconnection ADD CONSTRAINT
+	PK_Reconnection PRIMARY KEY CLUSTERED 
+	(
+	Id
+	) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
+ALTER TABLE dbo.DB1P_Disconnection ADD CONSTRAINT
+	PK_Disconnection PRIMARY KEY CLUSTERED 
+	(
+	Id
+	) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
+ALTER TABLE dbo.DB1P_ProofOfPayment ADD CONSTRAINT
+	PK_DB1P_ProofOfPayment PRIMARY KEY CLUSTERED 
+	(
+	Id
+	) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
+ALTER TABLE dbo.DB1P_PaidReceipts ADD CONSTRAINT
+	PK_PaidReceipts PRIMARY KEY CLUSTERED 
+	(
+	Id
+	) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
+ALTER TABLE dbo.DB1P_MovType ADD CONSTRAINT
+	PK_DB1P_MovType PRIMARY KEY CLUSTERED 
+	(
+	Id
+	) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+ALTER TABLE dbo.DB1P_ConsumptionMov ADD CONSTRAINT
+	PK_DB1P_ConsumptionMov PRIMARY KEY CLUSTERED 
+	(
+	Id
+	) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 
 ALTER TABLE dbo.DB1P_Users ADD CONSTRAINT
 	PK_DB1P_Users PRIMARY KEY CLUSTERED 
@@ -161,6 +279,80 @@ ALTER TABLE dbo.DB1P_Owners ADD CONSTRAINT
 	(
 	Id
 	) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+ALTER TABLE dbo.DB1P_Properties ADD CONSTRAINT
+	PK_DB1P_Properties PRIMARY KEY CLUSTERED 
+	(
+	Id
+	) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
+--Foreign Keys
+ALTER TABLE dbo.DB1P_PaidReceipts ADD CONSTRAINT
+	FK_DB1P_PaidReceipts_DB1P_ProofOfPayment FOREIGN KEY
+	(
+	Id_ProofOfPayment
+	) REFERENCES dbo.DB1P_ProofOfPayment
+	(
+	Id
+	) ON UPDATE  NO ACTION 
+	 ON DELETE  NO ACTION 
+
+ALTER TABLE dbo.DB1P_PaidReceipts ADD CONSTRAINT
+	FK_DB1P_PaidReceipts_DB1P_Receipt FOREIGN KEY
+	(
+	Id
+	) REFERENCES dbo.DB1P_Receipt
+	(
+	Id
+	) ON UPDATE  NO ACTION 
+	 ON DELETE  NO ACTION 
+	
+ALTER TABLE dbo.DB1P_Disconnection ADD CONSTRAINT
+	FK_DB1P_Disconnection_DB1P_Properties FOREIGN KEY
+	(
+	Id_Property
+	) REFERENCES dbo.DB1P_Properties
+	(
+	Id
+	) ON UPDATE  NO ACTION 
+	 ON DELETE  NO ACTION 
+
+ALTER TABLE dbo.DB1P_Disconnection ADD CONSTRAINT
+	FK_DB1P_Disconnection_DB1P_ReconnectionReceipt FOREIGN KEY
+	(
+	Id_ReconnectionReceipt
+	) REFERENCES dbo.DB1P_ReconnectionReceipt
+	(
+	Id
+	) ON UPDATE  NO ACTION 
+	 ON DELETE  NO ACTION 
+ALTER TABLE dbo.DB1P_Reconnection ADD CONSTRAINT
+	FK_DB1P_Reconnection_DB1P_Properties FOREIGN KEY
+	(
+	Id_Property
+	) REFERENCES dbo.DB1P_Properties
+	(
+	Id
+	) ON UPDATE  NO ACTION 
+	 ON DELETE  NO ACTION 
+
+ALTER TABLE dbo.DB1P_Reconnection ADD CONSTRAINT
+	FK_DB1P_Reconnection_DB1P_ReconnectionReceipt FOREIGN KEY
+	(
+	Id_ReconnectionReceipt
+	) REFERENCES dbo.DB1P_ReconnectionReceipt
+	(
+	Id
+	) ON UPDATE  NO ACTION 
+	 ON DELETE  NO ACTION 
+ALTER TABLE dbo.DB1P_ReconnectionReceipt ADD CONSTRAINT
+	FK_DB1P_ReconnectionReceipt_DB1P_Receipt FOREIGN KEY
+	(
+	Id
+	) REFERENCES dbo.DB1P_Receipt
+	(
+	Id
+	) ON UPDATE  NO ACTION 
+	 ON DELETE  NO ACTION 
 
 ALTER TABLE dbo.DB1P_Owners ADD CONSTRAINT
 	FK_DB1P_Owners_DB1P_Doc_Id_Types FOREIGN KEY
@@ -202,11 +394,6 @@ ALTER TABLE dbo.DB1P_LegalOwners ADD CONSTRAINT
 
 ALTER TABLE dbo.DB1P_LegalOwners SET (LOCK_ESCALATION = TABLE)
 
-ALTER TABLE dbo.DB1P_Properties ADD CONSTRAINT
-	PK_DB1P_Properties PRIMARY KEY CLUSTERED 
-	(
-	Id
-	) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 
 ALTER TABLE dbo.DB1P_Properties SET (LOCK_ESCALATION = TABLE)
 
@@ -370,7 +557,43 @@ ALTER TABLE dbo.DB1P_Fixed_CC ADD CONSTRAINT
 	Id
 	) ON UPDATE  NO ACTION 
 	 ON DELETE  NO ACTION 
+ALTER TABLE dbo.DB1P_ConsumptionMov ADD CONSTRAINT
+	FK_DB1P_ConsumptionMov_DB1P_MovType FOREIGN KEY
+	(
+	Id_MovType
+	) REFERENCES dbo.DB1P_MovType
+	(
+	Id
+	) ON UPDATE  NO ACTION 
+	 ON DELETE  NO ACTION 
+ALTER TABLE dbo.DB1P_ConsumptionMov ADD CONSTRAINT
+	FK_DB1P_ConsumptionMov_DB1P_Properties FOREIGN KEY
+	(
+	Id_Property
+	) REFERENCES dbo.DB1P_Properties
+	(
+	Id
+	) ON UPDATE  NO ACTION 
+	 ON DELETE  NO ACTION 
 	
 ALTER TABLE dbo.DB1P_Fixed_CC SET (LOCK_ESCALATION = TABLE)
-GO
+
+ALTER TABLE dbo.DB1P_Receipt ADD CONSTRAINT
+	FK_DB1P_Receipt_DB1P_Properties FOREIGN KEY
+	(
+	Id_Property
+	) REFERENCES dbo.DB1P_Properties
+	(
+	Id
+	) ON UPDATE  NO ACTION 
+	 ON DELETE  NO ACTION 
+ALTER TABLE dbo.DB1P_Receipt ADD CONSTRAINT
+	FK_DB1P_Receipt_DB1P_ChargeConcepts FOREIGN KEY
+	(
+	Id_ChargeConcept
+	) REFERENCES dbo.DB1P_ChargeConcepts
+	(
+	Id
+	) ON UPDATE  NO ACTION 
+	 ON DELETE  NO ACTION 
 COMMIT
