@@ -25,18 +25,20 @@ BEGIN TRY
 
 		INSERT INTO @xmlTable (Id,Name, MoratoryInterestRate,ReciptEmisionDays,ExpirationDays,ConsumptionM3, Amount,
 		PercentageValue,CCType)
-		SELECT Id,Name,MoratoryInterestRate,ReciptEmisionDays,ExpirationDays,ConsumptionM3,Amount,PercentageValue,CCType
+
+		SELECT Id,Name,MoratoryInterestRate,ReciptEmisionDays,ExpirationDays,ValueM3,Amount,PercentageValue,CCType
 		FROM OPENXML(@docHandle,'/Conceptos_de_Cobro/conceptocobro') 
 		with (Id int '@id', Name VARCHAR(50) '@Nombre',MoratoryInterestRate REAL '@TasaInteresMoratoria',
-		ReciptEmisionDays TINYINT '@DiaCobro',ExpirationDays TINYINT '@QDiasVencimiento',ConsumptionM3 MONEY '@ValorM3',
-		Amount MONEY '@Monto',PercentageValue REAL '@ValorPorcentaje', CCType varchar(20) '@TipoCC');
+		ReciptEmisionDays TINYINT '@DiaCobro',ExpirationDays TINYINT '@QDiasVencimiento',ConsumptionM3 MONEY '@ValorM3', 
+		MinValue MONEY '@MontoMinRecibo', Amount MONEY '@Monto',
+		PercentageValue REAL '@ValorPorcentaje', CCType varchar(20) '@TipoCC');
 		
 		INSERT INTO DB1P_ChargeConcepts (Id,Name, MoratoryInterestRate,ReciptEmisionDay,ExpirationDays)
 		SELECT Id,Name,MoratoryInterestRate,ReciptEmisionDays,ExpirationDays
 		FROM @xmlTable;
 		
 		INSERT INTO DB1P_Consumption_CC (Id,ConsumptionM3)
-		SELECT Id,ConsumptionM3
+		SELECT Id,ValueM3,MinValue
 		FROM @xmlTable where CCType = 'CC Consumo';
 
 		INSERT INTO DB1P_Percentage_CC (Id,PercentageValue)
