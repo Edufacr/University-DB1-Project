@@ -15,7 +15,7 @@ AS
 BEGIN
     SET NOCOUNT ON;
     BEGIN TRY
-        SELECT Id, Name FROM DB1P_ChargeConcepts;
+        SELECT Name FROM DB1P_ChargeConcepts;
         RETURN @@ROWCOUNT;
     END TRY
     BEGIN CATCH
