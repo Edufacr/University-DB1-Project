@@ -185,7 +185,7 @@ CREATE TABLE dbo.DB1P_Properties
 	PropertyNumber int NOT NULL,
 	CONSTRAINT AK_PropertyNumber UNIQUE(PropertyNumber),
 	AccumalatedM3 int NOT NULL DEFAULT 0,
-	AccumalatedLCM3 int NOT NULL DEFAULT 0,
+	AccumulatedLRM3 int NOT NULL DEFAULT 0,
 	Active bit NOT NULL
 	)  ON [PRIMARY]
 DROP TABLE IF EXISTS dbo.DB1P_ChargeConcepts;
