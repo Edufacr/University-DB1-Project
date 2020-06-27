@@ -184,7 +184,7 @@ CREATE TABLE dbo.DB1P_Properties
 	Address varchar(100) NOT NULL,
 	PropertyNumber int NOT NULL,
 	CONSTRAINT AK_PropertyNumber UNIQUE(PropertyNumber),
-	AccumalatedM3 int NOT NULL DEFAULT 0,
+	AccumulatedM3 int NOT NULL DEFAULT 0,
 	AccumulatedLRM3 int NOT NULL DEFAULT 0,
 	Active bit NOT NULL
 	)  ON [PRIMARY]

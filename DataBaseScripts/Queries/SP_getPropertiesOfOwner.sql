@@ -29,7 +29,7 @@ BEGIN
 		from activeOwners as o
 		where o.DocValue = @pDocValue and o.DocType_Id = @DocType_Id
 
-		select r.PropertyAddress as Address, r.PropertyValue as Value, r.PropertyNumber,p.AccumulatedM3 as AccumulatedM3, p.AccumalatedLRM3 as AccumulatedLRM3
+		select r.PropertyAddress as Address, r.PropertyValue as Value, r.PropertyNumber,r.AccumulatedM3 as AccumulatedM3, r.AccumulatedLRM3 as AccumulatedLRM3
 		from activePropertiesOwnersRelations as r
 		where r.ownerId = @OwnerId
 

@@ -27,8 +27,8 @@ BEGIN
     -- Insert statements for procedure here
 BEGIN TRY
 	BEGIN TRANSACTION
-		INSERT INTO DB1P_Consumption_CC (Id, ConsumptionM3)
-        VALUES (@pId,@pConsumptionM3);
+		INSERT INTO DB1P_Consumption_CC (Id, ValueM3, MinValue)
+        VALUES (@pId,@pValueM3,@pMinValue);
 	COMMIT
 	return SCOPE_IDENTITY()
 END TRY

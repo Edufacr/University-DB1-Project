@@ -16,7 +16,7 @@ AS
 BEGIN
 
 	begin try
-		select p.Address, p.Value, p.PropertyNumber,p.AccumulatedM3, p.AccumalatedLRM3
+		select p.Address, p.Value, p.PropertyNumber,p.AccumulatedM3, p.AccumulatedLRM3
 		from dbo.activeProperties as p
 		where PropertyNumber = @pPropertyNumber
 		return 1

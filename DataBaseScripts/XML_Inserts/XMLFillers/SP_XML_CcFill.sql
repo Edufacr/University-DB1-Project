@@ -19,17 +19,17 @@ BEGIN TRY
 		DECLARE @docHandle int;
 		DECLARE @xmlDocument xml;
 		DECLARE @xmlTable TABLE(Id int,Name VARCHAR(50), MoratoryInterestRate REAL,ReciptEmisionDays TINYINT,
-		ExpirationDays TINYINT, ConsumptionM3 money, Amount money,PercentageValue REAL, CCType varchar(20));
+		ExpirationDays TINYINT, ValueM3 money, MinValue money, Amount money,PercentageValue REAL, CCType varchar(20));
 		EXEC SP_XML_GetCcXML @xmlDocument OUTPUT;
 		EXEC sp_xml_preparedocument @docHandle OUTPUT, @xmlDocument; 
 
-		INSERT INTO @xmlTable (Id,Name, MoratoryInterestRate,ReciptEmisionDays,ExpirationDays,ConsumptionM3, Amount,
+		INSERT INTO @xmlTable (Id,Name, MoratoryInterestRate,ReciptEmisionDays,ExpirationDays,ValueM3, MinValue, Amount,
 		PercentageValue,CCType)
 
-		SELECT Id,Name,MoratoryInterestRate,ReciptEmisionDays,ExpirationDays,ValueM3,Amount,PercentageValue,CCType
+		SELECT Id,Name,MoratoryInterestRate,ReciptEmisionDays,ExpirationDays,ValueM3,MinValue,Amount,PercentageValue,CCType
 		FROM OPENXML(@docHandle,'/Conceptos_de_Cobro/conceptocobro') 
 		with (Id int '@id', Name VARCHAR(50) '@Nombre',MoratoryInterestRate REAL '@TasaInteresMoratoria',
-		ReciptEmisionDays TINYINT '@DiaCobro',ExpirationDays TINYINT '@QDiasVencimiento',ConsumptionM3 MONEY '@ValorM3', 
+		ReciptEmisionDays TINYINT '@DiaCobro',ExpirationDays TINYINT '@QDiasVencimiento',ValueM3 MONEY '@ValorM3', 
 		MinValue MONEY '@MontoMinRecibo', Amount MONEY '@Monto',
 		PercentageValue REAL '@ValorPorcentaje', CCType varchar(20) '@TipoCC');
 		
@@ -37,7 +37,7 @@ BEGIN TRY
 		SELECT Id,Name,MoratoryInterestRate,ReciptEmisionDays,ExpirationDays
 		FROM @xmlTable;
 		
-		INSERT INTO DB1P_Consumption_CC (Id,ConsumptionM3)
+		INSERT INTO DB1P_Consumption_CC (Id, ValueM3, MinValue)
 		SELECT Id,ValueM3,MinValue
 		FROM @xmlTable where CCType = 'CC Consumo';
 
