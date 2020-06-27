@@ -7,7 +7,9 @@ create or alter view activeProperties as
 	select p.Id as Id, 
 	       p.Address as Address, 
 		   p.Value as Value, 
-		   p.PropertyNumber as PropertyNumber
+		   p.PropertyNumber as PropertyNumber,
+		   p.AccumalatedM3 as AccumalatedM3,
+		   p.AccumulatedLRM3 as AccumulatedLRM3
 	
 	from dbo.DB1P_Properties as p
 	where Active = 1
