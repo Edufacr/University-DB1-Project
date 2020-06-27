@@ -22,11 +22,14 @@ BEGIN TRY
 		EXEC sp_xml_preparedocument @docHandle OUTPUT, @xmlDocument; 
 		INSERT INTO DB1P_Users (Username,Password, UserType,Active)
 		SELECT Username,Password,UserType = 1 ,Active = 1  
-		FROM OPENXML(@docHandle,'/Administrador/UsuarioAdmi') with (Username varchar(50) '@user',Password varchar(50) '@password',UserType varchar(20) '@tipo')
-		where UserType = 'administrador';
+		FROM OPENXML(@docHandle,'/Usuarios/Usuario') 
+		with (Username varchar(50) '@user',Password varchar(50) '@password',UserType varchar(20) '@tipo')
+		where UserType = 'admin';
 		INSERT INTO DB1P_Users (Username,Password, UserType,Active)
-		SELECT Username,Password,UserType = 0 ,Active = 1  FROM OPENXML(@docHandle,'/Administrador/UsuarioAdmi') with (Username varchar(50) '@user',Password varchar(50) '@password',UserType varchar(20) '@tipo')
-		where UserType != 'administrador';
+		SELECT Username,Password,UserType = 0 ,Active = 1  
+		FROM OPENXML(@docHandle,'/Administrador/UsuarioAdmi') 
+		with (Username varchar(50) '@user',Password varchar(50) '@password',UserType varchar(20) '@tipo')
+		where UserType != 'admin';
 		EXEC sp_xml_removedocument @docHandle; -- Remove the internal representation of the XML document.
 	COMMIT
 END TRY

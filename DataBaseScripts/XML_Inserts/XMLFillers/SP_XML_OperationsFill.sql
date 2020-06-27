@@ -36,30 +36,30 @@ BEGIN TRY
 		SELECT @lastDay = @@ROWCOUNT
 		SET @dayCounter = 1
 
-		SELECT * from @Dates
-
 		WHILE(@dayCounter <= @lastDay)
 		BEGIN
-			PRINT @dayCounter;
-			PRINT @lastDay;
+			--Properties
 			SELECT @currentDate = Date from @Dates where Id = @dayCounter;
 			INSERT INTO DB1P_Properties
 			SELECT Value, Address,PropertyNum,AccumulatedM3 = 0, AccumulatedLCM3 =0, Active = 1 
 			FROM OPENXML(@docHandle,'/Operaciones_por_Dia/OperacionDia/Propiedad') 
 			with (Value MONEY '@Valor',Address VARCHAR(100) '@Direccion',PropertyNum int '@NumFinca',Date Date '../@fecha')
 			WHERE Date = @currentDate;
+			--Owners
 			INSERT INTO DB1P_Owners
 			SELECT Name, DocType_Id,DocValue,Active = 1 
 			FROM OPENXML(@docHandle,'/Operaciones_por_Dia/OperacionDia/Propietario') 
 			with (Name VARCHAR(50) '@Nombre',DocType_Id int '@TipoDocIdentidad',DocValue VARCHAR(30) '@identificacion',Date Date '../@fecha')
 			WHERE Date = @currentDate;
 
+			
 			INSERT INTO DB1P_Users
 			SELECT Username, Password, UserType = 0,Active =1 
 			from OPENXML(@docHandle,'/Operaciones_por_Dia/OperacionDia/Usuario ') 
 			with (Username VARCHAR(50) '@Nombre', Password VARCHAR(50) '@password',Date Date '../@fecha')
 			WHERE Date = @currentDate;
 
+			--LegalOwner
 			Delete @LegalOwnersToInsert
 			INSERT INTO @LegalOwnersToInsert
 			SELECT LegalOwnerDocValue,ResponsibleName, ResponsibleDocType_Id,Responsible_DocValue,Active=1 
