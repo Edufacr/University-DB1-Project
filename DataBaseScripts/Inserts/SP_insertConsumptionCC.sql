@@ -16,7 +16,8 @@ CREATE or ALTER PROCEDURE SP_insertConsumptionCC
 
 	-- Add the parameters for the stored procedure here
     @pId int, 
-	@pConsumptionM3 int --preguntar si hay que cambiarlo a money
+	@pValueM3 MONEY,
+	@pMinValue MONEY
 
 AS
 BEGIN

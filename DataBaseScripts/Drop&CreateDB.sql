@@ -69,8 +69,8 @@ DROP TABLE IF EXISTS dbo.DB1P_Consumption_CC;
 CREATE TABLE dbo.DB1P_Consumption_CC
 	(
 	Id int NOT NULL,
-	ConsumptionM3 MONEY NOT NULL --cambiar nombre por algo mas significativo
-	--MinValue MONEY NOT NULL agregar al crud
+	ValueM3 MONEY NOT NULL,
+	MinValue MONEY NOT NULL
 	)  ON [PRIMARY]
 
 DROP TABLE IF EXISTS dbo.DB1P_Fixed_CC;

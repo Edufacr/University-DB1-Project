@@ -11,7 +11,8 @@ create or alter view completeConsumptionCC_onProperties as
 		   ccc.ExpirationDays, 
 		   ccc.MoratoryInterestRate, 
 		   ccc.ReciptEmisionDay,
-		   ccc.ConsumptionM3, 
+		   ccc.ValueM3, 
+		   ccc.MinValue,
 		  
 		   p.Id as Property_Id, 
 		   p.PropertyNumber

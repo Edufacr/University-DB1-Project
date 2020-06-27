@@ -22,7 +22,8 @@ create or alter view completeConsumption_CCs as
 		   cc.ReciptEmisionDay, 
 		   cc.ExpirationDays, 
 		   
-		   ccc.ConsumptionM3
+		   ccc.ValueM3,
+		   ccc.MinValue
 	
 	from dbo.DB1P_ChargeConcepts as cc
 		inner join dbo.DB1P_Consumption_CC as ccc
