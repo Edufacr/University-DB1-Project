@@ -108,9 +108,12 @@
                 @Html.DisplayFor(modelItem => user.Name)
             </td>
             <td>
-                @*<a asp-action="Details" asp-route-pDocValue="@owner.DocValue" asp-route-pDocType="@owner.DocType">
-                    <input type="submit" value="Ver" class="btn btn-warning"/>
-                </a>*@
+                @Html.ActionLink(
+                    "Ver",
+                    "Details", 
+                    "User", 
+                    new {pUsername = user.Name},
+                    new {@class= "btn btn-warning"})
             </td>
         </tr>
     }

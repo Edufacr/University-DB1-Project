@@ -10,9 +10,9 @@ namespace DB1_Project_WEBPORTAL.Models
         public string Name { get; set; }
          
         [Required]
-        [Display(Name = "Password")]
+        [Display(Name = "Contraseña")]
         public string Password { get; set; }
 
-        [Required] public bool isAdmin;
+        [Required] [Display(Name = "Es Administrador")] public bool isAdmin { get; set; }
     }
 }

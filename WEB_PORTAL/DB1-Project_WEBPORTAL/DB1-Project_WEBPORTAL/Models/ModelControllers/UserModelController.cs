@@ -20,7 +20,7 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
        
         private SqlCommand GetUsersOfProperty;
         private SqlCommand GetActiveUsers;
-        private SqlCommand GetUsersByUsername;
+        private SqlCommand GetUserByUsername;
 
         private SqlCommand ValidatePassword;
         private SqlCommand GetPassword;
@@ -55,6 +55,9 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
             
             ValidatePassword = new SqlCommand("SP_validateUserPsswrd", connection);
             ValidatePassword.CommandType = CommandType.StoredProcedure;
+            
+            GetUserByUsername = new SqlCommand("SP_getUserByUsername", connection);
+            GetUserByUsername.CommandType = CommandType.StoredProcedure;
             
             GetPassword = new SqlCommand("SP_getUserPassword", connection);
             GetPassword.CommandType = CommandType.StoredProcedure;
@@ -126,6 +129,14 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
             GetUsersOfProperty.Parameters.Add("@pPropertyNumber", SqlDbType.Int).Value = property.PropertyNumber;
             
             return ExecuteQueryCommand(GetUsersOfProperty);
+            
+        }
+        
+        public List<UserModel> ExecuteGetUserByUsername(string pUsername)
+        {
+            
+            GetUserByUsername.Parameters.Add("@pUsername", SqlDbType.VarChar, 50).Value = pUsername;
+            return ExecuteQueryCommand(GetUserByUsername);
             
         }
         

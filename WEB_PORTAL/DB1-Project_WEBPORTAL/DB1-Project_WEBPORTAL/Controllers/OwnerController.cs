@@ -117,17 +117,18 @@ namespace DB1_Project_WEBPORTAL.Controllers
         [HttpGet]
         public IActionResult Details(string pDocType, string pDocValue)
         {
-            OwnerModel owner = ownerController.ExcecuteGetOwnersByDocValue(pDocValue, pDocType)[0];
-            List<PropertyModel> properties = propertyController.ExecuteGetPropertiesOfOwner(owner);
-             
-            if (owner == null)
+            
+            try
+            {
+                OwnerModel owner = ownerController.ExcecuteGetOwnersByDocValue(pDocValue, pDocType)[0];
+                List<PropertyModel> properties = propertyController.ExecuteGetPropertiesOfOwner(owner);
+                ViewData["Properties"] = properties;
+                return View(owner);
+            }
+            catch (IndexOutOfRangeException e)
             {
                 return NotFound();
             }
-            
-            ViewData["Properties"] = properties;
-            
-            return View(owner);
         }
         
         

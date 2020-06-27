@@ -1,5 +1,4 @@
-﻿
-@model DB1_Project_WEBPORTAL.Models.OwnerModel
+﻿@model DB1_Project_WEBPORTAL.Models.UserModel
 
 @{
     ViewData["Title"] = "Create";
@@ -7,11 +6,11 @@
 }
 
 @{
-    List<DocTypeModel> Types = ViewData["Types"] as List<DocTypeModel>;
+    string isAdmin = "1";
 }
 
-<h1>Propietarios</h1>
-<h4>Insertar Propietario</h4>
+<h1>Usuarios</h1>
+<h4>Insertar Usuario</h4>
 <div>
     <a href='javascript:history.go(-1)'>Volver</a>
 </div>
@@ -26,22 +25,13 @@
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DocType" class="control-label"></label>
-                <select asp-for="DocType" class="form-control">
-                    <option value="">--Seleccione Tipo de Documento--</option>
-                    
-                    @foreach (DocTypeModel type in Types)
-                    {
-                        <option value=@type.Name>@type.Name</option>
-                    }
-                    
-                </select>
-                <span asp-validation-for="DocType" class="text-danger"></span>
+                <label asp-for="Password" class="control-label"></label>
+                <input  type="password" asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DocValue" class="control-label"></label>
-                <input asp-for="DocValue" class="form-control" />
-                <span asp-validation-for="DocValue" class="text-danger"></span>
+                <label asp-for="isAdmin" class="control-label"></label>
+                @Html.CheckBoxFor(model => model.isAdmin)
             </div>
             <div class="form-group">
                 <input type="submit" value="Insertar" class="btn btn-success" />
@@ -49,8 +39,6 @@
         </form>
     </div>
 </div>
-
-
 
 @section Scripts{ 
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}

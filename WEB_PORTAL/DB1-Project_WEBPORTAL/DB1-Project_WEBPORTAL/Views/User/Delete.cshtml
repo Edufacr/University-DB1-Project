@@ -1,0 +1,47 @@
+﻿@model DB1_Project_WEBPORTAL.Models.UserModel
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Propiedades</h1>
+<h4>Información Propietario</h4>
+<div>
+    <a href='javascript:history.go(-1)'>Volver</a>
+</div>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+           <h5>Usuario</h5>
+        </dt>
+        <p>
+            @Html.DisplayFor(modelItem => modelItem.Name)
+        </p>
+        <hr />
+        <dt>
+           <h5>Tipo de Usuario</h5>
+        </dt>
+        
+            @if (Model.isAdmin)
+            {
+                <p> Administrador</p>
+            }
+            else
+            {
+                <p> Propietario </p>
+            }
+        
+        <hr />
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Name"/>
+        <input type="hidden" asp-for="isAdmin"/>
+        <input type="submit" value="Borrar" class="btn btn-danger"/>
+    </form>
+    
+    
+
+</div>

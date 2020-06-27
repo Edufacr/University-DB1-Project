@@ -67,6 +67,16 @@ namespace DB1_Project_WEBPORTAL
                     "DeleteProperty",
                     "{controller=Property}/{action=Delete}/{pPropertyNumber}"
                     );
+                endpoints.MapControllerRoute(
+                    name: "UserDetails",
+                    pattern: "{controller=User}/{action=Details}/{pUsername}");
+                endpoints.MapControllerRoute(
+                    name: "EditUser",
+                    pattern: "{controller=User}/{action=Edit}/{pUsername}");
+                endpoints.MapControllerRoute(
+                    "DeleteUser",
+                    "{controller=User}/{action=Delete}/{pUsername}"
+                );
 
             });
         }
