@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Drawing.Printing;
 using DB1_Project_WEBPORTAL.Models.ModelControllers;
 
 namespace DB1_Project_WEBPORTAL.Models.ModelControllers
@@ -134,10 +135,8 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
         
         public List<UserModel> ExecuteGetUserByUsername(string pUsername)
         {
-            
             GetUserByUsername.Parameters.Add("@pUsername", SqlDbType.VarChar, 50).Value = pUsername;
             return ExecuteQueryCommand(GetUserByUsername);
-            
         }
         
         public List<UserModel> ExecuteGetActiveUsers()
@@ -148,14 +147,11 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
         public bool ExecuteValidatePassword(string username, string passwordEntry)
         {
             
-            Console.WriteLine(username);
-            Console.WriteLine(passwordEntry);
-            
             ValidatePassword.Parameters.Add("@Username", SqlDbType.VarChar, 50).Value = username;
             ValidatePassword.Parameters.Add("@Password", SqlDbType.VarChar, 50).Value = passwordEntry;
 
             int result = ExecuteNonQueryCommand(ValidatePassword);
-            if (result == -5000)
+            if (result < 0)
             {
                 return false; //incorrect password
             }

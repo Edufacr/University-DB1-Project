@@ -1,8 +1,18 @@
 ﻿@model DB1_Project_WEBPORTAL.Models.OwnerModel
 
 @{
+
+    int? userType = ViewData["UserType"] as int?;
     ViewData["Title"] = "Details";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    
+    if (userType == 1)
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_LayoutUserInterface.cshtml";
+    }
 }
 
 @{
@@ -73,11 +83,11 @@
             </td>
             <td>
                 @Html.ActionLink(
-               "Ver",
-               "Details", 
-               "Property", 
-               new {pPropertyNumber = property.PropertyNumber},
-               new {@class= "btn btn-warning"})
+                     "Ver",
+                     "Details",
+                     "Property",
+                     new {pPropertyNumber = property.PropertyNumber, pUserType = userType},
+                     new {@class = "btn btn-warning"})
             </td>
         </tr>
     }

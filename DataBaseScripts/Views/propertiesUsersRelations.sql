@@ -11,6 +11,8 @@ create or alter view activePropertiesUsersRelations as
 		   p.Address as PropertyAddress, 
 		   p.PropertyNumber as PropertyNumber, 
 		   p.Value as PropertyValue,
+		   p.AccumulatedM3 as AccumulatedM3,
+		   p.AccumulatedLRM3 as AccumulatedLRM3,
 		   
 		   pu.RelationId as RelationId
 	

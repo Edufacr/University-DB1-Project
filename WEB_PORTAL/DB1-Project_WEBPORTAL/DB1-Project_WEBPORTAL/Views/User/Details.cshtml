@@ -1,20 +1,29 @@
 ﻿@model DB1_Project_WEBPORTAL.Models.UserModel
 
 @{
-    ViewData["Title"] = "Delete";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-
-@{
-
     List<PropertyModel> properties = ViewData["Properties"] as List<PropertyModel>;
+    
+    int? userType = ViewData["UserType"] as int?;
+    
+    ViewData["Title"] = "Delete";
+    if (userType == 1)
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_LayoutUserInterface.cshtml";
+    }
     
 }
 
-<h1>Propiedades</h1>
-<h4>Información Propiedad</h4>
+<h1>Usuarios</h1>
+<h4>Información Usuario</h4>
 <div>
-    <a href='javascript:history.go(-1)'>Volver</a>
+    @if (userType == 1)
+    {
+        <a href='javascript:history.go(-1)'>Volver</a> 
+    }
 </div>
 <div>
     <hr />

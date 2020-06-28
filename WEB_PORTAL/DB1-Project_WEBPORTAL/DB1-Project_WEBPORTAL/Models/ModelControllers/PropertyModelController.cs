@@ -145,15 +145,17 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
                 SqlDataReader reader = command.ExecuteReader();
 
                 while (reader.Read())
-                { 
-                    PropertyModel property = new PropertyModel();
-                    
-                    property.Address = Convert.ToString(reader["Address"]);
-                    property.Value = Convert.ToSingle(reader["Value"]);
-                    property.PropertyNumber = Convert.ToInt32(reader["PropertyNumber"]);
-                    
+                {
+                    PropertyModel property = new PropertyModel
+                    {
+                        Address = Convert.ToString(reader["Address"]),
+                        Value = Convert.ToSingle(reader["Value"]),
+                        PropertyNumber = Convert.ToInt32(reader["PropertyNumber"]),
+                        AccumulatedM3 = Convert.ToInt32(reader["AccumulatedM3"]),
+                        AccumulatedLRM3 = Convert.ToInt32(reader["AccumulatedLRM3"])
+                    };
+
                     result.Add(property);
-                    
                 }               
                 command.Parameters.Clear();
                 connection.Close();

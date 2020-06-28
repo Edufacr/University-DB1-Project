@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Text.Encodings.Web;
+using DB1_Project_WEBPORTAL.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DB1_Project_WEBPORTAL.Controllers
@@ -16,9 +18,18 @@ namespace DB1_Project_WEBPORTAL.Controllers
             {
                 if (UserModelController.ExecuteValidatePassword(pUsername, pPassword))
                 {
-                    Console.WriteLine(pUsername);
-                    Console.WriteLine(pPassword);
-                    return Redirect("Home/Index");
+                    
+                    UserModel user = UserModelController.ExecuteGetUserByUsername(pUsername)[0];
+                    Console.Write(user.Name);
+                    
+                    if (user.isAdmin)
+                    {
+                        return Redirect("Home/Index");
+                    }
+
+                    return RedirectToAction("Details", "User", new { pUsername , pUserType = 0});
+
+
                 }
             }
             return View();

@@ -155,6 +155,37 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
             
         }
 
+        public List<DocTypeModel> GetDocIdTypes()
+        {
+            SqlCommand getDocTypes = new SqlCommand("SP_getDocTypeNames", connection);
+            getDocTypes.CommandType = CommandType.StoredProcedure;
+            
+            List<DocTypeModel> result = new List<DocTypeModel>();
+            
+            try
+            {
+                connection.Open();
+                SqlDataReader reader = getDocTypes.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    DocTypeModel type = new DocTypeModel();
+                    
+                    type.Name = Convert.ToString(reader["Name"]);
+
+                    result.Add(type);
+                    
+                }
+                connection.Close();
+            }
+            catch (Exception e)
+            {
+                throw (e);
+            }
+
+            return result;
+        }
+
 
         public int ExecuteNonQueryCommand(SqlCommand command)
         {

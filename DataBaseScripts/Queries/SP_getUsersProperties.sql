@@ -23,7 +23,8 @@ BEGIN TRY
 	DECLARE @UserId int;
 	BEGIN TRANSACTION
 		SET @UserId = (Select Id from activeUsers where Username = @pUsername)
-        SELECT PropertyAddress as Address,PropertyNumber,PropertyValue as Value from activePropertiesUsersRelations
+        SELECT PropertyAddress as Address,PropertyNumber,PropertyValue as Value, AccumulatedM3, AccumulatedLRM3 
+		from activePropertiesUsersRelations as p
         where UserId = @UserId;
 	COMMIT
 	return @@ROWCOUNT;

@@ -6,7 +6,7 @@
 }
 
 <h1>Propiedades</h1>
-<h4>Información Propietario</h4>
+<h4>Información Propiedad</h4>
 <div>
     <a href='javascript:history.go(-1)'>Volver</a>
 </div>
@@ -34,6 +34,20 @@
             @Html.DisplayFor(model => model.PropertyNumber)
         </p>
         <hr />
+        <dt>
+            @Html.DisplayNameFor(model => model.AccumulatedM3)
+        </dt>
+        <p>
+            @Html.DisplayFor(model => model.AccumulatedM3)
+        </p>
+        <hr />
+        <dt>
+            @Html.DisplayNameFor(model => model.AccumulatedLRM3)
+        </dt>
+        <p>
+            @Html.DisplayFor(model => model.AccumulatedLRM3)
+        </p>
+        <hr />
         
     </dl>
     
@@ -41,6 +55,8 @@
         <input type="hidden" asp-for="Address" />
         <input type="hidden" asp-for="Value" />
         <input type="hidden" asp-for="PropertyNumber" />
+        <input type="hidden" asp-for="AccumulatedLRM3" />
+        <input type="hidden" asp-for="AccumulatedLRM3" />
         <input type="submit" value="Borrar" class="btn btn-danger" />
     </form>
     

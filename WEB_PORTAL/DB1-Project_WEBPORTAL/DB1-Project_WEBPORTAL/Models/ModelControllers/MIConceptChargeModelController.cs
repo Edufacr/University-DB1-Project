@@ -13,7 +13,7 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
         protected MIConceptChargeModelController()
         {
             
-            GetMoratoryInterestCCsOnProperty = new SqlCommand("SP_getActiveMoratoryInterestCCs_ofProperty", connection);
+            GetMoratoryInterestCCsOnProperty = new SqlCommand("SP_getMoratoryInterestCcOnProperty", connection);
             GetMoratoryInterestCCsOnProperty.CommandType = CommandType.StoredProcedure;
             
         }
@@ -28,7 +28,7 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
         public override List<CC_onPropertyModel> ExecuteGetCCsOnProperty(PropertyModel property)
         {
             List<CC_onPropertyModel> result = new List<CC_onPropertyModel>();
-            GetMoratoryInterestCCsOnProperty.Parameters.Add("@pPropertyNumber", SqlDbType.Int).Value 
+            GetMoratoryInterestCCsOnProperty.Parameters.Add("@inPropertyNum", SqlDbType.Int).Value 
                 = property.PropertyNumber;
             try
             {

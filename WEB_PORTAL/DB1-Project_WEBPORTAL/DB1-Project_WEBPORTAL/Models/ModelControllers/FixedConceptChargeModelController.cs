@@ -14,7 +14,7 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
         protected FixedConceptChargeModelController()
         {
             
-            GetFixedCCsOnProperty = new SqlCommand("SP_getActiveFixedCCs_ofProperty", connection);
+            GetFixedCCsOnProperty = new SqlCommand("SP_getFixedCcOnProperty", connection);
             GetFixedCCsOnProperty.CommandType = CommandType.StoredProcedure;
             
         }
@@ -29,7 +29,7 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
         public override List<CC_onPropertyModel> ExecuteGetCCsOnProperty(PropertyModel property)
         {
             List<CC_onPropertyModel> result = new List<CC_onPropertyModel>();
-            GetFixedCCsOnProperty.Parameters.Add("@pPropertyNumber", SqlDbType.Int).Value 
+            GetFixedCCsOnProperty.Parameters.Add("@inPropertyNum", SqlDbType.Int).Value 
                 = property.PropertyNumber;
             try
             {

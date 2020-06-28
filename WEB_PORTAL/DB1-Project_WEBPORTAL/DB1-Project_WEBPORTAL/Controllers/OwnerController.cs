@@ -24,10 +24,7 @@ namespace DB1_Project_WEBPORTAL.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            List<DocTypeModel> types = new List<DocTypeModel>();
-            DocTypeModel type = new DocTypeModel();
-            type.Name = "Residente";
-            types.Add(type);
+            List<DocTypeModel> types =  ownerController.GetDocIdTypes();
 
             ViewData["Types"] = types;
             
@@ -67,11 +64,8 @@ namespace DB1_Project_WEBPORTAL.Controllers
             updateOwner.NewDocType = owner.DocType;
             updateOwner.NewDocValue = owner.DocValue;
             updateOwner.NewName = owner.Name;
-            
-            List<DocTypeModel> types = new List<DocTypeModel>();
-            DocTypeModel type = new DocTypeModel();
-            type.Name = "Residente";
-            types.Add(type);
+
+            List<DocTypeModel> types = ownerController.GetDocIdTypes();
 
             ViewData["Types"] = types;
             ViewData["DocValue"] = pDocValue;
@@ -115,7 +109,7 @@ namespace DB1_Project_WEBPORTAL.Controllers
         }
         
         [HttpGet]
-        public IActionResult Details(string pDocType, string pDocValue)
+        public IActionResult Details(string pDocType, string pDocValue,  int? pUserType)
         {
             
             try
@@ -123,6 +117,7 @@ namespace DB1_Project_WEBPORTAL.Controllers
                 OwnerModel owner = ownerController.ExcecuteGetOwnersByDocValue(pDocValue, pDocType)[0];
                 List<PropertyModel> properties = propertyController.ExecuteGetPropertiesOfOwner(owner);
                 ViewData["Properties"] = properties;
+                ViewData["UserType"] = pUserType;
                 return View(owner);
             }
             catch (IndexOutOfRangeException e)

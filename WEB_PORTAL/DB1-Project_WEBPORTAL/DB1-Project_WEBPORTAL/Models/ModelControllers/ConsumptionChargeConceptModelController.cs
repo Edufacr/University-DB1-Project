@@ -16,7 +16,7 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
         protected ConsumptionChargeConceptModelController()
         {
             
-            GetConsumptionCCsOnProperty = new SqlCommand("SP_getActiveConsumptionCCs_ofProperty", connection);
+            GetConsumptionCCsOnProperty = new SqlCommand("SP_getConsumptionCcOnProperty", connection);
             GetConsumptionCCsOnProperty.CommandType = CommandType.StoredProcedure;
             
         }
@@ -31,7 +31,7 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
         public override List<CC_onPropertyModel> ExecuteGetCCsOnProperty(PropertyModel property)
         {
             List<CC_onPropertyModel> result = new List<CC_onPropertyModel>();
-            GetConsumptionCCsOnProperty.Parameters.Add("@pPropertyNumber", SqlDbType.Int).Value 
+            GetConsumptionCCsOnProperty.Parameters.Add("@inPropertyNum", SqlDbType.Int).Value 
                 = property.PropertyNumber;
             try
             {
@@ -54,7 +54,9 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
 
                     ccOnProperty.EndDate = Convert.ToString(reader["EndDate"]);
 
-                    ccOnProperty.ConsumptionM3 = Convert.ToSingle(reader["ConsumptionM3"]);
+                    ccOnProperty.ValueM3 = Convert.ToSingle(reader["ValueM3"]);
+
+                    ccOnProperty.MinValue = Convert.ToSingle(reader["MinValue"]);
                     
                     result.Add(ccOnProperty);
                 }

@@ -15,7 +15,6 @@ namespace DB1_Project_WEBPORTAL.Models
         [Required]
         [Display(Name = "Identificación")]
         public string DocValue { get; set; }
-        
 
     }
 

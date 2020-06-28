@@ -14,7 +14,7 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
         protected PercentageChargeConceptModelController()
         {
             
-            GetPercentageCCsOnProperty = new SqlCommand("SP_getActivePercentageCCs_ofProperty", connection);
+            GetPercentageCCsOnProperty = new SqlCommand("SP_getPercentageCcOnProperty", connection);
             GetPercentageCCsOnProperty.CommandType = CommandType.StoredProcedure;
             
         }
@@ -29,7 +29,7 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
         public override List<CC_onPropertyModel> ExecuteGetCCsOnProperty(PropertyModel property)
         {
             List<CC_onPropertyModel> result = new List<CC_onPropertyModel>();
-            GetPercentageCCsOnProperty.Parameters.Add("@pPropertyNumber", SqlDbType.Int).Value 
+            GetPercentageCCsOnProperty.Parameters.Add("@inPropertyNum", SqlDbType.Int).Value 
                 = property.PropertyNumber;
             try
             {

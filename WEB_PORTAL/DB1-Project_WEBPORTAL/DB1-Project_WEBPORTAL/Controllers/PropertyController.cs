@@ -107,7 +107,7 @@ namespace DB1_Project_WEBPORTAL.Controllers
         
         
         [HttpGet]
-        public IActionResult Details(int pPropertyNumber)
+        public IActionResult Details(int pPropertyNumber, int? pUserType)
         {
             
             PropertyModel property = propertyController.ExecuteGetPropertyInfoByPropertyNumber(pPropertyNumber)[0];
@@ -115,7 +115,7 @@ namespace DB1_Project_WEBPORTAL.Controllers
             List<OwnerModel> owners = ownerController.ExecuteGetOwnersOfProperty(property);
             List<UserModel> users = userController.ExecuteGetUsersOfProperty(property);
             
-            /*
+            
             List<CC_onPropertyModel> consumptionCcs =
                 ConsumptionCcController.ExecuteGetCCsOnProperty(property);
             List<CC_onPropertyModel> percentageCcs = 
@@ -123,7 +123,7 @@ namespace DB1_Project_WEBPORTAL.Controllers
             List<CC_onPropertyModel>  moratoryCcs =  
                 MoratoryInterestsCcController.ExecuteGetCCsOnProperty(property);
             List<CC_onPropertyModel> fixedCcs = 
-                FixedCcController.ExecuteGetCCsOnProperty(property);*/
+                FixedCcController.ExecuteGetCCsOnProperty(property);
             
             if (property == null)
             {
@@ -132,12 +132,14 @@ namespace DB1_Project_WEBPORTAL.Controllers
             
             ViewData["Owners"] = owners;
             ViewData["Users"] = users;
-            /*
+            
+            ViewData["UserType"] = pUserType;
+            
             ViewData["ConsumptionCCs"] = consumptionCcs;
             ViewData["PercentageCCs"] = percentageCcs;
             ViewData["MoratoryIntsCCs"] = moratoryCcs;
             ViewData["FixedCCs"] = fixedCcs;
-            */  
+            
             
             return View(property);
         }
