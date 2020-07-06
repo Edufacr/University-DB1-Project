@@ -7,11 +7,6 @@ GO
 -- Create date: 
 -- Description:	inserts movement in consumptions Mov
 -- =============================================
-
--- TODO Input validation
--- TODO Remove transaction
-
-
 CREATE or ALTER PROCEDURE SP_insertConsumptionMov
 	-- Add the parameters for the stored procedure here
     @inMovType int,@inPropertyNum int, @inConsumptionReading int,@inDescription VARCHAR(100), @inDate Date
