@@ -25,7 +25,6 @@ SET NOCOUNT ON;
 		EXEC sp_xml_removedocument @docHandle; -- Remove the internal representation of the XML document.
     END TRY
 BEGIN CATCH
-	ROLLBACK
 	return @@Error * -1
 END CATCH
 
