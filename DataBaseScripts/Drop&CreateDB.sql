@@ -45,6 +45,7 @@ CREATE TABLE dbo.DB1P_ConsumptionMov
 	Id_MovType int NOT NULL,
 	Id_Property int NOT NULL,
 	Date Date NOT NULL,
+	Description VARCHAR(100),
 	AmountM3 int NOT NULL,
 	ConsumptionReading int NOT NULL,
 	NewAccumulatedM3 int NOT NULL,
