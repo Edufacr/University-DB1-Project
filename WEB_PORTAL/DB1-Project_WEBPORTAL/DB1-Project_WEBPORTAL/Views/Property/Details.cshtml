@@ -104,12 +104,15 @@
                     @Html.DisplayFor(modelItem => owner.DocValue)
                 </td>
                 <td>
-                    @Html.ActionLink(
-                        "Ver",
-                        "Details", 
-                        "Owner", 
-                        new {pDocValue = owner.DocValue, pDocType = owner.DocType, pUserType = userType},
-                        new {@class= "btn btn-warning"})
+                    @if (userType == 1)
+                    {
+                        @Html.ActionLink(
+                            "Ver",
+                            "Details",
+                            "Owner",
+                            new {pDocValue = owner.DocValue, pDocType = owner.DocType, pUserType = userType},
+                            new {@class = "btn btn-warning"})
+                    }
                 </td>
             </tr>
         }
@@ -123,41 +126,47 @@ else
 }
 
 <hr />
-<h3>Usuarios</h3>
-@if(users.Count > 0){
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => users[0].Name)
-            </th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach(var user in users)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => user.Name)
-                </td>
-                <td>
-                    @Html.ActionLink(
-                        "Ver",
-                        "Details", 
-                        "User", 
-                        new {pUsername = user.Name, pUserType = userType},
-                        new {@class= "btn btn-warning"})
-                </td>
-            </tr>
-        }
-        </tbody>
-    </table>
-}
-else
+@if (userType == 1)
 {
-    <p> No existen ususarios ligados a esta propiedad.</p>
+    <h3>Usuarios</h3>
+    @if(users.Count > 0)
+    {
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => users[0].Name)
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach(var user in users)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => user.Name)
+                    </td>
+                    <td>
+                        @Html.ActionLink(
+                            "Ver",
+                            "Details",
+                            "User",
+                            new {pUsername = user.Name, pUserType = userType},
+                            new {@class = "btn btn-warning"})
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p> No existen ususarios ligados a esta propiedad.</p>
+    }
+        <hr />
 }
-<hr />
+
+
 <h3>Conceptos de Cobro</h3>
 <hr />
 @if (percentageCCs.Count > 0 || fixedCCs.Count > 0 || moratoryIntsCCs.Count > 0 || consumptionCCs.Count > 0)
