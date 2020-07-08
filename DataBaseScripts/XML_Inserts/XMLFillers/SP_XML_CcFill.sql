@@ -43,7 +43,7 @@ BEGIN TRY
 
 		INSERT INTO DB1P_Percentage_CC (Id,PercentageValue)
 		SELECT Id,PercentageValue
-		FROM @xmlTable where CCType = 'CC Porcentual';
+		FROM @xmlTable where CCType = 'CC Porcentaje';
 
 		INSERT INTO DB1P_Fixed_CC (Id,Amount)
 		SELECT Id,Amount
