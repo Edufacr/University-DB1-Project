@@ -19,7 +19,7 @@ BEGIN
 BEGIN TRY
     DECLARE @Exists int;
     EXEC @Exists = SP_validateProperty @inPropertyNum;
-        IF(@Exists =1)
+        IF(@Exists = 1)
             BEGIN
                 BEGIN TRANSACTION
                     DECLARE @PropertyId int;
@@ -30,7 +30,7 @@ BEGIN TRY
                         FROM DB1P_Properties 
                         WHERE @inPropertyNum = PropertyNumber;
                     SET @DifferenceM3 = (@inConsumptionReading - @AccumulatedM3);
-                    SET @NewAccumulatedM3 = (@inConsumptionReading + @AccumulatedM3);
+                    SET @NewAccumulatedM3 = (@DifferenceM3 + @AccumulatedM3);
 
                     INSERT INTO DB1P_ConsumptionMov (Id_MovType, Id_Property, [Date], [Description],AmountM3,ConsumptionReading,NewAccumulatedM3)
                     VALUES(@inMovType,@PropertyId,@inDate,@inDescription,@DifferenceM3,@inConsumptionReading,@NewAccumulatedM3);
@@ -41,7 +41,7 @@ BEGIN TRY
                 COMMIT
                 RETURN 1;
             END
-    RETURN -50002;
+        RETURN -50002;
 END TRY
 BEGIN CATCH
     IF @@TRANCOUNT > 0
