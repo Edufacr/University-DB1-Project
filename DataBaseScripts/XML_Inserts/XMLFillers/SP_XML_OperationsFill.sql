@@ -14,6 +14,7 @@ BEGIN
 -- SET NOCOUNT ON added to prevent extra result sets from
 -- interfering with SELECT statements.
 SET NOCOUNT ON;
+
 BEGIN TRY
 	DECLARE @docHandle int;
 	DECLARE @xmlDocument xml;
@@ -21,11 +22,13 @@ BEGIN TRY
 	DECLARE @PropertyOwnersToInsert TABLE (PropertyNum int,DocValue VARCHAR(30),Active bit) 		
 	DECLARE @CC_onPropertiesToInsert TABLE (ChargeConcept_Id int,PropertyNum int,BeginDate date,EndDate date,Active bit)
 	DECLARE @PropertiesUsers TABLE (Username VARCHAR(50),PropertyNum int,Active bit)
+	DECLARE @TransConsumo TABLE (Id int PRIMARY KEY IDENTITY(1,1),IdMovType int, PropertyNum int,ConsumptionReading int,Description VARCHAR(50) ,Date Date);
+	DECLARE @TodayTransConsumo as TodayConsumptionMovsTable ;
 	DECLARE @Dates TABLE (Id int PRIMARY KEY IDENTITY(1,1), Date Date)
 	DECLARE @currentDate DATE
 	DECLARE @dayCounter int
 	DECLARE @lastDay int
-	BEGIN TRANSACTION
+	--BEGIN TRANSACTION Main
 		EXEC SP_XML_GetOperationsXML @xmlDocument OUTPUT;
 		EXEC sp_xml_preparedocument @docHandle OUTPUT, @xmlDocument; 
 
@@ -36,15 +39,24 @@ BEGIN TRY
 		SELECT @lastDay = @@ROWCOUNT
 		SET @dayCounter = 1
 
+		INSERT INTO @TransConsumo
+			SELECT IdMovType,PropertyNum,ConsumptionReading,Description,Date
+			from OPENXML(@docHandle,'/Operaciones_por_Dia/OperacionDia/TransConsumo') 
+			with (IdMovType int '@id', PropertyNum int '@NumFinca',ConsumptionReading int '@LecturaM3',Description VARCHAR(50) '@descripcion',Date Date '../@fecha')
+
+
 		WHILE(@dayCounter <= @lastDay)
 		BEGIN
 			--Properties
 			SELECT @currentDate = Date from @Dates where Id = @dayCounter;
+
+			--BEGIN TRAN Property
 			INSERT INTO DB1P_Properties
 			SELECT Value, Address,PropertyNum,AccumulatedM3 = 0, AccumulatedLCM3 =0, Active = 1 
 			FROM OPENXML(@docHandle,'/Operaciones_por_Dia/OperacionDia/Propiedad') 
 			with (Value MONEY '@Valor',Address VARCHAR(100) '@Direccion',PropertyNum int '@NumFinca',Date Date '../@fecha')
 			WHERE Date = @currentDate;
+			--COMMIT Property
 			--Owners
 			INSERT INTO DB1P_Owners
 			SELECT Name, DocType_Id,DocValue,Active = 1 
@@ -110,15 +122,23 @@ BEGIN TRY
 			FROM @PropertiesUsers as PU
 			INNER JOIN DB1P_Users as U on U.Username = PU.Username
 			INNER JOIN DB1P_Properties as P on PU.PropertyNum = P.PropertyNumber
+
+
+			DELETE @TodayTransConsumo;
+			INSERT INTO @TodayTransConsumo 
+			SELECT IdMovType, PropertyNum,ConsumptionReading,Description
+			FROM @TransConsumo
+			WHERE Date = @currentDate
+			EXEC SP_insertAllConsumptionMovs @TodayTransConsumo, @currentDate
 			
 		SET @dayCounter  = @dayCounter + 1
 		END		
 
 		EXEC sp_xml_removedocument @docHandle;		 																	  
-	COMMIT
+	--COMMIT TRANSACTION Main
 END TRY
 BEGIN CATCH
-	ROLLBACK
+	--ROLLBACK
 	return @@Error * -1
 END CATCH
 
