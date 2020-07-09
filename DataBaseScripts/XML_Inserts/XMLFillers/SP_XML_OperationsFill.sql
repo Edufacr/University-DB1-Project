@@ -36,6 +36,7 @@ BEGIN TRY
 		SELECT DISTINCT Date 
 		FROM OPENXML(@docHandle,'/Operaciones_por_Dia/OperacionDia')
 		with (Date DATE '@fecha')
+		ORDER BY Date;
 		SELECT @lastDay = @@ROWCOUNT
 		SET @dayCounter = 1
 
