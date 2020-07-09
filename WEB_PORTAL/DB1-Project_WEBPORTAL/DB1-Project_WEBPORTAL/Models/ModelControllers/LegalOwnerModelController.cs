@@ -6,7 +6,7 @@ using DB1_Project_WEBPORTAL.Models.ModelControllers;
 
 namespace DB1_Project_WEBPORTAL.Models.ModelControllers
 {
-    public class LegalOwnerController
+    public class LegalOwnerModelController
     {
         private SqlConnection connection;
         
@@ -16,10 +16,10 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
         private SqlCommand GetActiveLegalOwners;
         private SqlCommand GetLegalOwnerByDocValue;
         
-        public static LegalOwnerController Singleton;
+        public static LegalOwnerModelController Singleton;
 
         
-        private LegalOwnerController()
+        private LegalOwnerModelController()
         {
             connection = DBConnection.getInstance().Connection;
             
@@ -39,26 +39,41 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
         }
 
         
-        public static LegalOwnerController getInstance()
+        public static LegalOwnerModelController getInstance()
         {
             
-            return Singleton ??= new LegalOwnerController();
+            return Singleton ??= new LegalOwnerModelController();
             
         }
 
-        
+
 
         public int ExecuteInsertLegalOwner(LegalOwnerModel legalOwner)
         {
-            InsertLegalOwner.Parameters.Add("@pName", SqlDbType.VarChar, 50).Value = legalOwner.ResponsibleName;
-            InsertLegalOwner.Parameters.Add("@pResp_DocType", SqlDbType.VarChar, 50).Value = legalOwner.RespDocType;
-            InsertLegalOwner.Parameters.Add("@pResp_DocValue", SqlDbType.VarChar, 30).Value = legalOwner.RespDocValue;
-            InsertLegalOwner.Parameters.Add("@pLegalOwner_DocValue", SqlDbType.VarChar, 30).Value = legalOwner.DocValue;
-            
-            return ExecuteNonQueryCommand(InsertLegalOwner);
-            
+
+            OwnerModelController ownerController = OwnerModelController.getInstance();
+
+            OwnerModel owner = new OwnerModel();
+            owner.Name = legalOwner.Name;
+            owner.DocType = "Cedula Juridica";
+            owner.DocValue = legalOwner.DocValue;
+
+            int result = ownerController.ExecuteInsertOwner(owner);
+            if (result > 0)
+            {
+                InsertLegalOwner.Parameters.Add("@pName", SqlDbType.VarChar, 50).Value = legalOwner.ResponsibleName;
+                InsertLegalOwner.Parameters.Add("@pResp_DocType", SqlDbType.VarChar, 50).Value = legalOwner.RespDocType;
+                InsertLegalOwner.Parameters.Add("@pResp_DocValue", SqlDbType.VarChar, 30).Value =
+                    legalOwner.RespDocValue;
+                InsertLegalOwner.Parameters.Add("@pLegalOwner_DocValue", SqlDbType.VarChar, 30).Value =
+                    legalOwner.DocValue;
+
+                return ExecuteNonQueryCommand(InsertLegalOwner);
+            }
+
+            return -1;
         }
-        
+
         public int ExecuteUpdateLegalOwner(LegalOwnerModel legalOwner)
         {
             UpdateLegalOwner.Parameters.Add("@pNewResponsibleName", SqlDbType.VarChar, 50).Value =
@@ -66,7 +81,7 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
             UpdateLegalOwner.Parameters.Add("@pNewResp_DocId_type", SqlDbType.VarChar, 50).Value = legalOwner.RespDocType;
             UpdateLegalOwner.Parameters.Add("@pNewResp_DocValue", SqlDbType.VarChar, 30).Value = legalOwner.RespDocValue;
             UpdateLegalOwner.Parameters.Add("@pLegalOwner_DocValue", SqlDbType.VarChar, 30).Value = legalOwner.DocValue;
-            
+            UpdateLegalOwner.Parameters.Add("@pNewLegalName", SqlDbType.VarChar, 50).Value = legalOwner.Name;
             return ExecuteNonQueryCommand(UpdateLegalOwner);
         }
 
@@ -76,9 +91,9 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
             return result;
         }
         
-        public List<LegalOwnerModel> ExecuteGetLegalOwnerByDocValue(LegalOwnerModel legalOwner)
+        public List<LegalOwnerModel> ExecuteGetLegalOwnerByDocValue(string pDocValue)
         {
-            GetLegalOwnerByDocValue.Parameters.Add("@pDocValue", SqlDbType.VarChar, 30).Value = legalOwner.DocValue;
+            GetLegalOwnerByDocValue.Parameters.Add("@pDocValue", SqlDbType.VarChar, 30).Value = pDocValue;
             List<LegalOwnerModel> result = ExecuteQueryCommand(GetLegalOwnerByDocValue);
             return result;
             

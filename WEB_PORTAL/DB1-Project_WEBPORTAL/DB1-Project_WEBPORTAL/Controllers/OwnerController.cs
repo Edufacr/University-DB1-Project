@@ -12,6 +12,7 @@ namespace DB1_Project_WEBPORTAL.Controllers
 
         private OwnerModelController ownerController = OwnerModelController.getInstance();
         private PropertyModelController propertyController = PropertyModelController.getInstance();
+        private LegalOwnerModelController legalOwnerController = LegalOwnerModelController.getInstance();
         
         // GET
         public IActionResult Index()
@@ -47,16 +48,41 @@ namespace DB1_Project_WEBPORTAL.Controllers
             return View(owner);
         }
         
-        public IActionResult Edit(string pDocValue, string pDocType)
+        [HttpGet]
+        public IActionResult CreateLegal()
+        {
+            List<DocTypeModel> types =  ownerController.GetDocIdTypes();
+
+            ViewData["Types"] = types;
+            
+            return View();
+            
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CreateLegal([Bind] LegalOwnerModel owner)
         {
             
+            if (ModelState.IsValid)
+            {
+                int insertion = legalOwnerController.ExecuteInsertLegalOwner(owner);
+                if (insertion < 0) Console.Write("ERROR");
+                return RedirectToAction("Index");
+            }
+
+            return View(owner);
+        }
+        
+        public IActionResult Edit(string pDocValue, string pDocType)
+        {
             OwnerModel owner = ownerController.ExcecuteGetOwnersByDocValue(pDocValue, pDocType)[0];
             
             if(owner == null)
             {
                 return NotFound();
             }
-            
+
             OwnerUpdateModel updateOwner = new OwnerUpdateModel();
             
             updateOwner.DocValue = pDocValue;
@@ -88,6 +114,38 @@ namespace DB1_Project_WEBPORTAL.Controllers
             return View(pOwner);
         }
         
+        public IActionResult EditLegal(string pDocValue)
+        {
+            
+            LegalOwnerModel owner = legalOwnerController.ExecuteGetLegalOwnerByDocValue(pDocValue)[0];
+            
+            if(owner == null)
+            {
+                return NotFound();
+            }
+
+            List<DocTypeModel> types = ownerController.GetDocIdTypes();
+
+            ViewData["Types"] = types;
+            ViewData["DocValue"] = pDocValue;
+
+            return View(owner);
+            
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult EditLegal([Bind] LegalOwnerModel pOwner)
+        {
+
+            if (ModelState.IsValid)
+            {
+                legalOwnerController.ExecuteUpdateLegalOwner(pOwner);
+                return RedirectToAction("Index");
+            }
+            return View(pOwner);
+        }
+        
         public IActionResult Delete(string pDocType, string pDocValue)
         {
             
@@ -111,19 +169,37 @@ namespace DB1_Project_WEBPORTAL.Controllers
         [HttpGet]
         public IActionResult Details(string pDocType, string pDocValue,  int? pUserType)
         {
-            
-            try
-            {
+            //try
+            //{
                 OwnerModel owner = ownerController.ExcecuteGetOwnersByDocValue(pDocValue, pDocType)[0];
+
                 List<PropertyModel> properties = propertyController.ExecuteGetPropertiesOfOwner(owner);
                 ViewData["Properties"] = properties;
                 ViewData["UserType"] = pUserType;
                 return View(owner);
-            }
-            catch (IndexOutOfRangeException e)
-            {
+            //}
+            //catch (IndexOutOfRangeException e)
+            //{
+            return NotFound();
+            //}
+        }
+        
+        [HttpGet]
+        public IActionResult DetailsLegal(string pDocValue,  int? pUserType)
+        {
+            //try
+            //{
+                LegalOwnerModel legalOwner = legalOwnerController.ExecuteGetLegalOwnerByDocValue(pDocValue)[0];
+                OwnerModel owner = ownerController.ExcecuteGetOwnersByDocValue(pDocValue, "Cedula Juridica")[0];
+                List<PropertyModel> properties = propertyController.ExecuteGetPropertiesOfOwner(owner);
+                ViewData["Properties"] = properties;
+                ViewData["UserType"] = pUserType;
+                return View(legalOwner);
+            //}
+            //catch (IndexOutOfRangeException e)
+            //{
                 return NotFound();
-            }
+            //}
         }
         
         

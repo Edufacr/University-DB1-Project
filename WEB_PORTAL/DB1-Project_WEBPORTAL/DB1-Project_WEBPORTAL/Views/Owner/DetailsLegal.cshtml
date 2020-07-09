@@ -1,0 +1,109 @@
+﻿@model DB1_Project_WEBPORTAL.Models.LegalOwnerModel;
+
+@{
+
+    int? userType = ViewData["UserType"] as int?;
+    ViewData["Title"] = "Details";
+    
+    if (userType == 1)
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_LayoutUserInterface.cshtml";
+    }
+}
+
+@{
+
+    List<PropertyModel> properties = ViewData["Properties"] as List<PropertyModel>;
+    
+}
+<h1>Propietarios</h1>
+<h4>Información del Propietario</h4>
+<div>
+    <a href='javascript:history.go(-1)'>Volver</a>
+</div>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <p>
+            @Html.DisplayFor(model => model.Name)
+        </p>
+        <hr />
+        <dt>
+            @Html.DisplayNameFor(model => model.DocValue)
+        </dt>
+        <p>
+            @Html.DisplayFor(model => model.DocValue)
+        </p>
+        <hr />
+        <dt>
+            @Html.DisplayNameFor(model => model.ResponsibleName)
+        </dt>
+        <p>
+            @Html.DisplayFor(model => model.ResponsibleName)
+        </p>
+        <hr />
+        <dt>
+            @Html.DisplayNameFor(model => model.RespDocValue)
+        </dt>
+        <p>
+            @Html.DisplayFor(model => model.RespDocValue)
+        </p>
+        <hr />
+        <dt>
+            @Html.DisplayNameFor(model => model.RespDocType)
+        </dt>
+        <p>
+            @Html.DisplayFor(model => model.RespDocType)
+        </p>        
+        <hr />
+    </dl>
+</div>
+
+ 
+<h3>Propiedades</h3>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => properties[0].PropertyNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => properties[0].Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => properties[0].Value)
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach(var property in properties)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => property.PropertyNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => property.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => property.Value)
+            </td>
+            <td>
+                @Html.ActionLink(
+                     "Ver",
+                     "Details",
+                     "Property",
+                     new {pPropertyNumber = property.PropertyNumber, pUserType = userType},
+                     new {@class = "btn btn-warning"})
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

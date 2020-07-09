@@ -69,9 +69,12 @@
           </e>
           <e p="Owner" t="Include">
             <e p="Create.cshtml" t="Include" />
+            <e p="CreateLegal.cshtml" t="Include" />
             <e p="Delete.cshtml" t="Include" />
             <e p="Details.cshtml" t="Include" />
+            <e p="DetailsLegal.cshtml" t="Include" />
             <e p="Edit.cshtml" t="Include" />
+            <e p="EditLegal.cshtml" t="Include" />
             <e p="Index.cshtml" t="Include" />
           </e>
           <e p="Property" t="Include">

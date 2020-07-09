@@ -31,18 +31,11 @@ BEGIN
 		from activeOwners as o
 		where DocValue = @pDocValue and DocType_Id = @DocType_Id
 
-		if @DocType_Id = 4
-			begin
-				select lo.LegalName, lo.LegalDocValue, lo.ResponsibleName, lo.RespDocValue, lo.RespDocType
-				from dbo.completeLegalOwners as lo
-				where Id = @Id
-			end
-		else
-			begin
-				select o.Name, o.DocValue, o.DocType
-				from dbo.activeOwners as o
-				where Id = @Id
-			end
+		
+		select o.Name, o.DocValue, o.DocType
+		from dbo.activeOwners as o
+		where Id = @Id
+			
 
 		return 1
 
