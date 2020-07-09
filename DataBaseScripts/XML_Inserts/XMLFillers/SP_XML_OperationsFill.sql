@@ -28,7 +28,7 @@ BEGIN TRY
 	DECLARE @currentDate DATE
 	DECLARE @dayCounter int
 	DECLARE @lastDay int
-	--BEGIN TRANSACTION Main
+	BEGIN TRANSACTION Main
 		EXEC SP_XML_GetOperationsXML @xmlDocument OUTPUT;
 		EXEC sp_xml_preparedocument @docHandle OUTPUT, @xmlDocument; 
 
@@ -51,13 +51,13 @@ BEGIN TRY
 			--Properties
 			SELECT @currentDate = Date from @Dates where Id = @dayCounter;
 
-			--BEGIN TRAN Property
+			BEGIN TRAN Property
 			INSERT INTO DB1P_Properties
 			SELECT Value, Address,PropertyNum,AccumulatedM3 = 0, AccumulatedLCM3 =0, Active = 1 
 			FROM OPENXML(@docHandle,'/Operaciones_por_Dia/OperacionDia/Propiedad') 
 			with (Value MONEY '@Valor',Address VARCHAR(100) '@Direccion',PropertyNum int '@NumFinca',Date Date '../@fecha')
 			WHERE Date = @currentDate;
-			--COMMIT Property
+			COMMIT TRAN Property
 			--Owners
 			INSERT INTO DB1P_Owners
 			SELECT Name, DocType_Id,DocValue,Active = 1 
@@ -136,7 +136,7 @@ BEGIN TRY
 		END		
 
 		EXEC sp_xml_removedocument @docHandle;		 																	  
-	--COMMIT TRANSACTION Main
+	COMMIT TRANSACTION Main
 END TRY
 BEGIN CATCH
 	--ROLLBACK
