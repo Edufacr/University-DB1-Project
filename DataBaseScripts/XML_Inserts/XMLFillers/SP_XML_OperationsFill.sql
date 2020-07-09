@@ -22,6 +22,7 @@ BEGIN TRY
 	DECLARE @PropertyOwnersToInsert TABLE (PropertyNum int,DocValue VARCHAR(30),Active bit) 		
 	DECLARE @CC_onPropertiesToInsert TABLE (ChargeConcept_Id int,PropertyNum int,BeginDate date,EndDate date,Active bit)
 	DECLARE @PropertiesUsers TABLE (Username VARCHAR(50),PropertyNum int,Active bit)
+	DECLARE @PropertiesValueChange TABLE (PropertyNum int,Value MONEY, [Date] DATE);
 	DECLARE @TransConsumo TABLE (Id int PRIMARY KEY IDENTITY(1,1),IdMovType int, PropertyNum int,ConsumptionReading int,Description VARCHAR(50) ,Date Date);
 	DECLARE @TodayTransConsumo as TodayConsumptionMovsTable ;
 	DECLARE @Dates TABLE (Id int PRIMARY KEY IDENTITY(1,1), Date Date)
@@ -33,10 +34,11 @@ BEGIN TRY
 		EXEC sp_xml_preparedocument @docHandle OUTPUT, @xmlDocument; 
 
 		INSERT INTO @Dates
-		SELECT DISTINCT Date 
-		FROM OPENXML(@docHandle,'/Operaciones_por_Dia/OperacionDia')
-		with (Date DATE '@fecha')
-		ORDER BY Date;
+			SELECT DISTINCT Date 
+			FROM OPENXML(@docHandle,'/Operaciones_por_Dia/OperacionDia')
+			with (Date DATE '@fecha')
+			ORDER BY Date;
+
 		SELECT @lastDay = @@ROWCOUNT
 		SET @dayCounter = 1
 
@@ -45,6 +47,10 @@ BEGIN TRY
 			from OPENXML(@docHandle,'/Operaciones_por_Dia/OperacionDia/TransConsumo') 
 			with (IdMovType int '@id', PropertyNum int '@NumFinca',ConsumptionReading int '@LecturaM3',Description VARCHAR(50) '@descripcion',Date Date '../@fecha')
 
+		INSERT INTO @PropertiesValueChange
+			SELECT PropertyNum,Value,Date
+			from OPENXML(@docHandle,'/Operaciones_por_Dia/OperacionDia/CambioPropiedad') 
+			with (PropertyNum int '@NumFinca',Value MONEY '@NuevoValor',Date Date '../@fecha')
 
 		WHILE(@dayCounter <= @lastDay)
 		BEGIN
@@ -131,6 +137,14 @@ BEGIN TRY
 			FROM @TransConsumo
 			WHERE Date = @currentDate
 			EXEC SP_insertAllConsumptionMovs @TodayTransConsumo, @currentDate
+
+			
+			UPDATE DB1P_Properties
+			SET [Value] = v.Value
+			FROM @PropertiesValueChange v
+			WHERE PropertyNumber = v.PropertyNum AND v.Date = @currentDate;
+
+
 			
 		SET @dayCounter  = @dayCounter + 1
 		END		
