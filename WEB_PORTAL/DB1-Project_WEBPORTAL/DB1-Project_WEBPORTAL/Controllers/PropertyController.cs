@@ -107,7 +107,7 @@ namespace DB1_Project_WEBPORTAL.Controllers
         
         
         [HttpGet]
-        public IActionResult Details(int pPropertyNumber, int? pUserType)
+        public IActionResult Details(int pPropertyNumber, int? pRequestType)
         {
             
             PropertyModel property = propertyController.ExecuteGetPropertyInfoByPropertyNumber(pPropertyNumber)[0];
@@ -133,7 +133,7 @@ namespace DB1_Project_WEBPORTAL.Controllers
             ViewData["Owners"] = owners;
             ViewData["Users"] = users;
             
-            ViewData["UserType"] = pUserType;
+            ViewData["RequestType"] = pRequestType;
             
             ViewData["ConsumptionCCs"] = consumptionCcs;
             ViewData["PercentageCCs"] = percentageCcs;

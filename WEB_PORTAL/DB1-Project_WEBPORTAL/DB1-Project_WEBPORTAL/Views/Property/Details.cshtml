@@ -1,16 +1,16 @@
 ﻿@model DB1_Project_WEBPORTAL.Models.PropertyModel
 
 @{
-    int? userType = ViewData["UserType"] as int?;
+    int? RequestType = ViewData["RequestType"] as int?;
     ViewData["Title"] = "Delete";
     
-    if (userType == 1)
+    if (RequestType == 0)
     {
-        Layout = "~/Views/Shared/_Layout.cshtml";
+        Layout = "~/Views/Shared/_LayoutUserInterface.cshtml";
     }
     else
     {
-        Layout = "~/Views/Shared/_LayoutUserInterface.cshtml";
+        Layout = "~/Views/Shared/_Layout.cshtml";
     }
 }
 
@@ -28,7 +28,15 @@
 <h1>Propiedades</h1>
 <h4>Información Propiedad</h4>
 <div>
-    <a href='javascript:history.go(-1)'>Volver</a>
+    @if (RequestType == 3)
+    {
+        <a asp-action="Index">Volver</a>
+    }    
+    else
+    {
+        <a href='javascript:history.go(-1)'>Volver</a>
+    }
+    
 </div>
 <div>
     <hr />
@@ -104,13 +112,13 @@
                     @Html.DisplayFor(modelItem => owner.DocValue)
                 </td>
                 <td>
-                    @if (userType == 1)
+                    @if (RequestType != 0)
                     {
                         @Html.ActionLink(
                             "Ver",
                             "Details",
                             "Owner",
-                            new {pDocValue = owner.DocValue, pDocType = owner.DocType, pUserType = userType},
+                            new {pDocValue = owner.DocValue, pDocType = owner.DocType, pRequestType = RequestType},
                             new {@class = "btn btn-warning"})
                     }
                 </td>
@@ -126,7 +134,7 @@ else
 }
 
 <hr />
-@if (userType == 1)
+@if (RequestType == 1)
 {
     <h3>Usuarios</h3>
     @if(users.Count > 0)
@@ -151,7 +159,7 @@ else
                             "Ver",
                             "Details",
                             "User",
-                            new {pUsername = user.Name, pUserType = userType},
+                            new {pUsername = user.Name, pRequestType = RequestType},
                             new {@class = "btn btn-warning"})
                     </td>
                 </tr>

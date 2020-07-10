@@ -59,13 +59,12 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
             
         }
         
-        public int ExecuteUpdateCCProperty(CC_onPropertyModel originalChargeConcept, PropertyModel property,
-            CC_onPropertyModel changedChargeConcept)
+        public int ExecuteUpdateCCProperty(string ccName, int pPropertyNumber, CC_onPropertyModel changedChargeConcept)
         
         {
             
-            UpdateCCProperty.Parameters.Add("@pPropertyNumber", SqlDbType.Int).Value = property.PropertyNumber;
-            UpdateCCProperty.Parameters.Add("@pCCName", SqlDbType.VarChar, 50).Value = originalChargeConcept.ChargeConceptName;
+            UpdateCCProperty.Parameters.Add("@pPropertyNumber", SqlDbType.Int).Value = pPropertyNumber;
+            UpdateCCProperty.Parameters.Add("@pCCName", SqlDbType.VarChar, 50).Value = ccName;
             
             UpdateCCProperty.Parameters.Add("@pNewBeginDate", SqlDbType.Date).Value = changedChargeConcept.BeginDate;
             UpdateCCProperty.Parameters.Add("@pNewEndDate", SqlDbType.Date).Value = changedChargeConcept.EndDate;
@@ -134,8 +133,6 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
             }
 
         }
-
-
-
+        
     }
 }

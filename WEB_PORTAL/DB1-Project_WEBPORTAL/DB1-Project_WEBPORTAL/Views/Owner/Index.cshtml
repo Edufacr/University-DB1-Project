@@ -65,19 +65,11 @@
             </td>
             <td>
                 @{
+        
+                    <a asp-action="Details" asp-route-pDocValue="@owner.DocValue" asp-route-pDocType="@owner.DocType" asp-route-pRequestType="1">
+                        <input type="submit" value="Ver" class="btn btn-warning"/>
+                    </a>
                     
-                    if (owner.DocType == "Cedula Juridica")
-                    {
-                        <a asp-action="DetailsLegal" asp-route-pDocValue="@owner.DocValue" asp-route-pUserType="1">
-                            <input type="submit" value="Ver" class="btn btn-warning"/>
-                        </a>
-                    }
-                    else
-                    {
-                        <a asp-action="Details" asp-route-pDocValue="@owner.DocValue" asp-route-pDocType="@owner.DocType" asp-route-pUserType="1">
-                            <input type="submit" value="Ver" class="btn btn-warning"/>
-                        </a>
-                    }
                 }
             </td>
         </tr>

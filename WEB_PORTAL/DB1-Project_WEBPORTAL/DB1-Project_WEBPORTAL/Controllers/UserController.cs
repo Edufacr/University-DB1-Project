@@ -67,14 +67,14 @@ namespace DB1_Project_WEBPORTAL.Controllers
         }
         
         [HttpGet]
-        public IActionResult Details(string pUsername, int? pUserType)
+        public IActionResult Details(string pUsername, int? pRequestType)
         {
             try
             {
                 UserModel user = userController.ExecuteGetUserByUsername(pUsername)[0];
                 List<PropertyModel> properties = propertyController.ExecuteGetPropertiesOfUser(user);
                 ViewData["Properties"] = properties;
-                ViewData["UserType"] = pUserType;
+                ViewData["RequestType"] = pRequestType;
                 return View(user);
             }
             catch (IndexOutOfRangeException e)

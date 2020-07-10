@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Dynamic;
+using System.Runtime.InteropServices;
 using Microsoft.AspNetCore.Mvc;
 using DB1_Project_WEBPORTAL.Models;
 using DB1_Project_WEBPORTAL.Models.ModelControllers;
+using Microsoft.VisualBasic;
 
 namespace DB1_Project_WEBPORTAL.Controllers
 {
@@ -167,42 +169,84 @@ namespace DB1_Project_WEBPORTAL.Controllers
         }
         
         [HttpGet]
-        public IActionResult Details(string pDocType, string pDocValue,  int? pUserType)
+        public IActionResult Details(string pDocType, string pDocValue,  int? pRequestType)
         {
-            //try
-            //{
+            try
+            {
                 OwnerModel owner = ownerController.ExcecuteGetOwnersByDocValue(pDocValue, pDocType)[0];
-
+                if (owner.DocType == "Cedula Juridica")
+                {
+                    return RedirectToAction("DetailsLegal", new {pDocValue = owner.DocValue, pRequestType = 1});
+                }
                 List<PropertyModel> properties = propertyController.ExecuteGetPropertiesOfOwner(owner);
                 ViewData["Properties"] = properties;
-                ViewData["UserType"] = pUserType;
+                ViewData["RequestType"] = pRequestType;
                 return View(owner);
-            //}
-            //catch (IndexOutOfRangeException e)
-            //{
-            return NotFound();
-            //}
+            }
+            catch (IndexOutOfRangeException e)
+            {
+                return NotFound();
+            }
         }
         
         [HttpGet]
-        public IActionResult DetailsLegal(string pDocValue,  int? pUserType)
+        public IActionResult DetailsLegal(string pDocValue,  int? pRequestType)
         {
-            //try
-            //{
+            try
+            {
                 LegalOwnerModel legalOwner = legalOwnerController.ExecuteGetLegalOwnerByDocValue(pDocValue)[0];
                 OwnerModel owner = ownerController.ExcecuteGetOwnersByDocValue(pDocValue, "Cedula Juridica")[0];
                 List<PropertyModel> properties = propertyController.ExecuteGetPropertiesOfOwner(owner);
                 ViewData["Properties"] = properties;
-                ViewData["UserType"] = pUserType;
+                ViewData["RequestType"] = pRequestType;
                 return View(legalOwner);
-            //}
-            //catch (IndexOutOfRangeException e)
-            //{
+            }
+            catch (IndexOutOfRangeException e)
+            {
                 return NotFound();
-            //}
+            }
+        }
+
+        [HttpGet]
+        public IActionResult InsertProperty(string pDocValue, string pDocType)
+        {
+
+            ViewData["Properties"] = propertyController.ExecuteGetActiveProperties();
+            
+            OwnerPropertyModel model = new OwnerPropertyModel();
+            model.DocValue = pDocValue;
+            model.DocType = pDocType;
+            
+            return View(model);
         }
         
         
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult InsertProperty([Bind] OwnerPropertyModel pRelation)
+        {
+            
+            if (ModelState.IsValid)
+            {
+                int insertion = ownerController.ExecuteInsertOwnerOfProperty(pRelation);
+                if (insertion < 0) Console.Write("ERROR");
+            }
+
+            return RedirectToAction("Details",
+                new {pDocType = pRelation.DocType, pDocValue = pRelation.DocValue, pRequestType = 3});
+        }
+        
+        public IActionResult DeleteProperty(string pDocType, string pDocValue, int pPropertyNumber)
+        {
+            OwnerPropertyModel relation = new OwnerPropertyModel();
+            relation.DocType = pDocType;
+            relation.DocValue = pDocValue;
+            relation.PropertyNumber = pPropertyNumber;
+            ownerController.ExecuteDeleteOwnerOfProperty(relation);
+            
+            return RedirectToAction("Details",
+                new {pDocType = relation.DocType, pDocValue = relation.DocValue, pRequestType = 1});
+        }
         
         
     }

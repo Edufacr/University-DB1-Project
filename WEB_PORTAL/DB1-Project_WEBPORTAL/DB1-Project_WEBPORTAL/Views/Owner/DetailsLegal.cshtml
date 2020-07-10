@@ -2,16 +2,16 @@
 
 @{
 
-    int? userType = ViewData["UserType"] as int?;
+    int? RequestType = ViewData["RequestType"] as int?;
     ViewData["Title"] = "Details";
     
-    if (userType == 1)
+    if (RequestType == 0)
     {
-        Layout = "~/Views/Shared/_Layout.cshtml";
+        Layout = "~/Views/Shared/_LayoutUserInterface.cshtml";
     }
     else
     {
-        Layout = "~/Views/Shared/_LayoutUserInterface.cshtml";
+        Layout = "~/Views/Shared/_Layout.cshtml";
     }
 }
 
@@ -23,7 +23,14 @@
 <h1>Propietarios</h1>
 <h4>Información del Propietario</h4>
 <div>
-    <a href='javascript:history.go(-1)'>Volver</a>
+        @if (RequestType == 3)
+        {
+            <a asp-action="Index">Volver</a>
+        }    
+        else
+        {
+            <a href='javascript:history.go(-1)'>Volver</a>
+        }
 </div>
 <div>
     <hr />
@@ -100,7 +107,7 @@
                      "Ver",
                      "Details",
                      "Property",
-                     new {pPropertyNumber = property.PropertyNumber, pUserType = userType},
+                     new {pPropertyNumber = property.PropertyNumber, pRequestType = RequestType},
                      new {@class = "btn btn-warning"})
             </td>
         </tr>
