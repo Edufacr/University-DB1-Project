@@ -2,26 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dabc68ef-a88a-4eeb-83a8-22526c9de378" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/OwnerPropertyModel.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/UserPropertyModel.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Owner/InsertProperty.cshtml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/InsertOwner.cshtml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/InsertUser.cshtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.DB1-Project_WEBPORTAL/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DB1-Project_WEBPORTAL/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.DB1-Project_WEBPORTAL/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DB1-Project_WEBPORTAL/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/LoginController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/LoginController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/OwnerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/OwnerController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/PropertyController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/PropertyController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/UserController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/UserController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/ChargeConceptModelController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/ChargeConceptModelController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/OwnerModelController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/OwnerModelController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/DB1-Project_WEBPORTAL.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/DB1-Project_WEBPORTAL.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/UserModelController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/UserModelController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Owner/Details.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Owner/Details.cshtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Owner/DetailsLegal.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Owner/DetailsLegal.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Owner/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Owner/Index.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/Create.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/Create.cshtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/Details.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/Details.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/Index.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/User/Details.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/User/Details.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/User/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/User/Index.cshtml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,6 +49,8 @@
     <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Shared/_Layout.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/OwnerModel.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/LegalOwnerModel.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/InsertUser.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/InsertOwner.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ConsumptionCC_onPropertyModel.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ErrorViewModel.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/PropertyModel.cs" root0="FORCE_HIGHLIGHTING" />
@@ -105,9 +97,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Owner/Delete.cshtml" />
-        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/Create.cshtml.cs" />
-        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/Edit.cshtml.cs" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/Delete.cshtml.cs" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/Details.cshtml.cs" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Home/Index.cshtml" />
@@ -138,24 +127,27 @@
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/OwnerPropertyModel.cs" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/UserPropertyModel.cs" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/OwnerModelController.cs" />
-        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/UserModelController.cs" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Owner/InsertProperty.cshtml.cs" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Owner/InsertProperty.cshtml" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/Create.cshtml" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Owner/Index.cshtml" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/Index.cshtml" />
-        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/PropertyController.cs" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/UserController.cs" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/LoginController.cs" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/User/Index.cshtml" />
-        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/Details.cshtml" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Owner/DeleteProperty.cs" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Owner/DeleteProperty.cshtml.cs" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Owner/DeleteProperty.cshtml" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/OwnerController.cs" />
-        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Owner/Details.cshtml" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/User/Details.cshtml" />
+        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/InsertOwner.cshtml.cs" />
+        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/InsertOwner.cshtml" />
+        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/InsertUser.cshtml" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Owner/DetailsLegal.cshtml" />
+        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/Details.cshtml" />
+        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Owner/Details.cshtml" />
+        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/PropertyController.cs" />
+        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/UserModelController.cs" />
       </list>
     </option>
   </component>
@@ -261,25 +253,25 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1157" height="266" key="GridCell.Tab.0.bottom" timestamp="1594344503423">
+    <state width="1157" height="174" key="GridCell.Tab.0.bottom" timestamp="1594350421047">
       <screen x="-1200" y="0" width="1200" height="1560" />
     </state>
-    <state width="1157" height="266" key="GridCell.Tab.0.bottom/0.0.1536.824/-1200.0.1200.1560@-1200.0.1200.1560" timestamp="1594344503423" />
+    <state width="1157" height="174" key="GridCell.Tab.0.bottom/0.0.1536.824/-1200.0.1200.1560@-1200.0.1200.1560" timestamp="1594350421047" />
     <state width="1493" height="210" key="GridCell.Tab.0.bottom/0.0.1536.824/-1200.0.1200.1560@0.0.1536.824" timestamp="1592715222121" />
-    <state width="1157" height="266" key="GridCell.Tab.0.center" timestamp="1594344503422">
+    <state width="1157" height="174" key="GridCell.Tab.0.center" timestamp="1594350421046">
       <screen x="-1200" y="0" width="1200" height="1560" />
     </state>
-    <state width="1157" height="266" key="GridCell.Tab.0.center/0.0.1536.824/-1200.0.1200.1560@-1200.0.1200.1560" timestamp="1594344503422" />
+    <state width="1157" height="174" key="GridCell.Tab.0.center/0.0.1536.824/-1200.0.1200.1560@-1200.0.1200.1560" timestamp="1594350421046" />
     <state width="1493" height="210" key="GridCell.Tab.0.center/0.0.1536.824/-1200.0.1200.1560@0.0.1536.824" timestamp="1592715222121" />
-    <state width="1157" height="266" key="GridCell.Tab.0.left" timestamp="1594344503422">
+    <state width="1157" height="174" key="GridCell.Tab.0.left" timestamp="1594350421046">
       <screen x="-1200" y="0" width="1200" height="1560" />
     </state>
-    <state width="1157" height="266" key="GridCell.Tab.0.left/0.0.1536.824/-1200.0.1200.1560@-1200.0.1200.1560" timestamp="1594344503422" />
+    <state width="1157" height="174" key="GridCell.Tab.0.left/0.0.1536.824/-1200.0.1200.1560@-1200.0.1200.1560" timestamp="1594350421046" />
     <state width="1493" height="210" key="GridCell.Tab.0.left/0.0.1536.824/-1200.0.1200.1560@0.0.1536.824" timestamp="1592715222121" />
-    <state width="1157" height="266" key="GridCell.Tab.0.right" timestamp="1594344503422">
+    <state width="1157" height="174" key="GridCell.Tab.0.right" timestamp="1594350421047">
       <screen x="-1200" y="0" width="1200" height="1560" />
     </state>
-    <state width="1157" height="266" key="GridCell.Tab.0.right/0.0.1536.824/-1200.0.1200.1560@-1200.0.1200.1560" timestamp="1594344503422" />
+    <state width="1157" height="174" key="GridCell.Tab.0.right/0.0.1536.824/-1200.0.1200.1560@-1200.0.1200.1560" timestamp="1594350421047" />
     <state width="1493" height="210" key="GridCell.Tab.0.right/0.0.1536.824/-1200.0.1200.1560@0.0.1536.824" timestamp="1592715222121" />
     <state x="-960" y="484" key="VCS.ChangeListViewerDialog" timestamp="1592892845011">
       <screen x="-1200" y="0" width="1200" height="1560" />

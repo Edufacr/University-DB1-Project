@@ -42,7 +42,7 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
             UpdateUser = new SqlCommand("SP_updateUser", connection);
             UpdateUser.CommandType = CommandType.StoredProcedure;
             
-            DeleteUserOfProperty = new SqlCommand("SP_deletePropertiesUser", connection);
+            DeleteUserOfProperty = new SqlCommand("SP_deletePropertiesUsers", connection);
             DeleteUserOfProperty.CommandType = CommandType.StoredProcedure;
             
             InsertUserOfProperty = new SqlCommand("SP_insertPropertiesUsers", connection);
@@ -116,9 +116,9 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
         
         public int ExecuteInsertUserOfProperty(UserPropertyModel pRelation)
         {
-            
-            DeleteUserOfProperty.Parameters.Add("@pUsername", SqlDbType.VarChar, 50).Value = pRelation.Name;
-            DeleteUserOfProperty.Parameters.Add("@pPropertyNumber", SqlDbType.Int).Value = pRelation.PropertyNumber;
+            Console.Write(pRelation.PropertyNumber);
+            InsertUserOfProperty.Parameters.Add("@pUsername", SqlDbType.VarChar, 50).Value = pRelation.Name;
+            InsertUserOfProperty.Parameters.Add("@pPropertyNumber", SqlDbType.Int).Value = pRelation.PropertyNumber;
             
             return ExecuteNonQueryCommand(InsertUserOfProperty);
             

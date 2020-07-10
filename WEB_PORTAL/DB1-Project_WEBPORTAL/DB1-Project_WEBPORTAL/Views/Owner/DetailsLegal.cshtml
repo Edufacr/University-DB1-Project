@@ -104,11 +104,17 @@
             </td>
             <td>
                 @Html.ActionLink(
-                     "Ver",
-                     "Details",
-                     "Property",
-                     new {pPropertyNumber = property.PropertyNumber, pRequestType = RequestType},
-                     new {@class = "btn btn-warning"})
+                    "Ver",
+                    "Details",
+                    "Property",
+                    new {pPropertyNumber = property.PropertyNumber, pRequestType = RequestType},
+                    new {@class = "btn btn-warning"})
+            </td>
+            <td>
+                <a asp-action="DeleteProperty" asp-route-pDocValue="@Model.DocValue" asp-route-pDocType="Cedula Juridica"
+                   asp-route-pPropertyNumber="@property.PropertyNumber">
+                    <input type="submit" value="Despropiar" class="btn btn-danger"/>
+                </a>
             </td>
         </tr>
     }

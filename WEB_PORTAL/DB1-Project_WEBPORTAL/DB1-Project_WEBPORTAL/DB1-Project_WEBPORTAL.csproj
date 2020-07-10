@@ -9,4 +9,9 @@
     <PackageReference Include="System.Data.SqlClient" Version="4.8.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\ChangesHistory" />
+    <Folder Include="Views\ChargeConcepts" />
+  </ItemGroup>
+
 </Project>

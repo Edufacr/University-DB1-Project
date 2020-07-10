@@ -82,6 +82,15 @@
 </div> 
 <hr />
 <h3>Propietarios</h3>
+@if (RequestType != 0)
+{
+    <p>
+        <a asp-action="InsertOwner" asp-route-pPropertyNumber="@Model.PropertyNumber" >
+            <input type="submit" value="Insertar Propiedad" class="btn btn-success"/>
+        </a>
+    </p>
+}
+
 @if (owners.Count > 0)
 {
     <table class="table table-striped">
@@ -111,17 +120,23 @@
                 <td>
                     @Html.DisplayFor(modelItem => owner.DocValue)
                 </td>
-                <td>
-                    @if (RequestType != 0)
-                    {
+                @if (RequestType != 0)
+                {
+                    <td>
                         @Html.ActionLink(
                             "Ver",
                             "Details",
                             "Owner",
                             new {pDocValue = owner.DocValue, pDocType = owner.DocType, pRequestType = RequestType},
                             new {@class = "btn btn-warning"})
-                    }
-                </td>
+                    </td>
+                    <td>
+                        <a asp-action="DeleteOwner" asp-route-pDocValue="@owner.DocValue" asp-route-pDocType="@owner.DocType"
+                           asp-route-pPropertyNumber="@Model.PropertyNumber">
+                            <input type="submit" value="Desapropiar" class="btn btn-danger"/>
+                        </a>
+                    </td>
+                }
             </tr>
         }
         </tbody>
@@ -134,9 +149,17 @@ else
 }
 
 <hr />
-@if (RequestType == 1)
+@if (RequestType != 0)
 {
     <h3>Usuarios</h3>
+    @if (RequestType != 0)
+    {
+        <p>
+            <a asp-action="InsertUser" asp-route-pPropertyNumber="@Model.PropertyNumber" >
+                <input type="submit" value="Suscribir Usuario" class="btn btn-success"/>
+            </a>
+        </p>
+    }
     @if(users.Count > 0)
     {
         <table class="table table-striped">
@@ -162,6 +185,12 @@ else
                             new {pUsername = user.Name, pRequestType = RequestType},
                             new {@class = "btn btn-warning"})
                     </td>
+                    <td>
+                        <a asp-action="DeleteUser" asp-route-pUsername="@user.Name"
+                           asp-route-pPropertyNumber="@Model.PropertyNumber">
+                            <input type="submit" value="Desuscribir" class="btn btn-danger"/>
+                        </a>
+                    </td>                    
                 </tr>
             }
             </tbody>
