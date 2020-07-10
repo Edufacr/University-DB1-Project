@@ -27,6 +27,9 @@ BEGIN TRY
 	DECLARE @TodayTransConsumo as TodayConsumptionMovsTable ;
 	DECLARE @Dates TABLE (Id int PRIMARY KEY IDENTITY(1,1), Date Date)
 	DECLARE @currentDate DATE
+	DECLARE @Day INT;
+	DECLARE @WaterReceiptDay INT;
+	DECLARE @WaterIdCC INT;
 	DECLARE @dayCounter int
 	DECLARE @lastDay int
 	BEGIN TRANSACTION Main
@@ -41,6 +44,10 @@ BEGIN TRY
 
 		SELECT @lastDay = @@ROWCOUNT
 		SET @dayCounter = 1
+		
+		SELECT @WaterReceiptDay = ReciptEmisionDay, @WaterIdCC = Id
+		FROM completeConsumption_CCs
+		WHERE Name = 'Agua'
 
 		INSERT INTO @TransConsumo
 			SELECT IdMovType,PropertyNum,ConsumptionReading,Description,Date
@@ -145,7 +152,31 @@ BEGIN TRY
 			WHERE PropertyNumber = v.PropertyNum AND v.Date = @currentDate;
 
 
-			
+			SET @Day = DAY(@currentDate);
+
+			INSERT INTO DB1P_Receipt (Id_ChargeConcept,Id_Property,Date,DueDate,Amount)
+			SELECT CC_Id,Property_Id,@currentDate,DueDate = DATEADD(day,ExpirationDays,@currentDate),Amount = 
+				CASE 
+					WHEN Amount IS NOT NULL THEN Amount
+					WHEN PercentageValue IS NOT NULL THEN PropertyValue * (PercentageValue/100)
+					WHEN MoratoryAmount IS NOT NULL THEN MoratoryAmount
+					WHEN ValueM3 IS NOT NULL THEN 
+						CASE 
+							WHEN (AccumulatedM3 - AccumulatedLRM3)*ValueM3 > MinValue THEN (AccumulatedM3 - AccumulatedLRM3)*ValueM3
+							ELSE MinValue
+						END
+					ELSE -1
+				END
+			FROM completeCCs_onProperties
+			WHERE @Day = ReciptEmisionDay;
+
+			IF(@Day = @WaterReceiptDay)
+				BEGIN
+					UPDATE DB1P_Properties
+					SET AccumulatedLRM3 = AccumulatedM3
+					FROM activeCC_onProperties acc
+					WHERE @WaterIdCC = acc.CC_Id AND acc.PropertyId = Id
+				END
 		SET @dayCounter  = @dayCounter + 1
 		END		
 
