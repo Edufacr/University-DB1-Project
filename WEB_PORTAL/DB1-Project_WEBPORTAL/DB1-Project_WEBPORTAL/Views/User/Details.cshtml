@@ -61,6 +61,14 @@
 </div> 
 
 <h3>Propiedades</h3>
+
+@if (RequestType != 0)
+{
+    <a asp-action="InsertProperty" asp-route-pUsername="@Model.Name" >
+        <input type="submit" value="Suscribir Propiedad" class="btn btn-success"/>
+    </a>
+}
+
 <table class="table table-striped">
     <thead>
     <tr>
@@ -90,12 +98,20 @@
             </td>
             <td>
                 @Html.ActionLink(
-               "Ver",
-               "Details", 
-               "Property", 
-               new {pPropertyNumber = property.PropertyNumber},
-               new {@class= "btn btn-warning"})
+                    "Ver",
+                    "Details", 
+                    "Property", 
+                    new {pPropertyNumber = property.PropertyNumber, pRequestType = 0},
+                    new {@class= "btn btn-warning"})
             </td>
+            @if (RequestType != 0)
+            {
+                <td>
+                    <a asp-action="DeleteProperty" asp-route-pUsername="@Model.Name" asp-route-pPropertyNumber="@property.PropertyNumber">
+                        <input type="submit" value="Desuscribir" class="btn btn-danger"/>
+                    </a>
+                </td>
+            }
         </tr>
     }
     </tbody>

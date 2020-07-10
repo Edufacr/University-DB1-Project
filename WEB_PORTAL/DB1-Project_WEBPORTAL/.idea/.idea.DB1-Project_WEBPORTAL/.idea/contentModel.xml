@@ -103,6 +103,7 @@
             <e p="Delete.cshtml" t="Include" />
             <e p="Details.cshtml" t="Include" />
             <e p="Index.cshtml" t="Include" />
+            <e p="InsertProperty.cshtml" t="Include" />
           </e>
         </e>
         <e p="wwwroot" t="Include">
