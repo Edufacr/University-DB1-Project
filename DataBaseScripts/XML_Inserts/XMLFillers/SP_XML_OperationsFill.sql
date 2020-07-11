@@ -32,6 +32,7 @@ BEGIN TRY
 	DECLARE @WaterIdCC INT;
 	DECLARE @ReconnectionIdCC INT;
 	DECLARE @ReconnectionReceiptAmount INT;
+	DECLARE @NumOfReconnectionReceipts INT;
 	DECLARE @dayCounter int
 	DECLARE @lastDay int
 	BEGIN TRANSACTION Main
@@ -158,35 +159,35 @@ BEGIN TRY
 			WHERE PropertyNumber = v.PropertyNum AND v.Date = @currentDate;
 
 
-			SET @Day = DAY(@currentDate);
+			BEGIN TRANSACTION Receipts
+				SET @Day = DAY(@currentDate);
+				INSERT INTO DB1P_Receipt (Id_ChargeConcept,Id_Property,Date,DueDate,Amount)
+				SELECT CC_Id,Property_Id,@currentDate,DueDate = DATEADD(day,ExpirationDays,@currentDate),Amount = 
+					CASE 
+						WHEN Amount IS NOT NULL THEN Amount
+						WHEN PercentageValue IS NOT NULL THEN PropertyValue * (PercentageValue/100)
+						WHEN MoratoryAmount IS NOT NULL THEN MoratoryAmount
+						WHEN ValueM3 IS NOT NULL THEN 
+							CASE 
+								WHEN (AccumulatedM3 - AccumulatedLRM3)*ValueM3 > MinValue THEN (AccumulatedM3 - AccumulatedLRM3)*ValueM3
+								ELSE MinValue
+							END
+						ELSE -1
+					END
+				FROM completeCCs_onProperties
+				WHERE @Day = ReciptEmisionDay;
 
-			INSERT INTO DB1P_Receipt (Id_ChargeConcept,Id_Property,Date,DueDate,Amount)
-			SELECT CC_Id,Property_Id,@currentDate,DueDate = DATEADD(day,ExpirationDays,@currentDate),Amount = 
-				CASE 
-					WHEN Amount IS NOT NULL THEN Amount
-					WHEN PercentageValue IS NOT NULL THEN PropertyValue * (PercentageValue/100)
-					WHEN MoratoryAmount IS NOT NULL THEN MoratoryAmount
-					WHEN ValueM3 IS NOT NULL THEN 
-						CASE 
-							WHEN (AccumulatedM3 - AccumulatedLRM3)*ValueM3 > MinValue THEN (AccumulatedM3 - AccumulatedLRM3)*ValueM3
-							ELSE MinValue
-						END
-					ELSE -1
-				END
-			FROM completeCCs_onProperties
-			WHERE @Day = ReciptEmisionDay;
-
-			IF(@Day = @WaterReceiptDay)
-				BEGIN
-					UPDATE DB1P_Properties
-					SET AccumulatedLRM3 = AccumulatedM3
-					FROM activeCC_onProperties acc
-					WHERE @WaterIdCC = acc.CC_Id AND acc.PropertyId = Id
-				END
+				IF(@Day = @WaterReceiptDay)
+					BEGIN
+						UPDATE DB1P_Properties
+						SET AccumulatedLRM3 = AccumulatedM3
+						FROM activeCC_onProperties acc
+						WHERE @WaterIdCC = acc.CC_Id AND acc.PropertyId = Id
+					END
+			COMMIT TRANSACTION Receipts
 
 			--Cortas
 			BEGIN TRANSACTION Disconnection
-
 				INSERT INTO DB1P_Receipt (Id_ChargeConcept,Id_Property,Date,DueDate,Amount)
 				SELECT DISTINCT @ReconnectionIdCC,awr.Id_Property,@currentDate,NULL,@ReconnectionReceiptAmount
 				FROM activeWaterReceipts awr
@@ -196,11 +197,27 @@ BEGIN TRY
 					WHERE Id_Property = awr.Id_Property) > 1
 				ORDER BY Id_Property
 
-				--Add to ReconnectionReceipt
-				
+				--Add to ReconnectionReceipt Table
+				INSERT INTO DB1P_ReconnectionReceipt(Id)
+				SELECT TOP (@NumOfReconnectionReceipts) Id
+				FROM DB1P_Receipt 
+				ORDER BY Id DESC;
+
 				--Insert Disconnection
+				INSERT INTO DB1P_Disconnection(Id_ReconnectionReceipt,Id_Property,[Date])
+				SELECT s.Id,s.Id_Property,@currentDate
+				FROM 
+					(SELECT TOP (@NumOfReconnectionReceipts) Id, Id_Property
+					FROM DB1P_Receipt 
+					ORDER BY Id DESC)
+					AS s
 			COMMIT TRANSACTION Disconnection
 
+			BEGIN TRANSACTION ReceiptPayment
+			COMMIT TRANSACTION ReceiptPayment
+
+			BEGIN TRANSACTION Reconnection
+			COMMIT TRANSACTION Reconnection
 
 
 		SET @dayCounter  = @dayCounter + 1
