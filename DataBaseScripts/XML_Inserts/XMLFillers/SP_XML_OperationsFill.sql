@@ -30,6 +30,8 @@ BEGIN TRY
 	DECLARE @Day INT;
 	DECLARE @WaterReceiptDay INT;
 	DECLARE @WaterIdCC INT;
+	DECLARE @ReconnectionIdCC INT;
+	DECLARE @ReconnectionReceiptAmount INT;
 	DECLARE @dayCounter int
 	DECLARE @lastDay int
 	BEGIN TRANSACTION Main
@@ -48,6 +50,10 @@ BEGIN TRY
 		SELECT @WaterReceiptDay = ReciptEmisionDay, @WaterIdCC = Id
 		FROM completeConsumption_CCs
 		WHERE Name = 'Agua'
+
+		SELECT @ReconnectionReceiptAmount = Amount, @ReconnectionIdCC = Id
+		FROM completeFixed_CCs
+		WHERE Name = 'Reconexion de agua'
 
 		INSERT INTO @TransConsumo
 			SELECT IdMovType,PropertyNum,ConsumptionReading,Description,Date
@@ -177,6 +183,26 @@ BEGIN TRY
 					FROM activeCC_onProperties acc
 					WHERE @WaterIdCC = acc.CC_Id AND acc.PropertyId = Id
 				END
+
+			--Cortas
+			BEGIN TRANSACTION Disconnection
+
+				INSERT INTO DB1P_Receipt (Id_ChargeConcept,Id_Property,Date,DueDate,Amount)
+				SELECT DISTINCT @ReconnectionIdCC,awr.Id_Property,@currentDate,NULL,@ReconnectionReceiptAmount
+				FROM activeWaterReceipts awr
+				WHERE 
+					(SELECT COUNT(Id) 
+					FROM activeWaterReceipts
+					WHERE Id_Property = awr.Id_Property) > 1
+				ORDER BY Id_Property
+
+				--Add to ReconnectionReceipt
+				
+				--Insert Disconnection
+			COMMIT TRANSACTION Disconnection
+
+
+
 		SET @dayCounter  = @dayCounter + 1
 		END		
 
