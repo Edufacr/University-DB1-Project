@@ -24,8 +24,10 @@ BEGIN TRY
 	DECLARE @PropertiesUsers TABLE (Username VARCHAR(50),PropertyNum int,Active bit)
 	DECLARE @PropertiesValueChange TABLE (PropertyNum int,Value MONEY, [Date] DATE);
 	DECLARE @TransConsumo TABLE (Id int PRIMARY KEY IDENTITY(1,1),IdMovType int, PropertyNum int,ConsumptionReading int,Description VARCHAR(50) ,Date Date);
-	DECLARE @TodayTransConsumo as TodayConsumptionMovsTable ;
-	DECLARE @Dates TABLE (Id int PRIMARY KEY IDENTITY(1,1), Date Date)
+	DECLARE @Payments TABLE(Id int PRIMARY KEY IDENTITY(1,1),ReceiptType INT, PropertyNum INT,Date DATE);
+	DECLARE @TodayPayments AS TodayPaymentsTable;
+	DECLARE @TodayTransConsumo AS TodayConsumptionMovsTable ;
+	DECLARE @Dates TABLE (Id INT PRIMARY KEY IDENTITY(1,1), Date DATE)
 	DECLARE @currentDate DATE
 	DECLARE @Day INT;
 	DECLARE @WaterReceiptDay INT;
@@ -58,13 +60,18 @@ BEGIN TRY
 
 		INSERT INTO @TransConsumo
 			SELECT IdMovType,PropertyNum,ConsumptionReading,Description,Date
-			from OPENXML(@docHandle,'/Operaciones_por_Dia/OperacionDia/TransConsumo') 
-			with (IdMovType int '@id', PropertyNum int '@NumFinca',ConsumptionReading int '@LecturaM3',Description VARCHAR(50) '@descripcion',Date Date '../@fecha')
+			FROM OPENXML(@docHandle,'/Operaciones_por_Dia/OperacionDia/TransConsumo') 
+			WITH (IdMovType int '@id', PropertyNum int '@NumFinca',ConsumptionReading int '@LecturaM3',Description VARCHAR(50) '@descripcion',Date Date '../@fecha')
 
 		INSERT INTO @PropertiesValueChange
 			SELECT PropertyNum,Value,Date
-			from OPENXML(@docHandle,'/Operaciones_por_Dia/OperacionDia/CambioPropiedad') 
-			with (PropertyNum int '@NumFinca',Value MONEY '@NuevoValor',Date Date '../@fecha')
+			FROM OPENXML(@docHandle,'/Operaciones_por_Dia/OperacionDia/CambioPropiedad') 
+			WITH (PropertyNum int '@NumFinca',Value MONEY '@NuevoValor',Date Date '../@fecha')
+
+		INSERT INTO @Payments(ReceiptType,PropertyNum,Date)
+			SELECT ReceiptType,PropertyNum,Date
+			FROM OPENXML(@docHandle,'/Operaciones_por_Dia/OperacionDia/Pago') 
+			WITH (ReceiptType INT '@TipoRecibo',PropertyNum INT '@NumFinca',Date DATE '../@fecha')
 
 		WHILE(@dayCounter <= @lastDay)
 		BEGIN
@@ -188,32 +195,43 @@ BEGIN TRY
 
 			--Cortas
 			BEGIN TRANSACTION Disconnection
+				--TODO 
+				--AGREGAR condicion que inserte si no existe un recibo activo de reconexión
 				INSERT INTO DB1P_Receipt (Id_ChargeConcept,Id_Property,Date,DueDate,Amount)
-				SELECT DISTINCT @ReconnectionIdCC,awr.Id_Property,@currentDate,NULL,@ReconnectionReceiptAmount
-				FROM activeWaterReceipts awr
-				WHERE 
-					(SELECT COUNT(Id) 
-					FROM activeWaterReceipts
-					WHERE Id_Property = awr.Id_Property) > 1
-				ORDER BY Id_Property
+					SELECT DISTINCT @ReconnectionIdCC,awr.Id_Property,@currentDate,NULL,@ReconnectionReceiptAmount
+					FROM activeWaterReceipts awr
+					WHERE 
+						(SELECT COUNT(Id) 
+						FROM activeWaterReceipts
+						WHERE Id_Property = awr.Id_Property) > 1
+					ORDER BY Id_Property
+
+				SET @NumOfReconnectionReceipts = @@ROWCOUNT;
 
 				--Add to ReconnectionReceipt Table
 				INSERT INTO DB1P_ReconnectionReceipt(Id)
-				SELECT TOP (@NumOfReconnectionReceipts) Id
-				FROM DB1P_Receipt 
-				ORDER BY Id DESC;
+					SELECT TOP (@NumOfReconnectionReceipts) Id
+					FROM DB1P_Receipt 
+					ORDER BY Id DESC;
 
 				--Insert Disconnection
 				INSERT INTO DB1P_Disconnection(Id_ReconnectionReceipt,Id_Property,[Date])
-				SELECT s.Id,s.Id_Property,@currentDate
-				FROM 
-					(SELECT TOP (@NumOfReconnectionReceipts) Id, Id_Property
-					FROM DB1P_Receipt 
-					ORDER BY Id DESC)
-					AS s
+					SELECT s.Id,s.Id_Property,@currentDate
+					FROM 
+						(SELECT TOP (@NumOfReconnectionReceipts) Id, Id_Property
+						FROM DB1P_Receipt 
+						ORDER BY Id DESC)
+						AS s;
+						
 			COMMIT TRANSACTION Disconnection
 
 			BEGIN TRANSACTION ReceiptPayment
+				DELETE @TodayPayments
+			    INSERT INTO @TodayPayments
+					SELECT ReceiptType, PropertyNum
+					FROM @Payments
+					WHERE Date = @currentDate;
+				EXEC SP_insertTodayPayments @TodayPayments,@currentDate,@ReconnectionIdCC,@WaterIdCC;
 			COMMIT TRANSACTION ReceiptPayment
 
 			BEGIN TRANSACTION Reconnection
