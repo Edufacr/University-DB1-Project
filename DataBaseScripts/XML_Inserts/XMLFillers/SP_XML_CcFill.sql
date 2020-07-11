@@ -48,6 +48,11 @@ BEGIN TRY
 		INSERT INTO DB1P_Fixed_CC (Id,Amount)
 		SELECT Id,Amount
 		FROM @xmlTable where CCType = 'CC Fijo';
+
+		INSERT INTO DB1P_MoratoryInterest_CC (Id,Amount)
+		SELECT Id,Amount
+		FROM @xmlTable where CCType = 'CC Interes Moratorio';
+
 		EXEC sp_xml_removedocument @docHandle; -- Remove the internal representation of the XML document.
 	COMMIT
 	RETURN 1;
