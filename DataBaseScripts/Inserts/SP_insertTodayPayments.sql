@@ -27,7 +27,6 @@ BEGIN TRY
     DECLARE @MoratoryInterestCCId INT;
     DECLARE @TotalAmount MONEY;
     DECLARE @ProofOfPaymentId INT;
-    DECLARE @NumOfPaidReceipts INT;
 
     INSERT INTO @Properties
         SELECT DISTINCT PropertyNum
@@ -89,35 +88,24 @@ BEGIN TRY
                     
                     IF(@TotalAmount IS NOT NULL)
                     BEGIN
+                    --Se inserta el ProofOfPayment
+                        INSERT INTO DB1P_ProofOfPayment
+                            VALUES(@inDate,@TotalAmount,1);
+                        SET @ProofOfPaymentId = SCOPE_IDENTITY();
                     --Se insertan los recibos en la tabla de recibos pagados
                         INSERT INTO DB1P_PaidReceipts
-                            SELECT DISTINCT Id,NULL
+                            SELECT Id,@ProofOfPaymentId
                             FROM DB1P_Receipt
                                 INNER JOIN @TodayPaymentsTable t
                                     ON t.ReceiptType = Id_ChargeConcept AND @CurrentPropertyNum = t.PropertyNum
                             WHERE @CurrentPropertyId = Id_Property AND [Status] = 0; 
-                        
-
-                        SET @NumOfPaidReceipts = @@ROWCOUNT;
-                        --Se marcan como pagados los recibos
+                    --Se marcan como pagados los recibos
                         UPDATE DB1P_Receipt
                             SET [Status] = 1
                             FROM DB1P_Receipt
                                 INNER JOIN @TodayPaymentsTable t
                                     ON ReceiptType = Id_ChargeConcept AND @CurrentPropertyNum = t.PropertyNum
                             WHERE @CurrentPropertyId = Id_Property AND [Status] = 0;
-                        --Se inserta el ProofOfPayment
-                        INSERT INTO DB1P_ProofOfPayment
-                            VALUES(@inDate,@TotalAmount,1);
-                        SET @ProofOfPaymentId = SCOPE_IDENTITY();
-                        --Se agregan  los comprobantes de pago
-                        UPDATE DB1P_PaidReceipts
-                            SET Id_ProofOfPayment = @ProofOfPaymentId
-                            WHERE Id 
-                                IN (SELECT TOP (@NumOfPaidReceipts) Id 
-                                    FROM DB1P_PaidReceipts 
-                                        ORDER BY Id DESC);
-
                     END
             COMMIT TRANSACTION CurrentPropertyPayingProcess
         SET @CurrentPropertyRow = @CurrentPropertyRow +1
