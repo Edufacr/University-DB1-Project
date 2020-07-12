@@ -70,7 +70,7 @@ BEGIN TRY
                         END
                     --Se agregan recibos de intereses moratorios
                     INSERT INTO DB1P_Receipt (Id_ChargeConcept,Id_Property,Date,DueDate,Amount)
-                        SELECT Id_ChargeConcept,Id_Property,@inDate,NULL,
+                        SELECT @MoratoryInterestCCId,Id_Property,@inDate,NULL,
                                 Amount = (Amount*MoratoryInterestRate/365)* ABS(DATEDIFF(day,DueDate,@inDate))
                         FROM activeReceiptsWithMoratoryRate
                             INNER JOIN @TodayPaymentsTable t
