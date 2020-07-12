@@ -26,7 +26,7 @@ BEGIN TRY
             FROM DB1P_Properties
             WHERE @inPropertyNum = PropertyNumber
 
-        SELECT cc.Name,Date,DueDate,Amount
+        SELECT cc.Name,Date AS ReceiptDate,DueDate,Amount
             FROM activeReceipts
                 INNER JOIN DB1P_ChargeConcepts cc
                     ON cc.Id = Id_ChargeConcept
