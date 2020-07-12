@@ -67,14 +67,14 @@ namespace DB1_Project_WEBPORTAL.Controllers
         }
         
         [HttpGet]
-        public IActionResult Details(string pUsername, int? pUserType)
+        public IActionResult Details(string pUsername, int? pRequestType)
         {
             try
             {
                 UserModel user = userController.ExecuteGetUserByUsername(pUsername)[0];
                 List<PropertyModel> properties = propertyController.ExecuteGetPropertiesOfUser(user);
                 ViewData["Properties"] = properties;
-                ViewData["UserType"] = pUserType;
+                ViewData["RequestType"] = pRequestType;
                 return View(user);
             }
             catch (IndexOutOfRangeException e)
@@ -82,6 +82,45 @@ namespace DB1_Project_WEBPORTAL.Controllers
                 Console.Write("MAMAPICHAAAAAS");
                 return NotFound();
             }
+        }
+        
+        [HttpGet]
+        public IActionResult InsertProperty(string pUsername)
+        {
+
+            ViewData["Properties"] = propertyController.ExecuteGetActiveProperties();
+            
+            UserPropertyModel model = new UserPropertyModel();
+            model.Name = pUsername;
+            
+            return View(model);
+        }
+        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult InsertProperty([Bind] UserPropertyModel pRelation)
+        {
+            
+            if (ModelState.IsValid)
+            {
+                Console.Write(pRelation.PropertyNumber);
+                int insertion = userController.ExecuteInsertUserOfProperty(pRelation);
+                if (insertion < 0) Console.Write("ERROR");
+            }
+
+            return RedirectToAction("Details",
+                new {pUsername = pRelation.Name, pRequestType = 3});
+        }
+        
+        public IActionResult DeleteProperty(string pUsername, int pPropertyNumber)
+        {
+            UserPropertyModel relation = new UserPropertyModel();
+            relation.Name = pUsername;
+            relation.PropertyNumber = pPropertyNumber;
+            userController.ExecuteDeleteUserOfProperty(relation);
+            
+            return RedirectToAction("Details",
+                new {pUsername = relation.Name, pRequestType = 1});
         }
         
     }

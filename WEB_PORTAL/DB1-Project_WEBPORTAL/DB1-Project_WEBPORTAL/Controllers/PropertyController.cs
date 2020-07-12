@@ -107,7 +107,7 @@ namespace DB1_Project_WEBPORTAL.Controllers
         
         
         [HttpGet]
-        public IActionResult Details(int pPropertyNumber, int? pUserType)
+        public IActionResult Details(int pPropertyNumber, int? pRequestType)
         {
             
             PropertyModel property = propertyController.ExecuteGetPropertyInfoByPropertyNumber(pPropertyNumber)[0];
@@ -116,13 +116,13 @@ namespace DB1_Project_WEBPORTAL.Controllers
             List<UserModel> users = userController.ExecuteGetUsersOfProperty(property);
             
             
-            List<CC_onPropertyModel> consumptionCcs =
+            List<CcModel> consumptionCcs =
                 ConsumptionCcController.ExecuteGetCCsOnProperty(property);
-            List<CC_onPropertyModel> percentageCcs = 
+            List<CcModel> percentageCcs = 
                 PercentageCcController.ExecuteGetCCsOnProperty(property);
-            List<CC_onPropertyModel>  moratoryCcs =  
+            List<CcModel>  moratoryCcs =  
                 MoratoryInterestsCcController.ExecuteGetCCsOnProperty(property);
-            List<CC_onPropertyModel> fixedCcs = 
+            List<CcModel> fixedCcs = 
                 FixedCcController.ExecuteGetCCsOnProperty(property);
             
             if (property == null)
@@ -133,7 +133,7 @@ namespace DB1_Project_WEBPORTAL.Controllers
             ViewData["Owners"] = owners;
             ViewData["Users"] = users;
             
-            ViewData["UserType"] = pUserType;
+            ViewData["RequestType"] = pRequestType;
             
             ViewData["ConsumptionCCs"] = consumptionCcs;
             ViewData["PercentageCCs"] = percentageCcs;
@@ -142,6 +142,85 @@ namespace DB1_Project_WEBPORTAL.Controllers
             
             
             return View(property);
+        }
+        
+        [HttpGet]
+        public IActionResult InsertOwner(int pPropertyNumber)
+        {
+
+            ViewData["Owners"] = ownerController.ExcecuteGetActiveOwners();
+            
+            OwnerPropertyModel model = new OwnerPropertyModel();
+            model.PropertyNumber = pPropertyNumber;
+            
+            return View(model);
+            
+        }
+        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult InsertOwner([Bind] OwnerPropertyModel pRelation)
+        {
+            
+            if (ModelState.IsValid)
+            {
+                int insertion = ownerController.ExecuteInsertOwnerOfProperty(pRelation);
+                if (insertion < 0) Console.Write("ERROR");
+            }
+
+            return RedirectToAction("Details",
+                new {pPropertyNumber = pRelation.PropertyNumber, pRequestType = 3});
+        }
+        
+        public IActionResult DeleteOwner(string pDocType, string pDocValue, int pPropertyNumber)
+        {
+            OwnerPropertyModel relation = new OwnerPropertyModel();
+            relation.DocType = pDocType;
+            relation.DocValue = pDocValue;
+            relation.PropertyNumber = pPropertyNumber;
+            ownerController.ExecuteDeleteOwnerOfProperty(relation);
+            
+            return RedirectToAction("Details",
+                new {pPropertyNumber = relation.PropertyNumber, pRequestType = 1});
+        }
+        
+        [HttpGet]
+        public IActionResult InsertUser(int pPropertyNumber)
+        {
+
+            ViewData["Users"] = userController.ExecuteGetActiveUsers();
+            
+            UserPropertyModel model = new UserPropertyModel();
+            model.PropertyNumber = pPropertyNumber;
+            
+            return View(model);
+        }
+        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult InsertUser([Bind] UserPropertyModel pRelation)
+        {
+            
+            if (ModelState.IsValid)
+            {
+                Console.Write(pRelation.PropertyNumber);
+                int insertion = userController.ExecuteInsertUserOfProperty(pRelation);
+                if (insertion < 0) Console.Write("ERROR");
+            }
+
+            return RedirectToAction("Details",
+                new {pPropertyNumber = pRelation.PropertyNumber, pRequestType = 3});
+        }
+        
+        public IActionResult DeleteUser(string pUsername, int pPropertyNumber)
+        {
+            UserPropertyModel relation = new UserPropertyModel();
+            relation.Name = pUsername;
+            relation.PropertyNumber = pPropertyNumber;
+            userController.ExecuteDeleteUserOfProperty(relation);
+            
+            return RedirectToAction("Details",
+                new {pPropertyNumber = relation.PropertyNumber, pRequestType = 1});
         }
         
     }

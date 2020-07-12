@@ -99,23 +99,23 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
             
         }
         
-        public int ExecuteDeleteOwnerOfProperty(PropertyModel property, OwnerModel owner)
+        public int ExecuteDeleteOwnerOfProperty(OwnerPropertyModel pRelation)
         {
-            DeleteOwnerOfProperty.Parameters.Add("@pPropertyPropertyNumber", SqlDbType.Int).Value = property.PropertyNumber;
-            DeleteOwnerOfProperty.Parameters.Add("@pOwnerDocValue", SqlDbType.VarChar, 30).Value = owner.DocValue;
-            DeleteOwnerOfProperty.Parameters.Add("@pOwnerDocType", SqlDbType.VarChar, 50).Value = owner.DocType;
+            DeleteOwnerOfProperty.Parameters.Add("@pPropertyPropertyNumber", SqlDbType.Int).Value = pRelation.PropertyNumber;
+            DeleteOwnerOfProperty.Parameters.Add("@pOwnerDocValue", SqlDbType.VarChar, 30).Value = pRelation.DocValue;
+            DeleteOwnerOfProperty.Parameters.Add("@pOwnerDocType", SqlDbType.VarChar, 50).Value = pRelation.DocType;
             return ExecuteNonQueryCommand(DeleteOwnerOfProperty);
         }
         
-        public int ExecuteInsertOwnerOfProperty(PropertyModel property, OwnerModel owner)
+        public int ExecuteInsertOwnerOfProperty(OwnerPropertyModel pRelation)
         {
-            InsertOwnerOfProperty.Parameters.Add("@pPropertyNumber", SqlDbType.Int).Value = property.PropertyNumber;
-            InsertOwnerOfProperty.Parameters.Add("@pOwnerDocValue", SqlDbType.VarChar, 30).Value = owner.DocValue;
-            InsertOwnerOfProperty.Parameters.Add("@pOwnerDocType", SqlDbType.VarChar, 50).Value = owner.DocType;
+            InsertOwnerOfProperty.Parameters.Add("@pPropertyNumber", SqlDbType.Int).Value = pRelation.PropertyNumber;
+            InsertOwnerOfProperty.Parameters.Add("@pOwnerDocValue", SqlDbType.VarChar, 30).Value = pRelation.DocValue;
+            InsertOwnerOfProperty.Parameters.Add("@pOwnerDocType", SqlDbType.VarChar, 50).Value = pRelation.DocType;
             
-            Console.WriteLine(property.PropertyNumber);
-            Console.WriteLine(owner.DocValue);
-            Console.WriteLine(owner.DocType);
+            Console.WriteLine(pRelation.PropertyNumber);
+            Console.WriteLine(pRelation.DocValue);
+            Console.WriteLine(pRelation.DocType);
             
             return ExecuteNonQueryCommand(InsertOwnerOfProperty);
         }

@@ -27,7 +27,7 @@ namespace DB1_Project_WEBPORTAL.Controllers
                         return Redirect("Home/Index");
                     }
 
-                    return RedirectToAction("Details", "User", new { pUsername , pUserType = 0});
+                    return RedirectToAction("Details", "User", new { pUsername , pRequestType = 0});
 
 
                 }

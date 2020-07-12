@@ -1,0 +1,54 @@
+﻿@model DB1_Project_WEBPORTAL.Models.OwnerPropertyModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<PropertyModel> properties = ViewData["Properties"] as List<PropertyModel>;
+    if (properties == null)
+    {
+        Console.Write("Las propiedades vienen nulas");
+    }
+}
+
+<h1> Seleccione una propiedad </h1>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => properties[0].Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => properties[0].Value)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => properties[0].PropertyNumber)
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach(var property in properties)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => property.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => property.Value)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => property.PropertyNumber)
+            </td>
+            <td>
+                <form asp-action="InsertProperty">
+                    <input type="hidden" asp-for="DocValue">
+                    <input type="hidden" asp-for="DocType">
+                    <input type="hidden" asp-for="PropertyNumber" value="@property.PropertyNumber">
+                    <div class="form-group">
+                        <input type="submit" value="Seleccionar" class="btn btn-warning"/>
+                    </div>
+                </form>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

@@ -1,20 +1,11 @@
-﻿@model IEnumerable<DB1_Project_WEBPORTAL.Models.UserModel>
+﻿@model DB1_Project_WEBPORTAL.Models.UserPropertyModel
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
-
+    List<UserModel> users = ViewData["Users"] as List<UserModel>;
 }
 
-<h1> Usuarios </h1>
-
-<p>
-    
-    <a asp-action="Create">
-        <input type="submit" value="Insertar Usuario" class="btn btn-success"/>
-    </a>
-    
-</p>
-
+<h1> Seleccione un usuario </h1>
 
 <table class="table table-striped">
     <thead>
@@ -28,7 +19,7 @@
     </tr>
     </thead>
     <tbody>
-    @foreach(var user in Model)
+    @foreach(var user in users)
     {
         <tr>
             <td>
@@ -46,14 +37,13 @@
                 
             </td>
             <td>
-                <a asp-action="Delete" asp-route-pUsername="@user.Name">
-                    <input type="submit" value="Borrar" class="btn btn-danger"/>
-                </a>
-            </td>
-            <td>
-                <a asp-action="Details" asp-route-pUsername="@user.Name" asp-route-pRequestType="1">
-                    <input type="submit" value="Ver" class="btn btn-warning"/>
-                </a>
+                 <form asp-action="InsertUser">
+                     <input type="hidden" asp-for="Name" value="@user.Name">
+                     <input type="hidden" asp-for="PropertyNumber">
+                     <div class="form-group">
+                         <input type="submit" value="Seleccionar" class="btn btn-warning"/>
+                     </div>
+                 </form>           
             </td>
             
         </tr>

@@ -3,16 +3,17 @@
 @{
     List<PropertyModel> properties = ViewData["Properties"] as List<PropertyModel>;
     
-    int? userType = ViewData["UserType"] as int?;
+    int? RequestType = ViewData["RequestType"] as int?;
     
     ViewData["Title"] = "Delete";
-    if (userType == 1)
+    if (RequestType == 0)
     {
-        Layout = "~/Views/Shared/_Layout.cshtml";
+        Layout = "~/Views/Shared/_LayoutUserInterface.cshtml";
+       
     }
     else
     {
-        Layout = "~/Views/Shared/_LayoutUserInterface.cshtml";
+        Layout = "~/Views/Shared/_Layout.cshtml";
     }
     
 }
@@ -20,10 +21,15 @@
 <h1>Usuarios</h1>
 <h4>Información Usuario</h4>
 <div>
-    @if (userType == 1)
+    @if (RequestType == 3)
     {
-        <a href='javascript:history.go(-1)'>Volver</a> 
+        <a asp-action="Index">Volver</a>
+    }    
+    else if (RequestType == 1)
+    {
+        <a href='javascript:history.go(-1)'>Volver</a>
     }
+    
 </div>
 <div>
     <hr />
@@ -55,6 +61,14 @@
 </div> 
 
 <h3>Propiedades</h3>
+
+@if (RequestType != 0)
+{
+    <a asp-action="InsertProperty" asp-route-pUsername="@Model.Name" >
+        <input type="submit" value="Suscribir Propiedad" class="btn btn-success"/>
+    </a>
+}
+
 <table class="table table-striped">
     <thead>
     <tr>
@@ -84,12 +98,20 @@
             </td>
             <td>
                 @Html.ActionLink(
-               "Ver",
-               "Details", 
-               "Property", 
-               new {pPropertyNumber = property.PropertyNumber},
-               new {@class= "btn btn-warning"})
+                    "Ver",
+                    "Details", 
+                    "Property", 
+                    new {pPropertyNumber = property.PropertyNumber, pRequestType = RequestType},
+                    new {@class= "btn btn-warning"})
             </td>
+            @if (RequestType != 0)
+            {
+                <td>
+                    <a asp-action="DeleteProperty" asp-route-pUsername="@Model.Name" asp-route-pPropertyNumber="@property.PropertyNumber">
+                        <input type="submit" value="Desuscribir" class="btn btn-danger"/>
+                    </a>
+                </td>
+            }
         </tr>
     }
     </tbody>

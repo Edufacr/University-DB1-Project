@@ -9,11 +9,12 @@
 
 <p>
     <a asp-action="Create">
-         <input type="submit" value="Insertar Propietario" class="btn btn-success"/>
+        <input type="submit" value="Insertar Propietario" class="btn btn-success"/>
+    </a>
+    <a asp-action="CreateLegal">
+         <input type="submit" value="Insertar Propietario Jurídico" class="btn btn-success"/>
     </a>
 </p>
-
-
 <table class="table table-striped">
     <thead>
     <tr>
@@ -42,9 +43,20 @@
                 @Html.DisplayFor(modelItem => owner.DocType)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-pDocValue="@owner.DocValue" asp-route-pDocType="@owner.DocType">
-                    <input type="submit" value="Editar" class="btn btn-success"/>
-                </a>
+                @{
+                    if (owner.DocType == "Cedula Juridica")
+                    {
+                        <a asp-action="EditLegal" asp-route-pDocValue="@owner.DocValue">
+                            <input type="submit" value="Editar" class="btn btn-success"/>
+                        </a>
+                    }
+                    else
+                    {
+                        <a asp-action="Edit" asp-route-pDocValue="@owner.DocValue" asp-route-pDocType="@owner.DocType">
+                            <input type="submit" value="Editar" class="btn btn-success"/>
+                        </a>
+                    }
+                }
             </td>
             <td>
                 <a asp-action="Delete" asp-route-pDocValue="@owner.DocValue" asp-route-pDocType="@owner.DocType">
@@ -52,9 +64,13 @@
                 </a>
             </td>
             <td>
-                <a asp-action="Details" asp-route-pDocValue="@owner.DocValue" asp-route-pDocType="@owner.DocType" asp-route-pUserType="1">
-                    <input type="submit" value="Ver" class="btn btn-warning"/>
-                </a>
+                @{
+        
+                    <a asp-action="Details" asp-route-pDocValue="@owner.DocValue" asp-route-pDocType="@owner.DocType" asp-route-pRequestType="1">
+                        <input type="submit" value="Ver" class="btn btn-warning"/>
+                    </a>
+                    
+                }
             </td>
         </tr>
     }

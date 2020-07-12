@@ -1,4 +1,4 @@
-﻿@model DB1_Project_WEBPORTAL.Models.OwnerModel
+﻿@model DB1_Project_WEBPORTAL.Models.LegalOwnerModel;
 
 @{
 
@@ -8,7 +8,6 @@
     if (RequestType == 0)
     {
         Layout = "~/Views/Shared/_LayoutUserInterface.cshtml";
-       
     }
     else
     {
@@ -24,14 +23,14 @@
 <h1>Propietarios</h1>
 <h4>Información del Propietario</h4>
 <div>
-    @if (RequestType == 3)
-    {
-        <a asp-action="Index">Volver</a>
-    }    
-    else
-    {
-        <a href='javascript:history.go(-1)'>Volver</a>
-    }
+        @if (RequestType == 3)
+        {
+            <a asp-action="Index">Volver</a>
+        }    
+        else
+        {
+            <a href='javascript:history.go(-1)'>Volver</a>
+        }
 </div>
 <div>
     <hr />
@@ -51,22 +50,31 @@
         </p>
         <hr />
         <dt>
-            @Html.DisplayNameFor(model => model.DocType)
+            @Html.DisplayNameFor(model => model.ResponsibleName)
         </dt>
         <p>
-            @Html.DisplayFor(model => model.DocType)
+            @Html.DisplayFor(model => model.ResponsibleName)
         </p>
+        <hr />
+        <dt>
+            @Html.DisplayNameFor(model => model.RespDocValue)
+        </dt>
+        <p>
+            @Html.DisplayFor(model => model.RespDocValue)
+        </p>
+        <hr />
+        <dt>
+            @Html.DisplayNameFor(model => model.RespDocType)
+        </dt>
+        <p>
+            @Html.DisplayFor(model => model.RespDocType)
+        </p>        
         <hr />
     </dl>
 </div>
 
+ 
 <h3>Propiedades</h3>
-<p>
-    <a asp-action="InsertProperty" asp-route-pDocValue="@Model.DocValue"  asp-route-pDocType="@Model.DocType">
-        <input type="submit" value="Insertar Propiedad" class="btn btn-success"/>
-    </a>
-</p>
-
 <table class="table table-striped">
     <thead>
     <tr>
@@ -103,12 +111,12 @@
                     new {@class = "btn btn-warning"})
             </td>
             <td>
-                <a asp-action="DeleteProperty" asp-route-pDocValue="@Model.DocValue" asp-route-pDocType="@Model.DocType"
+                <a asp-action="DeleteProperty" asp-route-pDocValue="@Model.DocValue" asp-route-pDocType="Cedula Juridica"
                    asp-route-pPropertyNumber="@property.PropertyNumber">
-                    <input type="submit" value="Desapropiar" class="btn btn-danger"/>
+                    <input type="submit" value="Despropiar" class="btn btn-danger"/>
                 </a>
             </td>
-            </tr>
+        </tr>
     }
     </tbody>
 </table>
