@@ -87,6 +87,13 @@ AS
     WHERE Id_ChargeConcept = 1 AND [Status] = 0
 GO
 
+CREATE OR ALTER VIEW activeReconnectionReceipts
+AS
+    SELECT Id,Id_Property,Date,DueDate,Amount
+    FROM DB1P_Receipt
+    WHERE Id_ChargeConcept = 10 AND [Status] = 0
+GO
+
 CREATE OR ALTER VIEW activeReceipts
 AS
     SELECT Id_ChargeConcept,Id_Property,Date,DueDate,Amount

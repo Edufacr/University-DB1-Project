@@ -195,15 +195,17 @@ BEGIN TRY
 
 			--Cortas
 			BEGIN TRANSACTION Disconnection
-				--TODO 
-				--AGREGAR condicion que inserte si no existe un recibo activo de reconexión
 				INSERT INTO DB1P_Receipt (Id_ChargeConcept,Id_Property,Date,DueDate,Amount)
 					SELECT DISTINCT @ReconnectionIdCC,awr.Id_Property,@currentDate,NULL,@ReconnectionReceiptAmount
 					FROM activeWaterReceipts awr
 					WHERE 
 						(SELECT COUNT(Id) 
-						FROM activeWaterReceipts
-						WHERE Id_Property = awr.Id_Property) > 1
+							FROM activeWaterReceipts aw
+							WHERE aw.Id_Property = awr.Id_Property) > 1
+						AND 
+						(SELECT COUNT(Id) 
+							FROM activeReconnectionReceipts ar
+							WHERE ar.Id_Property = awr.Id_Property) = 0
 					ORDER BY Id_Property
 
 				SET @NumOfReconnectionReceipts = @@ROWCOUNT;
