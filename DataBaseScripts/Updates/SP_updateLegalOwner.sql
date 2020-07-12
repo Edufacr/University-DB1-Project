@@ -7,53 +7,49 @@ GO
 -- Create date: 2020/5/31
 -- Description:	Updates a [DB1P_LegalOwners] element.
 -- =============================================
-
--- TODO Input validations
--- TODO Transaction
-
-
 CREATE or ALTER PROCEDURE dbo.SP_updateLegalOwner
 	
-	@pNewResponsibleName varchar(50), 
-	@pNewResp_DocId_type varchar(50),
-	@pNewResp_DocValue VARCHAR(30), 
-	@pLegalOwner_DocValue VARCHAR(30),
-	@pNewLegalName varchar(50)
+	@inNewResponsibleName varchar(50), 
+	@inNewResp_DocId_type varchar(50),
+	@inNewResp_DocValue VARCHAR(30), 
+	@inLegalOwner_DocValue VARCHAR(30),
+	@inNewLegalName varchar(50)
 
 AS 
 BEGIN
-	
-	declare @Id int
-	declare @NewDocType_Id int
+	declare @IdNewDocType int
+	declare @IdOwner INT;
 
 	begin try
 
-		select @NewDocType_Id = t.Id
+		select @IdNewDocType = t.Id
 		from DB1P_Doc_Id_Types as t
-		where t.Name = @pNewResp_DocId_type
+		where t.Name = @inNewResp_DocId_type
 		
-		select @Id = o.Id
+		select @IdOwner = o.Id
 		from activeOwners as o
-		where o.DocValue = @pLegalOwner_DocValue and o.DocType_Id = 4
+		where o.DocValue = @inLegalOwner_DocValue and o.DocType_Id = 4
 
-		update dbo.DB1P_LegalOwners
-		set ResponsibleName = @pNewResponsibleName,
-			Resp_DocType_Id = @NewDocType_Id,
-			Resp_DocValue = @pNewResp_DocValue
-		where Id = @Id
+		IF(@IdOwner IS NOT NULL AND @IdNewDocType IS NOT NULL)
+		BEGIN 
+			BEGIN TRANSACTION
+				update dbo.DB1P_LegalOwners
+				set ResponsibleName = @inNewResponsibleName,
+					Resp_DocType_Id = @IdNewDocType,
+					Resp_DocValue = @inNewResp_DocValue
+				where Id = @IdOwner
 
-		update dbo.DB1P_Owners
-		set Name = @pNewLegalName
-		where Id = @Id
-	
-		return 1
-	
+				update dbo.DB1P_Owners
+				set Name = @inNewLegalName
+				where Id = @IdOwner
+			COMMIT TRANSACTION
+			return @IdOwner;
+		END
+		return -50002
 	end try
-	
 	begin catch
-	
+		ROLLBACK
 		return @@Error * -1
-	
 	end catch
 
 END

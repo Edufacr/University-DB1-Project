@@ -7,45 +7,42 @@ GO
 -- Create date: 2020/5/30
 -- Description:	Delete  an element from DB1P_Owners.
 -- =============================================
-
---TODO Inputs validations.
---TODO Transaction
-
-
 CREATE OR ALTER PROCEDURE dbo.SP_deleteOwner
-	@pDocValue varchar(30), 
-	@pDocType varchar(50)
+	@inDocValue varchar(30), 
+	@inDocType varchar(50)
 AS
 BEGIN
 
-	declare @Id int
-	declare @DocType_Id int
+	DECLARE @Id int;
+	DECLARE @IdDocType int;
 
-	begin try
+	BEGIN TRY
+		SELECT @IdDocType = t.Id
+			FROM DB1P_Doc_Id_Types AS t
+			WHERE t.Name = @inDocType
+		SELECT @Id = o.Id
+			FROM activeOwners AS o
+			WHERE DocValue = @inDocValue AND DocType_Id = @IdDocType
 
-		select @DocType_Id = t.Id
-		from DB1P_Doc_Id_Types as t
-		where t.Name = @pDocType
-
-		select @Id = o.Id
-		from activeOwners as o
-		where DocValue = @pDocValue and DocType_Id = @DocType_Id
-
-		if @DocType_Id = 4
-			begin
-				update dbo.DB1P_LegalOwners
-				set Active = 0
-				where Id = @Id
-			end
-		
-		update dbo.DB1P_Owners
-		set Active = 0
-		where Id = @Id
-		
-		return 1
-
-	end try
-	begin catch
-		return @@Error * -1
-	end catch
+		IF(@IdDocType IS NOT NULL AND @Id IS NOT NULL)
+		BEGIN 
+			BEGIN TRANSACTION
+				IF @IdDocType = 4
+					BEGIN
+						UPDATE dbo.DB1P_LegalOwners
+							SET Active = 0
+							WHERE Id = @Id
+					END
+				UPDATE dbo.DB1P_Owners
+					SET Active = 0
+					WHERE Id = @Id
+			COMMIT TRANSACTION
+			RETURN @Id;
+		END
+		RETURN -50002
+	END TRY
+	BEGIN CATCH
+		ROLLBACK
+		RETURN @@Error * -1
+	END CATCH
 END
