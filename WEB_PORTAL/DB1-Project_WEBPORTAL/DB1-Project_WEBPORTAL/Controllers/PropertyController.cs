@@ -116,13 +116,13 @@ namespace DB1_Project_WEBPORTAL.Controllers
             List<UserModel> users = userController.ExecuteGetUsersOfProperty(property);
             
             
-            List<CC_onPropertyModel> consumptionCcs =
+            List<CcModel> consumptionCcs =
                 ConsumptionCcController.ExecuteGetCCsOnProperty(property);
-            List<CC_onPropertyModel> percentageCcs = 
+            List<CcModel> percentageCcs = 
                 PercentageCcController.ExecuteGetCCsOnProperty(property);
-            List<CC_onPropertyModel>  moratoryCcs =  
+            List<CcModel>  moratoryCcs =  
                 MoratoryInterestsCcController.ExecuteGetCCsOnProperty(property);
-            List<CC_onPropertyModel> fixedCcs = 
+            List<CcModel> fixedCcs = 
                 FixedCcController.ExecuteGetCCsOnProperty(property);
             
             if (property == null)

@@ -38,44 +38,29 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
         }
         
 
-        public int ExecuteInsertCCProperty(CC_onPropertyModel chargeConcept, PropertyModel property)
+        public int ExecuteInsertCCProperty(string pCcName, int pPropertyNumber)
         {
 
-            InsertCCProperty.Parameters.Add("@pPropertyNumber", SqlDbType.Int).Value = property.PropertyNumber;
-            InsertCCProperty.Parameters.Add("@pChargeConceptName", SqlDbType.VarChar, 50).Value = chargeConcept.ChargeConceptName;
-            InsertCCProperty.Parameters.Add("@pBeginDate", SqlDbType.Date).Value = chargeConcept.BeginDate;
+            InsertCCProperty.Parameters.Add("@pPropertyNumber", SqlDbType.Int).Value = pPropertyNumber;
+            InsertCCProperty.Parameters.Add("@pChargeConceptName", SqlDbType.VarChar, 50).Value = pCcName;
             
             return ExecuteNonQueryCommand(InsertCCProperty);
             
         }
         
-        public int ExecuteDeleteCCProperty(CC_onPropertyModel chargeConcept, PropertyModel property)
+        public int ExecuteDeleteCCProperty(string pCcName, int pPropertyNumber)
         {
             
-            DeleteCCProperty.Parameters.Add("@pPropertyNumber", SqlDbType.Int).Value = property.PropertyNumber;
-            DeleteCCProperty.Parameters.Add("@pCCName", SqlDbType.VarChar, 50).Value = chargeConcept.ChargeConceptName;
+            DeleteCCProperty.Parameters.Add("@pPropertyNumber", SqlDbType.Int).Value = pPropertyNumber;
+            DeleteCCProperty.Parameters.Add("@pCCName", SqlDbType.VarChar, 50).Value = pCcName;
             
             return ExecuteNonQueryCommand(DeleteCCProperty);
             
         }
-        
-        public int ExecuteUpdateCCProperty(string ccName, int pPropertyNumber, CC_onPropertyModel changedChargeConcept)
-        
+
+        public virtual List<CcModel> ExecuteGetCCsOnProperty(PropertyModel property)
         {
-            
-            UpdateCCProperty.Parameters.Add("@pPropertyNumber", SqlDbType.Int).Value = pPropertyNumber;
-            UpdateCCProperty.Parameters.Add("@pCCName", SqlDbType.VarChar, 50).Value = ccName;
-            
-            UpdateCCProperty.Parameters.Add("@pNewBeginDate", SqlDbType.Date).Value = changedChargeConcept.BeginDate;
-            UpdateCCProperty.Parameters.Add("@pNewEndDate", SqlDbType.Date).Value = changedChargeConcept.EndDate;
-            
-            return ExecuteNonQueryCommand(UpdateCCProperty);
-            
-        }
-        
-        public virtual List<CC_onPropertyModel> ExecuteGetCCsOnProperty(PropertyModel property)
-        {
-            List<CC_onPropertyModel> result = new List<CC_onPropertyModel>();
+            List<CcModel> result = new List<CcModel>();
             GetCCsOnProperty.Parameters.Add("@pPropertyNumber", SqlDbType.Int).Value 
                 = property.PropertyNumber;
             try
@@ -85,21 +70,17 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
 
                 while (reader.Read())
                 {
-                    CC_onPropertyModel ccOnProperty = new CC_onPropertyModel();
+                    CcModel ChargeConcept = new CcModel();
                     
-                    ccOnProperty.ChargeConceptName = Convert.ToString(reader["CCName"]);
+                    ChargeConcept.ChargeConceptName = Convert.ToString(reader["CCName"]);
 
-                    ccOnProperty.ExpirationDays = Convert.ToInt32(reader["ExpirationDays"]);
+                    ChargeConcept.ExpirationDays = Convert.ToInt32(reader["ExpirationDays"]);
                     
-                    ccOnProperty.MoratoryInterestRate = Convert.ToSingle(reader["MoratoryInterestRate"]);
+                    ChargeConcept.MoratoryInterestRate = Convert.ToSingle(reader["MoratoryInterestRate"]);
 
-                    ccOnProperty.ReciptEmisionDay = Convert.ToInt32(reader["ReciptEmisionDay"]);
+                    ChargeConcept.ReciptEmisionDay = Convert.ToInt32(reader["ReciptEmisionDay"]);
                     
-                    ccOnProperty.BeginDate = Convert.ToString(reader["BeginDate"]);
-
-                    ccOnProperty.EndDate = Convert.ToString(reader["EndDate"]);
-                    
-                    result.Add(ccOnProperty);
+                    result.Add(ChargeConcept);
                     
                 }
                 GetCCsOnProperty.Parameters.Clear();

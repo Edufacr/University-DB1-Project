@@ -25,10 +25,28 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
             return Singleton ??= new FixedConceptChargeModelController();
 
         }
-
-        public override List<CC_onPropertyModel> ExecuteGetCCsOnProperty(PropertyModel property)
+        
+        /*
+        //TODO Check parameters data type
+        public int ExecuteUpdateChargeConcept(string ccName, CcModel changedChargeConcept)
         {
-            List<CC_onPropertyModel> result = new List<CC_onPropertyModel>();
+            UpdateCCProperty.Parameters.Add("@pName", SqlDbType.VarChar, 50).Value = ccName;
+            UpdateCCProperty.Parameters.Add("@pNewName", SqlDbType.VarChar, 50).Value 
+                = changedChargeConcept.ChargeConceptName;
+            UpdateCCProperty.Parameters.Add("@pNewExpirationDays", SqlDbType.VarChar, 50).Value 
+                = changedChargeConcept.ExpirationDays;
+            UpdateCCProperty.Parameters.Add("@pNewMoratoryInterestRate", SqlDbType.VarChar, 50).Value
+                = changedChargeConcept.MoratoryInterestRate;
+            UpdateCCProperty.Parameters.Add("@pNewReciptEmisionDay", SqlDbType.VarChar, 50).Value
+                = changedChargeConcept.ReciptEmisionDay;
+            
+            return ExecuteNonQueryCommand(UpdateCCProperty);
+        }
+        */
+
+        public override List<CcModel> ExecuteGetCCsOnProperty(PropertyModel property)
+        {
+            List<CcModel> result = new List<CcModel>();
             GetFixedCCsOnProperty.Parameters.Add("@inPropertyNum", SqlDbType.Int).Value 
                 = property.PropertyNumber;
             try

@@ -18,10 +18,10 @@
 
     List<OwnerModel> owners = ViewData["Owners"] as List<OwnerModel>;
     List<UserModel> users = ViewData["Users"] as List<UserModel>;
-    List<CC_onPropertyModel> consumptionCCs = ViewData["ConsumptionCCs"] as List<CC_onPropertyModel>;
-    List<CC_onPropertyModel> percentageCCs = ViewData["PercentageCCs"] as List<CC_onPropertyModel>;
-    List<CC_onPropertyModel> moratoryIntsCCs = ViewData["MoratoryIntsCCs"] as List<CC_onPropertyModel>;
-    List<CC_onPropertyModel> fixedCCs = ViewData["FixedCCs"] as List<CC_onPropertyModel>;
+    List<CcModel> consumptionCCs = ViewData["ConsumptionCCs"] as List<CcModel>;
+    List<CcModel> percentageCCs = ViewData["PercentageCCs"] as List<CcModel>;
+    List<CcModel> moratoryIntsCCs = ViewData["MoratoryIntsCCs"] as List<CcModel>;
+    List<CcModel> fixedCCs = ViewData["FixedCCs"] as List<CcModel>;
     
 }
 
@@ -129,8 +129,6 @@
                             "Owner",
                             new {pDocValue = owner.DocValue, pDocType = owner.DocType, pRequestType = RequestType},
                             new {@class = "btn btn-warning"})
-                    </td>
-                    <td>
                         <a asp-action="DeleteOwner" asp-route-pDocValue="@owner.DocValue" asp-route-pDocType="@owner.DocType"
                            asp-route-pPropertyNumber="@Model.PropertyNumber">
                             <input type="submit" value="Desapropiar" class="btn btn-danger"/>
@@ -184,8 +182,6 @@ else
                             "User",
                             new {pUsername = user.Name, pRequestType = RequestType},
                             new {@class = "btn btn-warning"})
-                    </td>
-                    <td>
                         <a asp-action="DeleteUser" asp-route-pUsername="@user.Name"
                            asp-route-pPropertyNumber="@Model.PropertyNumber">
                             <input type="submit" value="Desuscribir" class="btn btn-danger"/>
@@ -218,20 +214,22 @@ else
                 @Html.DisplayNameFor(model => fixedCCs[0].ChargeConceptName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => fixedCCs[0].BeginDate)
+                @Html.DisplayNameFor(model => ((FixedCC_onPropertyModel)fixedCCs[0]).BeginDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => fixedCCs[0].EndDate)
+                @Html.DisplayNameFor(model => ((FixedCC_onPropertyModel)fixedCCs[0]).EndDate)
             </th>
             <th>
                 @Html.DisplayNameFor(model => fixedCCs[0].ExpirationDays)
             </th>
-        
+            <th>
+                @Html.DisplayNameFor(model => fixedCCs[0].ReciptEmisionDay)
+            </th>  
             <th>
                 @Html.DisplayNameFor(model => fixedCCs[0].MoratoryInterestRate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => ((FixedCC_onPropertyModel)fixedCCs[0]).Amount)
+                @Html.DisplayNameFor(model => ((FixedCcModel)fixedCCs[0]).Amount)
             </th>
         
         </tr>
@@ -244,19 +242,29 @@ else
                     @Html.DisplayFor(modelItem => fixedCC.ChargeConceptName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => fixedCC.BeginDate)
+                    @Html.DisplayFor(modelItem => ((FixedCC_onPropertyModel)fixedCC).BeginDate)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => fixedCC.EndDate)
+                    @if (((FixedCC_onPropertyModel)fixedCC).EndDate == "")
+                    {
+                        <p>No tiene</p>
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(model => ((FixedCC_onPropertyModel)fixedCC).EndDate) 
+                    }
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => fixedCC.ExpirationDays)
                 </td>
+                <th>
+                    @Html.DisplayFor(model => fixedCC.ReciptEmisionDay)
+                </th>                  
                 <td>
                     @Html.DisplayFor(modelItem => fixedCC.MoratoryInterestRate)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => ((FixedCC_onPropertyModel)fixedCC).Amount)
+                    @Html.DisplayFor(modelItem => ((FixedCcModel)fixedCC).Amount)
                 </td>
             </tr>
         }
@@ -275,20 +283,22 @@ else
                 @Html.DisplayNameFor(model => percentageCCs[0].ChargeConceptName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => percentageCCs[0].BeginDate)
+                @Html.DisplayNameFor(model => ((PercentageCC_onPropertyModel)percentageCCs[0]).BeginDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => percentageCCs[0].EndDate)
+                @Html.DisplayNameFor(model => ((PercentageCC_onPropertyModel)percentageCCs[0]).EndDate)
             </th>
             <th>
                 @Html.DisplayNameFor(model => percentageCCs[0].ExpirationDays)
             </th>
-        
+            <th>
+                @Html.DisplayNameFor(model => percentageCCs[0].ReciptEmisionDay)
+            </th>            
             <th>
                 @Html.DisplayNameFor(model => percentageCCs[0].MoratoryInterestRate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => ((PercentageCC_onPropertyModel)percentageCCs[0]).PercentageValue)
+                @Html.DisplayNameFor(model => ((PercentageCcModel)percentageCCs[0]).PercentageValue)
             </th>
         </tr>
         </thead>
@@ -300,19 +310,29 @@ else
                     @Html.DisplayFor(modelItem => percentageCC.ChargeConceptName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => percentageCC.BeginDate)
+                    @Html.DisplayFor(modelItem => ((PercentageCC_onPropertyModel)percentageCC).BeginDate)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => percentageCC.EndDate)
+                    @if (((PercentageCC_onPropertyModel)percentageCC).EndDate == "")
+                    {
+                        <p>No tiene</p>
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(model => ((PercentageCC_onPropertyModel)percentageCC).EndDate) 
+                    }
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => percentageCC.ExpirationDays)
                 </td>
+                <th>
+                    @Html.DisplayFor(model => percentageCC.ReciptEmisionDay)
+                </th>                     
                 <td>
                     @Html.DisplayFor(modelItem => percentageCC.MoratoryInterestRate)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => ((PercentageCC_onPropertyModel)percentageCC).PercentageValue)
+                    @Html.DisplayFor(modelItem => ((PercentageCcModel)percentageCC).PercentageValue)
                 </td>
             </tr>
         }
@@ -333,20 +353,22 @@ else
                 @Html.DisplayNameFor(model => moratoryIntsCCs[0].ChargeConceptName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => moratoryIntsCCs[0].BeginDate)
+                @Html.DisplayNameFor(model => ((MoratoryInterestCC_onProperty)moratoryIntsCCs[0]).BeginDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => moratoryIntsCCs[0].EndDate)
+                @Html.DisplayNameFor(model => ((MoratoryInterestCC_onProperty)moratoryIntsCCs[0]).EndDate)
             </th>
             <th>
                 @Html.DisplayNameFor(model => moratoryIntsCCs[0].ExpirationDays)
             </th>
-        
+            <th>
+                @Html.DisplayNameFor(model => moratoryIntsCCs[0].ReciptEmisionDay)
+            </th>            
             <th>
                 @Html.DisplayNameFor(model => moratoryIntsCCs[0].MoratoryInterestRate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => ((MoratoryInterestCC_onProperty)moratoryIntsCCs[0]).InterestValue)
+                @Html.DisplayNameFor(model => ((MoratoryInterestCcModel)moratoryIntsCCs[0]).InterestValue)
             </th>
         </tr>
         </thead>
@@ -358,19 +380,29 @@ else
                     @Html.DisplayFor(modelItem => moratoryIntstCC.ChargeConceptName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => moratoryIntstCC.BeginDate)
+                    @Html.DisplayFor(modelItem => ((MoratoryInterestCC_onProperty)moratoryIntstCC).BeginDate)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => moratoryIntstCC.EndDate)
+                    @if (((MoratoryInterestCC_onProperty)moratoryIntstCC).EndDate == "")
+                    {
+                        <p>No tiene</p>
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(model => ((MoratoryInterestCC_onProperty)moratoryIntstCC).EndDate) 
+                    }
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => moratoryIntstCC.ExpirationDays)
                 </td>
+                <th>
+                    @Html.DisplayFor(model => moratoryIntstCC.ReciptEmisionDay)
+                </th>                  
                 <td>
                     @Html.DisplayFor(modelItem => moratoryIntstCC.MoratoryInterestRate)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => ((MoratoryInterestCC_onProperty)moratoryIntstCC).InterestValue)
+                    @Html.DisplayFor(modelItem => ((MoratoryInterestCcModel)moratoryIntstCC).InterestValue)
                 </td>
             </tr>
         }
@@ -390,23 +422,25 @@ else
                 @Html.DisplayNameFor(model => consumptionCCs[0].ChargeConceptName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => consumptionCCs[0].BeginDate)
+                @Html.DisplayNameFor(model => ((ConsumptionCC_onPropertyModel)consumptionCCs[0]).BeginDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => consumptionCCs[0].EndDate)
+                @Html.DisplayNameFor(model => ((ConsumptionCC_onPropertyModel)consumptionCCs[0]).EndDate)
             </th>
             <th>
                 @Html.DisplayNameFor(model => consumptionCCs[0].ExpirationDays)
             </th>
-        
+            <th>
+                @Html.DisplayNameFor(model => consumptionCCs[0].ReciptEmisionDay)
+            </th>            
             <th>
                 @Html.DisplayNameFor(model => consumptionCCs[0].MoratoryInterestRate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => ((ConsumptionCC_onPropertyModel)consumptionCCs[0]).ValueM3)
+                @Html.DisplayNameFor(model => ((ConsumptionCcModel)consumptionCCs[0]).ValueM3)
             </th>
             <th>
-                @Html.DisplayNameFor(model => ((ConsumptionCC_onPropertyModel)consumptionCCs[0]).MinValue)
+                @Html.DisplayNameFor(model => ((ConsumptionCcModel)consumptionCCs[0]).MinValue)
             </th>
         
         </tr>
@@ -419,23 +453,32 @@ else
                     @Html.DisplayFor(model => consumptionCC.ChargeConceptName)
                 </th>
                 <th>
-                    @Html.DisplayFor(model => consumptionCC.BeginDate)
+                    @Html.DisplayFor(model => ((ConsumptionCC_onPropertyModel)consumptionCC).BeginDate)
                 </th>
                 <th>
-                    @Html.DisplayFor(model => consumptionCC.EndDate)
+                    @if (((ConsumptionCC_onPropertyModel)consumptionCC).EndDate == "")
+                    {
+                        <p>No tiene</p>
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(model => ((ConsumptionCC_onPropertyModel)consumptionCC).EndDate) 
+                    }
                 </th>
                 <th>
                     @Html.DisplayFor(model => consumptionCC.ExpirationDays)
                 </th>
-            
+                <th>
+                    @Html.DisplayFor(model => consumptionCC.ReciptEmisionDay)
+                </th>                
                 <th>
                     @Html.DisplayFor(model => consumptionCC.MoratoryInterestRate)
                 </th>
                 <th>
-                    @Html.DisplayFor(model => ((ConsumptionCC_onPropertyModel)consumptionCCs[0]).ValueM3)
+                    @Html.DisplayFor(model => ((ConsumptionCcModel)consumptionCC).ValueM3)
                 </th>
                 <th>
-                    @Html.DisplayFor(model => ((ConsumptionCC_onPropertyModel)consumptionCCs[0]).MinValue)
+                    @Html.DisplayFor(model => ((ConsumptionCcModel)consumptionCC).MinValue)
                 </th>
             </tr>
         }

@@ -11,6 +11,7 @@
         <e p="appsettings.json" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
         <e p="Controllers" t="Include">
+          <e p="ChargeConceptController.cs" t="Include" />
           <e p="HomeController.cs" t="Include" />
           <e p="LoginController.cs" t="Include" />
           <e p="OwnerController.cs" t="Include" />
@@ -21,10 +22,12 @@
         <e p="DBConnection.cs" t="Include" />
         <e p="IConnectionStrings.cs" t="Include" />
         <e p="Models" t="Include">
-          <e p="CC_onPropertyModel.cs" t="Include" />
+          <e p="CcModel.cs" t="Include" />
           <e p="ConsumptionCC_onPropertyModel.cs" t="Include" />
+          <e p="ConsumptionCcModel.cs" t="Include" />
           <e p="ErrorViewModel.cs" t="Include" />
           <e p="FixedCC_OnPropertyModel.cs" t="Include" />
+          <e p="FixedCcModel.cs" t="Include" />
           <e p="LegalOwnerModel.cs" t="Include" />
           <e p="ModelControllers" t="Include">
             <e p="ChargeConceptModelController.cs" t="Include" />
@@ -38,10 +41,12 @@
             <e p="UserModelController.cs" t="Include" />
           </e>
           <e p="MoratoryInterestCC_onProperty.cs" t="Include" />
+          <e p="MoratoryInterestCcModel.cs" t="Include" />
           <e p="OwnerModel.cs" t="Include" />
           <e p="OwnerPropertyModel.cs" t="Include" />
           <e p="OwnerUpdateModel.cs" t="Include" />
           <e p="PercentageCC_onPropertyModel.cs" t="Include" />
+          <e p="PercentageCcModel.cs" t="Include" />
           <e p="PropertyModel.cs" t="Include" />
           <e p="UserModel.cs" t="Include" />
           <e p="UserPropertyModel.cs" t="Include" />
@@ -63,7 +68,9 @@
           <e p="_ViewImports.cshtml" t="Include" />
           <e p="_ViewStart.cshtml" t="Include" />
           <e p="ChangesHistory" t="Include" />
-          <e p="ChargeConcepts" t="Include" />
+          <e p="ChargeConcept" t="Include">
+            <e p="Index.cshtml" t="Include" />
+          </e>
           <e p="Home" t="Include">
             <e p="Index.cshtml" t="Include" />
             <e p="Privacy.cshtml" t="Include" />
