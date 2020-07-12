@@ -43,14 +43,19 @@ BEGIN TRY
 
 		INSERT INTO DB1P_Percentage_CC (Id,PercentageValue)
 		SELECT Id,PercentageValue
-		FROM @xmlTable where CCType = 'CC Porcentual';
+		FROM @xmlTable where CCType = 'CC Porcentaje';
 
 		INSERT INTO DB1P_Fixed_CC (Id,Amount)
 		SELECT Id,Amount
 		FROM @xmlTable where CCType = 'CC Fijo';
+
+		INSERT INTO DB1P_MoratoryInterest_CC (Id,Amount)
+		SELECT Id,Amount
+		FROM @xmlTable where CCType = 'CC Interes Moratorio';
+
 		EXEC sp_xml_removedocument @docHandle; -- Remove the internal representation of the XML document.
 	COMMIT
-	RETURN SCOPE_IDENTITY();
+	RETURN 1;
 END TRY
 BEGIN CATCH
 	ROLLBACK

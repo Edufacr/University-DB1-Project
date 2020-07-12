@@ -17,7 +17,7 @@ DROP TABLE IF EXISTS dbo.DB1P_PaidReceipts;
 CREATE TABLE dbo.DB1P_PaidReceipts
 	(
 	Id int NOT NULL,
-	Id_ProofOfPayment int NOT NULL
+	Id_ProofOfPayment int
 	)  ON [PRIMARY]
 
 DROP TABLE IF EXISTS dbo.DB1P_Disconnection;
@@ -45,6 +45,7 @@ CREATE TABLE dbo.DB1P_ConsumptionMov
 	Id_MovType int NOT NULL,
 	Id_Property int NOT NULL,
 	Date Date NOT NULL,
+	Description VARCHAR(100),
 	AmountM3 int NOT NULL,
 	ConsumptionReading int NOT NULL,
 	NewAccumulatedM3 int NOT NULL,
@@ -154,7 +155,7 @@ CREATE TABLE dbo.DB1P_Doc_Id_Types
 DROP TABLE IF EXISTS dbo.DB1P_MovType;
 CREATE TABLE dbo.DB1P_MovType
 	(
-	Id int NOT NULL IDENTITY (1, 1),
+	Id int NOT NULL,
 	Name VARCHAR(50) NOT NULL
 	)  ON [PRIMARY]
 
@@ -171,7 +172,7 @@ CREATE TABLE dbo.DB1P_Receipt
 	Id_ChargeConcept int NOT NULL,
 	Id_Property int NOT NULL,
 	Date DATE NOT NULL,
-	DueDate DATE NOT NULL,	
+	DueDate DATE,	
 	Amount MONEY NOT NULL,
 	Status TINYINT NOT NULL DEFAULT 0
 	)  ON [PRIMARY]
