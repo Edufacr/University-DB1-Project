@@ -86,4 +86,31 @@ create or alter view completePercentageCC_onProperties as
 			on cc_p.PropertyId = p.Id
 				inner join dbo.completePercentaje_CCs as pcc
 					on pcc.Id = cc_p.CC_Id
-go
+GO
+
+CREATE or ALTER view completeCCs_onProperties AS
+	SELECT ccp.RelationId, 
+		   ccp.BeginDate, 
+		   ccp.EndDate, 
+		   cc.Id AS CC_Id, 
+		   cc.Name AS CCName, 
+		   cc.ExpirationDays, 
+		   cc.MoratoryInterestRate, 
+		   cc.ReciptEmisionDay,
+		   cc.Amount,
+		   cc.ValueM3,
+		   cc.MinValue,
+		   cc.PercentageValue,
+		   cc.MoratoryAmount,
+		   p.Id AS Property_Id,
+		   p.PropertyNumber,
+		   p.Value AS PropertyValue,
+		   p.AccumulatedM3,
+		   p.AccumulatedLRM3
+	FROM dbo.activeCC_onProperties AS ccp
+		INNER JOIN dbo.activeProperties AS p
+			ON ccp.PropertyId = p.Id
+				INNER JOIN dbo.completeCCs AS cc
+					ON cc.Id = ccp.CC_Id
+	
+GO

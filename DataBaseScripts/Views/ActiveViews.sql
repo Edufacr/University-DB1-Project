@@ -76,3 +76,36 @@ create or alter view activePropertiesUsers as
 	from dbo.DB1P_PropertiesUsers pu
 	where Active = 1
 go
+
+--TODO
+--Para no dejar el 1 alambrado se tiene que hacer un SP que devuelva el Id del CC del agua
+--Si se hace este sp hay que ponerlo en el operationsFill
+CREATE OR ALTER VIEW activeWaterReceipts
+AS
+    SELECT Id,Id_Property,Date,DueDate,Amount
+    FROM DB1P_Receipt
+    WHERE Id_ChargeConcept = 1 AND [Status] = 0
+GO
+
+CREATE OR ALTER VIEW activeReconnectionReceipts
+AS
+    SELECT Id,Id_Property,Date,DueDate,Amount
+    FROM DB1P_Receipt
+    WHERE Id_ChargeConcept = 10 AND [Status] = 0
+GO
+
+CREATE OR ALTER VIEW activeReceipts
+AS
+    SELECT Id_ChargeConcept,Id_Property,Date,DueDate,Amount
+    FROM DB1P_Receipt
+    WHERE [Status] = 0
+GO
+
+CREATE OR ALTER VIEW activeReceiptsWithMoratoryRate
+AS
+    SELECT r.Id_ChargeConcept,r.Id_Property,r.Date,r.DueDate,r.Amount,cc.MoratoryInterestRate
+    FROM activeReceipts r
+		INNER JOIN DB1P_ChargeConcepts cc
+			ON cc.Id = r.Id_ChargeConcept
+GO
+

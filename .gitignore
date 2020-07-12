@@ -353,3 +353,7 @@ MigrationBackup/
 .vscode/*
 
 *.bat
+WEB_PORTAL/DB1-Project_WEBPORTAL/.idea/.idea.DB1-Project_WEBPORTAL/.idea/contentModel.xml
+WEB_PORTAL/DB1-Project_WEBPORTAL/.idea/.idea.DB1-Project_WEBPORTAL/.idea/projectSettingsUpdater.xml
+WEB_PORTAL/DB1-Project_WEBPORTAL/.idea/.idea.DB1-Project_WEBPORTAL/.idea/workspace.xml
+WEB_PORTAL/DB1-Project_WEBPORTAL/DB1-Project_WEBPORTAL/IConnectionStrings.cs

@@ -58,3 +58,46 @@ create or alter view completePercentaje_CCs as
 			on pcc.Id = cc.Id
 go
 
+CREATE OR ALTER view completeCCs AS
+	SELECT cc.Id AS Id, 
+		   cc.Name AS Name, 
+	       cc.MoratoryInterestRate, 
+		   cc.ReciptEmisionDay, 
+		   cc.ExpirationDays, 
+		   
+		   fcc.Amount,
+		   ccc.ValueM3,
+		   ccc.MinValue,
+		   pcc.PercentageValue,
+		   mcc.Amount AS MoratoryAmount
+
+	FROM dbo.DB1P_ChargeConcepts AS cc
+		LEFT JOIN dbo.DB1P_Fixed_CC AS fcc
+		ON fcc.Id = cc.Id
+			LEFT JOIN dbo.DB1P_Consumption_CC AS ccc
+			ON ccc.Id = cc.Id
+				LEFT JOIN dbo.DB1P_Percentage_CC AS pcc
+				ON pcc.Id = cc.Id
+					LEFT JOIN dbo.DB1P_MoratoryInterest_CC AS mcc
+					ON mcc.Id = cc.Id
+GO
+
+CREATE OR ALTER view completeCCsReceipts AS
+	SELECT cc.Id AS Id, 
+		   cc.Name AS Name, 
+	       cc.MoratoryInterestRate, 
+		   cc.ReciptEmisionDay, 
+		   cc.ExpirationDays, 
+		   
+		   fcc.Amount,
+		   pcc.PercentageValue,
+		   mcc.Amount AS MoratoryAmount
+
+	FROM dbo.DB1P_ChargeConcepts AS cc
+		LEFT JOIN dbo.DB1P_Fixed_CC AS fcc
+		ON fcc.Id = cc.Id
+			LEFT JOIN dbo.DB1P_Percentage_CC AS pcc
+			ON pcc.Id = cc.Id
+				LEFT JOIN dbo.DB1P_MoratoryInterest_CC AS mcc
+				ON mcc.Id = cc.Id
+GO

@@ -5,18 +5,12 @@ AS
 BEGIN
     -- Insert statements for procedure here
 BEGIN TRY
-	BEGIN TRANSACTION
-        SELECT @xmlDocument = 
-            '<TipoEntidades>
-                <Entidad id="1" Nombre="Propiedad"/>
-                <Entidad id="2" Nombre="Propietario"/>
-                <Entidad id="3" Nombre="Usuario"/>
-                <Entidad id="4" Nombre="PropiedadVsPropietario"/>
-                <Entidad id="5" Nombre="PropiedadVsUsuario"/>
-                <Entidad id="6" Nombre="PropiedadJuridico"/>
-                <Entidad id="7" Nombre="ConceptoCobro"/>
-            </TipoEntidades>'
-	COMMIT
+        SELECT @xmlDocument =             
+            '<TipoTransConsumo>
+                <TransConsumo id="1" Nombre="Consumo Regular"/>
+                <TransConsumo id="2" Nombre="Ajuste Debito"/>
+                <TransConsumo id="3" Nombre="Ajuste Credito"/>
+            </TipoTransConsumo>'
 END TRY
 BEGIN CATCH
 	ROLLBACK
