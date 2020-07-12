@@ -109,3 +109,14 @@ AS
 			ON cc.Id = r.Id_ChargeConcept
 GO
 
+
+CREATE OR ALTER VIEW ConnDiscReceipt
+AS
+    SELECT re.Id,re.Id_ChargeConcept,re.Id_Property,re.Date,re.DueDate,re.Amount,re.[Status],
+	d.Id AS Id_Disconnection, d.Date AS DisconnectionDate, r.Id AS Id_Reconnection, r.Date AS ReconnectionDate
+    	FROM DB1P_Receipt re
+			INNER JOIN DB1P_Disconnection d
+				ON re.Id = d.Id_ReconnectionReceipt
+					LEFT JOIN DB1P_Reconnection r 
+						ON re.Id = r.Id_ReconnectionReceipt
+GO

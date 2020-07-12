@@ -237,6 +237,11 @@ BEGIN TRY
 			COMMIT TRANSACTION ReceiptPayment
 
 			BEGIN TRANSACTION Reconnection
+				INSERT INTO DB1P_Reconnection (Id_ReconnectionReceipt,Id_Property,[Date])
+					SELECT cdr.Id,cdr.Id_Property,@currentDate
+						FROM ConnDiscReceipt cdr
+						WHERE cdr.[Status] = 1 AND cdr.Id_Reconnection IS NULL;
+
 			COMMIT TRANSACTION Reconnection
 
 
