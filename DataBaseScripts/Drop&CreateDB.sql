@@ -17,7 +17,7 @@ DROP TABLE IF EXISTS dbo.DB1P_PaidReceipts;
 CREATE TABLE dbo.DB1P_PaidReceipts
 	(
 	Id int NOT NULL,
-	Id_ProofOfPayment int NOT NULL
+	Id_ProofOfPayment int
 	)  ON [PRIMARY]
 
 DROP TABLE IF EXISTS dbo.DB1P_Disconnection;
@@ -172,7 +172,7 @@ CREATE TABLE dbo.DB1P_Receipt
 	Id_ChargeConcept int NOT NULL,
 	Id_Property int NOT NULL,
 	Date DATE NOT NULL,
-	DueDate DATE NOT NULL,	
+	DueDate DATE,	
 	Amount MONEY NOT NULL,
 	Status TINYINT NOT NULL DEFAULT 0
 	)  ON [PRIMARY]

@@ -24,9 +24,17 @@ BEGIN TRY
 	DECLARE @PropertiesUsers TABLE (Username VARCHAR(50),PropertyNum int,Active bit)
 	DECLARE @PropertiesValueChange TABLE (PropertyNum int,Value MONEY, [Date] DATE);
 	DECLARE @TransConsumo TABLE (Id int PRIMARY KEY IDENTITY(1,1),IdMovType int, PropertyNum int,ConsumptionReading int,Description VARCHAR(50) ,Date Date);
-	DECLARE @TodayTransConsumo as TodayConsumptionMovsTable ;
-	DECLARE @Dates TABLE (Id int PRIMARY KEY IDENTITY(1,1), Date Date)
+	DECLARE @Payments TABLE(Id int PRIMARY KEY IDENTITY(1,1),ReceiptType INT, PropertyNum INT,Date DATE);
+	DECLARE @TodayPayments AS TodayPaymentsTable;
+	DECLARE @TodayTransConsumo AS TodayConsumptionMovsTable ;
+	DECLARE @Dates TABLE (Id INT PRIMARY KEY IDENTITY(1,1), Date DATE)
 	DECLARE @currentDate DATE
+	DECLARE @Day INT;
+	DECLARE @WaterReceiptDay INT;
+	DECLARE @WaterIdCC INT;
+	DECLARE @ReconnectionIdCC INT;
+	DECLARE @ReconnectionReceiptAmount INT;
+	DECLARE @NumOfReconnectionReceipts INT;
 	DECLARE @dayCounter int
 	DECLARE @lastDay int
 	BEGIN TRANSACTION Main
@@ -41,16 +49,29 @@ BEGIN TRY
 
 		SELECT @lastDay = @@ROWCOUNT
 		SET @dayCounter = 1
+		
+		SELECT @WaterReceiptDay = ReciptEmisionDay, @WaterIdCC = Id
+		FROM completeConsumption_CCs
+		WHERE Name = 'Agua'
+
+		SELECT @ReconnectionReceiptAmount = Amount, @ReconnectionIdCC = Id
+		FROM completeFixed_CCs
+		WHERE Name = 'Reconexion de agua'
 
 		INSERT INTO @TransConsumo
 			SELECT IdMovType,PropertyNum,ConsumptionReading,Description,Date
-			from OPENXML(@docHandle,'/Operaciones_por_Dia/OperacionDia/TransConsumo') 
-			with (IdMovType int '@id', PropertyNum int '@NumFinca',ConsumptionReading int '@LecturaM3',Description VARCHAR(50) '@descripcion',Date Date '../@fecha')
+			FROM OPENXML(@docHandle,'/Operaciones_por_Dia/OperacionDia/TransConsumo') 
+			WITH (IdMovType int '@id', PropertyNum int '@NumFinca',ConsumptionReading int '@LecturaM3',Description VARCHAR(50) '@descripcion',Date Date '../@fecha')
 
 		INSERT INTO @PropertiesValueChange
 			SELECT PropertyNum,Value,Date
-			from OPENXML(@docHandle,'/Operaciones_por_Dia/OperacionDia/CambioPropiedad') 
-			with (PropertyNum int '@NumFinca',Value MONEY '@NuevoValor',Date Date '../@fecha')
+			FROM OPENXML(@docHandle,'/Operaciones_por_Dia/OperacionDia/CambioPropiedad') 
+			WITH (PropertyNum int '@NumFinca',Value MONEY '@NuevoValor',Date Date '../@fecha')
+
+		INSERT INTO @Payments(ReceiptType,PropertyNum,Date)
+			SELECT ReceiptType,PropertyNum,Date
+			FROM OPENXML(@docHandle,'/Operaciones_por_Dia/OperacionDia/Pago') 
+			WITH (ReceiptType INT '@TipoRecibo',PropertyNum INT '@NumFinca',Date DATE '../@fecha')
 
 		WHILE(@dayCounter <= @lastDay)
 		BEGIN
@@ -145,7 +166,78 @@ BEGIN TRY
 			WHERE PropertyNumber = v.PropertyNum AND v.Date = @currentDate;
 
 
-			
+			BEGIN TRANSACTION Receipts
+				SET @Day = DAY(@currentDate);
+				INSERT INTO DB1P_Receipt (Id_ChargeConcept,Id_Property,Date,DueDate,Amount)
+				SELECT CC_Id,Property_Id,@currentDate,DueDate = DATEADD(day,ExpirationDays,@currentDate),Amount = 
+					CASE 
+						WHEN Amount IS NOT NULL THEN Amount
+						WHEN PercentageValue IS NOT NULL THEN PropertyValue * (PercentageValue/100)
+						WHEN MoratoryAmount IS NOT NULL THEN MoratoryAmount
+						WHEN ValueM3 IS NOT NULL THEN 
+							CASE 
+								WHEN (AccumulatedM3 - AccumulatedLRM3)*ValueM3 > MinValue THEN (AccumulatedM3 - AccumulatedLRM3)*ValueM3
+								ELSE MinValue
+							END
+						ELSE -1
+					END
+				FROM completeCCs_onProperties
+				WHERE @Day = ReciptEmisionDay;
+
+				IF(@Day = @WaterReceiptDay)
+					BEGIN
+						UPDATE DB1P_Properties
+						SET AccumulatedLRM3 = AccumulatedM3
+						FROM activeCC_onProperties acc
+						WHERE @WaterIdCC = acc.CC_Id AND acc.PropertyId = Id
+					END
+			COMMIT TRANSACTION Receipts
+
+			--Cortas
+			BEGIN TRANSACTION Disconnection
+				--TODO 
+				--AGREGAR condicion que inserte si no existe un recibo activo de reconexión
+				INSERT INTO DB1P_Receipt (Id_ChargeConcept,Id_Property,Date,DueDate,Amount)
+					SELECT DISTINCT @ReconnectionIdCC,awr.Id_Property,@currentDate,NULL,@ReconnectionReceiptAmount
+					FROM activeWaterReceipts awr
+					WHERE 
+						(SELECT COUNT(Id) 
+						FROM activeWaterReceipts
+						WHERE Id_Property = awr.Id_Property) > 1
+					ORDER BY Id_Property
+
+				SET @NumOfReconnectionReceipts = @@ROWCOUNT;
+
+				--Add to ReconnectionReceipt Table
+				INSERT INTO DB1P_ReconnectionReceipt(Id)
+					SELECT TOP (@NumOfReconnectionReceipts) Id
+					FROM DB1P_Receipt 
+					ORDER BY Id DESC;
+
+				--Insert Disconnection
+				INSERT INTO DB1P_Disconnection(Id_ReconnectionReceipt,Id_Property,[Date])
+					SELECT s.Id,s.Id_Property,@currentDate
+					FROM 
+						(SELECT TOP (@NumOfReconnectionReceipts) Id, Id_Property
+						FROM DB1P_Receipt 
+						ORDER BY Id DESC)
+						AS s;
+						
+			COMMIT TRANSACTION Disconnection
+
+			BEGIN TRANSACTION ReceiptPayment
+				DELETE @TodayPayments
+			    INSERT INTO @TodayPayments
+					SELECT ReceiptType, PropertyNum
+					FROM @Payments
+					WHERE Date = @currentDate;
+				EXEC SP_insertTodayPayments @TodayPayments,@currentDate,@ReconnectionIdCC,@WaterIdCC;
+			COMMIT TRANSACTION ReceiptPayment
+
+			BEGIN TRANSACTION Reconnection
+			COMMIT TRANSACTION Reconnection
+
+
 		SET @dayCounter  = @dayCounter + 1
 		END		
 
