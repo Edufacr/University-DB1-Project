@@ -101,6 +101,16 @@ AS
     WHERE [Status] = 0
 GO
 
+CREATE OR ALTER VIEW paidReceipts
+AS
+    SELECT Id_ChargeConcept,Id_Property,Date,DueDate,Amount,pr.Id_ProofOfPayment
+		FROM DB1P_Receipt r
+			INNER JOIN DB1P_PaidReceipts pr
+				ON r.Id = pr.Id
+		WHERE [Status] = 1
+GO
+
+
 CREATE OR ALTER VIEW activeReceiptsWithMoratoryRate
 AS
     SELECT r.Id_ChargeConcept,r.Id_Property,r.Date,r.DueDate,r.Amount,cc.MoratoryInterestRate
