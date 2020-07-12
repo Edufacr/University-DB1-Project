@@ -42,6 +42,16 @@ namespace DB1_Project_WEBPORTAL.Controllers
         {
             return Redirect("/User/Index");
         }
+        
+        public IActionResult ChargeConcepts()
+        {
+            return Redirect("/ChargeConcept/Index");
+        }
+        
+        public IActionResult ChangesHistory()
+        {
+            return Redirect("/ChangesHistory/Index");
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

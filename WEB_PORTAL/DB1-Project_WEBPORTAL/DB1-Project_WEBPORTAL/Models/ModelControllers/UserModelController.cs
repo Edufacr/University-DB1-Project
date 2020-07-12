@@ -205,7 +205,6 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
                 throw (e);
             }
             
-
         }
         
         public List<UserModel> ExecuteQueryCommand(SqlCommand command)

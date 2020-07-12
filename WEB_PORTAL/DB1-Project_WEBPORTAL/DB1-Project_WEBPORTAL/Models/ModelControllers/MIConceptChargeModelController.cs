@@ -8,13 +8,30 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
     public class MIConceptChargeModelController : ChargeConceptModelController
     {
         private SqlCommand GetMoratoryInterestCCsOnProperty;
+        private SqlCommand GetMoratoryInterestCCs;
+        private SqlCommand UpdateMoratoryInterestCC;
+        
+        private SqlCommand GetMoratoryInterestCCByName;
+
+
+        
         public static MIConceptChargeModelController Singleton;
+        
         
         protected MIConceptChargeModelController()
         {
             
             GetMoratoryInterestCCsOnProperty = new SqlCommand("SP_getMoratoryInterestCcOnProperty", connection);
             GetMoratoryInterestCCsOnProperty.CommandType = CommandType.StoredProcedure;
+            
+            GetMoratoryInterestCCs = new SqlCommand("SP_getMoratoryInterestCCs", connection);
+            GetMoratoryInterestCCs.CommandType = CommandType.StoredProcedure;
+
+            GetMoratoryInterestCCByName = new SqlCommand("SP_getMoratoryInterestCCByName", connection);
+            GetMoratoryInterestCCByName.CommandType = CommandType.StoredProcedure;
+            
+            UpdateMoratoryInterestCC = new SqlCommand("SP_updateMoratoryInterestCC", connection);
+            UpdateMoratoryInterestCC.CommandType = CommandType.StoredProcedure;
             
         }
         
@@ -25,23 +42,82 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
 
         }
         
-        /*
-        //TODO Check parameters data type
-        public int ExecuteUpdateChargeConcept(string ccName, CcModel changedChargeConcept)
+        public int ExecuteUpdateMoratoryInterestCC(string pCCName, MoratoryInterestCcModel pChangedCC)
         {
-            UpdateCCProperty.Parameters.Add("@pName", SqlDbType.VarChar, 50).Value = ccName;
-            UpdateCCProperty.Parameters.Add("@pNewName", SqlDbType.VarChar, 50).Value 
-                = changedChargeConcept.ChargeConceptName;
-            UpdateCCProperty.Parameters.Add("@pNewExpirationDays", SqlDbType.VarChar, 50).Value 
-                = changedChargeConcept.ExpirationDays;
-            UpdateCCProperty.Parameters.Add("@pNewMoratoryInterestRate", SqlDbType.VarChar, 50).Value
-                = changedChargeConcept.MoratoryInterestRate;
-            UpdateCCProperty.Parameters.Add("@pNewReciptEmisionDay", SqlDbType.VarChar, 50).Value
-                = changedChargeConcept.ReciptEmisionDay;
             
-            return ExecuteNonQueryCommand(UpdateCCProperty);
+            UpdateMoratoryInterestCC.Parameters.Add("@inName", SqlDbType.VarChar, 50).Value = pCCName;
+            UpdateMoratoryInterestCC.Parameters.Add("@inNewName", SqlDbType.VarChar, 50).Value = pChangedCC.ChargeConceptName;
+            UpdateMoratoryInterestCC.Parameters.Add("@inNewExpirationDays", SqlDbType.TinyInt).Value = pChangedCC.ExpirationDays;
+            UpdateMoratoryInterestCC.Parameters.Add("@inNewReciptEmisionDay", SqlDbType.TinyInt).Value = pChangedCC.ReciptEmisionDay;
+            UpdateMoratoryInterestCC.Parameters.Add("@inNewMoratoryInterestRate", SqlDbType.Real).Value = pChangedCC.MoratoryInterestRate;
+            UpdateMoratoryInterestCC.Parameters.Add("@inNewAmount", SqlDbType.Money).Value = pChangedCC.InterestValue;
+            
+            
+            var returnParameter = UpdateMoratoryInterestCC.Parameters.Add("@ReturnVal", SqlDbType.Int);
+            returnParameter.Direction = ParameterDirection.ReturnValue;
+            try
+            {
+                connection.Open();
+                UpdateMoratoryInterestCC.ExecuteNonQuery();
+                int result = (int)returnParameter.Value;
+                connection.Close();
+                UpdateMoratoryInterestCC.Parameters.Clear();
+                return result;
+            }
+            catch (Exception e)
+            {
+                throw (e);
+            }
+            
         }
-        */
+        
+        public List<MoratoryInterestCcModel> ExecuteGetMoratoryInterestCCByName(string pCCName)
+        {
+            GetMoratoryInterestCCByName.Parameters.Add("@inName", SqlDbType.VarChar, 50).Value = pCCName;
+            return ExecuteQueryCommand(GetMoratoryInterestCCByName);
+        }
+        
+        public  List<MoratoryInterestCcModel> ExecuteGetCCs()
+        {
+            return ExecuteQueryCommand(GetMoratoryInterestCCs);
+        }
+        
+        public List<MoratoryInterestCcModel> ExecuteQueryCommand(SqlCommand command)
+        {
+            List<MoratoryInterestCcModel> result = new List<MoratoryInterestCcModel>();
+            
+            try
+            {
+                connection.Open();
+                SqlDataReader reader = GetMoratoryInterestCCs.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    MoratoryInterestCcModel chargeConcept = new MoratoryInterestCcModel();
+                    
+                    chargeConcept.ChargeConceptName = Convert.ToString(reader["CCName"]);
+
+                    chargeConcept.ExpirationDays = Convert.ToInt32(reader["ExpirationDays"]);
+                    
+                    chargeConcept.MoratoryInterestRate = Convert.ToSingle(reader["MoratoryInterestRate"]);
+
+                    chargeConcept.ReciptEmisionDay = Convert.ToInt32(reader["ReciptEmisionDay"]);
+
+                    chargeConcept.InterestValue = Convert.ToSingle(reader["Amount"]);
+                    
+                    result.Add(chargeConcept);
+                }
+                command.Parameters.Clear();
+
+                connection.Close();
+            }
+            catch (Exception e)
+            {
+                throw (e);
+            }
+
+            return result;
+        }
         
         public override List<CcModel> ExecuteGetCCsOnProperty(PropertyModel property)
         {

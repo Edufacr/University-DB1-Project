@@ -11,6 +11,7 @@
         <e p="appsettings.json" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
         <e p="Controllers" t="Include">
+          <e p="ChangesHistoryController.cs" t="Include" />
           <e p="ChargeConceptController.cs" t="Include" />
           <e p="HomeController.cs" t="Include" />
           <e p="LoginController.cs" t="Include" />
@@ -69,6 +70,10 @@
           <e p="_ViewStart.cshtml" t="Include" />
           <e p="ChangesHistory" t="Include" />
           <e p="ChargeConcept" t="Include">
+            <e p="EditConsumption.cshtml" t="Include" />
+            <e p="EditFixed.cshtml" t="Include" />
+            <e p="EditMoratoryInterest.cshtml" t="Include" />
+            <e p="EditPercentage.cshtml" t="Include" />
             <e p="Index.cshtml" t="Include" />
           </e>
           <e p="Home" t="Include">

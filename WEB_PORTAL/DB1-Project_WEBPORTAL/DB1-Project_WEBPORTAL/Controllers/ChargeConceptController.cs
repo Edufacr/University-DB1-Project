@@ -1,98 +1,182 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.Collections.Generic;
+using DB1_Project_WEBPORTAL.Models;
+using DB1_Project_WEBPORTAL.Models.ModelControllers;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DB1_Project_WEBPORTAL.Controllers
 {
     public class ChargeConceptController : Controller
     {
+        private ConsumptionChargeConceptModelController ConsumptionCcController = 
+            (ConsumptionChargeConceptModelController)ConsumptionChargeConceptModelController.getInstance();
+        private FixedConceptChargeModelController FixedCcController = 
+            (FixedConceptChargeModelController)FixedConceptChargeModelController.getInstance();
+        private PercentageChargeConceptModelController PercentageCcController = 
+            (PercentageChargeConceptModelController)PercentageChargeConceptModelController.getInstance();
+        private MIConceptChargeModelController MoratoryInterestsCcController = 
+            (MIConceptChargeModelController)MIConceptChargeModelController.getInstance();
+        
         // GET
         public IActionResult Index()
         {
+            
+            List<ConsumptionCcModel> consumptionCcs =
+                ConsumptionCcController.ExecuteGetCCs();
+            List<PercentageCcModel> percentageCcs = 
+                PercentageCcController.ExecuteGetCCs();
+            List<MoratoryInterestCcModel>  moratoryCcs =  
+                MoratoryInterestsCcController.ExecuteGetCCs();
+            List<FixedCcModel> fixedCcs = 
+                FixedCcController.ExecuteGetCCs();
+            
+            ViewData["ConsumptionCCs"] = consumptionCcs;
+            ViewData["PercentageCCs"] = percentageCcs;
+            ViewData["MoratoryIntsCCs"] = moratoryCcs;
+            ViewData["FixedCCs"] = fixedCcs;
+            
             return View();
         }
         
-        public IActionResult Delete()
+        //--------
+        //-FIXED -
+        //--------
+        
+        [HttpGet]
+        public IActionResult EditFixed(string pCCName)
         {
-            throw new System.NotImplementedException();
+            FixedCcModel model = FixedCcController.ExecuteGetFixedCCByName(pCCName)[0];
+            if (model == null)
+            {
+                return NotFound();
+            }
+
+            return View(model);
+
         }
         
-        //-----
-        //FIXED
-        //-----
-
-        public IActionResult CreateFixed()
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult EditFixed( [Bind] FixedCcModel pChangedCC)
         {
-            throw new System.NotImplementedException();
+
+            if (ModelState.IsValid)
+            {
+                int result = FixedCcController.ExecuteUpdateFixedCC(pChangedCC.ChargeConceptName, pChangedCC);
+                if (result < 0)
+                {
+                
+                }
+                return RedirectToAction("Index");
+            }
+            
+            return  NotFound();
+            
         }
 
-        public IActionResult EditFixed()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public IActionResult DetailsFixed()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        //-----------
-        //CONSUMPTION
-        //-----------
+        //-------------
+        //-CONSUMPTION-
+        //-------------
         
-        public IActionResult CreateConsumption()
+        [HttpGet]
+        public IActionResult EditConsumption(string pCCName)
         {
-            throw new System.NotImplementedException();
-        }
+            ConsumptionCcModel model = ConsumptionCcController.ExecuteGetConsumptionCCByName(pCCName)[0];
+            if (model == null)
+            {
+                return NotFound();
+            }
 
-        public IActionResult EditConsumption()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public IActionResult DetailsConsumption()
-        {
-            throw new System.NotImplementedException();
+            return View(model);
         }
         
-        //----------
-        //PERCENTAGE
-        //----------
-
-        public IActionResult CreatePercentage()
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult EditConsumption( [Bind] ConsumptionCcModel pChangedCC)
         {
-            throw new System.NotImplementedException();
+
+            if (ModelState.IsValid)
+            {
+                int result = ConsumptionCcController.ExecuteUpdateConsumptionCC(pChangedCC.ChargeConceptName, pChangedCC);
+                if (result < 0)
+                {
+                
+                }
+                return RedirectToAction("Index");
+            }
+            
+            return  NotFound();
+            
         }
-
-        public IActionResult EditPercentage()
+        //------------
+        //-PERCENTAGE-
+        //------------
+        
+        [HttpGet]
+        public IActionResult EditPercentage(string pCCName)
         {
-            throw new System.NotImplementedException();
-        }
+            PercentageCcModel model = PercentageCcController.ExecuteGetPercentageCCByName(pCCName)[0];
+            if (model == null)
+            {
+                return NotFound();
+            }
 
-        public IActionResult DetailsPercentage()
-        {
-            throw new System.NotImplementedException();
+            return View(model);
         }
         
-        
-        //------------------
-        //MORATORY INTERESTS
-        //------------------
-        
-        
-        public IActionResult CreateMoratoryInterest()
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult EditPercentage([Bind] PercentageCcModel pChangedCC)
         {
-            throw new System.NotImplementedException();
+            if (ModelState.IsValid)
+            {
+                int result = PercentageCcController.ExecuteUpdatePercentageCC(pChangedCC.ChargeConceptName, pChangedCC);
+                if (result < 0)
+                {
+                
+                }
+                return RedirectToAction("Index");
+            }
+            
+            return  NotFound();
+
         }
 
-        public IActionResult EditMoratoryInterest()
+        //--------------------
+        //-MORATORY INTERESTS-
+        //--------------------
+        
+        [HttpGet]
+        public IActionResult EditMoratoryInterest(string pCCName)
         {
-            throw new System.NotImplementedException();
-        }
+            MoratoryInterestCcModel model = MoratoryInterestsCcController.ExecuteGetMoratoryInterestCCByName(pCCName)[0];
+            if (model == null)
+            {
+                return NotFound();
+            }
 
-        public IActionResult DetailsMoratoryInterest()
+            return View(model);
+        }
+        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult EditMoratoryInterest([Bind] MoratoryInterestCcModel pChangedCC)
         {
-            throw new System.NotImplementedException();
+            
+            if (ModelState.IsValid)
+            {
+                int result = MoratoryInterestsCcController.ExecuteUpdateMoratoryInterestCC(pChangedCC.ChargeConceptName, pChangedCC);
+                if (result < 0)
+                {
+                
+                }
+                return RedirectToAction("Index");
+            }
+            
+            return  NotFound();
+            
         }
-
+        
 
     }
 }
