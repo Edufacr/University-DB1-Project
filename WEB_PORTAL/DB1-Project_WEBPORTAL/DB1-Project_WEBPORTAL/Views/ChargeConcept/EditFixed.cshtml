@@ -1,50 +1,50 @@
-﻿@model DB1_Project_WEBPORTAL.Models.OwnerUpdateModel
+﻿@model DB1_Project_WEBPORTAL.Models.FixedCcModel
 @{
     ViewData["Title"] = "Update";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@{
-    List<DocTypeModel> Types = ViewData["Types"] as List<DocTypeModel>;
-}
-
-<h1>Propietarios</h1>
-<h4>Actualizar Propietario</h4>
+<h1>Conceptos de Cobro</h1>
+<h4>Actualizar Concepto de Cobro</h4>
 <div>
     <a href='javascript:history.go(-1)'>Volver</a>
 </div>
 <hr />
+<h5>Fijo</h5>
+<hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="EditFixed">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="DocType">
-            <input type="hidden" asp-for="DocValue">
+            <input type="hidden" asp-for="ChargeConceptName"/>
             <div class="form-group">
-                <label asp-for="NewName" class="control-label"></label>
-                <input  asp-for="NewName" class="form-control" />
-                <span asp-validation-for="NewName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NewDocType" class="control-label"></label>
-                <select asp-for="NewDocType" class="form-control">
-                    <option value="">--Seleccione Tipo de Documento--</option>
-                    
-                    @foreach (DocTypeModel type in Types)
+                <label asp-for="ReciptEmisionDay" class="control-label"></label>
+                <select asp-for="ReciptEmisionDay" class="form-control">
+                    <option value="">--Seleccione un Día--</option>
+                    @for (int i = 0; i < 27; i++)
                     {
-                        <option value=@type.Name>@type.Name</option>
+                        <option value=@i>@i</option>
                     }
-                    
                 </select>
-                <span asp-validation-for="NewDocType" class="text-danger"></span>
+                <span asp-validation-for="ReciptEmisionDay" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="NewDocValue" class="control-label"></label>
-                <input asp-for="NewDocValue" class="form-control" />
-                <span asp-validation-for="NewDocValue" class="text-danger"></span>
+                <label asp-for="MoratoryInterestRate" class="control-label"></label>
+                <input asp-for="MoratoryInterestRate" class="form-control"/>
+                <span asp-validation-for="MoratoryInterestRate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Guardar Cambios" class="btn btn-success" />
+                <label asp-for="ExpirationDays" class="control-label"></label>
+                <input asp-for="ExpirationDays" class="form-control"/>
+                <span asp-validation-for="ExpirationDays" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Amount" class="control-label"></label>
+                <input asp-for="Amount" class="form-control"/>
+                <span asp-validation-for="Amount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Guardar Cambios" class="btn btn-success"/>
             </div>
         </form>
     </div>

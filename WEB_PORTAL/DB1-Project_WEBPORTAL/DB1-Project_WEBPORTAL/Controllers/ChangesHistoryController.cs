@@ -7,7 +7,7 @@ namespace DB1_Project_WEBPORTAL.Controllers
         // GET
         public IActionResult Index()
         {
-            return View();
+            return NotFound();
         }
     }
 }

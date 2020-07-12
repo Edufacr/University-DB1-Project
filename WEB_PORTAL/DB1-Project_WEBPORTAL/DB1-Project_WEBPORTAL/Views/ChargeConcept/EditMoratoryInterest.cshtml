@@ -1,4 +1,4 @@
-﻿@model DB1_Project_WEBPORTAL.Models.FixedCcModel
+﻿@model DB1_Project_WEBPORTAL.Models.MoratoryInterestCcModel
 @{
     ViewData["Title"] = "Update";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -10,9 +10,11 @@
     <a href='javascript:history.go(-1)'>Volver</a>
 </div>
 <hr />
+<h5>Por Intereses Moratorios</h5>
+<hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="EditFixed">
+        <form asp-action="EditMoratoryInterest">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="ChargeConceptName" class="control-label"></label>
@@ -23,12 +25,10 @@
                 <label asp-for="ReciptEmisionDay" class="control-label"></label>
                 <select asp-for="ReciptEmisionDay" class="form-control">
                     <option value="">--Seleccione un Día--</option>
-                    
-                    @for (int i = 1; i < 27; i++)
+                    @for (int i = 0; i < 27; i++)
                     {
                         <option value=@i>@i</option>
                     }
-                    
                 </select>
                 <span asp-validation-for="ReciptEmisionDay" class="text-danger"></span>
             </div>
@@ -43,9 +43,9 @@
                 <span asp-validation-for="ExpirationDays" class="text-danger"></span>
             </div>     
             <div class="form-group">
-                <label asp-for="Amount" class="control-label"></label>
-                <input asp-for="Amount" class="form-control" />
-                <span asp-validation-for="Amount" class="text-danger"></span>
+                <label asp-for="InterestValue" class="control-label"></label>
+                <input asp-for="InterestValue" class="form-control" />
+                <span asp-validation-for="InterestValue" class="text-danger"></span>
             </div>      
             <div class="form-group">
                 <input type="submit" value="Guardar Cambios" class="btn btn-success" />

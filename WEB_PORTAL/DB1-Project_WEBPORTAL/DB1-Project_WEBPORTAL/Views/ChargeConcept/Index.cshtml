@@ -10,17 +10,12 @@
 }
 
 <h1> Conceptos de Cobro </h1>
+<div>
+    <a href='javascript:history.go(-1)'>Volver</a>
+</div>
 <hr />
 <h3> Fijos </h3>
 <hr />
-<p>
-    
-    <a asp-action="CreateFixed">
-        <input type="submit" value="Insertar Usuario" class="btn btn-success"/>
-    </a>
-    
-</p>
-
 
 <table class="table table-striped">
     <thead>
@@ -40,7 +35,6 @@
         <th>
             @Html.DisplayNameFor(model => fixedCCs[0].Amount)
         </th>
-        
     </tr>
     </thead>
     <tbody>
@@ -62,21 +56,13 @@
                   <td>
                       @Html.DisplayFor(modelItem => fixedCC.Amount)
                   </td>
-                 <td>
-                     <a asp-action="Delete" asp-route->
-                        <input type="submit" value="Borrar" class="btn btn-danger"/>
-                     </a>
-                 </td>
-                 <td>
-                     <a asp-action="EditFixed" asp-route->
-                        <input type="submit" value="Ver" class="btn btn-warning"/>
-                     </a>
-                 </td>
-                 <td>
-                    <a asp-action="DetailsFixed" asp-route->
-                       <input type="submit" value="Ver" class="btn btn-warning"/>
-                    </a>
-                 </td>                  
+                
+                  <td>
+                      <a asp-action="EditFixed" asp-route-pCCName="@fixedCC.ChargeConceptName">
+                        <input type="submit" value="Editar" class="btn btn-success"/>
+                      </a>
+                  </td>
+                              
               </tr>
           }
     </tbody>
@@ -86,133 +72,118 @@
 <hr />
 <h3> Por Consumo </h3>
 <hr />
-<p>
-    
-    <a asp-action="CreateConsumption">
-        <input type="submit" value="Insertar Usuario" class="btn btn-success"/>
-    </a>
-    
-</p>
 
 
 <table class="table table-striped">
     <thead>
     <tr>
-          <th>
-               @Html.DisplayNameFor(model => percentageCCs[0].ChargeConceptName)
-           </th>
         <th>
-               @Html.DisplayNameFor(model => percentageCCs[0].ExpirationDays)
-           </th>
-           <th>
-               @Html.DisplayNameFor(model => percentageCCs[0].ReciptEmisionDay)
-           </th>            
-           <th>
-               @Html.DisplayNameFor(model => percentageCCs[0].MoratoryInterestRate)
-           </th>
-           <th>
-               @Html.DisplayNameFor(model => percentageCCs[0].PercentageValue)
-           </th>
+            @Html.DisplayNameFor(model => consumptionCCs[0].ChargeConceptName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => consumptionCCs[0].ExpirationDays)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => consumptionCCs[0].ReciptEmisionDay)
+        </th>            
+        <th>
+            @Html.DisplayNameFor(model => consumptionCCs[0].MoratoryInterestRate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => consumptionCCs[0].ValueM3)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => consumptionCCs[0].MinValue)
+        </th>
     </tr>
     </thead>
     <tbody>
-        @foreach(var percentageCC in percentageCCs)
+        @foreach(var consumptionCC in consumptionCCs)
          {
              <tr>
                  <td>
-                     @Html.DisplayFor(modelItem => percentageCC.ChargeConceptName)
+                     @Html.DisplayFor(modelItem => consumptionCC.ChargeConceptName)
                  </td>
                  <td>
-                     @Html.DisplayFor(modelItem => percentageCC.ExpirationDays)
+                     @Html.DisplayFor(modelItem => consumptionCC.ExpirationDays)
                  </td>
                  <th>
-                     @Html.DisplayFor(model => percentageCC.ReciptEmisionDay)
+                     @Html.DisplayFor(model => consumptionCC.ReciptEmisionDay)
                  </th>                     
                  <td>
-                     @Html.DisplayFor(modelItem => percentageCC.MoratoryInterestRate)
+                     @Html.DisplayFor(modelItem => consumptionCC.MoratoryInterestRate)
                  </td>
                  <td>
-                     @Html.DisplayFor(modelItem => percentageCC.PercentageValue)
+                     @Html.DisplayFor(modelItem => consumptionCC.ValueM3)
                  </td>
                  <td>
-                     <a asp-action="Delete" asp-route->
-                        <input type="submit" value="Borrar" class="btn btn-danger"/>
+                    @Html.DisplayFor(modelItem => consumptionCC.MinValue)
+                 </td>
+                
+                 <td>
+                     <a asp-action="EditConsumption" asp-route-pCCName="@consumptionCC.ChargeConceptName">
+                        <input type="submit" value="Editar" class="btn btn-success"/>
                      </a>
                  </td>
-                 <td>
-                     <a asp-action="EditConsumption" asp-route->
-                        <input type="submit" value="Ver" class="btn btn-warning"/>
-                     </a>
-                 </td>
-                 <td>
-                    <a asp-action="DetailsConsumption" asp-route->
-                       <input type="submit" value="Ver" class="btn btn-warning"/>
-                    </a>
-                 </td>
+                 
              </tr>
          }
     </tbody>
 </table>
 <hr />
 
-<h3> Fijos </h3>
+<h3> Por Porcentaje </h3>
 <hr />
-<p>
-    
-    <a asp-action="CreatePercentage">
-        <input type="submit" value="Insertar Usuario" class="btn btn-success"/>
-    </a>
-    
-</p>
-
 
 <table class="table table-striped">
     <thead>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            Tipo Usuario
-        </th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach(var user in Model)
-    {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => user.Name)
-            </td>
-            <td>
-                @if (user.isAdmin)
-                {
-                    <p> Administrador</p>
-                }
-                else
-                {
-                    <p> Propietario </p>
-                }
-                
-            </td>
-            <td>
-                <a asp-action="Delete" asp-route-pUsername="@user.Name">
-                    <input type="submit" value="Borrar" class="btn btn-danger"/>
-                </a>
-            </td>
-            <td>
-                <a asp-action="EditPercentage" asp-route->
-                    <input type="submit" value="Ver" class="btn btn-warning"/>
-                </a>
-            </td>
-            <td>
-                <a asp-action="DetailsPercentage" asp-route->
-                    <input type="submit" value="Ver" class="btn btn-warning"/>
-                </a>
-            </td>  
-            
+            <th>
+                @Html.DisplayNameFor(model => percentageCCs[0].ChargeConceptName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => percentageCCs[0].ExpirationDays)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => percentageCCs[0].ReciptEmisionDay)
+            </th>            
+            <th>
+                @Html.DisplayNameFor(model => percentageCCs[0].MoratoryInterestRate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => percentageCCs[0].PercentageValue)
+            </th>
         </tr>
-    }
+        </thead>
+        <tbody>
+            @foreach(var percentageCC in percentageCCs)
+             {
+                 <tr>
+                     <td>
+                         @Html.DisplayFor(modelItem => percentageCC.ChargeConceptName)
+                     </td>
+                     <td>
+                         @Html.DisplayFor(modelItem => percentageCC.ExpirationDays)
+                     </td>
+                     <th>
+                         @Html.DisplayFor(model => percentageCC.ReciptEmisionDay)
+                     </th>                     
+                     <td>
+                         @Html.DisplayFor(modelItem => percentageCC.MoratoryInterestRate)
+                     </td>
+                     <td>
+                         @Html.DisplayFor(modelItem => percentageCC.PercentageValue)
+                     </td>
+                    
+                     <td>
+                         <a asp-action="EditConsumption" asp-route-pCCName="@percentageCC.ChargeConceptName">
+                        <input type="submit" value="Editar" class="btn btn-success"/>
+                         </a>
+                     </td>
+                     
+                 </tr>
+             }
+      
     </tbody>
 </table>
 <hr />
@@ -220,14 +191,6 @@
 
 <h3> De Intereses Moratorios </h3>
 <hr />
-<p>
-    
-    <a asp-action="CreateMoratoryInterest">
-        <input type="submit" value="Insertar Usuario" class="btn btn-success"/>
-    </a>
-    
-</p>
-
 
 <table class="table table-striped">
     <thead>
@@ -245,7 +208,7 @@
            @Html.DisplayNameFor(model => moratoryIntsCCs[0].MoratoryInterestRate)
        </th>
        <th>
-           @Html.DisplayNameFor(model => ((MoratoryInterestCcModel)moratoryIntsCCs[0]).InterestValue)
+           @Html.DisplayNameFor(model => moratoryIntsCCs[0].InterestValue)
        </th>
     </tr>
     </thead>
@@ -268,22 +231,13 @@
             <td>
                 @Html.DisplayFor(modelItem => moratoryIntstCC.InterestValue)
             </td>
+            
             <td>
-                <a asp-action="Delete" asp-route->
-                    <input type="submit" value="Borrar" class="btn btn-danger"/>
+                <a asp-action="EditMoratoryInterest" asp-route-pCCName="@moratoryIntstCC.ChargeConceptName">
+                        <input type="submit" value="Editar" class="btn btn-success"/>
                 </a>
-            </td>
-            <td>
-                <a asp-action="EditMoratoryInterest" asp-route->
-                    <input type="submit" value="Ver" class="btn btn-warning"/>
-                </a>
-            </td>
-            <td>
-                <a asp-action="DetailsMoratoryInterest" asp-route->
-                    <input type="submit" value="Ver" class="btn btn-warning"/>
-                </a>
-            </td>  
-
+            </td> 
+            
         </tr>
     }
     </tbody>
