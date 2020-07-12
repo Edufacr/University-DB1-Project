@@ -22,6 +22,8 @@ namespace DB1_Project_WEBPORTAL.Controllers
         private MIConceptChargeModelController MoratoryInterestsCcController = 
             (MIConceptChargeModelController)MIConceptChargeModelController.getInstance();
         
+        private ReceiptModelController ReceiptController = ReceiptModelController.getInstance();
+        
         // GET
         public IActionResult Index()
         {
@@ -111,10 +113,13 @@ namespace DB1_Project_WEBPORTAL.Controllers
         {
             
             PropertyModel property = propertyController.ExecuteGetPropertyInfoByPropertyNumber(pPropertyNumber)[0];
+            if (property == null)
+            {
+                return NotFound();
+            }
             
             List<OwnerModel> owners = ownerController.ExecuteGetOwnersOfProperty(property);
             List<UserModel> users = userController.ExecuteGetUsersOfProperty(property);
-            
             
             List<CcModel> consumptionCcs =
                 ConsumptionCcController.ExecuteGetCCsOnProperty(property);
@@ -124,11 +129,11 @@ namespace DB1_Project_WEBPORTAL.Controllers
                 MoratoryInterestsCcController.ExecuteGetCCsOnProperty(property);
             List<CcModel> fixedCcs = 
                 FixedCcController.ExecuteGetCCsOnProperty(property);
+
+            List<ReceiptModel> paidReceipts = ReceiptController.ExecuteGetPropertyPaidReceipts(property.PropertyNumber);
+            List<ReceiptModel> pendingReceipts = ReceiptController.ExecuteGetPropertyPendingReceipts(property.PropertyNumber);
             
-            if (property == null)
-            {
-                return NotFound();
-            }
+            List<PaymentProofModel> paymentProofs = ReceiptController.ExecuteGetPropertyPaymentProofs(property.PropertyNumber);
             
             ViewData["Owners"] = owners;
             ViewData["Users"] = users;
@@ -139,7 +144,10 @@ namespace DB1_Project_WEBPORTAL.Controllers
             ViewData["PercentageCCs"] = percentageCcs;
             ViewData["MoratoryIntsCCs"] = moratoryCcs;
             ViewData["FixedCCs"] = fixedCcs;
-            
+
+            ViewData["PaidReceipts"] = paidReceipts;
+            ViewData["PendingReceipts"] = pendingReceipts;
+            ViewData["PaymentPaymentProofs"] = paymentProofs;
             
             return View(property);
         }

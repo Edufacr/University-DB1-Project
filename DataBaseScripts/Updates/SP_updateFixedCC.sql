@@ -18,7 +18,7 @@ GO
 -- Create date: <Create Date,,>
 -- Description:	<Description,,>
 -- =============================================
-CREATE PROCEDURE SP_updateFixedCC
+CREATE or ALTER PROCEDURE SP_updateFixedCC
 	-- Add the parameters for the stored procedure here
 	@inName varchar(50),
 	@inNewName varchar(50),

@@ -24,7 +24,7 @@ namespace DB1_Project_WEBPORTAL.Controllers
                     
                     if (user.isAdmin)
                     {
-                        return Redirect("Home/Index");
+                        return RedirectToAction("Index", "Home", new { pLoggedUsername = pUsername});
                     }
 
                     return RedirectToAction("Details", "User", new { pUsername , pRequestType = 0});

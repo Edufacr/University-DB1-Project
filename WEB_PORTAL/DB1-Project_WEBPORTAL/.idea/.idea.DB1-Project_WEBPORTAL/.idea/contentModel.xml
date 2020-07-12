@@ -39,6 +39,7 @@
             <e p="OwnerModelController.cs" t="Include" />
             <e p="PercentageChargeConceptModelController.cs" t="Include" />
             <e p="PropertyModelController.cs" t="Include" />
+            <e p="ReceiptModelController.cs" t="Include" />
             <e p="UserModelController.cs" t="Include" />
           </e>
           <e p="MoratoryInterestCC_onProperty.cs" t="Include" />
@@ -46,9 +47,11 @@
           <e p="OwnerModel.cs" t="Include" />
           <e p="OwnerPropertyModel.cs" t="Include" />
           <e p="OwnerUpdateModel.cs" t="Include" />
+          <e p="PaymentProofModel.cs" t="Include" />
           <e p="PercentageCC_onPropertyModel.cs" t="Include" />
           <e p="PercentageCcModel.cs" t="Include" />
           <e p="PropertyModel.cs" t="Include" />
+          <e p="ReceiptModel.cs" t="Include" />
           <e p="UserModel.cs" t="Include" />
           <e p="UserPropertyModel.cs" t="Include" />
         </e>

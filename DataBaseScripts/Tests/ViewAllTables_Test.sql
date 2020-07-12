@@ -17,3 +17,6 @@ select * from completeFixedCC_onProperties
 select * from completeFixedCC_onProperties
 select * from completeMoratoryInterestCC_onProperties
 go
+
+select * from [dbo].[activeReceipts]
+select * from [dbo].[paidReceipts]
