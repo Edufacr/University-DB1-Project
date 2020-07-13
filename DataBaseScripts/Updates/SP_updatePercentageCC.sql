@@ -1,4 +1,3 @@
-
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -14,31 +13,28 @@ CREATE or ALTER PROCEDURE SP_updatePercentageCC
 	@inNewPercentageValue real
 AS
 BEGIN
-	
 	declare @id int
 	begin try
-		
-		begin transaction
+		select @id = cc.Id
+		from DB1P_ChargeConcepts as cc
+		where cc.Name = @inName
+		if(@id IS NOT NULL)
+		BEGIN
+			BEGIN TRANSACTION
+				update DB1P_ChargeConcepts
+				set Name = @inNewName,
+					ExpirationDays = @inNewExpirationDays,
+					ReciptEmisionDay = @inNewReciptEmisionDay,
+					MoratoryInterestRate = @inNewMoratoryInterestRate
+				where Id = @id
 
-			select @id = cc.Id
-			from DB1P_ChargeConcepts as cc
-			where cc.Name = @inName
-
-			update DB1P_ChargeConcepts
-			set Name = @inNewName,
-			    ExpirationDays = @inNewExpirationDays,
-				ReciptEmisionDay = @inNewReciptEmisionDay,
-				MoratoryInterestRate = @inNewMoratoryInterestRate
-			where Id = @id
-
-			update DB1P_Percentage_CC
-			set PercentageValue = @inNewPercentageValue
-			where Id = @id
-
-		commit
-
-		return 1
-
+				update DB1P_Percentage_CC
+				set PercentageValue = @inNewPercentageValue
+				where Id = @id
+			COMMIT TRANSACTION
+			RETURN @id;
+		END
+		RETURN -50002
 	end try
 	begin catch
 		if @@TRANCOUNT > 1
