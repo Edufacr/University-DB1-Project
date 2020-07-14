@@ -35,7 +35,7 @@ BEGIN
 			        	FROM DB1P_Owners
 				    	WHERE @IdOwner = Id
 			    	FOR JSON PATH);
-                EXEC SP_insertChangeLog @IdEntityOwner,@IdOwner,@Date,@inInsertedBy,@inInsertedFrom,null,jsonAfter;
+                EXEC SP_insertChangeLog @IdEntityOwner,@IdOwner,@Date,@inInsertedBy,@inInsertedFrom,null,@jsonAfter;
             END
         COMMIT TRANSACTION
         RETURN @IdOwner;
