@@ -21,7 +21,7 @@ CREATE TABLE dbo.DB1P_ChangeLog
 	EntityId INT NOT NULL,
 	InsertedAt DATETIME NOT NULL,
 	InsertdBy VARCHAR(50) NOT NULL,
-	InsertedIn VARCHAR(20) NOT NULL,
+	InsertedFrom VARCHAR(20) NOT NULL,
 	JsonBefore VARCHAR(500),
 	JsonAfter VARCHAR(500)
 	)  ON [PRIMARY]
