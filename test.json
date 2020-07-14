@@ -1,0 +1,33 @@
+[
+  {
+    "IdEntityType": 1,
+    "EntityId": 1,
+    "InsertedAt": "YYYY-MM-DD HH:MI:SS",
+    "InsertedBy": "Username",
+    "InsertedFrom": "127.1.1"
+  },
+  {
+    "IdEntityType": 1,
+    "EntityId": 1,
+    "InsertedAt": "YYYY-MM-DD HH:MI:SS",
+    "InsertedBy": "Username",
+    "InsertedFrom": "127.1.1"
+  }
+]
+
+[
+  {
+    "IdEntityType": 1,
+    "EntityId": 1,
+    "InsertedAt": "2020-07-12T08:57:23.027",
+    "InsertdBy": "Test",
+    "InsertedFrom": "Test"
+  },
+  {
+    "IdEntityType": 1,
+    "EntityId": 1,
+    "InsertedAt": "2020-07-12T08:58:00.287",
+    "InsertdBy": "Test",
+    "InsertedFrom": "Test"
+  }
+]
