@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text.Encodings.Web;
 using DB1_Project_WEBPORTAL.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DB1_Project_WEBPORTAL.Controllers
@@ -20,14 +21,18 @@ namespace DB1_Project_WEBPORTAL.Controllers
                 {
                     
                     UserModel user = UserModelController.ExecuteGetUserByUsername(pUsername)[0];
-                    Console.Write(user.Name);
+
+                    ILoggedUser.LoggedUser = user;
+                    ILoggedUser.Ip = HttpContext.Connection.RemoteIpAddress.ToString();
+                    
+                    Console.WriteLine(ILoggedUser.Ip);
                     
                     if (user.isAdmin)
                     {
-                        return RedirectToAction("Index", "Home", new { pLoggedUsername = pUsername});
+                        return RedirectToAction("Index", "Home", new { pLoggedUser = user});
                     }
 
-                    return RedirectToAction("Details", "User", new { pUsername , pRequestType = 0});
+                    return RedirectToAction("Details", "User", new { pLoggedUSer = user, pUsername , pRequestType = 0});
 
 
                 }

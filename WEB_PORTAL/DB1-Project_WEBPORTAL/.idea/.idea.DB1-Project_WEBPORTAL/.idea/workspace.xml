@@ -2,18 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dabc68ef-a88a-4eeb-83a8-22526c9de378" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/ReceiptModelController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/PaymentProofModel.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ReceiptModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../DataBaseScripts/Queries/SP_updateFixedCC.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../DataBaseScripts/Updates/SP_updateFixedCC.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../../DataBaseScripts/Updates/SP_updateFixedCC.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/config/applicationhost.config" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ChangeModel.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ILoggedUser.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/ChangesHistory/Details.cshtml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/ChangesHistory/Index.cshtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.DB1-Project_WEBPORTAL/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DB1-Project_WEBPORTAL/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.DB1-Project_WEBPORTAL/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DB1-Project_WEBPORTAL/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/ChangesHistoryController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/ChangesHistoryController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/HomeController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/HomeController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/LoginController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/LoginController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/PropertyController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/PropertyController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/DB1-Project_WEBPORTAL.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/DB1-Project_WEBPORTAL.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Home/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Home/Index.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/Details.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/Details.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Owner/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Owner/Index.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Shared/_Layout.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Shared/_Layout.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Shared/_LayoutUserInterface.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Shared/_LayoutUserInterface.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Shared/_NonHeaderLayout.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Shared/_NonHeaderLayout.cshtml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,14 +81,17 @@
     <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/Index.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Owner/Index.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/UserModel.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ChangeModel.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/UserModelController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/OwnerModelController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/LegalOwnerModelController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/PropertyModelController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/ChargeConceptModelController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/ChangesHistory/Details.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Shared/_LayoutUserInterface.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/ChargeConcept/EditFixed.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/IConnectionStrings.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/ChangesHistory/Index.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/FixedCC_onPropertyModel.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/PercentageCC_onPropertyModel.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/MoratoryInterestCC_onProperty.cs" root0="FORCE_HIGHLIGHTING" />
@@ -107,6 +114,7 @@
     <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Program.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Shared/_NonHeaderLayout.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ReceiptModel.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ILoggedUser.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/DBConnection.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Owner/EditLegal.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Startup.cs" root0="FORCE_HIGHLIGHTING" />
@@ -121,19 +129,10 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Owner/DeleteProperty.cs" />
-        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Owner/DeleteProperty.cshtml.cs" />
-        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Owner/DeleteProperty.cshtml" />
-        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/OwnerController.cs" />
-        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/InsertOwner.cshtml.cs" />
-        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/InsertOwner.cshtml" />
-        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/InsertUser.cshtml" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Owner/DetailsLegal.cshtml" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Owner/Details.cshtml" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/User/InsertProperty.cshtml" />
-        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/UserController.cs" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/User/Details.cshtml" />
-        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Shared/_LayoutUserInterface.cshtml" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/CC_onPropertyModel.cs" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/PercentageCC_onPropertyModel.cs" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/MoratoryInterestCC_onProperty.cs" />
@@ -152,12 +151,9 @@
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/MIConceptChargeModelController.cs" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/PercentageChargeConceptModelController.cs" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/ConsumptionChargeConceptModelController.cs" />
-        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/ChargeConceptController.cs" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/ChargeConcept/EditFixed.cshtml" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/ChargeConcept/EditMoratoryInterest.cshtml" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/ChargeConcept/Index.cshtml" />
-        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/ChangesHistoryController.cs" />
-        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Shared/_Layout.cshtml" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/PendingRecipt.cs" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/PaidRecipt.cs" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/Recipt.cs" />
@@ -167,11 +163,23 @@
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ReceiptModel.cs" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/PaymentProof.cs" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/ReceiptModelController.cs" />
-        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/PropertyController.cs" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/Details.cshtml" />
+        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ChangeModel.cs" />
+        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/ChangesHistory/Index.cshtml" />
+        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/ChangesHistory/Details.cshtml" />
+        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Owner/Index.cshtml" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Home/Index.cshtml" />
-        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/LoginController.cs" />
+        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/UserController.cs" />
+        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/PropertyController.cs" />
+        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/OwnerController.cs" />
+        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/ChangesHistoryController.cs" />
+        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/ChargeConceptController.cs" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/HomeController.cs" />
+        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Shared/_NonHeaderLayout.cshtml" />
+        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Shared/_Layout.cshtml" />
+        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Shared/_LayoutUserInterface.cshtml" />
+        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ILoggedUser.cs" />
+        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/LoginController.cs" />
       </list>
     </option>
   </component>
@@ -253,7 +261,9 @@
       <workItem from="1593381987766" duration="1940000" />
       <workItem from="1594098975775" duration="586000" />
       <workItem from="1594411838585" duration="14743000" />
-      <workItem from="1594518501267" duration="25378000" />
+      <workItem from="1594518501267" duration="25783000" />
+      <workItem from="1594701369466" duration="6958000" />
+      <workItem from="1594755017764" duration="9861000" />
     </task>
     <servers />
   </component>
@@ -283,25 +293,25 @@
       <screen x="-1200" y="0" width="1200" height="1560" />
     </state>
     <state x="-1108" y="92" width="1016" height="1376" key="DiffContextDialog/0.0.1536.824/-1200.0.1200.1560@-1200.0.1200.1560" timestamp="1594417877362" />
-    <state width="1157" height="91" key="GridCell.Tab.0.bottom" timestamp="1594547931770">
+    <state width="1157" height="481" key="GridCell.Tab.0.bottom" timestamp="1594762551928">
       <screen x="-1200" y="0" width="1200" height="1560" />
     </state>
-    <state width="1157" height="91" key="GridCell.Tab.0.bottom/0.0.1536.824/-1200.0.1200.1560@-1200.0.1200.1560" timestamp="1594547931770" />
+    <state width="1157" height="481" key="GridCell.Tab.0.bottom/0.0.1536.824/-1200.0.1200.1560@-1200.0.1200.1560" timestamp="1594762551928" />
     <state width="1493" height="566" key="GridCell.Tab.0.bottom/0.0.1536.824/-1200.0.1200.1560@0.0.1536.824" timestamp="1594364625295" />
-    <state width="1157" height="91" key="GridCell.Tab.0.center" timestamp="1594547931770">
+    <state width="1157" height="481" key="GridCell.Tab.0.center" timestamp="1594762551928">
       <screen x="-1200" y="0" width="1200" height="1560" />
     </state>
-    <state width="1157" height="91" key="GridCell.Tab.0.center/0.0.1536.824/-1200.0.1200.1560@-1200.0.1200.1560" timestamp="1594547931770" />
+    <state width="1157" height="481" key="GridCell.Tab.0.center/0.0.1536.824/-1200.0.1200.1560@-1200.0.1200.1560" timestamp="1594762551928" />
     <state width="1493" height="566" key="GridCell.Tab.0.center/0.0.1536.824/-1200.0.1200.1560@0.0.1536.824" timestamp="1594364625295" />
-    <state width="1157" height="91" key="GridCell.Tab.0.left" timestamp="1594547931770">
+    <state width="1157" height="481" key="GridCell.Tab.0.left" timestamp="1594762551928">
       <screen x="-1200" y="0" width="1200" height="1560" />
     </state>
-    <state width="1157" height="91" key="GridCell.Tab.0.left/0.0.1536.824/-1200.0.1200.1560@-1200.0.1200.1560" timestamp="1594547931770" />
+    <state width="1157" height="481" key="GridCell.Tab.0.left/0.0.1536.824/-1200.0.1200.1560@-1200.0.1200.1560" timestamp="1594762551928" />
     <state width="1493" height="566" key="GridCell.Tab.0.left/0.0.1536.824/-1200.0.1200.1560@0.0.1536.824" timestamp="1594364625295" />
-    <state width="1157" height="91" key="GridCell.Tab.0.right" timestamp="1594547931770">
+    <state width="1157" height="481" key="GridCell.Tab.0.right" timestamp="1594762551928">
       <screen x="-1200" y="0" width="1200" height="1560" />
     </state>
-    <state width="1157" height="91" key="GridCell.Tab.0.right/0.0.1536.824/-1200.0.1200.1560@-1200.0.1200.1560" timestamp="1594547931770" />
+    <state width="1157" height="481" key="GridCell.Tab.0.right/0.0.1536.824/-1200.0.1200.1560@-1200.0.1200.1560" timestamp="1594762551928" />
     <state width="1493" height="566" key="GridCell.Tab.0.right/0.0.1536.824/-1200.0.1200.1560@0.0.1536.824" timestamp="1594364625295" />
     <state width="498" height="446" key="SwitcherDM" timestamp="1594533333419">
       <screen x="-1200" y="0" width="1200" height="1560" />
@@ -323,10 +333,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="191" y="0" width="1171" height="910" key="dock-window-2/0.0.1536.824/-1200.0.1200.1560@-1200.0.1200.1560" timestamp="1594532175759" />
-    <state x="762" y="0" width="781" height="418" key="dock-window-3" timestamp="1594540434562">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state x="-885" y="278" width="781" height="418" key="dock-window-3" timestamp="1594701525140">
+      <screen x="-1200" y="0" width="1200" height="1560" />
     </state>
-    <state x="762" y="0" width="781" height="418" key="dock-window-3/0.0.1536.824/-1200.0.1200.1560@-1200.0.1200.1560" timestamp="1594540434562" />
+    <state x="-885" y="278" width="781" height="418" key="dock-window-3/0.0.1536.824/-1200.0.1200.1560@-1200.0.1200.1560" timestamp="1594701525140" />
     <state x="-944" y="370" key="run.anything.popup" timestamp="1593288198196">
       <screen x="-1200" y="0" width="1200" height="1560" />
     </state>

@@ -1,0 +1,52 @@
+﻿@model IEnumerable<ChangeModel>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<h1> Historial de Cambios </h1>
+<div>
+    <a href='javascript:history.go(-1)'>Volver</a>
+</div>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.changeDateTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.entityType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.changeUser)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.changeIp)
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+          @foreach(var change in Model)
+          {
+              <th>
+                  @Html.DisplayFor(model => change.changeDateTime)
+              </th>
+              <th>
+                  @Html.DisplayFor(model => change.entityType)
+              </th>
+              <th>
+                  @Html.DisplayFor(model => change.changeUser)
+              </th>
+              <th>
+                  @Html.DisplayFor(model => change.changeIp)
+              </th>
+              <th>
+                  <a asp-action="Details" asp-route-pChange="@change">
+                      <input type="submit" value="Ver" class="btn btn-warning"/>
+                  </a>
+              </th>
+          }
+    </tbody>
+</table>
+
