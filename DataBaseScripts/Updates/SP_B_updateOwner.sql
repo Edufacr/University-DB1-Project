@@ -23,17 +23,32 @@ BEGIN
     DECLARE @IdEntityOwner INT
     DECLARE @IdOwner INT;
     DECLARE @Date DATETIME;
-	BEGIN TRY
+
+    DECLARE @jsonBefore VARCHAR(500);
+	DECLARE @jsonAfter VARCHAR(500);	
+    BEGIN TRY
         SET @IdEntityOwner = 2;
         SET @Date = GETDATE();
         BEGIN TRANSACTION
-
-        EXEC @IdOwner = SP_updateOwner @inDocValue,@inDocType,@inNewName,@inNewDocValue,@inNewDocType;
-
-        IF(@IdOwner > 0)
-            BEGIN
-                EXEC SP_insertChangeLog @IdEntityOwner,@IdOwner,@Date,@inInsertedBy,@inInsertedFrom;
-            END
+        SELECT @IdDocType = t.Id
+			FROM DB1P_Doc_Id_Types AS t
+			WHERE t.Name = @inDocType
+            
+            SET @jsonBefore = 
+                (SELECT Id,Name,DocType_Id,DocValue
+					FROM DB1P_Owners
+                        WHERE DocValue = @inDocValue AND DocType_Id = @IdDocType
+                FOR JSON PATH);
+            EXEC @IdOwner = SP_updateOwner @inDocValue,@inDocType,@inNewName,@inNewDocValue,@inNewDocType;
+            IF(@IdOwner > 0)
+                BEGIN
+                    SET @jsonAfter = 
+                        (SELECT Id,Name,DocType_Id,DocValue
+					        FROM DB1P_Owners
+                                WHERE Id = @IdOwner
+                        FOR JSON PATH);
+                    EXEC SP_insertChangeLog @IdEntityOwner,@IdOwner,@Date,@inInsertedBy,@inInsertedFrom,@jsonBefore,@jsonAfter;
+                END
         COMMIT TRANSACTION
         RETURN @IdOwner;
 	END TRY

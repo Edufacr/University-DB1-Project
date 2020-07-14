@@ -22,16 +22,27 @@ BEGIN
     DECLARE @IdEntityUser INT
     DECLARE @IdUser INT;
     DECLARE @Date DATETIME;
+
+    DECLARE @jsonBefore VARCHAR(500);
+    DECLARE @jsonAfter VARCHAR(500);
 	BEGIN TRY
         SET @IdEntityUser = 3;
         SET @Date = GETDATE();
         BEGIN TRANSACTION
-        EXEC @IdUser = SP_updatetUser @inUsername,@inNewUserName,@inNewPassword;
-
-
+        SET @jsonBefore = 
+            (SELECT Id,Username,Password,UserType
+                FROM DB1P_Users
+                    WHERE Username = @inUserName
+                FOR JSON PATH);
+        EXEC @IdUser = SP_updateUser @inUsername,@inNewUserName,@inNewPassword;
         IF(@IdUser > 0)
             BEGIN
-                EXEC SP_insertChangeLog @IdEntityUser,@IdUser,@Date,@inInsertedBy,@inInsertedFrom;
+                SET @jsonAfter = 
+                    (SELECT Id,Username,Password,UserType
+                        FROM DB1P_Users
+                            WHERE Id = @IdUser
+                        FOR JSON PATH);
+                EXEC SP_insertChangeLog @IdEntityUser,@IdUser,@Date,@inInsertedBy,@inInsertedFrom,@jsonBefore,@jsonAfter;
             END
         COMMIT TRANSACTION
         RETURN @IdUser;

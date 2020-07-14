@@ -23,6 +23,8 @@ BEGIN
     DECLARE @IdEntityOwner INT
     DECLARE @IdOwner INT;
     DECLARE @Date DATETIME;
+
+    DECLARE @jsonAfter VARCHAR(500);
 	BEGIN TRY
         SET @IdEntityOwner = 6;
         SET @Date = GETDATE();
@@ -31,7 +33,12 @@ BEGIN
 
         IF(@IdOwner > 0)
             BEGIN
-                EXEC SP_insertChangeLog @IdEntityOwner,@IdOwner,@Date,@inInsertedBy,@inInsertedFrom;
+            SET @jsonAfter = 
+				(SELECT Id,ResponsibleName,Resp_DocType_Id,Resp_DocValue
+			        FROM DB1P_LegalOwners
+				        WHERE Id = @IdOwner
+					FOR JSON PATH);
+                EXEC SP_insertChangeLog @IdEntityOwner,@IdOwner,@Date,@inInsertedBy,@inInsertedFrom,null,@jsonAfter;
             END
         COMMIT TRANSACTION
         RETURN @IdOwner;

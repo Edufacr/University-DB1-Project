@@ -20,16 +20,23 @@ BEGIN
     DECLARE @IdEntityUser INT
     DECLARE @IdUser INT;
     DECLARE @Date DATETIME;
+
+    DECLARE @jsonBefore VARCHAR(500);
+
 	BEGIN TRY
         SET @IdEntityUser = 3;
         SET @Date = GETDATE();
         BEGIN TRANSACTION
-        EXEC @IdUser = SP_deleteUser @inUserName;
-
-        IF(@IdUser > 0)
-            BEGIN
-                EXEC SP_insertChangeLog @IdEntityUser,@IdUser,@Date,@inInsertedBy,@inInsertedFrom;
-            END
+            SET @jsonBefore = 
+                (SELECT Id,Username,Password,UserType
+                    FROM DB1P_Users
+                        WHERE Username = @inUserName
+                    FOR JSON PATH);
+            EXEC @IdUser = SP_deleteUser @inUserName;
+            IF(@IdUser > 0)
+                BEGIN
+                    EXEC SP_insertChangeLog @IdEntityUser,@IdUser,@Date,@inInsertedBy,@inInsertedFrom,@jsonBefore,null;
+                END
         COMMIT TRANSACTION
         RETURN @IdUser;
 	END TRY

@@ -22,16 +22,23 @@ BEGIN
     DECLARE @IdEntityUser INT
     DECLARE @IdUser INT;
     DECLARE @Date DATETIME;
+
+    DECLARE @jsonAfter VARCHAR(500);
+
 	BEGIN TRY
         SET @IdEntityUser = 3;
         SET @Date = GETDATE();
         BEGIN TRANSACTION
-        EXEC @IdUser = SP_insertUser @inUserName,@inPassword,@inIsAdmin;
-
-        IF(@IdUser > 0)
-            BEGIN
-                EXEC SP_insertChangeLog @IdEntityUser,@IdUser,@Date,@inInsertedBy,@inInsertedFrom;
-            END
+            EXEC @IdUser = SP_insertUser @inUserName,@inPassword,@inIsAdmin;
+            IF(@IdUser > 0)
+                BEGIN
+                    SET @jsonAfter = 
+                        (SELECT Id,Username,Password,UserType
+                            FROM DB1P_Users
+                            WHERE @IdUser = Id
+                        FOR JSON PATH);
+                    EXEC SP_insertChangeLog @IdEntityUser,@IdUser,@Date,@inInsertedBy,@inInsertedFrom,NULL,@jsonAfter;
+                END
         COMMIT TRANSACTION
         RETURN @IdUser;
 	END TRY
@@ -40,3 +47,5 @@ BEGIN
 		RETURN @@Error * -1
 	END CATCH		
 END
+
+        
