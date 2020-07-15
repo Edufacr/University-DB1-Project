@@ -30,13 +30,13 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
         {
             connection = DBConnection.getInstance().Connection;
             
-            InsertOwner = new SqlCommand("SP_insertOwner", connection);
+            InsertOwner = new SqlCommand("SP_B_insertOwner", connection);
             InsertOwner.CommandType = CommandType.StoredProcedure;
             
-            DeleteOwner = new SqlCommand("SP_deleteOwner", connection);
+            DeleteOwner = new SqlCommand("SP_B_deleteOwner", connection);
             DeleteOwner.CommandType = CommandType.StoredProcedure;
             
-            UpdateOwner = new SqlCommand("SP_updateOwner", connection);
+            UpdateOwner = new SqlCommand("SP_B_updateOwner", connection);
             UpdateOwner.CommandType = CommandType.StoredProcedure;
             
             DeleteOwnerOfProperty = new SqlCommand("SP_deletePropertyOwner", connection);
@@ -67,9 +67,9 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
 
         public int ExecuteInsertOwner(OwnerModel ownerInstance)
         {
-            InsertOwner.Parameters.Add("@pName", SqlDbType.VarChar, 50).Value = ownerInstance.Name;
-            InsertOwner.Parameters.Add("@pDocValue", SqlDbType.VarChar, 30).Value = ownerInstance.DocValue;
-            InsertOwner.Parameters.Add("@pDocType", SqlDbType.VarChar, 50).Value = ownerInstance.DocType;
+            InsertOwner.Parameters.Add("@inName", SqlDbType.VarChar, 50).Value = ownerInstance.Name;
+            InsertOwner.Parameters.Add("@inDocValue", SqlDbType.VarChar, 30).Value = ownerInstance.DocValue;
+            InsertOwner.Parameters.Add("@inDocType", SqlDbType.VarChar, 50).Value = ownerInstance.DocType;
   
             return ExecuteNonQueryCommand(InsertOwner);
             
@@ -77,8 +77,8 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
 
         public int ExecuteDeleteOwner(OwnerModel ownerInstance)
         {
-            DeleteOwner.Parameters.Add("@pDocValue", SqlDbType.VarChar, 30).Value = ownerInstance.DocValue;
-            DeleteOwner.Parameters.Add("@pDocType", SqlDbType.VarChar, 50).Value = ownerInstance.DocType;
+            DeleteOwner.Parameters.Add("@inDocValue", SqlDbType.VarChar, 30).Value = ownerInstance.DocValue;
+            DeleteOwner.Parameters.Add("@inDocType", SqlDbType.VarChar, 50).Value = ownerInstance.DocType;
 
             return ExecuteNonQueryCommand(DeleteOwner);
             
@@ -86,14 +86,14 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
 
         public int ExecuteUpdateOwner(OwnerUpdateModel newOwner)
         {
-            UpdateOwner.Parameters.Add("@pDocValue", SqlDbType.VarChar, 30).Value = newOwner.DocValue;
+            UpdateOwner.Parameters.Add("@inDocValue", SqlDbType.VarChar, 30).Value = newOwner.DocValue;
      
 
-            UpdateOwner.Parameters.Add("@pDocType", SqlDbType.VarChar, 50).Value = newOwner.DocType;
+            UpdateOwner.Parameters.Add("@inDocType", SqlDbType.VarChar, 50).Value = newOwner.DocType;
             
-            UpdateOwner.Parameters.Add("@pNewName", SqlDbType.VarChar, 50).Value = newOwner.NewName;
-            UpdateOwner.Parameters.Add("@pNewDocValue", SqlDbType.VarChar, 30).Value = newOwner.NewDocValue;
-            UpdateOwner.Parameters.Add("@pNewDocType", SqlDbType.VarChar, 50).Value = newOwner.NewDocType;
+            UpdateOwner.Parameters.Add("@inNewName", SqlDbType.VarChar, 50).Value = newOwner.NewName;
+            UpdateOwner.Parameters.Add("@inNewDocValue", SqlDbType.VarChar, 30).Value = newOwner.NewDocValue;
+            UpdateOwner.Parameters.Add("@inNewDocType", SqlDbType.VarChar, 50).Value = newOwner.NewDocType;
             
             return ExecuteNonQueryCommand(UpdateOwner);
             
@@ -191,6 +191,10 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
         {
             var returnParameter = command.Parameters.Add("@ReturnVal", SqlDbType.Int);
             returnParameter.Direction = ParameterDirection.ReturnValue;
+            
+            command.Parameters.Add("@inInsertedBy", SqlDbType.VarChar, 50).Value = ILoggedUser.LoggedUser.Name;
+            command.Parameters.Add("@inInsertedFrom", SqlDbType.VarChar, 50).Value = ILoggedUser.Ip;
+            
             try
             {
                 connection.Open();
