@@ -7,39 +7,38 @@ GO
 -- Create date: 2020/5/28
 -- Description:	Alters [SP_insertPropertyOwner] procedure.
 -- =============================================
-
-
---TODO Input validations
---TODO transaction
-
 create or alter procedure dbo.SP_insertPropertyOwner 
-	@pPropertyNumber int, 
-	@pOwnerDocValue varchar(30),
-	@pOwnerDocType varchar(50)
+	@inPropertyNumber int, 
+	@inOwnerDocValue varchar(30),
+	@inOwnerDocType varchar(50)
 as
 begin
 
-	declare @Property_Id int;
-	declare @Owner_Id int;
-	declare @OwnerDocType_Id int;
+	declare @IdProperty int;
+	declare @IdOwner int;
+	declare @IdOwnerDocType int;
 
 	begin try
 
-		select @OwnerDocType_Id = t.Id
+		select @IdOwnerDocType = t.Id
 		from DB1P_Doc_Id_Types as t
-		where t.Name  = @pOwnerDocType
+		where t.Name  = @inOwnerDocType
 
-		select @Owner_Id = o.Id
+		select @IdOwner = o.Id
 		from dbo.activeOwners as o
-		where  o.DocValue = @pOwnerDocValue
+		where  o.DocValue = @inOwnerDocValue
 
-		select @Property_Id = p.Id
+		select @IdProperty = p.Id
 		from dbo.activeProperties as p
-		where p.PropertyNumber = @pPropertyNumber
+		where p.PropertyNumber = @inPropertyNumber
 
-		insert into dbo.DB1P_PropertyOwners (Property_Id, Owner_Id, Active)
-		values (@Property_Id, @Owner_Id, 1);
-		return 1
+		IF(@IdProperty IS NOT NULL AND @IdOwner IS NOT NULL)
+			BEGIN
+				insert into dbo.DB1P_PropertyOwners (Property_Id, Owner_Id, Active)
+				values (@IdProperty, @IdOwner, 1);
+				RETURN SCOPE_IDENTITY();
+			END
+		return -50002
 	end try
 	begin catch
 		return @@Error * -1

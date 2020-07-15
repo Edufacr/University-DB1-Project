@@ -7,14 +7,11 @@ GO
 -- Create date: 04/06/2020
 -- Description:	inserts a relation between Properties and Users
 -- =============================================
-
--- TODO Input validations
-
 CREATE OR ALTER PROCEDURE SP_insertPropertiesUsers
 	
 	-- Add the parameters for the stored procedure here
-    @pPropertyNumber int,
-	@pUsername VARCHAR(50)
+    @inPropertyNumber int,
+	@inUsername VARCHAR(50)
 
 AS
 BEGIN
@@ -23,18 +20,19 @@ BEGIN
 	SET NOCOUNT ON;
     -- Insert statements for procedure here
 BEGIN TRY
-	DECLARE @PropertyId int;
-	DECLARE @UserId int;
-	BEGIN TRANSACTION
-		SET @PropertyId = (Select Id from activeProperties where PropertyNumber = @pPropertyNumber)
-		SET @UserId = (Select Id from activeUsers where Username = @pUsername)
-        INSERT INTO DB1P_PropertiesUsers
-        VALUES(@PropertyId,@UserId,1);
-	COMMIT
-	RETURN SCOPE_IDENTITY();
+	DECLARE @IdProperty int;
+	DECLARE @IdUser int;
+		SET @IdProperty = (Select Id from activeProperties where PropertyNumber = @inPropertyNumber);
+		SET @IdUser = (Select Id from activeUsers where Username = @inUsername);
+		IF(@IdUser IS NOT NULL AND @IdProperty IS NOT NULL)
+			BEGIN
+				INSERT INTO DB1P_PropertiesUsers
+					VALUES(@IdProperty,@IdUser,1);
+				RETURN SCOPE_IDENTITY();
+			END
+		RETURN -50002;
 END TRY
 BEGIN CATCH
-	ROLLBACK
 	return @@Error * -1
 END CATCH
 END
