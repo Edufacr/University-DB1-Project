@@ -25,15 +25,31 @@ BEGIN
     DECLARE @IdEntityCC INT
     DECLARE @IdCC INT;
     DECLARE @Date DATETIME;
+
+    DECLARE @jsonBefore VARCHAR(500);
+    DECLARE @jsonAfter VARCHAR (500);
 	BEGIN TRY
         SET @IdEntityCC = 7;
         SET @Date = GETDATE();
         BEGIN TRANSACTION
-        EXEC @IdCC = SP_updatetPercentageCC @inName,@inNewName,@inNewExpirationDays,@inNewReciptEmisionDay,@inNewMoratoryInterestRate,
+        SELECT @IdCC = Id 
+            FROM DB1P_ChargeConcepts
+            WHERE @inName = Name;
+        SET @jsonBefore = 
+            (SELECT Id,Name,MoratoryInterestRate,ReciptEmisionDay,ExpirationDays,PercentageValue
+				FROM completePercentaje_CCs
+                    WHERE @IdCC = Id
+            FOR JSON PATH);
+        EXEC @IdCC = SP_updatePercentageCC @inName,@inNewName,@inNewExpirationDays,@inNewReciptEmisionDay,@inNewMoratoryInterestRate,
                                             	@inNewPercentageValue;
         IF(@IdCC > 0)
             BEGIN
-                EXEC SP_insertChangeLog @IdEntityCC,@IdCC,@Date,@inInsertedBy,@inInsertedFrom;
+                SET @jsonAfter = 
+                    (SELECT Id,Name,MoratoryInterestRate,ReciptEmisionDay,ExpirationDays,PercentageValue
+                        FROM completePercentaje_CCs
+                            WHERE @IdCC = Id
+                    FOR JSON PATH);
+                EXEC SP_insertChangeLog @IdEntityCC,@IdCC,@Date,@inInsertedBy,@inInsertedFrom,@jsonBefore,@jsonAfter;
             END
         COMMIT TRANSACTION
         RETURN @IdCC;
