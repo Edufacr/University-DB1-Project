@@ -23,11 +23,11 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
         {
             connection = DBConnection.getInstance().Connection;
             
-            InsertLegalOwner = new SqlCommand("SP_insertLegalOwner", connection);
+            InsertLegalOwner = new SqlCommand("SP_B_insertLegalOwner", connection);
             InsertLegalOwner.CommandType = CommandType.StoredProcedure;
             
             
-            UpdateLegalOwner = new SqlCommand("SP_updateLegalOwner", connection);
+            UpdateLegalOwner = new SqlCommand("SP_B_updateLegalOwner", connection);
             UpdateLegalOwner.CommandType = CommandType.StoredProcedure;
             
             
@@ -61,11 +61,11 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
             int result = ownerController.ExecuteInsertOwner(owner);
             if (result > 0)
             {
-                InsertLegalOwner.Parameters.Add("@pName", SqlDbType.VarChar, 50).Value = legalOwner.ResponsibleName;
-                InsertLegalOwner.Parameters.Add("@pResp_DocType", SqlDbType.VarChar, 50).Value = legalOwner.RespDocType;
-                InsertLegalOwner.Parameters.Add("@pResp_DocValue", SqlDbType.VarChar, 30).Value =
+                InsertLegalOwner.Parameters.Add("@inName", SqlDbType.VarChar, 50).Value = legalOwner.ResponsibleName;
+                InsertLegalOwner.Parameters.Add("@inResp_DocType", SqlDbType.VarChar, 50).Value = legalOwner.RespDocType;
+                InsertLegalOwner.Parameters.Add("@inResp_DocValue", SqlDbType.VarChar, 30).Value =
                     legalOwner.RespDocValue;
-                InsertLegalOwner.Parameters.Add("@pLegalOwner_DocValue", SqlDbType.VarChar, 30).Value =
+                InsertLegalOwner.Parameters.Add("@inLegalOwner_DocValue", SqlDbType.VarChar, 30).Value =
                     legalOwner.DocValue;
 
                 return ExecuteNonQueryCommand(InsertLegalOwner);
@@ -76,12 +76,12 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
 
         public int ExecuteUpdateLegalOwner(LegalOwnerModel legalOwner)
         {
-            UpdateLegalOwner.Parameters.Add("@pNewResponsibleName", SqlDbType.VarChar, 50).Value =
+            UpdateLegalOwner.Parameters.Add("@inNewResponsibleName", SqlDbType.VarChar, 50).Value =
                 legalOwner.ResponsibleName;
-            UpdateLegalOwner.Parameters.Add("@pNewResp_DocId_type", SqlDbType.VarChar, 50).Value = legalOwner.RespDocType;
-            UpdateLegalOwner.Parameters.Add("@pNewResp_DocValue", SqlDbType.VarChar, 30).Value = legalOwner.RespDocValue;
-            UpdateLegalOwner.Parameters.Add("@pLegalOwner_DocValue", SqlDbType.VarChar, 30).Value = legalOwner.DocValue;
-            UpdateLegalOwner.Parameters.Add("@pNewLegalName", SqlDbType.VarChar, 50).Value = legalOwner.Name;
+            UpdateLegalOwner.Parameters.Add("@inNewResp_DocId_type", SqlDbType.VarChar, 50).Value = legalOwner.RespDocType;
+            UpdateLegalOwner.Parameters.Add("@inNewResp_DocValue", SqlDbType.VarChar, 30).Value = legalOwner.RespDocValue;
+            UpdateLegalOwner.Parameters.Add("@inLegalOwner_DocValue", SqlDbType.VarChar, 30).Value = legalOwner.DocValue;
+            UpdateLegalOwner.Parameters.Add("@inNewLegalName", SqlDbType.VarChar, 50).Value = legalOwner.Name;
             return ExecuteNonQueryCommand(UpdateLegalOwner);
         }
 
@@ -103,6 +103,10 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
         {
             var returnParameter = command.Parameters.Add("@ReturnVal", SqlDbType.Int);
             returnParameter.Direction = ParameterDirection.ReturnValue;
+            
+            command.Parameters.Add("@inInsertedBy", SqlDbType.VarChar, 50).Value = ILoggedUser.LoggedUser.Name;
+            command.Parameters.Add("@inInsertedFrom", SqlDbType.VarChar, 50).Value = ILoggedUser.Ip;
+            
             try
             {
                 connection.Open();
@@ -124,7 +128,8 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
         {
 
             List<LegalOwnerModel> result = new List<LegalOwnerModel>();
-            
+
+
             try
             {
                 connection.Open();
