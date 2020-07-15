@@ -8,12 +8,14 @@ GO
 -- Description:	Inserts LegalOwner and ChangeLog
 -- =============================================
 CREATE OR ALTER PROCEDURE dbo.SP_B_updateLegalOwner 
-	
+    
+    @inLegalOwner_DocValue VARCHAR(30),
+    @inNewLegal_DocValue VARCHAR (30),
+    @inNewLegalName varchar(50),
 	@inNewResponsibleName varchar(50), 
 	@inNewResp_DocId_type varchar(50),
-	@inNewResp_DocValue VARCHAR(30), 
-	@inLegalOwner_DocValue VARCHAR(30),
-	@inNewLegalName varchar(50),
+	@inNewResp_DocValue VARCHAR(30),
+
 
     @inInsertedBy VARCHAR(50),
     @inInsertedFrom VARCHAR(20)
@@ -34,18 +36,18 @@ BEGIN
 			FROM activeOwners AS o
 			WHERE DocValue = @inLegalOwner_DocValue AND DocType_Id = 4
         SET @jsonBefore = 
-			(SELECT Id,ResponsibleName,Resp_DocType_Id,Resp_DocValue
-				FROM DB1P_LegalOwners
-					WHERE Id = @IdOwner
-			FOR JSON PATH);
+            (SELECT Id,LegalName,LegalDocValue,ResponsibleName,RespDocType_Id,RespDocValue
+                FROM completeLegalOwners
+                WHERE Id = @IdOwner
+            FOR JSON PATH);
         BEGIN TRANSACTION
-            EXEC @IdOwner = SP_updateLegalOwner @inNewResponsibleName,@inNewResp_DocId_type,@inNewResp_DocValue,@inLegalOwner_DocValue,@inNewLegalName;
+            EXEC @IdOwner = SP_updateLegalOwner @inLegalOwner_DocValue,@inNewLegal_DocValue,@inNewLegalName,@inNewResp_DocId_type,@inNewResp_DocValue,@inLegalOwner_DocValue;
             IF(@IdOwner > 0)
                 BEGIN
                 SET @jsonAfter = 
-			        (SELECT Id,ResponsibleName,Resp_DocType_Id,Resp_DocValue
-				        FROM DB1P_LegalOwners
-					    WHERE Id = @IdOwner
+                    (SELECT Id,LegalName,LegalDocValue,ResponsibleName,RespDocType_Id,RespDocValue
+                        FROM completeLegalOwners
+                        WHERE Id = @IdOwner
                     FOR JSON PATH);
                     EXEC SP_insertChangeLog @IdEntityLegalOwner,@IdOwner,@Date,@inInsertedBy,@inInsertedFrom,@jsonBefore,@jsonAfter;
                 END
