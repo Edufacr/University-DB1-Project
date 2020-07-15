@@ -18,8 +18,8 @@ as
 begin
 	set nocount on;
 	begin try
-		insert into dbo.DB1P_Properties ( Value, Address, Active, PropertyNumber)
-		values ( @pValue, @pAddress, 1, @pPropertyNumber);
+		insert into dbo.DB1P_Properties ( Value, Address,PropertyNumber,Active)
+		values ( @pValue, @pAddress,@pPropertyNumber,1);
 		return 1
 	end try
 	begin catch
