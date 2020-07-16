@@ -10,8 +10,8 @@ GO
 CREATE OR ALTER PROCEDURE SP_getChangeLogsByDate
 	-- Add the parameters for the stored procedure here
     @inEntityName VARCHAR(50) = null,
-	@inStartDate DATE = '2000/01/01', 
-	@inEndDate DATE = '2100/01/01'
+	@inStartDate DATETIME = '2000/01/01', 
+	@inEndDate DATETIME = '2100/01/01'
 
 AS
 BEGIN
