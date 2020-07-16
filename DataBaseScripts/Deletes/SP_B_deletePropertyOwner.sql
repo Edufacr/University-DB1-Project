@@ -7,7 +7,7 @@ GO
 -- Create date: 
 -- Description:	Deletes PropertyUser and ChangeLog
 -- =============================================
-CREATE OR ALTER PROCEDURE dbo.SP_B_deletesPropertyOwner
+CREATE OR ALTER PROCEDURE dbo.SP_B_deletePropertyOwner
 	
 	@inOwnerDocValue varchar(30), 
 	@inOwnerDocType varchar(50), 
