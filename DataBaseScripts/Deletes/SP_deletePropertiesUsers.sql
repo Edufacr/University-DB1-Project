@@ -7,14 +7,10 @@ GO
 -- Create date: 04/06/2020
 -- Description:	logically deletes a properties user relation
 -- =============================================
-
---TODO Inputs validations.
-
-
 CREATE or ALTER PROCEDURE dbo.SP_deletePropertiesUsers
 	-- Add the parameters for the stored procedure here
-    @pPropertyNumber int, 
-	@pUsername varchar(50)
+    @inPropertyNumber int, 
+	@inUsername varchar(50)
 
 AS
 BEGIN
@@ -23,20 +19,21 @@ BEGIN
 	SET NOCOUNT ON;
     -- Insert statements for procedure here
 BEGIN TRY
-	DECLARE @PropertyId int;
-	DECLARE @UserId int;
-	BEGIN TRANSACTION
-		SET @PropertyId = (Select Id from activeProperties where PropertyNumber = @pPropertyNumber)
-		SET @UserId = (Select Id from activeUsers where Username = @pUsername)
-        UPDATE DB1P_PropertiesUsers
-        set
-        Active = 0
-		where User_Id = @UserId and Property_Id = @PropertyId; 
-	COMMIT
-	return SCOPE_IDENTITY();
+	DECLARE @IdProperty int;
+	DECLARE @IdUser int;
+	SET @IdProperty = (Select Id from activeProperties where PropertyNumber = @inPropertyNumber)
+	SET @IdUser = (Select Id from activeUsers where Username = @inUsername)
+	IF(@IdProperty IS NOT NULL AND @IdUser IS NOT NULL)
+		BEGIN
+			UPDATE DB1P_PropertiesUsers
+				set
+				Active = 0
+				where User_Id = @IdUser and Property_Id = @IdProperty;
+			return SCOPE_IDENTITY();
+		END 
+	RETURN -50002;
 END TRY
 BEGIN CATCH
-	ROLLBACK
 	return @@Error * -1
 END CATCH
 END

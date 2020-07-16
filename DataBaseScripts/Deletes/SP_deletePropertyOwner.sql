@@ -7,40 +7,39 @@ GO
 -- Create date: 2020/5/30
 -- Description:	Delete  an element from DB1P_PropertyOwners.
 -- =============================================
-
---TODO Inputs validations
---TODO Transaction
-
 CREATE OR ALTER PROCEDURE dbo.SP_deletePropertyOwner
-		@pOwnerDocValue varchar(30), 
-		@pOwnerDocType varchar(50), 
-		@pPropertyPropertyNumber int
+		@inOwnerDocValue varchar(30), 
+		@inOwnerDocType varchar(50), 
+		@inPropertyNumber int
 AS
 BEGIN
 	
 	begin try
 
-		declare @OwnerId int;
-		declare @PropertyId int;
-		declare @OwnerDocType_Id int;
+		declare @IdOwner int;
+		declare @IdProperty int;
+		declare @OwnerIdDocType int;
 
-		select @OwnerDocType_Id = t.Id
+		select @OwnerIdDocType = t.Id
 		from DB1P_Doc_Id_Types as t
-		where t.Name = @pOwnerDocType
+		where t.Name = @inOwnerDocType
 
-
-		select @OwnerId = Id 
+		select @IdOwner = Id 
 		from dbo.DB1P_Owners 
-		where DocValue = @pOwnerDocValue and DocType_Id = @OwnerDocType_Id
+		where DocValue = @inOwnerDocValue and DocType_Id = @OwnerIdDocType
 		
-		select @PropertyId = Id
+		select @IdProperty = Id
 		from dbo.DB1P_Properties
-		where PropertyNumber = @pPropertyPropertyNumber
+		where PropertyNumber = @inPropertyNumber
 
-		update dbo.DB1P_PropertyOwners
-		set Active = 0
-		where Property_Id = @PropertyId and Owner_Id = @OwnerId
-		return 1
+		IF(@IdOwner IS NOT NULL AND @IdProperty IS NOT NULL)
+		BEGIN
+			update dbo.DB1P_PropertyOwners
+				set Active = 0
+				where Property_Id = @IdProperty and Owner_Id = @IdOwner
+			RETURN SCOPE_IDENTITY();
+		END
+		return -50002;
 	end try
 	begin catch
 		return @@Error * -1

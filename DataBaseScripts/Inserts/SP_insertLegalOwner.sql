@@ -12,31 +12,25 @@ CREATE or ALTER PROCEDURE dbo.SP_insertLegalOwner
 	@inName varchar(50), 
 	@inResp_DocType varchar(50), 
 	@inResp_DocValue VARCHAR(30), 
-	@inLegalOwner_DocValue VARCHAR(30)
+	@inIdOwner INT
 
 AS
 BEGIN
-
-	declare @IdOwner int
 	declare @IdRespDocType int
 
 	begin try
 
 		select @IdRespDocType = t.Id
-		from DB1P_Doc_Id_Types as t
-		where t.Name = @inResp_DocType
-		
-		select @IdOwner = o.Id
-		from activeOwners as o
-		where o.DocValue = @inLegalOwner_DocValue
+			from DB1P_Doc_Id_Types as t
+			where t.Name = @inResp_DocType
 
-		IF(@IdRespDocType IS NOT NULL AND @IdOwner IS NOT NULL)
+		IF(@IdRespDocType IS NOT NULL AND @inIdOwner IS NOT NULL)
 		BEGIN
 			insert into dbo.DB1P_LegalOwners (Id, ResponsibleName, Resp_DocType_Id, Resp_DocValue, Active)
-			values (@IdOwner, @inName, @IdRespDocType, @inResp_DocValue, 1)
-			return @IdOwner
+			values (@inIdOwner, @inName, @IdRespDocType, @inResp_DocValue, 1)
+			return @inIdOwner
 		END
-		return -5002;
+		return -50002;
 	end try
 
 	begin catch

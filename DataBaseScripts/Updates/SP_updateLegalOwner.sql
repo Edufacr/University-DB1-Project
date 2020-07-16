@@ -9,11 +9,13 @@ GO
 -- =============================================
 CREATE or ALTER PROCEDURE dbo.SP_updateLegalOwner
 	
+	@inLegalOwner_DocValue VARCHAR(30),
+	@inNewLegal_DocValue VARCHAR (30),
+	@inNewLegalName varchar(50),
 	@inNewResponsibleName varchar(50), 
 	@inNewResp_DocId_type varchar(50),
-	@inNewResp_DocValue VARCHAR(30), 
-	@inLegalOwner_DocValue VARCHAR(30),
-	@inNewLegalName varchar(50)
+	@inNewResp_DocValue VARCHAR(30)
+
 
 AS 
 BEGIN
@@ -40,7 +42,9 @@ BEGIN
 				where Id = @IdOwner
 
 				update dbo.DB1P_Owners
-				set Name = @inNewLegalName
+				set 
+				Name = @inNewLegalName,
+				DocValue = @inNewLegal_DocValue
 				where Id = @IdOwner
 			COMMIT TRANSACTION
 			return @IdOwner;

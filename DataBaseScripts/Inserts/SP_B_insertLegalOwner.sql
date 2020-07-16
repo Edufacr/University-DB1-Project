@@ -29,16 +29,19 @@ BEGIN
         SET @IdEntityOwner = 6;
         SET @Date = GETDATE();
         BEGIN TRANSACTION
-        EXEC @IdOwner = SP_insertLegalOwner @inName,@inResp_DocType,@inResp_DocValue,@inLegalOwner_DocValue;
-
-        IF(@IdOwner > 0)
+            EXEC @IdOwner = SP_insertOwner @inName,@inLegalOwner_DocValue,4;
+            IF(@IdOwner > 0)
             BEGIN
-            SET @jsonAfter = 
-				(SELECT Id,ResponsibleName,Resp_DocType_Id,Resp_DocValue
-			        FROM DB1P_LegalOwners
-				        WHERE Id = @IdOwner
-					FOR JSON PATH);
-                EXEC SP_insertChangeLog @IdEntityOwner,@IdOwner,@Date,@inInsertedBy,@inInsertedFrom,null,@jsonAfter;
+                EXEC @IdOwner = SP_insertLegalOwner @inName,@inResp_DocType,@inResp_DocValue,@IdOwner;
+                IF(@IdOwner > 0)
+                    BEGIN
+                        SET @jsonAfter = 
+                            (SELECT Id,LegalName,LegalDocValue,ResponsibleName,RespDocType_Id,RespDocValue
+                                FROM completeLegalOwners
+                                    WHERE Id = @IdOwner
+                                FOR JSON PATH);
+                        EXEC SP_insertChangeLog @IdEntityOwner,@IdOwner,@Date,@inInsertedBy,@inInsertedFrom,null,@jsonAfter;
+                END
             END
         COMMIT TRANSACTION
         RETURN @IdOwner;

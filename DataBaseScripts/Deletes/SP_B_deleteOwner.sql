@@ -19,6 +19,7 @@ BEGIN
 	DECLARE @IdDocType INT
     DECLARE @IdEntityOwner INT
     DECLARE @IdEntityLegalOwner INT;
+	DECLARE @IdEntity INT;
     DECLARE @IdOwner INT;
     DECLARE @Date DATETIME;
 
@@ -28,7 +29,6 @@ BEGIN
         SET @IdEntityLegalOwner = 6;
         SET @Date = GETDATE();
 		
-
         SELECT @IdDocType = t.Id
 			FROM DB1P_Doc_Id_Types AS t
 			WHERE t.Name = @inDocType
@@ -36,32 +36,36 @@ BEGIN
 			FROM activeOwners AS o
 			WHERE DocValue = @inDocValue AND DocType_Id = @IdDocType
 		IF(@IdDocType IS NOT NULL AND @IdOwner IS NOT NULL)
-		BEGIN 
-			BEGIN TRANSACTION
-				IF @IdDocType = 4
-					BEGIN
-						SET @jsonBefore = 
-							(SELECT Id,ResponsibleName,Resp_DocType_Id,Resp_DocValue
-								FROM DB1P_LegalOwners
+			BEGIN 
+				BEGIN TRANSACTION
+					IF @IdDocType = 4
+						BEGIN
+							SET @IdEntity = @IdEntityLegalOwner;
+							SET @jsonBefore = 
+								(SELECT Id,LegalName,LegalDocValue,ResponsibleName,RespDocType_Id,RespDocValue
+									FROM completeLegalOwners
 									WHERE Id = @IdOwner
-										FOR JSON PATH);
-						UPDATE dbo.DB1P_LegalOwners
-							SET Active = 0
-							WHERE Id = @IdOwner
-                        EXEC SP_insertChangeLog @IdEntityLegalOwner,@IdOwner,@Date,@inInsertedBy,@inInsertedFrom,@jsonBefore,NULL;
-					END
-				SET @jsonBefore = 
-					(SELECT Id,Name,DocType_Id,DocValue
-						FROM DB1P_Owners
-							WHERE Id = @IdOwner
 								FOR JSON PATH);
-				UPDATE dbo.DB1P_Owners
-					SET Active = 0
-					WHERE Id = @IdOwner
-                EXEC SP_insertChangeLog @IdEntityOwner,@IdOwner,@Date,@inInsertedBy,@inInsertedFrom,@jsonBefore,NULL;
-			COMMIT TRANSACTION
-			RETURN @IdOwner;
-		END
+							UPDATE dbo.DB1P_LegalOwners
+								SET Active = 0
+								WHERE Id = @IdOwner
+						END
+					ELSE
+						BEGIN
+							SET @IdEntity = @IdEntityOwner;
+							SET @jsonBefore = 
+								(SELECT Id,Name,DocType_Id,DocValue
+									FROM DB1P_Owners
+										WHERE Id = @IdOwner
+											FOR JSON PATH);
+						END
+					UPDATE dbo.DB1P_Owners
+						SET Active = 0
+						WHERE Id = @IdOwner
+					EXEC SP_insertChangeLog @IdEntity,@IdOwner,@Date,@inInsertedBy,@inInsertedFrom,@jsonBefore,NULL;
+				COMMIT TRANSACTION
+				RETURN @IdOwner;
+			END
 		RETURN -50002
 	END TRY
 	BEGIN CATCH
