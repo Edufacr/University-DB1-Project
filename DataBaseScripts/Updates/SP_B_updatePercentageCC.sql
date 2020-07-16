@@ -7,7 +7,7 @@ GO
 -- Create date: 
 -- Description:	updates PercentageCC and ChangeLog
 -- =============================================
-CREATE OR ALTER PROCEDURE dbo.SP_B_updatetPercentageCC
+CREATE OR ALTER PROCEDURE dbo.SP_B_updatedPercentageCC
 	
 	@inName varchar(50),
 	@inNewName varchar(50),

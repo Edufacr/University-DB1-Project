@@ -7,7 +7,7 @@ GO
 -- Create date: 
 -- Description:	updates ConsumptionCC and ChangeLog
 -- =============================================
-CREATE OR ALTER PROCEDURE dbo.SP_B_updatetConsumptionCC
+CREATE OR ALTER PROCEDURE dbo.SP_B_updatedConsumptionCC
 	
 	@inName varchar(50),
 	@inNewName varchar(50),
