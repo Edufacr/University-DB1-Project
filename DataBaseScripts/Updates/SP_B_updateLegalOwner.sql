@@ -41,7 +41,7 @@ BEGIN
                 WHERE Id = @IdOwner
             FOR JSON PATH);
         BEGIN TRANSACTION
-            EXEC @IdOwner = SP_updateLegalOwner @inLegalOwner_DocValue,@inNewLegal_DocValue,@inNewLegalName,@inNewResp_DocId_type,@inNewResp_DocValue,@inLegalOwner_DocValue;
+            EXEC @IdOwner = SP_updateLegalOwner @inLegalOwner_DocValue,@inNewLegal_DocValue,@inNewLegalName,@inNewResponsibleName,@inNewResp_DocId_type,@inNewResp_DocValue;
             IF(@IdOwner > 0)
                 BEGIN
                 SET @jsonAfter = 

@@ -10,6 +10,7 @@ GO
 CREATE OR ALTER PROCEDURE dbo.SP_B_insertLegalOwner 
 	
 	@inName varchar(50), 
+    @inRespName varchar(50), 
 	@inResp_DocType varchar(50), 
 	@inResp_DocValue VARCHAR(30), 
 	@inLegalOwner_DocValue VARCHAR(30),
@@ -19,20 +20,23 @@ CREATE OR ALTER PROCEDURE dbo.SP_B_insertLegalOwner
 
 AS
 BEGIN
-	DECLARE @IdDocType INT
+	DECLARE @DocType VARCHAR(30)
     DECLARE @IdEntityOwner INT
     DECLARE @IdOwner INT;
     DECLARE @Date DATETIME;
 
     DECLARE @jsonAfter VARCHAR(500);
 	BEGIN TRY
+    BEGIN TRANSACTION
         SET @IdEntityOwner = 6;
         SET @Date = GETDATE();
-        BEGIN TRANSACTION
-            EXEC @IdOwner = SP_insertOwner @inName,@inLegalOwner_DocValue,4;
+        SELECT @DocType = Name
+            FROM DB1P_Doc_Id_Types
+                WHERE Id = 4;
+            EXEC @IdOwner = SP_insertOwner @inName,@inLegalOwner_DocValue,@DocType;
             IF(@IdOwner > 0)
             BEGIN
-                EXEC @IdOwner = SP_insertLegalOwner @inName,@inResp_DocType,@inResp_DocValue,@IdOwner;
+                EXEC @IdOwner = SP_insertLegalOwner @inRespName,@inResp_DocType,@inResp_DocValue,@IdOwner;
                 IF(@IdOwner > 0)
                     BEGIN
                         SET @jsonAfter = 
@@ -41,7 +45,7 @@ BEGIN
                                     WHERE Id = @IdOwner
                                 FOR JSON PATH);
                         EXEC SP_insertChangeLog @IdEntityOwner,@IdOwner,@Date,@inInsertedBy,@inInsertedFrom,null,@jsonAfter;
-                END
+                    END
             END
         COMMIT TRANSACTION
         RETURN @IdOwner;

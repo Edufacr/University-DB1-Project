@@ -42,10 +42,10 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
             UpdateUser = new SqlCommand("SP_B_updateUser", connection);
             UpdateUser.CommandType = CommandType.StoredProcedure;
             
-            DeleteUserOfProperty = new SqlCommand("SP_deletePropertiesUsers", connection);
+            DeleteUserOfProperty = new SqlCommand("SP_B_deletesPropertiesUsers", connection);
             DeleteUserOfProperty.CommandType = CommandType.StoredProcedure;
             
-            InsertUserOfProperty = new SqlCommand("SP_insertPropertiesUsers", connection);
+            InsertUserOfProperty = new SqlCommand("SP_B_insertPropertiesUsers", connection);
             InsertUserOfProperty.CommandType = CommandType.StoredProcedure;
             
             GetUsersOfProperty = new SqlCommand("SP_getPropertyUsers", connection);
@@ -116,9 +116,12 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
         
         public int ExecuteDeleteUserOfProperty(UserPropertyModel pRelation)
         {
+        
+            DeleteUserOfProperty.Parameters.Add("@inInsertedBy", SqlDbType.VarChar, 50).Value = ILoggedUser.LoggedUser.Name;
+            DeleteUserOfProperty.Parameters.Add("@inInsertedFrom", SqlDbType.VarChar, 50).Value = ILoggedUser.Ip;
             
-            DeleteUserOfProperty.Parameters.Add("@pUsername", SqlDbType.VarChar, 50).Value = pRelation.Name;
-            DeleteUserOfProperty.Parameters.Add("@pPropertyNumber", SqlDbType.Int).Value = pRelation.PropertyNumber;
+            DeleteUserOfProperty.Parameters.Add("@inUsername", SqlDbType.VarChar, 50).Value = pRelation.Name;
+            DeleteUserOfProperty.Parameters.Add("@inPropertyNumber", SqlDbType.Int).Value = pRelation.PropertyNumber;
             
             return ExecuteNonQueryCommand(DeleteUserOfProperty);
             
@@ -126,9 +129,11 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
         
         public int ExecuteInsertUserOfProperty(UserPropertyModel pRelation)
         {
-            Console.Write(pRelation.PropertyNumber);
-            InsertUserOfProperty.Parameters.Add("@pUsername", SqlDbType.VarChar, 50).Value = pRelation.Name;
-            InsertUserOfProperty.Parameters.Add("@pPropertyNumber", SqlDbType.Int).Value = pRelation.PropertyNumber;
+            InsertUserOfProperty.Parameters.Add("@inInsertedBy", SqlDbType.VarChar, 50).Value = ILoggedUser.LoggedUser.Name;
+            InsertUserOfProperty.Parameters.Add("@inInsertedFrom", SqlDbType.VarChar, 50).Value = ILoggedUser.Ip;
+            
+            InsertUserOfProperty.Parameters.Add("@inUsername", SqlDbType.VarChar, 50).Value = pRelation.Name;
+            InsertUserOfProperty.Parameters.Add("@inPropertyNumber", SqlDbType.Int).Value = pRelation.PropertyNumber;
             
             return ExecuteNonQueryCommand(InsertUserOfProperty);
             
