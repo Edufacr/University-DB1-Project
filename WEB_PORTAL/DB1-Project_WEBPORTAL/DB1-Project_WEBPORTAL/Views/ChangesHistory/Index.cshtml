@@ -27,26 +27,28 @@
     </tr>
     </thead>
     <tbody>
-          @foreach(var change in Model)
-          {
-              <th>
-                  @Html.DisplayFor(model => change.changeDateTime)
-              </th>
-              <th>
-                  @Html.DisplayFor(model => change.entityType)
-              </th>
-              <th>
-                  @Html.DisplayFor(model => change.changeUser)
-              </th>
-              <th>
-                  @Html.DisplayFor(model => change.changeIp)
-              </th>
-              <th>
-                  <a asp-action="Details" asp-route-pChange="@change">
-                      <input type="submit" value="Ver" class="btn btn-warning"/>
-                  </a>
-              </th>
-          }
-    </tbody>
+        @foreach (var change in Model)
+        {
+            <tr>
+                <th>
+                    @Html.DisplayFor(model => change.changeDateTime)
+                </th>
+                <th>
+                    @Html.DisplayFor(model => change.entityType)
+                </th>
+                <th>
+                    @Html.DisplayFor(model => change.changeUser)
+                </th>
+                <th>
+                    @Html.DisplayFor(model => change.changeIp)
+                </th>
+                <th>
+                    <a asp-action="Details" asp-route-pChange="@change">
+                        <input type="submit" value="Ver" class="btn btn-warning" />
+                    </a>
+                </th>
+            </tr>
+                }
+        </tbody>
 </table>
 

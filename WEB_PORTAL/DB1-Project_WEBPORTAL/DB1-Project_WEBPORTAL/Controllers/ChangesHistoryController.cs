@@ -1,25 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using DB1_Project_WEBPORTAL.Models;
+using DB1_Project_WEBPORTAL.Models.ModelControllers;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DB1_Project_WEBPORTAL.Controllers
 {
     public class ChangesHistoryController : Controller
     {
+
+        ChangeModelController controller = ChangeModelController.getInstance();
+
         // GET
         public IActionResult Index()
         {
-            
-            List<ChangeModel> changes = new List<ChangeModel>();
-            ChangeModel change = new ChangeModel();
-            change.changeIp = "Test";
-            change.changeUser = "Test";
-            change.entityType = "Usuario";
-            change.jsonAfter = "Some json";
-            change.jsonBefore = "Some json";
-            change.changeDateTime = DateTime.Today;
-            changes.Add(change);
+
+            List<ChangeModel> changes = controller.ExecuteGetChanges();
             return View(changes);
         }
         

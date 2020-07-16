@@ -9,7 +9,9 @@ GO
 -- =============================================
 CREATE OR ALTER PROCEDURE SP_getChangeLogsByDate
 	-- Add the parameters for the stored procedure here
-    @inEntityName VARCHAR(50),@inStartDate DATE, @inEndDate DATE
+    @inEntityName VARCHAR(50) = null,
+	@inStartDate DATE = '2000/01/01', 
+	@inEndDate DATE = '2100/01/01'
 
 AS
 BEGIN
@@ -18,6 +20,7 @@ BEGIN
 	SET NOCOUNT ON;
     -- Insert statements for procedure here
 DECLARE @IdEntityType INT;
+
 BEGIN TRY
     SELECT @IdEntityType = Id
         FROM DB1P_EntityType
@@ -29,6 +32,15 @@ BEGIN TRY
                 WHERE InsertedAt >= @inStartDate AND InsertedAt <= @inEndDate AND IdEntityType = @IdEntityType
             RETURN @@ROWCOUNT;
         END
+	ELSE
+		BEGIN
+		    SELECT et.Name as EntityName, cl.InsertedAt, cl.InsertdBy, cl.InsertedFrom, cl.JsonBefore,cl.JsonAfter
+			FROM DB1P_ChangeLog as cl
+			INNER JOIN DB1P_EntityType as et
+			ON cl.IdEntityType = et.Id
+			WHERE InsertedAt >= @inStartDate AND InsertedAt <= @inEndDate
+            RETURN @@ROWCOUNT;
+		END
     RETURN -50002;
 END TRY
 BEGIN CATCH

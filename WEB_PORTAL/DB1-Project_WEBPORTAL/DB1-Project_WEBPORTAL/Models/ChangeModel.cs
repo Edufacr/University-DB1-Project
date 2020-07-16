@@ -13,4 +13,9 @@ namespace DB1_Project_WEBPORTAL.Models
         [Required][Display(Name = "Hecho por")] public string changeUser { get; set; }
         [Required][Display(Name = "IP del cambio")] public string changeIp { get; set; }
     }
+
+    public class EntityTypeModel
+    {
+        [Required][Display(Name ="Tipo Entidad")] public string name { get; set; }
+    }
 }
