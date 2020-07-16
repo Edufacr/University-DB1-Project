@@ -30,7 +30,7 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
             GetMoratoryInterestCCByName = new SqlCommand("SP_getMoratoryInterestCCByName", connection);
             GetMoratoryInterestCCByName.CommandType = CommandType.StoredProcedure;
             
-            UpdateMoratoryInterestCC = new SqlCommand("SP_updateMoratoryInterestCC", connection);
+            UpdateMoratoryInterestCC = new SqlCommand("SP_B_updateMoratoryInterestCC", connection);
             UpdateMoratoryInterestCC.CommandType = CommandType.StoredProcedure;
             
         }

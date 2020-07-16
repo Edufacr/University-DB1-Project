@@ -28,7 +28,7 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
             GetFixedCCByName = new SqlCommand("SP_getFixedCCByName", connection);
             GetFixedCCByName.CommandType = CommandType.StoredProcedure;
 
-            UpdateFixedCC = new SqlCommand("SP_updateFixedCC", connection);
+            UpdateFixedCC = new SqlCommand("SP_B_updateFixedCC", connection);
             UpdateFixedCC.CommandType = CommandType.StoredProcedure;
             
         }

@@ -31,7 +31,7 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
             GetConsumptionCCByName = new SqlCommand("SP_getConsumptionCCByName", connection);
             GetConsumptionCCByName.CommandType = CommandType.StoredProcedure;
 
-            UpdateConsumptionCC = new SqlCommand("SP_updateConsumptionCC", connection);
+            UpdateConsumptionCC = new SqlCommand("SP_B_updateConsumptionCC", connection);
             UpdateConsumptionCC.CommandType = CommandType.StoredProcedure;
             
         }

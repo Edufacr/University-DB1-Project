@@ -27,7 +27,7 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
             GetPercentageCCByName = new SqlCommand("SP_getPercentageCCByName", connection);
             GetPercentageCCByName.CommandType = CommandType.StoredProcedure;
 
-            UpdatePercentageCC = new SqlCommand("SP_updatePercentageCC", connection);
+            UpdatePercentageCC = new SqlCommand("SP_B_updatePercentageCC", connection);
             UpdatePercentageCC.CommandType = CommandType.StoredProcedure;
             
         }
