@@ -54,7 +54,9 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
             UpdateConsumptionCC.Parameters.Add("@inNewValueM3", SqlDbType.Money).Value = pChangedCC.ValueM3;
             UpdateConsumptionCC.Parameters.Add("@inNewMinValue", SqlDbType.Money).Value = pChangedCC.MinValue;
             
-            
+            UpdateConsumptionCC.Parameters.Add("@inInsertedBy", SqlDbType.VarChar, 50).Value = ILoggedUser.LoggedUser.Name;
+            UpdateConsumptionCC.Parameters.Add("@inInsertedFrom", SqlDbType.VarChar, 50).Value = ILoggedUser.Ip;
+
             var returnParameter = UpdateConsumptionCC.Parameters.Add("@ReturnVal", SqlDbType.Int);
             returnParameter.Direction = ParameterDirection.ReturnValue;
             try
