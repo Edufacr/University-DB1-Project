@@ -10,6 +10,7 @@ GO
 CREATE OR ALTER PROCEDURE dbo.SP_B_insertLegalOwner 
 	
 	@inName varchar(50), 
+    @inRespName varchar(50), 
 	@inResp_DocType varchar(50), 
 	@inResp_DocValue VARCHAR(30), 
 	@inLegalOwner_DocValue VARCHAR(30),
@@ -32,7 +33,7 @@ BEGIN
             EXEC @IdOwner = SP_insertOwner @inName,@inLegalOwner_DocValue,4;
             IF(@IdOwner > 0)
             BEGIN
-                EXEC @IdOwner = SP_insertLegalOwner @inName,@inResp_DocType,@inResp_DocValue,@IdOwner;
+                EXEC @IdOwner = SP_insertLegalOwner @inRespName,@inResp_DocType,@inResp_DocValue,@IdOwner;
                 IF(@IdOwner > 0)
                     BEGIN
                         SET @jsonAfter = 
