@@ -20,16 +20,13 @@ namespace DB1_Project_WEBPORTAL.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index(string pLoggedUsername)
+        public IActionResult Index()
         {
-            if (pLoggedUsername == null)
+
+            if (ILoggedUser.LoggedUser == null)
             {
-                return Redirect("Login/Index");
+                return Redirect("/Login/Index");
             }
-
-            UserModel loggedUser = userController.ExecuteGetUserByUsername(pLoggedUsername)[0];
-
-            ViewData["LoggedUser"] = loggedUser;
             
             return View();
         }

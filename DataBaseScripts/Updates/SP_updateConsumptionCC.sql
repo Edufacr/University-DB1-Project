@@ -32,29 +32,26 @@ BEGIN
 	
 	declare @id int
 	begin try
-		
-		begin transaction
-
-			select @id = cc.Id
-			from DB1P_ChargeConcepts as cc
-			where cc.Name = @inName
-
+		select @id = cc.Id
+		from DB1P_ChargeConcepts as cc
+		where cc.Name = @inName
+		if(@id is not null)
+		BEGIN
+			BEGIN TRANSACTION
 			update DB1P_ChargeConcepts
-			set Name = @inNewName,
-			    ExpirationDays = @inNewExpirationDays,
-				ReciptEmisionDay = @inNewReciptEmisionDay,
-				MoratoryInterestRate = @inNewMoratoryInterestRate
-			where Id = @id
-
-			update DB1P_Consumption_CC
-			set MinValue = @inNewMinValue,
-			    ValueM3 = @inNewValueM3
-			where Id = @id
-
-		commit
-
-		return 1
-
+				set Name = @inNewName,
+					ExpirationDays = @inNewExpirationDays,
+					ReciptEmisionDay = @inNewReciptEmisionDay,
+					MoratoryInterestRate = @inNewMoratoryInterestRate
+				where Id = @id
+				update DB1P_Consumption_CC
+				set MinValue = @inNewMinValue,
+					ValueM3 = @inNewValueM3
+				where Id = @id
+			COMMIT TRANSACTION
+			RETURN @id
+		END
+	return -50002
 	end try
 	begin catch
 		if @@TRANCOUNT > 1

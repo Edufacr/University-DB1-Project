@@ -33,13 +33,13 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
         {
             connection = DBConnection.getInstance().Connection;
             
-            InsertUser = new SqlCommand("SP_insertUser", connection);
+            InsertUser = new SqlCommand("SP_B_insertUser", connection);
             InsertUser.CommandType = CommandType.StoredProcedure;
             
-            DeleteUser = new SqlCommand("SP_deleteUser", connection);
+            DeleteUser = new SqlCommand("SP_B_deleteUser", connection);
             DeleteUser.CommandType = CommandType.StoredProcedure;
             
-            UpdateUser = new SqlCommand("SP_updateUser", connection);
+            UpdateUser = new SqlCommand("SP_B_updateUser", connection);
             UpdateUser.CommandType = CommandType.StoredProcedure;
             
             DeleteUserOfProperty = new SqlCommand("SP_deletePropertiesUsers", connection);
@@ -74,10 +74,14 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
 
         public int ExecuteInsertUser(UserModel user)
         {
+            
+            
+            InsertUser.Parameters.Add("@inInsertedBy", SqlDbType.VarChar, 50).Value = ILoggedUser.LoggedUser.Name;
+            InsertUser.Parameters.Add("@inInsertedFrom", SqlDbType.VarChar, 50).Value = ILoggedUser.Ip;
 
-            InsertUser.Parameters.Add("@pUsername", SqlDbType.VarChar, 50).Value = user.Name;
-            InsertUser.Parameters.Add("@pPassword", SqlDbType.VarChar, 50).Value = user.Password;
-            InsertUser.Parameters.Add("@pAdminType", SqlDbType.Bit).Value = user.isAdmin;
+            InsertUser.Parameters.Add("@inUsername", SqlDbType.VarChar, 50).Value = user.Name;
+            InsertUser.Parameters.Add("@inPassword", SqlDbType.VarChar, 50).Value = user.Password;
+            InsertUser.Parameters.Add("@inIsAdmin", SqlDbType.Bit).Value = user.isAdmin;
             
             return ExecuteNonQueryCommand(InsertUser);
             
@@ -86,7 +90,10 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
         public int ExecuteDeleteUser(UserModel user)
         {
             
-            DeleteUser.Parameters.Add("@pUsername", SqlDbType.VarChar, 50).Value = user.Name;
+            DeleteUser.Parameters.Add("@inInsertedBy", SqlDbType.VarChar, 50).Value = ILoggedUser.LoggedUser.Name;
+            DeleteUser.Parameters.Add("@inInsertedFrom", SqlDbType.VarChar, 50).Value = ILoggedUser.Ip;
+            
+            DeleteUser.Parameters.Add("@inUsername", SqlDbType.VarChar, 50).Value = user.Name;
 
             return ExecuteNonQueryCommand(DeleteUser);
             
@@ -95,9 +102,12 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
         public int ExecuteUpdateUser(UserModel originalUser, UserModel newUser)
         {
 
-            UpdateUser.Parameters.Add("@pUsername", SqlDbType.VarChar, 50).Value = originalUser.Name;
-            UpdateUser.Parameters.Add("@pNewUserName", SqlDbType.VarChar, 50).Value = newUser.Name;
-            UpdateUser.Parameters.Add("@pNewPassword", SqlDbType.VarChar, 50).Value = newUser.Password;
+            UpdateUser.Parameters.Add("@inInsertedBy", SqlDbType.VarChar, 50).Value = ILoggedUser.LoggedUser.Name;
+            UpdateUser.Parameters.Add("@inInsertedFrom", SqlDbType.VarChar, 50).Value = ILoggedUser.Ip;
+            
+            UpdateUser.Parameters.Add("@inUsername", SqlDbType.VarChar, 50).Value = originalUser.Name;
+            UpdateUser.Parameters.Add("@inNewUserName", SqlDbType.VarChar, 50).Value = newUser.Name;
+            UpdateUser.Parameters.Add("@inNewPassword", SqlDbType.VarChar, 50).Value = newUser.Password;
             
             
             return ExecuteNonQueryCommand(UpdateUser);
@@ -191,6 +201,7 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
         {
             var returnParameter = command.Parameters.Add("@ReturnVal", SqlDbType.Int);
             returnParameter.Direction = ParameterDirection.ReturnValue;
+
             try
             {
                 connection.Open();

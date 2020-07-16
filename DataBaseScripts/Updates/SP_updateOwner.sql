@@ -7,40 +7,44 @@ GO
 -- Create date: 2020/5/30
 -- Description:	Updates an element of the table DB1P_Owners.
 -- =============================================
-
--- TODO Input validations
--- TODO Transaction
-
 CREATE OR ALTER PROCEDURE dbo.SP_updateOwner 
-	@pDocValue VARCHAR(30), 
-	@pDocType  varchar(50), 
-	@pNewName varchar(50),
-	@pNewDocValue VARCHAR(30),
-	@pNewDocType varchar(50)
+	@inDocValue VARCHAR(30), 
+	@inDocType  varchar(50), 
+	@inNewName varchar(50),
+	@inNewDocValue VARCHAR(30),
+	@inNewDocType varchar(50)
 
 AS
 BEGIN
 
-	declare @DocType_Id int
-	declare @NewDocType_Id int
+	declare @IdDocType int
+	declare @IdNewDocType int
+	declare @IdOwner int;
 
 	begin try
 
-		select @DocType_Id = t.Id
+		select @IdDocType = t.Id
 		from DB1P_Doc_Id_Types as t
-		where t.Name = @pDocType
+		where t.Name = @inDocType
 		
-		select @NewDocType_Id = t.Id
+		select @IdNewDocType = t.Id
 		from DB1P_Doc_Id_Types as t
-		where t.Name = @pNewDocType
+		where t.Name = @inNewDocType
 
-		update dbo.DB1P_Owners
-		set Name = @pNewName,
-			DocValue = @pNewDocValue,
-			DocType_Id = @NewDocType_Id
-		where DocValue = @pDocValue and DocType_Id = @DocType_Id
-		return 1
+		select @IdOwner = Id 
+			from DB1P_Owners
+			where @inDocValue = DocValue and DocType_Id = @IdDocType ;
 
+		IF(@IdOwner IS NOT NULL AND @IdNewDocType IS NOT NULL)
+		BEGIN
+			update dbo.DB1P_Owners
+			set Name = @inNewName,
+				DocValue = @inNewDocValue,
+				DocType_Id = @IdNewDocType
+			where @IdOwner = Id;
+			return @IdOwner;
+		END
+		return -50002
 	end try
 	begin catch
 		return @@Error * -1

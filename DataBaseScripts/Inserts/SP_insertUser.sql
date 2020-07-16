@@ -7,16 +7,12 @@ GO
 -- Create date: 03/06/2020
 -- Description:	Inserts a user
 -- =============================================
-
---TODO Input validations
---TODO Remove transaction
-
 CREATE OR ALTER PROCEDURE SP_insertUser
 	
 	-- Add the parameters for the stored procedure here
-    @pUserName VARCHAR(50),
-	@pPassword VARCHAR(50),
-	@pAdminType bit
+    @inUserName VARCHAR(50),
+	@inPassword VARCHAR(50),
+	@inIsAdmin bit
 
 AS
 BEGIN
@@ -25,15 +21,12 @@ BEGIN
 	SET NOCOUNT ON;
     -- Insert statements for procedure here
 BEGIN TRY
-	BEGIN TRANSACTION
-        INSERT INTO DB1P_Users (Username,Password, UserType,Active)
-        VALUES (@pUserName,@pPassword,@pAdminType,1);
-	COMMIT
+    INSERT INTO DB1P_Users (Username,Password, UserType,Active)
+    VALUES (@inUserName,@inPassword,@inIsAdmin,1);
 	RETURN SCOPE_IDENTITY()
 END TRY
 BEGIN CATCH
-	ROLLBACK
-	return @@Error * -1
+	RETURN @@Error * -1
 END CATCH
 END
 GO

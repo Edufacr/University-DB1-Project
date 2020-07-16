@@ -7,31 +7,32 @@ GO
 -- Create date: 02/06/2020
 -- Description:	updates User values with username
 -- =============================================
-
--- TODO Input validations
--- TODO Remove transaction
-
 CREATE OR ALTER PROCEDURE SP_updateUser
 	-- Add the parameters for the stored procedure here
-	@pUsername varchar(50),@pNewUserName varchar(50),@pNewPassword varchar(50)
+	@inUsername varchar(50),@inNewUserName varchar(50),@inNewPassword varchar(50)
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
     -- Insert statements for procedure here
+	DECLARE @UserId INT;
 BEGIN TRY
-	BEGIN TRANSACTION
-        UPDATE DB1P_Users
-        set
-        Username = @pNewUserName,
-		Password = @pNewPassword
-		where Username = @pUsername;
-	COMMIT
-	return SCOPE_IDENTITY();
+	SELECT @UserId = Id
+		FROM DB1P_Users
+		WHERE Username = @inUsername;
+	IF(@UserId IS NOT NULL)
+	BEGIN 
+		UPDATE DB1P_Users
+		SET
+			Username = @inNewUserName,
+			Password = @inNewPassword
+		where Username = @inUsername;
+		return @UserId;
+	END
+	RETURN -50002;
 END TRY
 BEGIN CATCH
-	ROLLBACK
 	return @@Error * -1
 END CATCH
 END
