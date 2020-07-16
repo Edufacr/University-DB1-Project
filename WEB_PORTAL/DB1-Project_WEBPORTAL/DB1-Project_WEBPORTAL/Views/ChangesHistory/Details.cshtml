@@ -1,13 +1,19 @@
-﻿@model ChangeModel
+﻿@using Newtonsoft.Json.Linq
+@model ChangeModel
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@{
+    JObject jsonBeforeParser = JObject.Parse(Model.jsonAfter);
+    JObject jsonAfterParser = JObject.Parse(Model.jsonBefore);
+}
 <h1> Historial de Cambios </h1>
 <div>
     <a href='javascript:history.go(-1)'>Volver</a>
 </div>
+
 
 
