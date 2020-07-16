@@ -50,6 +50,8 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
             UpdatePercentageCC.Parameters.Add("@inNewMoratoryInterestRate", SqlDbType.Real).Value = pChangedCC.MoratoryInterestRate;
             UpdatePercentageCC.Parameters.Add("@inNewPercentageValue", SqlDbType.Money).Value = pChangedCC.PercentageValue;
             
+            UpdatePercentageCC.Parameters.Add("@inInsertedBy", SqlDbType.VarChar, 50).Value = ILoggedUser.LoggedUser.Name;
+            UpdatePercentageCC.Parameters.Add("@inInsertedFrom", SqlDbType.VarChar, 50).Value = ILoggedUser.Ip;
             
             var returnParameter = UpdatePercentageCC.Parameters.Add("@ReturnVal", SqlDbType.Int);
             returnParameter.Direction = ParameterDirection.ReturnValue;
