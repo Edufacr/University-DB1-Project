@@ -24,13 +24,13 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
         {
             connection = DBConnection.getInstance().Connection;
             
-            InsertCCProperty = new SqlCommand("SP_B_insertCC_onPropety", connection);
+            InsertCCProperty = new SqlCommand("SP_insertCC_onPropety", connection);
             InsertCCProperty.CommandType = CommandType.StoredProcedure;
             
-            DeleteCCProperty = new SqlCommand("SP_B_deleteCC_onProperty", connection);
+            DeleteCCProperty = new SqlCommand("SP_deleteCC_onProperty", connection);
             DeleteCCProperty.CommandType = CommandType.StoredProcedure;
             
-            UpdateCCProperty = new SqlCommand("SP_B_updateCC_onProperty", connection);
+            UpdateCCProperty = new SqlCommand("SP_updateCC_onProperty", connection);
             UpdateCCProperty.CommandType = CommandType.StoredProcedure;
             
             GetCCsOnProperty = new SqlCommand("SP_getActiveCCs_ofProperty", connection);
