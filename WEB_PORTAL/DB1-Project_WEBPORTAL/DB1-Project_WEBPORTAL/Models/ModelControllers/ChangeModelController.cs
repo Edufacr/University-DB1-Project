@@ -36,10 +36,13 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
 
         public void AddParametersToGetChanges(FilterModel filter)
         {
-
+            
+            Console.WriteLine(filter.startDate);
+            Console.WriteLine(filter.endDate);
+            
             GetChanges.Parameters.Add("@inEntityName", SqlDbType.VarChar, 50).Value = filter.entityName;
-            GetChanges.Parameters.Add("@inStartDate", SqlDbType.Date).Value = filter.startDate;
-            GetChanges.Parameters.Add("@inEndDate", SqlDbType.Date).Value = filter.endDate;
+            GetChanges.Parameters.Add("@inStartDate", SqlDbType.DateTime).Value = filter.startDate;
+            GetChanges.Parameters.Add("@inEndDate", SqlDbType.DateTime).Value = filter.endDate;
 
         }
 
