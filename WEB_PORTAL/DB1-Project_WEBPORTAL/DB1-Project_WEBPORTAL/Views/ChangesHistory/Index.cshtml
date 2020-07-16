@@ -9,22 +9,27 @@
 <div>
     <a href='javascript:history.go(-1)'>Volver</a>
 </div>
+
+<a asp-action="Filter">
+    <input type="submit" value="Filtrar Cambios" class="btn btn-success" />
+</a>
+
 <table class="table table-striped">
     <thead>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.changeDateTime)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.entityType)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.changeUser)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.changeIp)
-        </th>
-    </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.changeDateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.entityType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.changeUser)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.changeIp)
+            </th>
+        </tr>
     </thead>
     <tbody>
         @foreach (var change in Model)
@@ -48,7 +53,7 @@
                     </a>
                 </th>
             </tr>
-                }
-        </tbody>
+        }
+    </tbody>
 </table>
 

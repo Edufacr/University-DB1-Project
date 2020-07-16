@@ -11,13 +11,29 @@ namespace DB1_Project_WEBPORTAL.Controllers
 
         ChangeModelController controller = ChangeModelController.getInstance();
 
-        // GET
         public IActionResult Index()
         {
-
-            List<ChangeModel> changes = controller.ExecuteGetChanges();
+            List<ChangeModel> changes;
+            changes = controller.ExecuteGetChanges();
             return View(changes);
         }
+
+        [HttpGet]
+        public IActionResult Filter()
+        {
+            List<EntityTypeModel> entities = controller.ExecuteGetEntityTypes();
+            ViewData["Entities"] = entities;
+            return View();
+        }
+        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Filter([Bind] FilterModel filter)
+        {
+            controller.AddParametersToGetChanges(filter);
+            return RedirectToAction("Index");
+        }
+        
         
         [HttpGet]
         public IActionResult Details(ChangeModel pChange)
