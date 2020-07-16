@@ -7,7 +7,7 @@ GO
 -- Create date: 
 -- Description:	updates FixedCC and ChangeLog
 -- =============================================
-CREATE OR ALTER PROCEDURE dbo.SP_B_updatedFixedCC
+CREATE OR ALTER PROCEDURE dbo.SP_B_updateFixedCC
 	
 	@inName varchar(50),
 	@inNewName varchar(50),
