@@ -28,7 +28,7 @@ BEGIN
         SET @IdEntity = 4;
         SET @Date = GETDATE();
         BEGIN TRANSACTION
-            EXEC @IdRelation = SP_insertPropertyOwner @inOwnerDocValue,@inOwnerDocType,@inPropertyNumber;
+            EXEC @IdRelation = SP_insertPropertyOwner @inPropertyNumber, @inOwnerDocValue,@inOwnerDocType;
             IF(@IdRelation > 0)
                 BEGIN
                     SET @jsonAfter = 
