@@ -46,32 +46,20 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
             
         }
 
-
-
+        
         public int ExecuteInsertLegalOwner(LegalOwnerModel legalOwner)
         {
 
-            OwnerModelController ownerController = OwnerModelController.getInstance();
+            InsertLegalOwner.Parameters.Add("@inName", SqlDbType.VarChar, 50).Value = legalOwner.Name;
+            InsertLegalOwner.Parameters.Add("@inRespName", SqlDbType.VarChar, 50).Value = legalOwner.ResponsibleName;
+            InsertLegalOwner.Parameters.Add("@inResp_DocType", SqlDbType.VarChar, 50).Value = legalOwner.RespDocType;
+            InsertLegalOwner.Parameters.Add("@inResp_DocValue", SqlDbType.VarChar, 30).Value =
+                legalOwner.RespDocValue;
+            InsertLegalOwner.Parameters.Add("@inLegalOwner_DocValue", SqlDbType.VarChar, 30).Value =
+                legalOwner.DocValue;
 
-            OwnerModel owner = new OwnerModel();
-            owner.Name = legalOwner.Name;
-            owner.DocType = "Cedula Juridica";
-            owner.DocValue = legalOwner.DocValue;
-
-            int result = ownerController.ExecuteInsertOwner(owner);
-            if (result > 0)
-            {
-                InsertLegalOwner.Parameters.Add("@inName", SqlDbType.VarChar, 50).Value = legalOwner.ResponsibleName;
-                InsertLegalOwner.Parameters.Add("@inResp_DocType", SqlDbType.VarChar, 50).Value = legalOwner.RespDocType;
-                InsertLegalOwner.Parameters.Add("@inResp_DocValue", SqlDbType.VarChar, 30).Value =
-                    legalOwner.RespDocValue;
-                InsertLegalOwner.Parameters.Add("@inLegalOwner_DocValue", SqlDbType.VarChar, 30).Value =
-                    legalOwner.DocValue;
-
-                return ExecuteNonQueryCommand(InsertLegalOwner);
-            }
-
-            return -1;
+            return ExecuteNonQueryCommand(InsertLegalOwner);
+  
         }
 
         public int ExecuteUpdateLegalOwner(LegalOwnerModel legalOwner)
@@ -81,8 +69,12 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
             UpdateLegalOwner.Parameters.Add("@inNewResp_DocId_type", SqlDbType.VarChar, 50).Value = legalOwner.RespDocType;
             UpdateLegalOwner.Parameters.Add("@inNewResp_DocValue", SqlDbType.VarChar, 30).Value = legalOwner.RespDocValue;
             UpdateLegalOwner.Parameters.Add("@inLegalOwner_DocValue", SqlDbType.VarChar, 30).Value = legalOwner.DocValue;
+            UpdateLegalOwner.Parameters.Add("@inNewLegal_DocValue", SqlDbType.VarChar, 30).Value = legalOwner.DocValue;
             UpdateLegalOwner.Parameters.Add("@inNewLegalName", SqlDbType.VarChar, 50).Value = legalOwner.Name;
-            return ExecuteNonQueryCommand(UpdateLegalOwner);
+            
+            int result  = ExecuteNonQueryCommand(UpdateLegalOwner);
+            Console.WriteLine(result);
+            return result;
         }
 
         public List<LegalOwnerModel> ExecuteGetActiveLegalOwners()
@@ -117,6 +109,7 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
 
                 return result;
             }
+            
             catch (Exception e)
             {
                 throw (e);

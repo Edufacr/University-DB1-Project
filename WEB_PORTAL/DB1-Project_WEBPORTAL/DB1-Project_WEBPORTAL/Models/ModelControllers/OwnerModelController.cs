@@ -39,10 +39,10 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
             UpdateOwner = new SqlCommand("SP_B_updateOwner", connection);
             UpdateOwner.CommandType = CommandType.StoredProcedure;
             
-            DeleteOwnerOfProperty = new SqlCommand("SP_deletePropertyOwner", connection);
+            DeleteOwnerOfProperty = new SqlCommand("SP_B_deletePropertyOwner", connection);
             DeleteOwnerOfProperty.CommandType = CommandType.StoredProcedure;
             
-            InsertOwnerOfProperty = new SqlCommand("SP_insertPropertyOwner", connection);
+            InsertOwnerOfProperty = new SqlCommand("SP_B_insertPropertyOwner", connection);
             InsertOwnerOfProperty.CommandType = CommandType.StoredProcedure;
             
             GetOwnersOfProperty = new SqlCommand("SP_getOwnersOfProperty", connection);
@@ -101,17 +101,17 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
         
         public int ExecuteDeleteOwnerOfProperty(OwnerPropertyModel pRelation)
         {
-            DeleteOwnerOfProperty.Parameters.Add("@pPropertyPropertyNumber", SqlDbType.Int).Value = pRelation.PropertyNumber;
-            DeleteOwnerOfProperty.Parameters.Add("@pOwnerDocValue", SqlDbType.VarChar, 30).Value = pRelation.DocValue;
-            DeleteOwnerOfProperty.Parameters.Add("@pOwnerDocType", SqlDbType.VarChar, 50).Value = pRelation.DocType;
+            DeleteOwnerOfProperty.Parameters.Add("@inPropertyPropertyNumber", SqlDbType.Int).Value = pRelation.PropertyNumber;
+            DeleteOwnerOfProperty.Parameters.Add("@inOwnerDocValue", SqlDbType.VarChar, 30).Value = pRelation.DocValue;
+            DeleteOwnerOfProperty.Parameters.Add("@inOwnerDocType", SqlDbType.VarChar, 50).Value = pRelation.DocType;
             return ExecuteNonQueryCommand(DeleteOwnerOfProperty);
         }
         
         public int ExecuteInsertOwnerOfProperty(OwnerPropertyModel pRelation)
         {
-            InsertOwnerOfProperty.Parameters.Add("@pPropertyNumber", SqlDbType.Int).Value = pRelation.PropertyNumber;
-            InsertOwnerOfProperty.Parameters.Add("@pOwnerDocValue", SqlDbType.VarChar, 30).Value = pRelation.DocValue;
-            InsertOwnerOfProperty.Parameters.Add("@pOwnerDocType", SqlDbType.VarChar, 50).Value = pRelation.DocType;
+            InsertOwnerOfProperty.Parameters.Add("@inPropertyNumber", SqlDbType.Int).Value = pRelation.PropertyNumber;
+            InsertOwnerOfProperty.Parameters.Add("@inOwnerDocValue", SqlDbType.VarChar, 30).Value = pRelation.DocValue;
+            InsertOwnerOfProperty.Parameters.Add("@inOwnerDocType", SqlDbType.VarChar, 50).Value = pRelation.DocType;
             
             Console.WriteLine(pRelation.PropertyNumber);
             Console.WriteLine(pRelation.DocValue);
