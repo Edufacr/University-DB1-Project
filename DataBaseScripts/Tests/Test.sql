@@ -6,15 +6,13 @@ EXEC SP_XML_MovTypeFill
 EXEC SP_XML_UsersFill
 EXEC SP_XML_OperationsFill
 
--- DECLARE @d DATETIME ;
--- DECLARE @retValue INT;
--- SET @d = GETDATE();
--- EXEC @retValue = SP_insertChangeLog 1, 1, @d,'Test','Test'
--- PRINT(@retValue)
--- SELECT * FROM DB1P_ChangeLog
+INSERT INTO DB1P_Users
+VALUES('a','a',1,1)
 
--- Insert INTO DB1P_Properties
--- VALUES(1,'1',12,1,1,1)
-
---EXEC SP_B_insertOwner 'Test','123','Cedula Nacional','TestAdmin','127'
-
+SELECT * FROM DB1P_ConsumptionMov
+SELECT * FROM DB1P_Receipt
+SELECT * FROM DB1P_PaidReceipts
+SELECT * FROM DB1P_ReconnectionReceipt
+SELECT * FROM DB1P_ProofOfPayment
+SELECT * FROM DB1P_Disconnection
+SELECT * FROM DB1P_Reconnection
