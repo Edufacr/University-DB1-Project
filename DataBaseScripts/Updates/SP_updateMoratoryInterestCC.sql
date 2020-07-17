@@ -35,7 +35,7 @@ BEGIN
 				set Amount = @inNewAmount
 				where Id = @id
 				COMMIT
-				return SCOPE_IDENTITY();
+				return @id;
 			END
 			RETURN -50002
 

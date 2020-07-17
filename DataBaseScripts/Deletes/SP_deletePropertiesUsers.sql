@@ -21,15 +21,19 @@ BEGIN
 BEGIN TRY
 	DECLARE @IdProperty int;
 	DECLARE @IdUser int;
+	DECLARE @IdRelation int;
 	SET @IdProperty = (Select Id from activeProperties where PropertyNumber = @inPropertyNumber)
 	SET @IdUser = (Select Id from activeUsers where Username = @inUsername)
-	IF(@IdProperty IS NOT NULL AND @IdUser IS NOT NULL)
+	SELECT @IdRelation = RelationId
+		FROM activePropertiesUsersRelations
+		where UserId = @IdUser and PropertyId = @IdProperty;
+	IF(@IdRelation IS NOT NULL)
 		BEGIN
 			UPDATE DB1P_PropertiesUsers
 				set
 				Active = 0
-				where User_Id = @IdUser and Property_Id = @IdProperty;
-			return SCOPE_IDENTITY();
+				WHERE @IdRelation = Id
+			return @IdRelation;
 		END 
 	RETURN -50002;
 END TRY
