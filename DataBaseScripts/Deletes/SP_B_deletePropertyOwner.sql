@@ -31,7 +31,7 @@ BEGIN
             SET @jsonBefore = 
                 (SELECT RelationId,ownerDocType,ownerDocValue,PropertyNumber
                     FROM activePropertiesOwnersRelations
-                     WHERE @IdRelation = RelationId
+                     WHERE @inPropertyNumber = PropertyNumber AND @inOwnerDocValue = ownerDocValue AND @inOwnerDocType = @inOwnerDocType
             FOR JSON PATH);
             EXEC @IdRelation = SP_deletePropertyOwner @inOwnerDocValue,@inOwnerDocType,@inPropertyNumber;
             IF(@IdRelation > 0)

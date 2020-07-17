@@ -19,6 +19,7 @@ BEGIN
 		declare @IdOwner int;
 		declare @IdProperty int;
 		declare @OwnerIdDocType int;
+		DECLARE @IdRelation int;
 
 		select @OwnerIdDocType = t.Id
 		from DB1P_Doc_Id_Types as t
@@ -32,12 +33,16 @@ BEGIN
 		from dbo.DB1P_Properties
 		where PropertyNumber = @inPropertyNumber
 
-		IF(@IdOwner IS NOT NULL AND @IdProperty IS NOT NULL)
+		SELECT @IdRelation = RelationId
+			FROM activePropertiesOwnersRelations
+			where ownerId = @IdOwner and PropertyId = @IdProperty;
+
+		IF(@IdRelation IS NOT NULL)
 		BEGIN
 			update dbo.DB1P_PropertyOwners
 				set Active = 0
-				where Property_Id = @IdProperty and Owner_Id = @IdOwner
-			RETURN SCOPE_IDENTITY();
+				where Id = @IdRelation
+			RETURN @IdRelation;
 		END
 		return -50002;
 	end try
