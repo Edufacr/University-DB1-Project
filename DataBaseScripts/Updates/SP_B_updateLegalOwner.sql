@@ -36,7 +36,8 @@ BEGIN
 			FROM activeOwners AS o
 			WHERE DocValue = @inLegalOwner_DocValue AND DocType_Id = 4
         SET @jsonBefore = 
-            (SELECT Id,LegalName,LegalDocValue,ResponsibleName,RespDocType_Id,RespDocValue
+            (SELECT LegalName AS Nombre,LegalDocValue AS Cedula_Juridica,ResponsibleName AS Nombre_Representante,
+				RespDocType_Id AS Id_Tipo_Cedula_Representante,RespDocValue AS Cedula_Representante
                 FROM completeLegalOwners
                 WHERE Id = @IdOwner
             FOR JSON PATH);
@@ -45,7 +46,8 @@ BEGIN
             IF(@IdOwner > 0)
                 BEGIN
                 SET @jsonAfter = 
-                    (SELECT Id,LegalName,LegalDocValue,ResponsibleName,RespDocType_Id,RespDocValue
+                    (SELECT LegalName AS Nombre,LegalDocValue AS Cedula_Juridica,ResponsibleName AS Nombre_Representante,
+						RespDocType_Id AS Id_Tipo_Cedula_Representante,RespDocValue AS Cedula_Representante
                         FROM completeLegalOwners
                         WHERE Id = @IdOwner
                     FOR JSON PATH);

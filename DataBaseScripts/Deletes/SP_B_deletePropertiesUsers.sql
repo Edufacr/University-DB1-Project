@@ -27,7 +27,7 @@ BEGIN
         SET @Date = GETDATE();
         BEGIN TRANSACTION
             SET @jsonBefore = 
-                (SELECT RelationId,Username,PropertyNumber
+                (SELECT Username AS Usuario,PropertyNumber AS Numero_de_Propiedad
                     FROM activePropertiesUsersRelations
                      WHERE @inUsername = Username AND @inPropertyNumber = PropertyNumber
             FOR JSON PATH);

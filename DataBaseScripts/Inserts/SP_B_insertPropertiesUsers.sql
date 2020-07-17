@@ -30,7 +30,7 @@ BEGIN
             IF(@IdRelation > 0)
                 BEGIN
                     SET @jsonAfter = 
-                        (SELECT RelationId,Username,PropertyNumber
+                        (SELECT Username AS Usuario,PropertyNumber AS Numero_de_Propiedad
                             FROM activePropertiesUsersRelations
                             WHERE @IdRelation = RelationId
                         FOR JSON PATH);
