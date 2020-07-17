@@ -18,26 +18,28 @@ BEGIN
 	declare @id int
 	begin try
 		
-		begin transaction
-
 			select @id = cc.Id
 			from DB1P_ChargeConcepts as cc
 			where cc.Name = @inName
+			IF(@id IS NOT NULL)
+			BEGIN 
+				BEGIN TRANSACTION
+				update DB1P_ChargeConcepts
+				set Name = @inNewName,
+					ExpirationDays = @inNewExpirationDays,
+					ReciptEmisionDay = @inNewReciptEmisionDay,
+					MoratoryInterestRate = @inNewMoratoryInterestRate
+				where Id = @id
 
-			update DB1P_ChargeConcepts
-			set Name = @inNewName,
-			    ExpirationDays = @inNewExpirationDays,
-				ReciptEmisionDay = @inNewReciptEmisionDay,
-				MoratoryInterestRate = @inNewMoratoryInterestRate
-			where Id = @id
+				update DB1P_MoratoryInterest_CC
+				set Amount = @inNewAmount
+				where Id = @id
+				COMMIT
+				return SCOPE_IDENTITY();
+			END
+			RETURN -50002
 
-			update DB1P_MoratoryInterest_CC
-			set Amount = @inNewAmount
-			where Id = @id
-
-		commit
-
-		return 1
+		
 
 	end try
 	begin catch
