@@ -115,6 +115,7 @@ namespace DB1_Project_WEBPORTAL.Controllers
         [HttpGet]
         public IActionResult EditPercentage(string pCCName)
         {
+            Console.WriteLine(pCCName);
             PercentageCcModel model = PercentageCcController.ExecuteGetPercentageCCByName(pCCName)[0];
             if (model == null)
             {

@@ -3,8 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="dabc68ef-a88a-4eeb-83a8-22526c9de378" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.DB1-Project_WEBPORTAL/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DB1-Project_WEBPORTAL/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/ChangeModelController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/ChangeModelController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/ChangesHistory/Filter.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/ChangesHistory/Filter.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/ChargeConceptController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/ChargeConceptController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/DB1-Project_WEBPORTAL.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/DB1-Project_WEBPORTAL.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/ChangesHistory/Details.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/ChangesHistory/Details.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/ChangesHistory/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/ChangesHistory/Index.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/ChargeConcept/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/ChargeConcept/Index.cshtml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -136,7 +139,6 @@
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/ConsumptionChargeConceptModelController.cs" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/ChargeConcept/EditFixed.cshtml" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/ChargeConcept/EditMoratoryInterest.cshtml" />
-        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/ChargeConcept/Index.cshtml" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/PendingRecipt.cs" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/PaidRecipt.cs" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/Recipt.cs" />
@@ -147,14 +149,11 @@
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/PaymentProof.cs" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/ReceiptModelController.cs" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/Details.cshtml" />
-        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/ChangesHistory/Index.cshtml" />
-        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/ChangesHistory/Details.cshtml" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Owner/Index.cshtml" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Home/Index.cshtml" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/UserController.cs" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/PropertyController.cs" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/OwnerController.cs" />
-        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/ChargeConceptController.cs" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/HomeController.cs" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Shared/_NonHeaderLayout.cshtml" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Shared/_Layout.cshtml" />
@@ -169,6 +168,10 @@
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/ChangesHistoryController.cs" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/ChangeModelController.cs" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/ChangesHistory/Filter.cshtml" />
+        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/ChangesHistory/Index.cshtml" />
+        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/ChargeConceptController.cs" />
+        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/ChargeConcept/Index.cshtml" />
+        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/ChangesHistory/Details.cshtml" />
       </list>
     </option>
   </component>
@@ -253,7 +256,7 @@
       <workItem from="1594518501267" duration="25783000" />
       <workItem from="1594701369466" duration="6958000" />
       <workItem from="1594755017764" duration="12816000" />
-      <workItem from="1594931085435" duration="6420000" />
+      <workItem from="1594931085435" duration="8799000" />
     </task>
     <servers />
   </component>
@@ -283,25 +286,25 @@
       <screen x="-1200" y="0" width="1200" height="1560" />
     </state>
     <state x="-1108" y="92" width="1016" height="1376" key="DiffContextDialog/0.0.1536.824/-1200.0.1200.1560@-1200.0.1200.1560" timestamp="1594417877362" />
-    <state width="1157" height="189" key="GridCell.Tab.0.bottom" timestamp="1594940629257">
+    <state width="1157" height="189" key="GridCell.Tab.0.bottom" timestamp="1594942651486">
       <screen x="-1200" y="0" width="1200" height="1560" />
     </state>
-    <state width="1157" height="189" key="GridCell.Tab.0.bottom/0.0.1536.824/-1200.0.1200.1560@-1200.0.1200.1560" timestamp="1594940629257" />
+    <state width="1157" height="189" key="GridCell.Tab.0.bottom/0.0.1536.824/-1200.0.1200.1560@-1200.0.1200.1560" timestamp="1594942651486" />
     <state width="1493" height="566" key="GridCell.Tab.0.bottom/0.0.1536.824/-1200.0.1200.1560@0.0.1536.824" timestamp="1594364625295" />
-    <state width="1157" height="189" key="GridCell.Tab.0.center" timestamp="1594940629257">
+    <state width="1157" height="189" key="GridCell.Tab.0.center" timestamp="1594942651485">
       <screen x="-1200" y="0" width="1200" height="1560" />
     </state>
-    <state width="1157" height="189" key="GridCell.Tab.0.center/0.0.1536.824/-1200.0.1200.1560@-1200.0.1200.1560" timestamp="1594940629257" />
+    <state width="1157" height="189" key="GridCell.Tab.0.center/0.0.1536.824/-1200.0.1200.1560@-1200.0.1200.1560" timestamp="1594942651485" />
     <state width="1493" height="566" key="GridCell.Tab.0.center/0.0.1536.824/-1200.0.1200.1560@0.0.1536.824" timestamp="1594364625295" />
-    <state width="1157" height="189" key="GridCell.Tab.0.left" timestamp="1594940629257">
+    <state width="1157" height="189" key="GridCell.Tab.0.left" timestamp="1594942651485">
       <screen x="-1200" y="0" width="1200" height="1560" />
     </state>
-    <state width="1157" height="189" key="GridCell.Tab.0.left/0.0.1536.824/-1200.0.1200.1560@-1200.0.1200.1560" timestamp="1594940629257" />
+    <state width="1157" height="189" key="GridCell.Tab.0.left/0.0.1536.824/-1200.0.1200.1560@-1200.0.1200.1560" timestamp="1594942651485" />
     <state width="1493" height="566" key="GridCell.Tab.0.left/0.0.1536.824/-1200.0.1200.1560@0.0.1536.824" timestamp="1594364625295" />
-    <state width="1157" height="189" key="GridCell.Tab.0.right" timestamp="1594940629257">
+    <state width="1157" height="189" key="GridCell.Tab.0.right" timestamp="1594942651486">
       <screen x="-1200" y="0" width="1200" height="1560" />
     </state>
-    <state width="1157" height="189" key="GridCell.Tab.0.right/0.0.1536.824/-1200.0.1200.1560@-1200.0.1200.1560" timestamp="1594940629257" />
+    <state width="1157" height="189" key="GridCell.Tab.0.right/0.0.1536.824/-1200.0.1200.1560@-1200.0.1200.1560" timestamp="1594942651486" />
     <state width="1493" height="566" key="GridCell.Tab.0.right/0.0.1536.824/-1200.0.1200.1560@0.0.1536.824" timestamp="1594364625295" />
     <state width="498" height="446" key="SwitcherDM" timestamp="1594533333419">
       <screen x="-1200" y="0" width="1200" height="1560" />
