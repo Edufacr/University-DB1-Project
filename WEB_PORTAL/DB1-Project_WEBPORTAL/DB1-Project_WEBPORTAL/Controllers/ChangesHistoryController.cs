@@ -15,6 +15,7 @@ namespace DB1_Project_WEBPORTAL.Controllers
         {
             List<ChangeModel> changes;
             changes = controller.ExecuteGetChanges();
+
             return View(changes);
         }
 
@@ -34,11 +35,14 @@ namespace DB1_Project_WEBPORTAL.Controllers
             return RedirectToAction("Index");
         }
         
-        
         [HttpGet]
-        public IActionResult Details(ChangeModel pChange)
+        public IActionResult Details(string pJsonBefore, string pJsonAfter)
         {
-            return View(pChange);
+
+            ViewData["jsonAfter"] = pJsonAfter;
+            ViewData["jsonBefore"] = pJsonBefore;
+            
+            return View();
         }
         
     }

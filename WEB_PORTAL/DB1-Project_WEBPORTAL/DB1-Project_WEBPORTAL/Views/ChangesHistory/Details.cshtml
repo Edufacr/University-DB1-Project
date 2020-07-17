@@ -1,19 +1,124 @@
 ﻿@using Newtonsoft.Json.Linq
-@model ChangeModel
-
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @{
-    JObject jsonBeforeParser = JObject.Parse(Model.jsonAfter);
-    JObject jsonAfterParser = JObject.Parse(Model.jsonBefore);
-}
+
+    string jsonAfter = ViewData["jsonAfter"] as string;
+    string jsonBefore = ViewData["jsonBefore"] as string;
+    
+    Console.WriteLine(jsonAfter);
+    Console.WriteLine(jsonBefore);
+
+    var isInsert = false;
+    var isDelete = false;
+    
+    if (jsonAfter == null)
+    {
+        jsonAfter = "[]";
+        isDelete = true;
+    }
+    if (jsonBefore == null)
+    {
+        jsonBefore = "[]";
+        isInsert = true;
+    }
+        
+    JArray jsonBeforeParser = JArray.Parse(jsonBefore);
+    JArray jsonAfterParser = JArray.Parse(jsonAfter);
+    
+}  
+
 <h1> Historial de Cambios </h1>
 <div>
     <a href='javascript:history.go(-1)'>Volver</a>
 </div>
+<hr />
+@if (!isInsert)
+{
+    if (!isDelete)
+    {
+        <h5> Registro antes </h5>
+    }
+    else
+    {
+        <h5> Registro Eliminado </h5>
+    }
+    
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            @foreach (JObject content in jsonBeforeParser.Children<JObject>())
+            {
+                foreach (JProperty prop in content.Properties())
+                {
+                    <td>
+                        @prop.Name
+                    </td>
+                }
+            }
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            @foreach (JObject content in jsonBeforeParser.Children<JObject>())
+            {
+                foreach (JProperty prop in content.Properties())
+                {
+                    <td>
+                        @prop.Value
+                    </td>
+                }
+            }
+        </tr>
+        </tbody>
+    </table>
+    <hr />
+}
+
+@if (!isDelete)
+{
+    if (!isInsert)
+    {
+        <h5> Registro después </h5>
+    }
+    else
+    {
+        <h5> Registro Insertado </h5>
+    }
+    
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            @foreach (JObject content in jsonBeforeParser.Children<JObject>())
+            {
+                foreach (JProperty prop in content.Properties())
+                {
+                    <td>
+                        @prop.Name
+                    </td>
+                }
+            }
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            @foreach (JObject content in jsonAfterParser.Children<JObject>())
+            {
+                foreach (JProperty prop in content.Properties())
+                {
+                    <td>
+                        @prop.Value
+                    </td>
+                }
+            }
+        </tr>
+        </tbody>
+    </table>
+    <hr />
+}
 
 
 

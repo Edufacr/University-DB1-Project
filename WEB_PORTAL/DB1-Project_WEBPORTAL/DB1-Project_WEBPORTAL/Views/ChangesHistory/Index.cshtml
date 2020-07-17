@@ -50,11 +50,13 @@
                         @Html.DisplayFor(model => change.changeIp)
                     </th>
                     <th>
-                        <a asp-action="Details" asp-route-pChange="@change">
+                        <a asp-action="Details" asp-route-pJsonBefore="@change.jsonBefore"  asp-route-pJsonAfter="@change.jsonAfter">
                             <input type="submit" value="Ver" class="btn btn-warning"/>
                         </a>
                     </th>
                 </tr> 
+                
+                        
             }
         }
         else
