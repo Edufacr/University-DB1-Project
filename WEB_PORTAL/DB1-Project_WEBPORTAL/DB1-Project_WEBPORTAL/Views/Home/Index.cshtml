@@ -1,0 +1,37 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h1> Portal Administrador </h1>
+
+<p>
+    <a asp-action="Properties">
+        <input type="submit" value="Propiedades" class="btn btn-info"/>
+    </a>
+</p>
+
+<p>
+    <a asp-action="Owners">
+        <input type="submit" value="Propietarios" class="btn btn-info"/>
+    </a>
+</p>
+
+<p>
+    <a asp-action="Users">
+        <input type="submit" value="Usuarios" class="btn btn-info"/>
+    </a>
+</p>
+<p>
+    <a asp-action="ChargeConcepts">
+        <input type="submit" value="Conceptos de Cobro" class="btn btn-info"/>
+    </a>
+</p>
+<p>
+    <a asp-action="ChangesHistory">
+        <input type="submit" value="Historial de Cambios" class="btn btn-info"/>
+    </a>
+</p>
+
+

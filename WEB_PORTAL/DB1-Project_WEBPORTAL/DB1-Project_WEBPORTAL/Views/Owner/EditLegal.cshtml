@@ -1,0 +1,62 @@
+﻿@model DB1_Project_WEBPORTAL.Models.LegalOwnerModel
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    List<DocTypeModel> Types = ViewData["Types"] as List<DocTypeModel>;
+}
+
+<h1>Propietarios</h1>
+<h4>Actualizar Propietario</h4>
+<div>
+    <a href='javascript:history.go(-1)'>Volver</a>
+</div>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditLegal">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="DocValue"/>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input  asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ResponsibleName" class="control-label"></label>
+                <input  asp-for="ResponsibleName" class="form-control" />
+                <span asp-validation-for="ResponsibleName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RespDocValue" class="control-label"></label>
+                <input asp-for="RespDocValue" class="form-control" />
+                <span asp-validation-for="RespDocValue" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RespDocType" class="control-label"></label>
+                <select asp-for="RespDocType" class="form-control">
+                    <option value="">--Seleccione Tipo de Documento--</option>
+                    @foreach (DocTypeModel type in Types)
+                    {
+                        <option value=@type.Name>@type.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="RespDocType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Actualizar" class="btn btn-success" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

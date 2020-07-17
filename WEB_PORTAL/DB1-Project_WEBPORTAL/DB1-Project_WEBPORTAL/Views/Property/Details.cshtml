@@ -1,0 +1,615 @@
+﻿@model DB1_Project_WEBPORTAL.Models.PropertyModel
+
+@{
+    int? RequestType = ViewData["RequestType"] as int?;
+    ViewData["Title"] = "Delete";
+    
+    if (RequestType == 0)
+    {
+        Layout = "~/Views/Shared/_LayoutUserInterface.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+}
+
+@{
+
+    List<OwnerModel> owners = ViewData["Owners"] as List<OwnerModel>;
+    List<UserModel> users = ViewData["Users"] as List<UserModel>;
+    
+    List<CcModel> consumptionCCs = ViewData["ConsumptionCCs"] as List<CcModel>;
+    List<CcModel> percentageCCs = ViewData["PercentageCCs"] as List<CcModel>;
+    List<CcModel> moratoryIntsCCs = ViewData["MoratoryIntsCCs"] as List<CcModel>;
+    List<CcModel> fixedCCs = ViewData["FixedCCs"] as List<CcModel>;
+    
+    List<ReceiptModel> paidReceipts =  ViewData["PaidReceipts"] as List<ReceiptModel>;
+    List<ReceiptModel> pendingReceipts = ViewData["PendingReceipts"] as List<ReceiptModel>;
+    List<PaymentProofModel> paymentProofs = ViewData["PaymentPaymentProofs"] as List<PaymentProofModel>;
+    
+}
+
+<h1>Propiedades</h1>
+<h4>Información Propiedad</h4>
+<div>
+    @if (RequestType == 3)
+    {
+        <a asp-action="Index">Volver</a>
+    }    
+    else
+    {
+        <a href='javascript:history.go(-1)'>Volver</a>
+    }
+    
+</div>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+        <p>
+            @Html.DisplayFor(model => model.Address)
+        </p>
+        <hr />
+        <dt>
+            @Html.DisplayNameFor(model => model.Value)
+        </dt>
+        <p>
+            @Html.DisplayFor(model => model.Value)
+        </p>
+        <hr />
+        <dt>
+            @Html.DisplayNameFor(model => model.PropertyNumber)
+        </dt>
+        <p>
+            @Html.DisplayFor(model => model.PropertyNumber)
+        </p>
+        <hr />
+        <dt>
+            @Html.DisplayNameFor(model => model.AccumulatedM3)
+        </dt>
+        <p>
+            @Html.DisplayFor(model => model.AccumulatedM3)
+        </p>
+        <hr />
+        <dt>
+            @Html.DisplayNameFor(model => model.AccumulatedLRM3)
+        </dt>
+        <p>
+            @Html.DisplayFor(model => model.AccumulatedLRM3)
+        </p>
+        <hr />
+        
+    </dl>
+    
+</div> 
+<hr />
+<h3>Propietarios</h3>
+@if (RequestType != 0)
+{
+    <p>
+        <a asp-action="InsertOwner" asp-route-pPropertyNumber="@Model.PropertyNumber" >
+            <input type="submit" value="Insertar Propiedad" class="btn btn-success"/>
+        </a>
+    </p>
+}
+
+@if (owners.Count > 0)
+{
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => owners[0].Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => owners[0].DocType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => owners[0].DocValue)
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach(var owner in owners)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => owner.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => owner.DocType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => owner.DocValue)
+                </td>
+                @if (RequestType != 0)
+                {
+                    <td>
+                        @Html.ActionLink(
+                            "Ver",
+                            "Details",
+                            "Owner",
+                            new {pDocValue = owner.DocValue, pDocType = owner.DocType, pRequestType = RequestType},
+                            new {@class = "btn btn-warning"})
+                        <a asp-action="DeleteOwner" asp-route-pDocValue="@owner.DocValue" asp-route-pDocType="@owner.DocType"
+                           asp-route-pPropertyNumber="@Model.PropertyNumber">
+                            <input type="submit" value="Desapropiar" class="btn btn-danger"/>
+                        </a>
+                    </td>
+                }
+            </tr>
+        }
+        </tbody>
+    </table>
+
+}
+else
+{
+    <p> No existen propietarios ligados a esta propiedad.</p>
+}
+
+<hr />
+@if (RequestType != 0)
+{
+    <h3>Usuarios</h3>
+    @if (RequestType != 0)
+    {
+        <p>
+            <a asp-action="InsertUser" asp-route-pPropertyNumber="@Model.PropertyNumber" >
+                <input type="submit" value="Suscribir Usuario" class="btn btn-success"/>
+            </a>
+        </p>
+    }
+    @if(users.Count > 0)
+    {
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => users[0].Name)
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach(var user in users)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => user.Name)
+                    </td>
+                    <td>
+                        @Html.ActionLink(
+                            "Ver",
+                            "Details",
+                            "User",
+                            new {pUsername = user.Name, pRequestType = RequestType},
+                            new {@class = "btn btn-warning"})
+                        <a asp-action="DeleteUser" asp-route-pUsername="@user.Name"
+                           asp-route-pPropertyNumber="@Model.PropertyNumber">
+                            <input type="submit" value="Desuscribir" class="btn btn-danger"/>
+                        </a>
+                    </td>                    
+                </tr>
+            }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p> No existen ususarios ligados a esta propiedad.</p>
+    }
+        <hr />
+}
+
+
+<h3>Conceptos de Cobro</h3>
+<hr />
+@if (percentageCCs.Count > 0 || fixedCCs.Count > 0 || moratoryIntsCCs.Count > 0 || consumptionCCs.Count > 0)
+{
+    @if (fixedCCs.Count > 0)
+    {
+        <h5>Conceptos de Cobro Fijos</h5>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => fixedCCs[0].ChargeConceptName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => ((FixedCC_onPropertyModel)fixedCCs[0]).BeginDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => ((FixedCC_onPropertyModel)fixedCCs[0]).EndDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => fixedCCs[0].ExpirationDays)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => fixedCCs[0].ReciptEmisionDay)
+                </th>  
+                <th>
+                    @Html.DisplayNameFor(model => fixedCCs[0].MoratoryInterestRate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => ((FixedCcModel)fixedCCs[0]).Amount)
+                </th>
+            
+            </tr>
+            </thead>
+            <tbody>
+            @foreach(var fixedCC in fixedCCs)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => fixedCC.ChargeConceptName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => ((FixedCC_onPropertyModel)fixedCC).BeginDate)
+                    </td>
+                    <td>
+                        @if (((FixedCC_onPropertyModel)fixedCC).EndDate == "")
+                        {
+                            <p>No tiene</p>
+                        }
+                        else
+                        {
+                            @Html.DisplayFor(model => ((FixedCC_onPropertyModel)fixedCC).EndDate) 
+                        }
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => fixedCC.ExpirationDays)
+                    </td>
+                    <th>
+                        @Html.DisplayFor(model => fixedCC.ReciptEmisionDay)
+                    </th>                  
+                    <td>
+                        @Html.DisplayFor(modelItem => fixedCC.MoratoryInterestRate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => ((FixedCcModel)fixedCC).Amount)
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+        <hr />
+    }
+
+
+    @if(percentageCCs.Count > 0){
+        <h5>Conceptos de por Cobro Porcentaje</h5>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => percentageCCs[0].ChargeConceptName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => ((PercentageCC_onPropertyModel)percentageCCs[0]).BeginDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => ((PercentageCC_onPropertyModel)percentageCCs[0]).EndDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => percentageCCs[0].ExpirationDays)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => percentageCCs[0].ReciptEmisionDay)
+                </th>            
+                <th>
+                    @Html.DisplayNameFor(model => percentageCCs[0].MoratoryInterestRate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => ((PercentageCcModel)percentageCCs[0]).PercentageValue)
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach(var percentageCC in percentageCCs)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => percentageCC.ChargeConceptName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => ((PercentageCC_onPropertyModel)percentageCC).BeginDate)
+                    </td>
+                    <td>
+                        @if (((PercentageCC_onPropertyModel)percentageCC).EndDate == "")
+                        {
+                            <p>No tiene</p>
+                        }
+                        else
+                        {
+                            @Html.DisplayFor(model => ((PercentageCC_onPropertyModel)percentageCC).EndDate) 
+                        }
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => percentageCC.ExpirationDays)
+                    </td>
+                    <th>
+                        @Html.DisplayFor(model => percentageCC.ReciptEmisionDay)
+                    </th>                     
+                    <td>
+                        @Html.DisplayFor(modelItem => percentageCC.MoratoryInterestRate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => ((PercentageCcModel)percentageCC).PercentageValue)
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>   
+        <hr />
+    }
+
+
+    @if (moratoryIntsCCs.Count > 0)
+    {
+        
+        <h5>Conceptos de Cobro por Interés Moratorio</h5>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => moratoryIntsCCs[0].ChargeConceptName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => ((MoratoryInterestCC_onProperty)moratoryIntsCCs[0]).BeginDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => ((MoratoryInterestCC_onProperty)moratoryIntsCCs[0]).EndDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => moratoryIntsCCs[0].ExpirationDays)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => moratoryIntsCCs[0].ReciptEmisionDay)
+                </th>            
+                <th>
+                    @Html.DisplayNameFor(model => moratoryIntsCCs[0].MoratoryInterestRate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => ((MoratoryInterestCcModel)moratoryIntsCCs[0]).InterestValue)
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach(var moratoryIntstCC in moratoryIntsCCs)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => moratoryIntstCC.ChargeConceptName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => ((MoratoryInterestCC_onProperty)moratoryIntstCC).BeginDate)
+                    </td>
+                    <td>
+                        @if (((MoratoryInterestCC_onProperty)moratoryIntstCC).EndDate == "")
+                        {
+                            <p>No tiene</p>
+                        }
+                        else
+                        {
+                            @Html.DisplayFor(model => ((MoratoryInterestCC_onProperty)moratoryIntstCC).EndDate) 
+                        }
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => moratoryIntstCC.ExpirationDays)
+                    </td>
+                    <th>
+                        @Html.DisplayFor(model => moratoryIntstCC.ReciptEmisionDay)
+                    </th>                  
+                    <td>
+                        @Html.DisplayFor(modelItem => moratoryIntstCC.MoratoryInterestRate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => ((MoratoryInterestCcModel)moratoryIntstCC).InterestValue)
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>    
+        <hr />
+    }
+
+
+    @if (consumptionCCs.Count > 0)
+    {
+        <h5>Conceptos de Cobro por Consumo</h5>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => consumptionCCs[0].ChargeConceptName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => ((ConsumptionCC_onPropertyModel)consumptionCCs[0]).BeginDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => ((ConsumptionCC_onPropertyModel)consumptionCCs[0]).EndDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => consumptionCCs[0].ExpirationDays)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => consumptionCCs[0].ReciptEmisionDay)
+                </th>            
+                <th>
+                    @Html.DisplayNameFor(model => consumptionCCs[0].MoratoryInterestRate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => ((ConsumptionCcModel)consumptionCCs[0]).ValueM3)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => ((ConsumptionCcModel)consumptionCCs[0]).MinValue)
+                </th>
+            
+            </tr>
+            </thead>
+            <tbody>
+            @foreach(var consumptionCC in consumptionCCs)
+            {
+                <tr>
+                    <th>
+                        @Html.DisplayFor(model => consumptionCC.ChargeConceptName)
+                    </th>
+                    <th>
+                        @Html.DisplayFor(model => ((ConsumptionCC_onPropertyModel)consumptionCC).BeginDate)
+                    </th>
+                    <th>
+                        @if (((ConsumptionCC_onPropertyModel)consumptionCC).EndDate == "")
+                        {
+                            <p>No tiene</p>
+                        }
+                        else
+                        {
+                            @Html.DisplayFor(model => ((ConsumptionCC_onPropertyModel)consumptionCC).EndDate) 
+                        }
+                    </th>
+                    <th>
+                        @Html.DisplayFor(model => consumptionCC.ExpirationDays)
+                    </th>
+                    <th>
+                        @Html.DisplayFor(model => consumptionCC.ReciptEmisionDay)
+                    </th>                
+                    <th>
+                        @Html.DisplayFor(model => consumptionCC.MoratoryInterestRate)
+                    </th>
+                    <th>
+                        @Html.DisplayFor(model => ((ConsumptionCcModel)consumptionCC).ValueM3)
+                    </th>
+                    <th>
+                        @Html.DisplayFor(model => ((ConsumptionCcModel)consumptionCC).MinValue)
+                    </th>
+                </tr>
+            }
+            </tbody>
+        </table>
+        <hr />
+    }
+}
+else
+{
+    <p>No hay conceptos de cobro ligados a esta propiedad.</p>
+}
+
+@if (RequestType == 0)
+{
+    @if (pendingReceipts.Count > 0)
+    {
+             <h5>Recibos Pendientes</h5>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => pendingReceipts[0].Amount)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => pendingReceipts[0].ReceiptDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => pendingReceipts[0].DueDate)
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach(var pendingReceipt in pendingReceipts)
+                {
+                    <tr>
+                        <th>
+                            @Html.DisplayFor(model => pendingReceipt.Amount)
+                        </th>
+                        <th>
+                            @Html.DisplayFor(model => pendingReceipt.ReceiptDate)
+                        </th>
+                        <th>
+                            @Html.DisplayFor(model => pendingReceipt.DueDate)
+                        </th>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        <hr />
+        
+        <h5>Recibos Pagados</h5>
+        @if (paidReceipts.Count > 0)
+        {
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => paidReceipts[0].Amount)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => paidReceipts[0].ReceiptDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => paidReceipts[0].DueDate)
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach(var paidReceipt in paidReceipts)
+                {
+                    <tr>
+                        <th>
+                            @Html.DisplayFor(model => paidReceipt.Amount)
+                        </th>
+                        <th>
+                            @Html.DisplayFor(model => paidReceipt.ReceiptDate)
+                        </th>
+                        <th>
+                            @Html.DisplayFor(model => paidReceipt.DueDate)
+                        </th>
+                    </tr>
+                }
+                </tbody>
+            </table>
+            <hr />
+            <h5>Comprobantes de Pago</h5>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => paymentProofs[0].Amount)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => paymentProofs[0].Date)
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach(var paymentProof in paymentProofs)
+                {
+                    <tr>
+                        <th>
+                            @Html.DisplayFor(model => paymentProof.Amount)
+                        </th>
+                        <th>
+                            @Html.DisplayFor(model => paymentProof.Date)
+                        </th>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        <hr />
+        }
+        else
+        {
+            <p>No hay registro de recibos pagados en esta propiedad.</p>
+        }
+    }
+    else
+    {
+        <p>No hay registro de recibos ligados a esta propiedad.</p>
+    }
+    
+}
+
+
+
+

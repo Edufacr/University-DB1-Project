@@ -1,0 +1,63 @@
+﻿@model IEnumerable<DB1_Project_WEBPORTAL.Models.PropertyModel>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<h1> Propiedades </h1>
+
+<p>
+    <a asp-action="Create">
+        <input type="submit" value="Insertar Propiedad" class="btn btn-success"/>
+    </a>
+</p>
+
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Value)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PropertyNumber)
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach(var property in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => property.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => property.Value)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => property.PropertyNumber)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-pPropertyNumber="@property.PropertyNumber">
+                    <input type="submit" value="Editar" class="btn btn-success"/>
+                </a>
+            </td>
+            <td>
+                <a asp-action="Delete" asp-route-pPropertyNumber="@property.PropertyNumber">
+                    <input type="submit" value="Borrar" class="btn btn-danger"/>
+                
+                </a>
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-pPropertyNumber="@property.PropertyNumber"  asp-route-pRequestType="1">
+                    <input type="submit" value="Ver" class="btn btn-warning"/>
+                </a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

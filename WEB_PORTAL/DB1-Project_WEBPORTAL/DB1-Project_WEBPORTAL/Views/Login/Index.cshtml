@@ -1,0 +1,45 @@
+﻿@{
+    ViewData["Title"] = "Login Page"; 
+    Layout = "~/Views/Shared/_NonHeaderLayout.cshtml";
+}
+
+<div class="wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="module module-login offset-4">
+                <form class="form-vertical" action="@Url.Action("Index")" method="post">
+                    <div class="module-head">
+                        <h3>
+                            <p>Sign In</p>
+                        </h3>
+                    </div>
+                    <div class="module-body">
+                        <div class="control-group">
+                            <div class="controls row-fluid">
+                                <p>
+                                    <input class="span12" type="text" name="pUsername" placeholder="Username">
+                                </p>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <div class="controls row-fluid">
+                                <p>
+                                    <input class="span12" type="password" name="pPassword" placeholder="Password">
+                                </p>
+                            </div>
+                        </div>
+                        <div class="module-foot">
+                            <div class="control-group">
+                                <div class="controls clearfix">
+                                    <button type="submit" class="btn btn-primary pull-right" value="Login" name="loginBtn">Login</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+

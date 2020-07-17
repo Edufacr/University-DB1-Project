@@ -1,0 +1,62 @@
+﻿@model IEnumerable<DB1_Project_WEBPORTAL.Models.UserModel>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<h1> Usuarios </h1>
+
+<p>
+    
+    <a asp-action="Create">
+        <input type="submit" value="Insertar Usuario" class="btn btn-success"/>
+    </a>
+    
+</p>
+
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            Tipo Usuario
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach(var user in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => user.Name)
+            </td>
+            <td>
+                @if (user.isAdmin)
+                {
+                    <p> Administrador</p>
+                }
+                else
+                {
+                    <p> Propietario </p>
+                }
+                
+            </td>
+            <td>
+                <a asp-action="Delete" asp-route-pUsername="@user.Name">
+                    <input type="submit" value="Borrar" class="btn btn-danger"/>
+                </a>
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-pUsername="@user.Name" asp-route-pRequestType="1">
+                    <input type="submit" value="Ver" class="btn btn-warning"/>
+                </a>
+            </td>
+            
+        </tr>
+    }
+    </tbody>
+</table>

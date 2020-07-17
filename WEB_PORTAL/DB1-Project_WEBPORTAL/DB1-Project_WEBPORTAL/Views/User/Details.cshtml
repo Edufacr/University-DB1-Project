@@ -1,0 +1,118 @@
+﻿@model DB1_Project_WEBPORTAL.Models.UserModel
+
+@{
+    List<PropertyModel> properties = ViewData["Properties"] as List<PropertyModel>;
+    
+    int? RequestType = ViewData["RequestType"] as int?;
+    
+    ViewData["Title"] = "Delete";
+    if (RequestType == 0)
+    {
+        Layout = "~/Views/Shared/_LayoutUserInterface.cshtml";
+       
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    
+}
+
+<h1>Usuarios</h1>
+<h4>Información Usuario</h4>
+<div>
+    @if (RequestType == 3)
+    {
+        <a asp-action="Index">Volver</a>
+    }    
+    else if (RequestType == 1)
+    {
+        <a href='javascript:history.go(-1)'>Volver</a>
+    }
+    
+</div>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <p>
+            @Html.DisplayFor(model => model.Name)
+        </p>
+        <hr />
+        <dt>
+           <h5>Tipo Usuario</h5>
+        </dt>
+        
+            @if (Model.isAdmin)
+            {
+                <p> Administrador </p>
+            }
+            else
+            {
+                <p> Propietario </p>
+            }
+       
+        <hr />
+        
+    </dl>
+    
+</div> 
+
+<h3>Propiedades</h3>
+
+@if (RequestType != 0)
+{
+    <a asp-action="InsertProperty" asp-route-pUsername="@Model.Name" >
+        <input type="submit" value="Suscribir Propiedad" class="btn btn-success"/>
+    </a>
+}
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => properties[0].PropertyNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => properties[0].Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => properties[0].Value)
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach(var property in properties)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => property.PropertyNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => property.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => property.Value)
+            </td>
+            <td>
+                @Html.ActionLink(
+                    "Ver",
+                    "Details", 
+                    "Property", 
+                    new {pPropertyNumber = property.PropertyNumber, pRequestType = RequestType},
+                    new {@class= "btn btn-warning"})
+            </td>
+            @if (RequestType != 0)
+            {
+                <td>
+                    <a asp-action="DeleteProperty" asp-route-pUsername="@Model.Name" asp-route-pPropertyNumber="@property.PropertyNumber">
+                        <input type="submit" value="Desuscribir" class="btn btn-danger"/>
+                    </a>
+                </td>
+            }
+        </tr>
+    }
+    </tbody>
+</table>
