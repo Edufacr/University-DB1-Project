@@ -12,6 +12,7 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
         private SqlCommand GetPropertyPendingReceipts;
         private SqlCommand GetProofOfPaymentReceipts;
         private SqlCommand GetPropertyPaymentProofs;
+        private SqlCommand GetProofOfPaymentDetails;
         
         public static ReceiptModelController Singleton;
         
@@ -27,6 +28,9 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
             
             GetPropertyPaymentProofs = new SqlCommand("SP_getProofOfPaymentByPropertyNum", connection);
             GetPropertyPaymentProofs.CommandType = CommandType.StoredProcedure;
+
+            GetProofOfPaymentDetails = new SqlCommand("SP_getProofOfPaymentByProofNumber",connection);
+            GetProofOfPaymentDetails.CommandType = CommandType.StoredProcedure;
             
         }
 
@@ -107,6 +111,31 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
                 throw (e);
             }
             return result;
+        }
+
+        public PaymentProofModel ExecuteGetProofOfPaymentDetails(int pProofNumber){
+            PaymentProofModel paymentProof = new PaymentProofModel();
+            GetProofOfPaymentDetails.Parameters.Add("@inProofNumber",SqlDbType.Int).Value = pProofNumber;
+            try
+            {
+                connection.Open();
+                SqlDataReader reader = GetProofOfPaymentDetails.ExecuteReader();
+
+                paymentProof.ProofNumber = Convert.ToInt32(reader["ProofNumber"]);
+                paymentProof.Amount = Convert.ToSingle(reader["TotalAmount"]);
+                paymentProof.Date = Convert.ToString(reader["ProofOfPaymentDate"]);
+
+                GetProofOfPaymentDetails.Parameters.Clear();
+
+                connection.Close();
+            }
+            catch (Exception e)
+            {
+                            Console.WriteLine("ProofNumber");
+            Console.WriteLine(pProofNumber);
+                throw (e);
+            }
+            return paymentProof;
         }
 
     }
