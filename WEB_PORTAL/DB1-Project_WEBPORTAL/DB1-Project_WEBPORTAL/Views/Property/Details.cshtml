@@ -546,6 +546,9 @@ else
             <thead>
             <tr>
                 <th>
+                    @Html.DisplayNameFor(model => paymentProofs[0].ProofNumber)
+                </th>
+                <th>
                     @Html.DisplayNameFor(model => paymentProofs[0].Amount)
                 </th>
                 <th>
@@ -557,6 +560,9 @@ else
             @foreach(var paymentProof in paymentProofs)
             {
                 <tr>
+                    <th>
+                        @Html.DisplayFor(model => paymentProof.ProofNumber)
+                    </th>
                     <th>
                         @Html.DisplayFor(model => paymentProof.Amount)
                     </th>

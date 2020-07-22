@@ -25,7 +25,7 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
             GetProofOfPaymentReceipts = new SqlCommand("SP_getReceiptsFromProofOfPayment", connection);
             GetProofOfPaymentReceipts.CommandType = CommandType.StoredProcedure;
             
-            GetPropertyPaymentProofs = new SqlCommand("SP_getPaidReceipts", connection);
+            GetPropertyPaymentProofs = new SqlCommand("SP_getProofOfPaymentByPropertyNum", connection);
             GetPropertyPaymentProofs.CommandType = CommandType.StoredProcedure;
             
         }
@@ -89,10 +89,12 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
                 while (reader.Read())
                 {
                     PaymentProofModel paymentProof = new PaymentProofModel();
-                    
-                    paymentProof.Amount = Convert.ToSingle(reader["Amount"]);
 
-                    paymentProof.Date = Convert.ToString(reader["ProofOfPaymentDate"]);
+                    paymentProof.ProofNumber = Convert.ToInt32(reader["ProofNumber"]);
+                    
+                    paymentProof.Amount = Convert.ToSingle(reader["TotalAmount"]);
+
+                    paymentProof.Date = Convert.ToString(reader["PaymentDate"]);
 
                     result.Add(paymentProof);
                 }
