@@ -9,44 +9,60 @@
 <div>
     <a href='javascript:history.go(-1)'>Volver</a>
 </div>
+
+<a asp-action="Filter">
+    <input type="submit" value="Filtrar Cambios" class="btn btn-success" />
+</a>
+
 <table class="table table-striped">
     <thead>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.changeDateTime)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.entityType)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.changeUser)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.changeIp)
-        </th>
-    </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.changeDateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.entityType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.changeUser)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.changeIp)
+            </th>
+        </tr>
     </thead>
     <tbody>
-          @foreach(var change in Model)
-          {
-              <th>
-                  @Html.DisplayFor(model => change.changeDateTime)
-              </th>
-              <th>
-                  @Html.DisplayFor(model => change.entityType)
-              </th>
-              <th>
-                  @Html.DisplayFor(model => change.changeUser)
-              </th>
-              <th>
-                  @Html.DisplayFor(model => change.changeIp)
-              </th>
-              <th>
-                  <a asp-action="Details" asp-route-pChange="@change">
-                      <input type="submit" value="Ver" class="btn btn-warning"/>
-                  </a>
-              </th>
-          }
+        @if (Model.Any())
+        {
+            @foreach (var change in Model)
+            {
+                <tr>
+                    <th>
+                        @Html.DisplayFor(model => change.changeDateTime)
+                    </th>
+                    <th>
+                        @Html.DisplayFor(model => change.entityType)
+                    </th>
+                    <th>
+                        @Html.DisplayFor(model => change.changeUser)
+                    </th>
+                    <th>
+                        @Html.DisplayFor(model => change.changeIp)
+                    </th>
+                    <th>
+                        <a asp-action="Details" asp-route-pJsonBefore="@change.jsonBefore"  asp-route-pJsonAfter="@change.jsonAfter">
+                            <input type="submit" value="Ver" class="btn btn-warning"/>
+                        </a>
+                    </th>
+                </tr> 
+                
+                        
+            }
+        }
+        else
+        {
+            <p>No hay cambios registrados.</p>
+        }
     </tbody>
 </table>
 

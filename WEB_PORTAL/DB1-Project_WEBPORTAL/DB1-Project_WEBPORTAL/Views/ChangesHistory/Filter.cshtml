@@ -1,0 +1,57 @@
+﻿@model FilterModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1> Historial de Cambios </h1>
+<h3> Aplicar Filtro </h3>
+<div>
+    <a href='javascript:history.go(-1)'>Volver</a>
+</div>
+
+
+@{
+
+    List<EntityTypeModel> entities = ViewData["Entities"] as List<EntityTypeModel>;
+
+}
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Filter">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="entityName" class="control-label"> Tipo de Entidad </label>
+                <select asp-for="entityName" class="form-control">
+                    <option value="@null">--Seleccione Tipo de Entidad--</option>
+                    @foreach (EntityTypeModel type in entities)
+                    {
+                        <option value=@type.name>@type.name</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="startDate" class="control-label"></label>
+                <input asp-for="startDate" type="datetime-local" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="endDate" class="control-label"></label>
+                <input asp-for="endDate" type="datetime-local" class="form-control" value="@null"/>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Aplicar Filtro" class="btn btn-success"/>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+
+

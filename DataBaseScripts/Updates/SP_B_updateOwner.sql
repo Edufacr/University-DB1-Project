@@ -35,7 +35,7 @@ BEGIN
 			WHERE t.Name = @inDocType
             
             SET @jsonBefore = 
-                (SELECT Id,Name,DocType_Id,DocValue
+                (SELECT Name AS Nombre,DocType_Id AS Id_Tipo_Identidad,DocValue AS Numero_de_Identidad
 					FROM DB1P_Owners
                         WHERE DocValue = @inDocValue AND DocType_Id = @IdDocType
                 FOR JSON PATH);
@@ -43,7 +43,7 @@ BEGIN
             IF(@IdOwner > 0)
                 BEGIN
                     SET @jsonAfter = 
-                        (SELECT Id,Name,DocType_Id,DocValue
+                        (SELECT Name AS Nombre,DocType_Id AS Id_Tipo_Identidad,DocValue AS Numero_de_Identidad
 					        FROM DB1P_Owners
                                 WHERE Id = @IdOwner
                         FOR JSON PATH);

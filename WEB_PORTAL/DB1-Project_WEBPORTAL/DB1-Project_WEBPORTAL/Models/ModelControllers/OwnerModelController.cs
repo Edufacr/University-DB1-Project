@@ -101,7 +101,7 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
         
         public int ExecuteDeleteOwnerOfProperty(OwnerPropertyModel pRelation)
         {
-            DeleteOwnerOfProperty.Parameters.Add("@inPropertyPropertyNumber", SqlDbType.Int).Value = pRelation.PropertyNumber;
+            DeleteOwnerOfProperty.Parameters.Add("@inPropertyNumber", SqlDbType.Int).Value = pRelation.PropertyNumber;
             DeleteOwnerOfProperty.Parameters.Add("@inOwnerDocValue", SqlDbType.VarChar, 30).Value = pRelation.DocValue;
             DeleteOwnerOfProperty.Parameters.Add("@inOwnerDocType", SqlDbType.VarChar, 50).Value = pRelation.DocType;
             return ExecuteNonQueryCommand(DeleteOwnerOfProperty);

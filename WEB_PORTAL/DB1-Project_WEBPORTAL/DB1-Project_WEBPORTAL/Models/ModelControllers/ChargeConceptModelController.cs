@@ -30,7 +30,7 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
             DeleteCCProperty = new SqlCommand("SP_deleteCC_onProperty", connection);
             DeleteCCProperty.CommandType = CommandType.StoredProcedure;
             
-            UpdateCCProperty = new SqlCommand("sp_updateCC_onProperty", connection);
+            UpdateCCProperty = new SqlCommand("SP_updateCC_onProperty", connection);
             UpdateCCProperty.CommandType = CommandType.StoredProcedure;
             
             GetCCsOnProperty = new SqlCommand("SP_getActiveCCs_ofProperty", connection);

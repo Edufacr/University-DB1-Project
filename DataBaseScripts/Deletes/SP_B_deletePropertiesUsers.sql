@@ -27,9 +27,9 @@ BEGIN
         SET @Date = GETDATE();
         BEGIN TRANSACTION
             SET @jsonBefore = 
-                (SELECT RelationId,Username,PropertyNumber
+                (SELECT Username AS Usuario,PropertyNumber AS Numero_de_Propiedad
                     FROM activePropertiesUsersRelations
-                     WHERE @IdRelation = RelationId
+                     WHERE @inUsername = Username AND @inPropertyNumber = PropertyNumber
             FOR JSON PATH);
             EXEC @IdRelation = SP_deletePropertiesUsers @inPropertyNumber,@inUsername;
             IF(@IdRelation > 0)

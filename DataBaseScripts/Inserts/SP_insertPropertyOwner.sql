@@ -26,7 +26,7 @@ begin
 
 		select @IdOwner = o.Id
 		from dbo.activeOwners as o
-		where  o.DocValue = @inOwnerDocValue
+		where  o.DocValue = @inOwnerDocValue and o.DocType_Id = @IdOwnerDocType
 
 		select @IdProperty = p.Id
 		from dbo.activeProperties as p

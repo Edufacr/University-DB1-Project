@@ -30,7 +30,7 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
             GetMoratoryInterestCCByName = new SqlCommand("SP_getMoratoryInterestCCByName", connection);
             GetMoratoryInterestCCByName.CommandType = CommandType.StoredProcedure;
             
-            UpdateMoratoryInterestCC = new SqlCommand("SP_updateMoratoryInterestCC", connection);
+            UpdateMoratoryInterestCC = new SqlCommand("SP_B_updateMoratoryInterestCC", connection);
             UpdateMoratoryInterestCC.CommandType = CommandType.StoredProcedure;
             
         }
@@ -52,7 +52,9 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
             UpdateMoratoryInterestCC.Parameters.Add("@inNewMoratoryInterestRate", SqlDbType.Real).Value = pChangedCC.MoratoryInterestRate;
             UpdateMoratoryInterestCC.Parameters.Add("@inNewAmount", SqlDbType.Money).Value = pChangedCC.InterestValue;
             
-            
+            UpdateMoratoryInterestCC.Parameters.Add("@inInsertedBy", SqlDbType.VarChar, 50).Value = ILoggedUser.LoggedUser.Name;
+            UpdateMoratoryInterestCC.Parameters.Add("@inInsertedFrom", SqlDbType.VarChar, 50).Value = ILoggedUser.Ip;
+
             var returnParameter = UpdateMoratoryInterestCC.Parameters.Add("@ReturnVal", SqlDbType.Int);
             returnParameter.Direction = ParameterDirection.ReturnValue;
             try

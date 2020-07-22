@@ -1,32 +1,48 @@
 ﻿using System;
 using System.Collections.Generic;
 using DB1_Project_WEBPORTAL.Models;
+using DB1_Project_WEBPORTAL.Models.ModelControllers;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DB1_Project_WEBPORTAL.Controllers
 {
     public class ChangesHistoryController : Controller
     {
-        // GET
+
+        ChangeModelController controller = ChangeModelController.getInstance();
+
         public IActionResult Index()
         {
-            
-            List<ChangeModel> changes = new List<ChangeModel>();
-            ChangeModel change = new ChangeModel();
-            change.changeIp = "Test";
-            change.changeUser = "Test";
-            change.entityType = "Usuario";
-            change.jsonAfter = "Some json";
-            change.jsonBefore = "Some json";
-            change.changeDateTime = DateTime.Today;
-            changes.Add(change);
+            List<ChangeModel> changes;
+            changes = controller.ExecuteGetChanges();
+
             return View(changes);
+        }
+
+        [HttpGet]
+        public IActionResult Filter()
+        {
+            List<EntityTypeModel> entities = controller.ExecuteGetEntityTypes();
+            ViewData["Entities"] = entities;
+            return View();
+        }
+        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Filter([Bind] FilterModel filter)
+        {
+            controller.AddParametersToGetChanges(filter);
+            return RedirectToAction("Index");
         }
         
         [HttpGet]
-        public IActionResult Details(ChangeModel pChange)
+        public IActionResult Details(string pJsonBefore, string pJsonAfter)
         {
-            return View(pChange);
+
+            ViewData["jsonAfter"] = pJsonAfter;
+            ViewData["jsonBefore"] = pJsonBefore;
+            
+            return View();
         }
         
     }

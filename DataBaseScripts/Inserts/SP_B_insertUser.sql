@@ -33,7 +33,7 @@ BEGIN
             IF(@IdUser > 0)
                 BEGIN
                     SET @jsonAfter = 
-                        (SELECT Id,Username,Password,UserType
+                        (SELECT Username AS Usuario,Password,UserType AS Es_Administrador
                             FROM DB1P_Users
                             WHERE @IdUser = Id
                         FOR JSON PATH);

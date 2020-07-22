@@ -28,7 +28,7 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
             GetFixedCCByName = new SqlCommand("SP_getFixedCCByName", connection);
             GetFixedCCByName.CommandType = CommandType.StoredProcedure;
 
-            UpdateFixedCC = new SqlCommand("SP_updateFixedCC", connection);
+            UpdateFixedCC = new SqlCommand("SP_B_updateFixedCC", connection);
             UpdateFixedCC.CommandType = CommandType.StoredProcedure;
             
         }
@@ -51,7 +51,9 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
             UpdateFixedCC.Parameters.Add("@inNewMoratoryInterestRate", SqlDbType.Real).Value = pChangedCC.MoratoryInterestRate;
             UpdateFixedCC.Parameters.Add("@inNewAmount", SqlDbType.Money).Value = pChangedCC.Amount;
             
-            
+            UpdateFixedCC.Parameters.Add("@inInsertedBy", SqlDbType.VarChar, 50).Value = ILoggedUser.LoggedUser.Name;
+            UpdateFixedCC.Parameters.Add("@inInsertedFrom", SqlDbType.VarChar, 50).Value = ILoggedUser.Ip;
+
             var returnParameter = UpdateFixedCC.Parameters.Add("@ReturnVal", SqlDbType.Int);
             returnParameter.Direction = ParameterDirection.ReturnValue;
             try

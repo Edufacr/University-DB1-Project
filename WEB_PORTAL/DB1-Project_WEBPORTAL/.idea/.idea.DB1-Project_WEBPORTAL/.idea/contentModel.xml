@@ -33,6 +33,7 @@
           <e p="ILoggedUser.cs" t="Include" />
           <e p="LegalOwnerModel.cs" t="Include" />
           <e p="ModelControllers" t="Include">
+            <e p="ChangeModelController.cs" t="Include" />
             <e p="ChargeConceptModelController.cs" t="Include" />
             <e p="ConsumptionChargeConceptModelController.cs" t="Include" />
             <e p="FixedConceptChargeModelController.cs" t="Include" />
@@ -75,6 +76,7 @@
           <e p="_ViewStart.cshtml" t="Include" />
           <e p="ChangesHistory" t="Include">
             <e p="Details.cshtml" t="Include" />
+            <e p="Filter.cshtml" t="Include" />
             <e p="Index.cshtml" t="Include" />
           </e>
           <e p="ChargeConcept" t="Include">

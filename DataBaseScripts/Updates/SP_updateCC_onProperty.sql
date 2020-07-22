@@ -11,7 +11,7 @@ GO
 -- TODO Input validations
 -- TODO Transaction
 
-CREATE OR ALTER PROCEDURE dbo.sp_updateCC_onProperty
+CREATE OR ALTER PROCEDURE dbo.SP_updateCC_onProperty
 
 	@pPropertyPropertyNumber int, 
 	@pChargeConceptName varchar(50), 

@@ -7,7 +7,7 @@ GO
 -- Create date: 
 -- Description:	Deletes PropertyUser and ChangeLog
 -- =============================================
-CREATE OR ALTER PROCEDURE dbo.SP_B_deletesPropertyOwner
+CREATE OR ALTER PROCEDURE dbo.SP_B_deletePropertyOwner
 	
 	@inOwnerDocValue varchar(30), 
 	@inOwnerDocType varchar(50), 
@@ -29,9 +29,9 @@ BEGIN
         SET @Date = GETDATE();
         BEGIN TRANSACTION
             SET @jsonBefore = 
-                (SELECT RelationId,ownerDocType,ownerDocValue,PropertyNumber
+                (SELECT ownerDocType AS Tipo_de_Documento,ownerDocValue AS Numero_de_identidad,PropertyNumber AS Numero_de_propiedad
                     FROM activePropertiesOwnersRelations
-                     WHERE @IdRelation = RelationId
+                     WHERE @inPropertyNumber = PropertyNumber AND @inOwnerDocValue = ownerDocValue AND @inOwnerDocType = @inOwnerDocType
             FOR JSON PATH);
             EXEC @IdRelation = SP_deletePropertyOwner @inOwnerDocValue,@inOwnerDocType,@inPropertyNumber;
             IF(@IdRelation > 0)
