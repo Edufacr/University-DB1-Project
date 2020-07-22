@@ -129,10 +129,7 @@ namespace DB1_Project_WEBPORTAL.Controllers
                 MoratoryInterestsCcController.ExecuteGetCCsOnProperty(property);
             List<CcModel> fixedCcs = 
                 FixedCcController.ExecuteGetCCsOnProperty(property);
-
-            List<ReceiptModel> paidReceipts = ReceiptController.ExecuteGetPropertyPaidReceipts(property.PropertyNumber);
             List<ReceiptModel> pendingReceipts = ReceiptController.ExecuteGetPropertyPendingReceipts(property.PropertyNumber);
-            
             List<PaymentProofModel> paymentProofs = ReceiptController.ExecuteGetPropertyPaymentProofs(property.PropertyNumber);
             
             ViewData["Owners"] = owners;
@@ -144,8 +141,6 @@ namespace DB1_Project_WEBPORTAL.Controllers
             ViewData["PercentageCCs"] = percentageCcs;
             ViewData["MoratoryIntsCCs"] = moratoryCcs;
             ViewData["FixedCCs"] = fixedCcs;
-
-            ViewData["PaidReceipts"] = paidReceipts;
             ViewData["PendingReceipts"] = pendingReceipts;
             ViewData["PaymentPaymentProofs"] = paymentProofs;
             
