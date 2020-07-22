@@ -10,7 +10,7 @@ BEGIN
 	BEGIN TRY
 
 		SELECT
-			pop.Id AS Id_ProofOfPayment,
+			pop.Id AS ProofNumber,
 			pop.Date AS ProofOfPaymentDate,
 			pop.TotalAmount
 		FROM

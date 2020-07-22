@@ -13,7 +13,7 @@ BEGIN
 			rp.ChargeConceptName, 
 			rp.Date AS ReceiptDate,
             rp.DueDate,rp.Amount,
-			rp.ProofNumber AS Id_ProofOfPayment,
+			rp.ProofNumber,
 			rp.PaymentDate AS ProofOfPaymentDate,
 			rp.TotalAmount
 		FROM

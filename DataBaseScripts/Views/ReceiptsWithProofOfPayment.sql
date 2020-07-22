@@ -19,3 +19,15 @@ CREATE OR ALTER VIEW ReceiptsWithProofOfPayment AS
 		INNER JOIN DB1P_ChargeConcepts AS cc
 			ON r.Id_ChargeConcept = cc.Id
 GO
+
+
+CREATE OR ALTER VIEW ProofOfPaymentsWithIdProperty AS
+	SELECT DISTINCT
+		pop.Id AS ProofNumber, -- ID del comprobante para usar como identificador
+		pop.Date as PaymentDate,
+		pop.TotalAmount,
+		pr.Id_Property
+	FROM paidReceipts pr
+		INNER JOIN DB1P_ProofOfPayment pop
+			ON pr.Id_ProofOfPayment = pop.Id
+GO
