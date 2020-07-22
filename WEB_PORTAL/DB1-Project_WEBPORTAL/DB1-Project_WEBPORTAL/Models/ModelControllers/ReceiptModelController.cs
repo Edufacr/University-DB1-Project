@@ -10,7 +10,7 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
         protected SqlConnection connection;
 
         private SqlCommand GetPropertyPendingReceipts;
-        private SqlCommand GetPropertyPaidReceipts;
+        private SqlCommand GetProofOfPaymentReceipts;
         private SqlCommand GetPropertyPaymentProofs;
         
         public static ReceiptModelController Singleton;
@@ -22,8 +22,8 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
             GetPropertyPendingReceipts = new SqlCommand("SP_getPendingReceipts", connection);
             GetPropertyPendingReceipts.CommandType = CommandType.StoredProcedure;
             
-            GetPropertyPaidReceipts = new SqlCommand("SP_getPaidReceipts", connection);
-            GetPropertyPaidReceipts.CommandType = CommandType.StoredProcedure;
+            GetProofOfPaymentReceipts = new SqlCommand("SP_getReceiptsFromProofOfPayment", connection);
+            GetProofOfPaymentReceipts.CommandType = CommandType.StoredProcedure;
             
             GetPropertyPaymentProofs = new SqlCommand("SP_getPaidReceipts", connection);
             GetPropertyPaymentProofs.CommandType = CommandType.StoredProcedure;
@@ -35,10 +35,10 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
             return Singleton ??= new ReceiptModelController();
         }
 
-        public List<ReceiptModel> ExecuteGetPropertyPaidReceipts(int pPropertyNumber)
+        public List<ReceiptModel> ExecuteGetProofOfPaymentReceipts(int pProofNumber)
         {
-            GetPropertyPaidReceipts.Parameters.Add("@inPropertyNum", SqlDbType.Int).Value = pPropertyNumber;
-            return ExecuteQueryCommand(GetPropertyPaidReceipts);
+            GetProofOfPaymentReceipts.Parameters.Add("@inProofNumber", SqlDbType.Int).Value = pProofNumber;
+            return ExecuteQueryCommand(GetProofOfPaymentReceipts);
         }
         public List<ReceiptModel> ExecuteGetPropertyPendingReceipts(int pPropertyNumber)
         {
