@@ -225,6 +225,13 @@ namespace DB1_Project_WEBPORTAL.Controllers
             return RedirectToAction("Details",
                 new {pPropertyNumber = relation.PropertyNumber, pRequestType = 1});
         }
+        [HttpGet]
+        public IActionResult ProofOfPaymentDetails (int pProofNumber){
+            PaymentProofModel proofOfPayment = ReceiptController.ExecuteGetProofOfPaymentDetails(pProofNumber);
+            List<ReceiptModel> receipts = ReceiptController.ExecuteGetProofOfPaymentReceipts(pProofNumber);
+            ViewData["ReceiptsPoP"] = receipts;
+            return View(proofOfPayment);
+        }
         
     }
 }
