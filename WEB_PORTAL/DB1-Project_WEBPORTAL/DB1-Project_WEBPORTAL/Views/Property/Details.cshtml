@@ -570,7 +570,7 @@ else
                         @Html.DisplayFor(model => paymentProof.Date)
                     </th>
                     <td>
-                        <a asp-action="ProofOfPaymentDetails" asp-route-pProofNumber="@Html.DisplayFor(model => paymentProof.ProofNumber)">
+                        <a asp-action="ProofOfPaymentDetails" asp-route-pProofNumber="@paymentProof.ProofNumber">
                             <input type="submit" value="Ver Recibos" class="btn btn-primary"/>
                         </a>
                     </td>
