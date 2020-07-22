@@ -29,7 +29,7 @@ BEGIN
         SET @Date = GETDATE();
         BEGIN TRANSACTION
             SET @jsonBefore = 
-                (SELECT RelationId,ownerDocType,ownerDocValue,PropertyNumber
+                (SELECT ownerDocType AS Tipo_de_Documento,ownerDocValue AS Numero_de_identidad,PropertyNumber AS Numero_de_propiedad
                     FROM activePropertiesOwnersRelations
                      WHERE @inPropertyNumber = PropertyNumber AND @inOwnerDocValue = ownerDocValue AND @inOwnerDocType = @inOwnerDocType
             FOR JSON PATH);

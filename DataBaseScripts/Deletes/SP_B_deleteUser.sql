@@ -28,7 +28,7 @@ BEGIN
         SET @Date = GETDATE();
         BEGIN TRANSACTION
             SET @jsonBefore = 
-                (SELECT Id,Username,Password,UserType
+                (SELECT Username AS Usuario,Password,UserType AS Tipo_de_Usuario
                     FROM DB1P_Users
                         WHERE Username = @inUserName
                     FOR JSON PATH);

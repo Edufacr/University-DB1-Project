@@ -31,7 +31,7 @@ BEGIN
         IF(@IdOwner > 0)
             BEGIN
                 SET @jsonAfter = 
-		            (SELECT Id,Name,DocType_Id,DocValue
+		            (SELECT Name AS Nombre,DocType_Id AS Id_Tipo_Identidad,DocValue AS Numero_de_Identidad
 			        	FROM DB1P_Owners
 				    	WHERE @IdOwner = Id
 			    	FOR JSON PATH);

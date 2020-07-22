@@ -42,7 +42,8 @@ BEGIN
 						BEGIN
 							SET @IdEntity = @IdEntityLegalOwner;
 							SET @jsonBefore = 
-								(SELECT Id,LegalName,LegalDocValue,ResponsibleName,RespDocType_Id,RespDocValue
+								(SELECT LegalName AS Nombre,LegalDocValue AS Cedula_Juridica,ResponsibleName AS Nombre_Representante,
+								RespDocType_Id AS Id_Tipo_Cedula_Representante,RespDocValue AS Cedula_Representante
 									FROM completeLegalOwners
 									WHERE Id = @IdOwner
 								FOR JSON PATH);
@@ -54,7 +55,7 @@ BEGIN
 						BEGIN
 							SET @IdEntity = @IdEntityOwner;
 							SET @jsonBefore = 
-								(SELECT Id,Name,DocType_Id,DocValue
+								(SELECT Name AS Nombre,DocType_Id AS Id_Tipo_Identidad,DocValue AS Numero_de_Identidad
 									FROM DB1P_Owners
 										WHERE Id = @IdOwner
 											FOR JSON PATH);

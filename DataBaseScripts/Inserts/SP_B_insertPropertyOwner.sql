@@ -32,7 +32,7 @@ BEGIN
             IF(@IdRelation > 0)
                 BEGIN
                     SET @jsonAfter = 
-                        (SELECT RelationId,ownerDocType,ownerDocValue,PropertyNumber
+                        (SELECT ownerDocType AS Tipo_de_Documento,ownerDocValue AS Numero_de_identidad,PropertyNumber AS Numero_de_propiedad
                             FROM activePropertiesOwnersRelations
                             WHERE @IdRelation = RelationId
                     FOR JSON PATH);
