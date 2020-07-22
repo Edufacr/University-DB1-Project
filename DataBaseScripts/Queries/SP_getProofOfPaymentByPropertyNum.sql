@@ -5,9 +5,9 @@ GO
 -- =============================================
 -- Author:		Eduardo Madrigal Marín
 -- Create date: 
--- Description:	get paid receipts
+-- Description:	get pop for a given property num
 -- =============================================
-CREATE OR ALTER PROCEDURE SP_getPaidReceipts
+CREATE OR ALTER PROCEDURE SP_getProofOfPaymentByPropertyNum
 	-- Add the parameters for the stored procedure here
     @inPropertyNum INT
 AS
@@ -26,15 +26,10 @@ BEGIN TRY
             FROM DB1P_Properties
             WHERE @inPropertyNum = PropertyNumber
 
-        SELECT cc.Name,pr.Date AS ReceiptDate,
-            DueDate,Amount,Id_ProofOfPayment,pop.[Date] AS ProofOfPaymentDate, pop.TotalAmount
-            FROM paidReceipts pr
-            INNER JOIN DB1P_ChargeConcepts cc
-				ON cc.Id = pr.Id_ChargeConcept
-            INNER JOIN DB1P_ProofOfPayment pop
-				ON pop.Id = Id_ProofOfPayment
-                    
+        SELECT ProofNumber,PaymentDate,TotalAmount
+            FROM ProofOfPaymentsWithIdProperty
             WHERE @Id_Property = Id_Property;
+            
         RETURN @@ROWCOUNT;
     END
 	RETURN -50002
