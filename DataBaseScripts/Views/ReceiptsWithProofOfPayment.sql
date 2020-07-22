@@ -1,11 +1,15 @@
+USE [DB1-Project]
+GO
+
 CREATE OR ALTER VIEW ReceiptsWithProofOfPayment AS
-	SELECT 
+	SELECT
 		r.Amount,
 		r.Date,
 		r.DueDate,
+		PP.Id AS ProofNumber, -- ID del comprobante para usar como identificador
 		pp.Date as PaymentDate,
 		pp.TotalAmount,
-		cc.Name
+		cc.Name as ChargeConceptName
 	FROM
 		dbo.DB1P_Receipt AS r
 		INNER JOIN DB1P_PaidReceipts AS pr

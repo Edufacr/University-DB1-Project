@@ -29,10 +29,10 @@ BEGIN TRY
         SELECT cc.Name,pr.Date AS ReceiptDate,
             DueDate,Amount,Id_ProofOfPayment,pop.[Date] AS ProofOfPaymentDate, pop.TotalAmount
             FROM paidReceipts pr
-                INNER JOIN DB1P_ChargeConcepts cc
-                    ON cc.Id = pr.Id_ChargeConcept
-                        INNER JOIN DB1P_ProofOfPayment pop
-                            ON pop.Id = Id_ProofOfPayment
+            INNER JOIN DB1P_ChargeConcepts cc
+				ON cc.Id = pr.Id_ChargeConcept
+            INNER JOIN DB1P_ProofOfPayment pop
+				ON pop.Id = Id_ProofOfPayment
                     
             WHERE @Id_Property = Id_Property;
         RETURN @@ROWCOUNT;
