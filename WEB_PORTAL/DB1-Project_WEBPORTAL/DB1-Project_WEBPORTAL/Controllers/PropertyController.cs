@@ -142,7 +142,7 @@ namespace DB1_Project_WEBPORTAL.Controllers
             ViewData["MoratoryIntsCCs"] = moratoryCcs;
             ViewData["FixedCCs"] = fixedCcs;
             ViewData["PendingReceipts"] = pendingReceipts;
-            ViewData["PaymentPaymentProofs"] = paymentProofs;
+            ViewData["PaymentProofs"] = paymentProofs;
             
             return View(property);
         }
