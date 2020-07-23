@@ -28,7 +28,8 @@ BEGIN TRY
 
         SELECT ProofNumber,PaymentDate,TotalAmount
             FROM ProofOfPaymentsWithIdProperty
-            WHERE @Id_Property = Id_Property;
+            WHERE @Id_Property = Id_Property
+            ORDER BY PaymentDate DESC;
             
         RETURN @@ROWCOUNT;
     END
