@@ -1,0 +1,79 @@
+@model PaymentProofModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<ReceiptModel> receipts = ViewData["ReceiptsPoP"] as List<ReceiptModel>;
+}
+<h1>Comprobantes</h1>
+<h4>Información comprobante de pago</h4>
+<div>
+    <a href='javascript:history.go(-1)'>Volver</a>
+</div>
+<hr />
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ProofNumber)
+        </dt>
+        <p>
+            @Html.DisplayFor(model => model.ProofNumber)
+        </p>
+        <hr />
+        <dt>
+            @Html.DisplayNameFor(model => model.Amount)
+        </dt>
+        <p>
+            @Html.DisplayFor(model => model.Amount)
+        </p>
+        <hr />
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+        <p>
+            @Html.DisplayFor(model => model.Date)
+        </p>
+    </dl>
+    <hr />
+</div>      
+<hr />
+<h3>Recibos</h3>
+@if (receipts.Count > 0)
+{
+    <h5>Recibos Pendientes</h5>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => receipts[0].Amount)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => receipts[0].ReceiptDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => receipts[0].DueDate)
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach(var receipt in receipts)
+            {
+                <tr>
+                    <th>
+                        @Html.DisplayFor(model => receipt.Amount)
+                    </th>
+                    <th>
+                        @Html.DisplayFor(model => receipt.ReceiptDate)
+                    </th>
+                    <th>
+                        @Html.DisplayFor(model => receipt.DueDate)
+                    </th>
+                </tr>
+            }
+            </tbody>
+        </table>
+    <hr />
+}
+else
+{
+    <p>No hay registro de recibos pendientes ligados a este comprobante.</p>
+}
