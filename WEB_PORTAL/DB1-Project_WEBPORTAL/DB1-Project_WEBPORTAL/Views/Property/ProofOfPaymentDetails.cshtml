@@ -36,13 +36,18 @@
     <hr />
 </div>      
 <hr />
-<h3>Recibos</h3>
+<h3>Recibos pagados</h3>
 @if (receipts.Count > 0)
 {
-    <h5>Recibos Pendientes</h5>
     <table class="table table-striped">
         <thead>
             <tr>
+                <th>
+                    @Html.DisplayNameFor(model => receipts[0].ReceiptNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => receipts[0].ChargeConceptName)
+                </th>
                 <th>
                     @Html.DisplayNameFor(model => receipts[0].Amount)
                 </th>
@@ -58,6 +63,12 @@
             @foreach(var receipt in receipts)
             {
                 <tr>
+                    <th>
+                        @Html.DisplayFor(model => receipt.ReceiptNumber)
+                    </th>
+                    <th>
+                        @Html.DisplayFor(model => receipt.ChargeConceptName)
+                    </th>
                     <th>
                         @Html.DisplayFor(model => receipt.Amount)
                     </th>

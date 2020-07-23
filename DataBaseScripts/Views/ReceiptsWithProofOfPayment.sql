@@ -3,6 +3,7 @@ GO
 
 CREATE OR ALTER VIEW ReceiptsWithProofOfPayment AS
 	SELECT
+		r.Id AS ReceiptNumber,
 		r.Amount,
 		r.Date,
 		r.DueDate,

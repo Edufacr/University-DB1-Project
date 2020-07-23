@@ -62,6 +62,10 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
                 {
                     ReceiptModel receipt = new ReceiptModel();
                     
+                    receipt.ReceiptNumber = Convert.ToInt32(reader["ReceiptNumber"]);
+
+                    receipt.ChargeConceptName = Convert.ToString(reader["ChargeConceptName"]);
+                    
                     receipt.Amount = Convert.ToSingle(reader["Amount"]);
 
                     receipt.DueDate = Convert.ToString(reader["DueDate"]);

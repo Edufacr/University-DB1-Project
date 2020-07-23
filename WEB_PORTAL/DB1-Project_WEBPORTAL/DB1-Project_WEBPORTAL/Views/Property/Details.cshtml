@@ -505,6 +505,12 @@ else
                 <thead>
                 <tr>
                     <th>
+                        @Html.DisplayNameFor(model => pendingReceipts[0].ReceiptNumber)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => pendingReceipts[0].ChargeConceptName)
+                    </th>
+                    <th>
                         @Html.DisplayNameFor(model => pendingReceipts[0].Amount)
                     </th>
                     <th>
@@ -519,6 +525,12 @@ else
                 @foreach(var pendingReceipt in pendingReceipts)
                 {
                     <tr>
+                        <th>
+                            @Html.DisplayFor(model => pendingReceipt.ReceiptNumber)
+                        </th>
+                        <th>
+                            @Html.DisplayFor(model => pendingReceipt.ChargeConceptName)
+                        </th>
                         <th>
                             @Html.DisplayFor(model => pendingReceipt.Amount)
                         </th>
@@ -560,6 +572,7 @@ else
             @foreach(var paymentProof in paymentProofs)
             {
                 <tr>
+                    
                     <th>
                         @Html.DisplayFor(model => paymentProof.ProofNumber)
                     </th>

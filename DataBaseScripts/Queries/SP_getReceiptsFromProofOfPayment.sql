@@ -10,6 +10,7 @@ BEGIN
 	BEGIN TRY
 
 		SELECT
+			rp.ReceiptNumber,
 			rp.ChargeConceptName, 
 			rp.Date AS ReceiptDate,
             rp.DueDate,rp.Amount,
