@@ -120,7 +120,7 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
             {
                 connection.Open();
                 SqlDataReader reader = GetProofOfPaymentDetails.ExecuteReader();
-
+                reader.Read();
                 paymentProof.ProofNumber = Convert.ToInt32(reader["ProofNumber"]);
                 paymentProof.Amount = Convert.ToSingle(reader["TotalAmount"]);
                 paymentProof.Date = Convert.ToString(reader["ProofOfPaymentDate"]);
@@ -131,8 +131,6 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
             }
             catch (Exception e)
             {
-                            Console.WriteLine("ProofNumber");
-            Console.WriteLine(pProofNumber);
                 throw (e);
             }
             return paymentProof;
