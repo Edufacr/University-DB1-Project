@@ -4,8 +4,8 @@
     <e p="C:\Users\jguty\.Rider2019.3\config\consoles\db" t="IncludeRecursive" />
     <e p="C:\Users\jguty\.Rider2019.3\config\extensions" t="IncludeRecursive" />
     <e p="C:\Users\jguty\.Rider2019.3\system\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\jguty\.Rider2019.3\system\resharper-host\local\Transient\ReSharperHost\v193\SolutionCaches\_DB1-Project_WEBPORTAL.-85145376.00" t="ExcludeRecursive" />
-    <e p="C:\Users\jguty\OneDrive\Documents\GitHub\University-DB1-Project\WEB_PORTAL\DB1-Project_WEBPORTAL" t="IncludeFlat">
+    <e p="C:\Users\jguty\.Rider2019.3\system\resharper-host\local\Transient\ReSharperHost\v193\SolutionCaches\_DB1-Project_WEBPORTAL.192310268.00" t="ExcludeRecursive" />
+    <e p="C:\Users\jguty\OneDrive\GitHub\University-DB1-Project\WEB_PORTAL\DB1-Project_WEBPORTAL" t="IncludeFlat">
       <e p="DB1-Project_WEBPORTAL" t="IncludeRecursive">
         <e p="appsettings.Development.json" t="Include" />
         <e p="appsettings.json" t="Include" />
@@ -112,6 +112,8 @@
             <e p="Index.cshtml" t="Include" />
             <e p="InsertOwner.cshtml" t="Include" />
             <e p="InsertUser.cshtml" t="Include" />
+            <e p="ReceiptPayment.cshtml" t="Include" />
+            <e p="ReceiptPayment.cshtml.cs" t="Include" />
           </e>
           <e p="Shared" t="Include">
             <e p="_Layout.cshtml" t="Include" />
