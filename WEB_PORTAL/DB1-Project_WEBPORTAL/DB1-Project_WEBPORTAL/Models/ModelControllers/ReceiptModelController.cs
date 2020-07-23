@@ -10,8 +10,9 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
         protected SqlConnection connection;
 
         private SqlCommand GetPropertyPendingReceipts;
-        private SqlCommand GetPropertyPaidReceipts;
+        private SqlCommand GetProofOfPaymentReceipts;
         private SqlCommand GetPropertyPaymentProofs;
+        private SqlCommand GetProofOfPaymentDetails;
         
         public static ReceiptModelController Singleton;
         
@@ -22,11 +23,14 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
             GetPropertyPendingReceipts = new SqlCommand("SP_getPendingReceipts", connection);
             GetPropertyPendingReceipts.CommandType = CommandType.StoredProcedure;
             
-            GetPropertyPaidReceipts = new SqlCommand("SP_getPaidReceipts", connection);
-            GetPropertyPaidReceipts.CommandType = CommandType.StoredProcedure;
+            GetProofOfPaymentReceipts = new SqlCommand("SP_getReceiptsFromProofOfPayment", connection);
+            GetProofOfPaymentReceipts.CommandType = CommandType.StoredProcedure;
             
-            GetPropertyPaymentProofs = new SqlCommand("SP_getPaidReceipts", connection);
+            GetPropertyPaymentProofs = new SqlCommand("SP_getProofOfPaymentByPropertyNum", connection);
             GetPropertyPaymentProofs.CommandType = CommandType.StoredProcedure;
+
+            GetProofOfPaymentDetails = new SqlCommand("SP_getProofOfPaymentByProofNumber",connection);
+            GetProofOfPaymentDetails.CommandType = CommandType.StoredProcedure;
             
         }
 
@@ -35,10 +39,10 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
             return Singleton ??= new ReceiptModelController();
         }
 
-        public List<ReceiptModel> ExecuteGetPropertyPaidReceipts(int pPropertyNumber)
+        public List<ReceiptModel> ExecuteGetProofOfPaymentReceipts(int pProofNumber)
         {
-            GetPropertyPaidReceipts.Parameters.Add("@inPropertyNum", SqlDbType.Int).Value = pPropertyNumber;
-            return ExecuteQueryCommand(GetPropertyPaidReceipts);
+            GetProofOfPaymentReceipts.Parameters.Add("@inProofNumber", SqlDbType.Int).Value = pProofNumber;
+            return ExecuteQueryCommand(GetProofOfPaymentReceipts);
         }
         public List<ReceiptModel> ExecuteGetPropertyPendingReceipts(int pPropertyNumber)
         {
@@ -89,10 +93,12 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
                 while (reader.Read())
                 {
                     PaymentProofModel paymentProof = new PaymentProofModel();
-                    
-                    paymentProof.Amount = Convert.ToSingle(reader["Amount"]);
 
-                    paymentProof.Date = Convert.ToString(reader["ProofOfPaymentDate"]);
+                    paymentProof.ProofNumber = Convert.ToInt32(reader["ProofNumber"]);
+                    
+                    paymentProof.Amount = Convert.ToSingle(reader["TotalAmount"]);
+
+                    paymentProof.Date = Convert.ToString(reader["PaymentDate"]);
 
                     result.Add(paymentProof);
                 }
@@ -105,6 +111,29 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
                 throw (e);
             }
             return result;
+        }
+
+        public PaymentProofModel ExecuteGetProofOfPaymentDetails(int pProofNumber){
+            PaymentProofModel paymentProof = new PaymentProofModel();
+            GetProofOfPaymentDetails.Parameters.Add("@inProofNumber",SqlDbType.Int).Value = pProofNumber;
+            try
+            {
+                connection.Open();
+                SqlDataReader reader = GetProofOfPaymentDetails.ExecuteReader();
+                reader.Read();
+                paymentProof.ProofNumber = Convert.ToInt32(reader["ProofNumber"]);
+                paymentProof.Amount = Convert.ToSingle(reader["TotalAmount"]);
+                paymentProof.Date = Convert.ToString(reader["ProofOfPaymentDate"]);
+
+                GetProofOfPaymentDetails.Parameters.Clear();
+
+                connection.Close();
+            }
+            catch (Exception e)
+            {
+                throw (e);
+            }
+            return paymentProof;
         }
 
     }

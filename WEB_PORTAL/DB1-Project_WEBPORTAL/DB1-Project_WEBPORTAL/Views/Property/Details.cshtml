@@ -24,9 +24,8 @@
     List<CcModel> moratoryIntsCCs = ViewData["MoratoryIntsCCs"] as List<CcModel>;
     List<CcModel> fixedCCs = ViewData["FixedCCs"] as List<CcModel>;
     
-    List<ReceiptModel> paidReceipts =  ViewData["PaidReceipts"] as List<ReceiptModel>;
     List<ReceiptModel> pendingReceipts = ViewData["PendingReceipts"] as List<ReceiptModel>;
-    List<PaymentProofModel> paymentProofs = ViewData["PaymentPaymentProofs"] as List<PaymentProofModel>;
+    List<PaymentProofModel> paymentProofs = ViewData["PaymentProofs"] as List<PaymentProofModel>;
     
 }
 
@@ -534,79 +533,57 @@ else
                 </tbody>
             </table>
         <hr />
-        
-        <h5>Recibos Pagados</h5>
-        @if (paidReceipts.Count > 0)
-        {
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => paidReceipts[0].Amount)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => paidReceipts[0].ReceiptDate)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => paidReceipts[0].DueDate)
-                    </th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach(var paidReceipt in paidReceipts)
-                {
-                    <tr>
-                        <th>
-                            @Html.DisplayFor(model => paidReceipt.Amount)
-                        </th>
-                        <th>
-                            @Html.DisplayFor(model => paidReceipt.ReceiptDate)
-                        </th>
-                        <th>
-                            @Html.DisplayFor(model => paidReceipt.DueDate)
-                        </th>
-                    </tr>
-                }
-                </tbody>
-            </table>
-            <hr />
-            <h5>Comprobantes de Pago</h5>
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => paymentProofs[0].Amount)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => paymentProofs[0].Date)
-                    </th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach(var paymentProof in paymentProofs)
-                {
-                    <tr>
-                        <th>
-                            @Html.DisplayFor(model => paymentProof.Amount)
-                        </th>
-                        <th>
-                            @Html.DisplayFor(model => paymentProof.Date)
-                        </th>
-                    </tr>
-                }
-                </tbody>
-            </table>
-        <hr />
-        }
-        else
-        {
-            <p>No hay registro de recibos pagados en esta propiedad.</p>
-        }
     }
     else
     {
-        <p>No hay registro de recibos ligados a esta propiedad.</p>
+        <p>No hay registro de recibos pendientes ligados a esta propiedad.</p>
     }
+        
+    @if (paymentProofs.Count > 0)
+    {
+        <h5>Comprobantes de Pago</h5>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => paymentProofs[0].ProofNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => paymentProofs[0].Amount)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => paymentProofs[0].Date)
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach(var paymentProof in paymentProofs)
+            {
+                <tr>
+                    <th>
+                        @Html.DisplayFor(model => paymentProof.ProofNumber)
+                    </th>
+                    <th>
+                        @Html.DisplayFor(model => paymentProof.Amount)
+                    </th>
+                    <th>
+                        @Html.DisplayFor(model => paymentProof.Date)
+                    </th>
+                    <td>
+                        <a asp-action="ProofOfPaymentDetails" asp-route-pProofNumber="@paymentProof.ProofNumber">
+                            <input type="submit" value="Ver Recibos" class="btn btn-primary"/>
+                        </a>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+        <hr />
+    }
+        else
+        {
+            <p>No hay registro de comprobantes de pago en esta propiedad.</p>
+        }
     
 }
 
