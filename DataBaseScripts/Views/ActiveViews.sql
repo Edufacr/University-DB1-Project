@@ -96,7 +96,7 @@ GO
 
 CREATE OR ALTER VIEW activeReceipts
 AS
-    SELECT Id_ChargeConcept,Id_Property,Date,DueDate,Amount
+    SELECT Id AS ReceiptNumber,Id_ChargeConcept,Id_Property,Date,DueDate,Amount
     FROM DB1P_Receipt
     WHERE [Status] = 0
 GO
