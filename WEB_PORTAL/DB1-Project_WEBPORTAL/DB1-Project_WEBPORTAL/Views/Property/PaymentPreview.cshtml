@@ -1,0 +1,74 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutUserInterface.cshtml";
+    List<ReceiptModel> selection = ViewData["Selection"] as List<ReceiptModel>;
+    int? propertyNumber = ViewData["PropertyNumber"] as int?;
+}
+
+<h1> Información del Pago </h1>
+<a href='javascript:history.go(-1)'>Volver</a>
+<hr />
+<table class="table table-striped">
+    <h5>Recibos a pagar.</h5>
+    <p> Intereses moratorios incluidos.</p>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => selection[0].ReceiptNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => selection[0].ChargeConceptName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => selection[0].Amount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => selection[0].ReceiptDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => selection[0].DueDate)
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach(var selectedReceipt in selection)
+        {
+            <tr>
+                <th>
+                    @Html.DisplayFor(model => selectedReceipt.ReceiptNumber)
+                </th>
+                <th>
+                    @Html.DisplayFor(model => selectedReceipt.ChargeConceptName)
+                </th>
+                <th>
+                    @Html.DisplayFor(model => selectedReceipt.Amount)
+                </th>
+                <th>
+                    @Html.DisplayFor(model => selectedReceipt.ReceiptDate)
+                </th>
+                <th>
+                    @Html.DisplayFor(model => selectedReceipt.DueDate)
+                </th>
+            </tr>
+        }
+        </tbody>
+    </table>
+    <hr />
+</table>
+<div>
+    @Html.ActionLink(
+    "Cancelar",
+    "Details",
+    "Property",
+    new {pPropertyNumber = propertyNumber, pRequestType = IConstants.RETURN_TO_USER_INDEX_REQUESTTYPE}, 
+    new {@class = "btn btn-danger"})
+</div>
+<div>
+    @Html.ActionLink(
+        "Pagar",
+       "PaySelectedReceipts",
+       "Property",
+       new {pPropertyNumber = propertyNumber},
+       new {@class = "btn btn-success"})
+</div>

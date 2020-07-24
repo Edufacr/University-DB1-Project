@@ -22,6 +22,7 @@
         <e p="DB1-Project_WEBPORTAL.csproj" t="IncludeRecursive" />
         <e p="DBConnection.cs" t="Include" />
         <e p="IConnectionStrings.cs" t="Include" />
+        <e p="IConstants.cs" t="Include" />
         <e p="Models" t="Include">
           <e p="CcModel.cs" t="Include" />
           <e p="ChangeModel.cs" t="Include" />
@@ -112,8 +113,9 @@
             <e p="Index.cshtml" t="Include" />
             <e p="InsertOwner.cshtml" t="Include" />
             <e p="InsertUser.cshtml" t="Include" />
-            <e p="ReceiptPayment.cshtml" t="Include" />
-            <e p="ReceiptPayment.cshtml.cs" t="Include" />
+            <e p="PaymentPreview.cshtml" t="Include" />
+            <e p="ProofOfPaymentDetails.cshtml" t="Include" />
+            <e p="ReceiptSelection.cshtml" t="Include" />
           </e>
           <e p="Shared" t="Include">
             <e p="_Layout.cshtml" t="Include" />

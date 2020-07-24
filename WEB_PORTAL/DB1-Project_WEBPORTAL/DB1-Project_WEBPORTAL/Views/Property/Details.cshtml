@@ -4,7 +4,7 @@
     int? RequestType = ViewData["RequestType"] as int?;
     ViewData["Title"] = "Delete";
     
-    if (RequestType == 0)
+    if (RequestType == IConstants.USER_REQUESTTYPE || RequestType == IConstants.RETURN_TO_USER_INDEX_REQUESTTYPE)
     {
         Layout = "~/Views/Shared/_LayoutUserInterface.cshtml";
     }
@@ -36,6 +36,14 @@
     {
         <a asp-action="Index">Volver</a>
     }    
+    else if (RequestType == 2)
+    {
+        @Html.ActionLink(
+        "Volver",
+        "Details",
+        "User",
+        new {pUsername = ILoggedUser.LoggedUser.Name, pRequestType = IConstants.USER_REQUESTTYPE})
+    }
     else
     {
         <a href='javascript:history.go(-1)'>Volver</a>
@@ -500,7 +508,10 @@ else
 {
     @if (pendingReceipts.Count > 0)
     {
-             <h5>Recibos Pendientes</h5>
+        <h5>Recibos Pendientes</h5>
+        <a asp-action="ReceiptSelection" asp-route-pPropertyNumber="@Model.PropertyNumber">
+            <input type="submit" value="Pagar" class="btn btn-success"/>
+        </a>
             <table class="table table-striped">
                 <thead>
                 <tr>
@@ -584,7 +595,7 @@ else
                     </th>
                     <td>
                         <a asp-action="ProofOfPaymentDetails" asp-route-pProofNumber="@paymentProof.ProofNumber">
-                            <input type="submit" value="Ver Recibos" class="btn btn-primary"/>
+                            <input type="submit" value="Ver Recibos" class="btn btn-warning"/>
                         </a>
                     </td>
                 </tr>

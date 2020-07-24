@@ -172,7 +172,7 @@ namespace DB1_Project_WEBPORTAL.Controllers
             }
 
             return RedirectToAction("Details",
-                new {pPropertyNumber = pRelation.PropertyNumber, pRequestType = 3});
+                new {pPropertyNumber = pRelation.PropertyNumber, pRequestType = IConstants.RETURN_TO_INDEX_REQUESTTYPE});
         }
         
         public IActionResult DeleteOwner(string pDocType, string pDocValue, int pPropertyNumber)
@@ -184,7 +184,7 @@ namespace DB1_Project_WEBPORTAL.Controllers
             ownerController.ExecuteDeleteOwnerOfProperty(relation);
             
             return RedirectToAction("Details",
-                new {pPropertyNumber = relation.PropertyNumber, pRequestType = 1});
+                new {pPropertyNumber = relation.PropertyNumber, pRequestType = IConstants.ADMIN_REQUESTTYPE});
         }
         
         [HttpGet]
@@ -212,7 +212,7 @@ namespace DB1_Project_WEBPORTAL.Controllers
             }
 
             return RedirectToAction("Details",
-                new {pPropertyNumber = pRelation.PropertyNumber, pRequestType = 3});
+                new {pPropertyNumber = pRelation.PropertyNumber, pRequestType = IConstants.RETURN_TO_INDEX_REQUESTTYPE});
         }
         
         public IActionResult DeleteUser(string pUsername, int pPropertyNumber)
@@ -231,6 +231,41 @@ namespace DB1_Project_WEBPORTAL.Controllers
             List<ReceiptModel> receipts = ReceiptController.ExecuteGetProofOfPaymentReceipts(pProofNumber);
             ViewData["ReceiptsPoP"] = receipts;
             return View(proofOfPayment);
+        }
+
+        public IActionResult ReceiptSelection(int pPropertyNumber)
+        {
+            PropertyModel property = propertyController.ExecuteGetPropertyInfoByPropertyNumber(pPropertyNumber)[0];
+            List<ReceiptModel> pendingReceipts = ReceiptController.ExecuteGetPropertyPendingReceipts(property.PropertyNumber);
+            ViewData["PendingReceipts"] = pendingReceipts;
+           // ReceiptController.ExecuteCreateSelectedReceiptTable();
+            ViewData["PropertyNumber"] = pPropertyNumber;
+            return View();
+        }
+        
+        public int SelectReceipt(int pReceiptNumber)
+        {
+            //int selection = ReceiptController.ExecuteSelectReceipt(pReceiptNumber);
+            return -50003;
+        }
+
+        public IActionResult PaymentPreview(int? pPropertyNumber)
+        {
+            List<ReceiptModel> selectedReceipts = ReceiptController.ExecuteGetSelectedReceipts();
+            ViewData["Selection"] = selectedReceipts;
+            ViewData["PropertyNumber"] = pPropertyNumber;
+            
+            return View();
+        }
+
+        public IActionResult PaySelectedReceipts(int pPropertyNumber)
+        {
+
+            ReceiptController.ExecutePaySelectedReceipts();
+            
+            return RedirectToAction("Details",
+                new {pPropertyNumber, pRequestType = IConstants.RETURN_TO_USER_INDEX_REQUESTTYPE});
+            
         }
         
     }

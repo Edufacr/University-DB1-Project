@@ -13,6 +13,11 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
         private SqlCommand GetProofOfPaymentReceipts;
         private SqlCommand GetPropertyPaymentProofs;
         private SqlCommand GetProofOfPaymentDetails;
+        private SqlCommand GetSelectedReceipts;
+        private SqlCommand PaySelectedReceipts;
+        private SqlCommand SelectReceipt;
+        private SqlCommand CreateSelectedReceiptTable;
+        
         
         public static ReceiptModelController Singleton;
         
@@ -32,6 +37,18 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
             GetProofOfPaymentDetails = new SqlCommand("SP_getProofOfPaymentByProofNumber",connection);
             GetProofOfPaymentDetails.CommandType = CommandType.StoredProcedure;
             
+            GetSelectedReceipts = new SqlCommand("SP_getSelectedReceipts",connection);
+            GetSelectedReceipts.CommandType = CommandType.StoredProcedure;
+            
+            PaySelectedReceipts = new SqlCommand("SP_paySelectedReceipts",connection);
+            PaySelectedReceipts.CommandType = CommandType.StoredProcedure;
+            
+            SelectReceipt = new SqlCommand("SP_SelectReceipt ",connection);
+            SelectReceipt.CommandType = CommandType.StoredProcedure;
+            
+            CreateSelectedReceiptTable = new SqlCommand("SP_CreateSelectedReceiptTable",connection);
+            CreateSelectedReceiptTable.CommandType = CommandType.StoredProcedure;
+            
         }
 
         public static ReceiptModelController getInstance()
@@ -39,6 +56,22 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
             return Singleton ??= new ReceiptModelController();
         }
 
+        public int ExecutePaySelectedReceipts()
+        {
+            return ExecuteNonQueryCommand(PaySelectedReceipts);
+        }
+        
+        public int ExecuteCreateSelectedReceiptTable()
+        {
+            return ExecuteNonQueryCommand(CreateSelectedReceiptTable);
+        }
+
+        public int ExecuteSelectReceipt(int pReceiptNumber)
+        {
+            SelectReceipt.Parameters.Add("@inReceiptNumber", SqlDbType.Int).Value = pReceiptNumber;
+            return ExecuteNonQueryCommand(SelectReceipt);
+        }
+        
         public List<ReceiptModel> ExecuteGetProofOfPaymentReceipts(int pProofNumber)
         {
             GetProofOfPaymentReceipts.Parameters.Add("@inProofNumber", SqlDbType.Int).Value = pProofNumber;
@@ -49,6 +82,12 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
             GetPropertyPendingReceipts.Parameters.Add("@inPropertyNum", SqlDbType.Int).Value = pPropertyNumber;
             return ExecuteQueryCommand(GetPropertyPendingReceipts);
         }
+
+        public List<ReceiptModel> ExecuteGetSelectedReceipts()
+        {
+            return ExecuteQueryCommand(GetSelectedReceipts);
+        }
+        
         
         public List<ReceiptModel> ExecuteQueryCommand(SqlCommand command)
         {
@@ -96,14 +135,7 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
 
                 while (reader.Read())
                 {
-                    PaymentProofModel paymentProof = new PaymentProofModel();
-
-                    paymentProof.ProofNumber = Convert.ToInt32(reader["ProofNumber"]);
-                    
-                    paymentProof.Amount = Convert.ToSingle(reader["TotalAmount"]);
-
-                    paymentProof.Date = Convert.ToString(reader["PaymentDate"]);
-
+                    PaymentProofModel paymentProof = ConstructPaymentProof(reader);
                     result.Add(paymentProof);
                 }
                 GetPropertyPaymentProofs.Parameters.Clear();
@@ -117,20 +149,17 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
             return result;
         }
 
-        public PaymentProofModel ExecuteGetProofOfPaymentDetails(int pProofNumber){
-            PaymentProofModel paymentProof = new PaymentProofModel();
+        public PaymentProofModel ExecuteGetProofOfPaymentDetails(int pProofNumber)
+        {
+            PaymentProofModel paymentProof;
             GetProofOfPaymentDetails.Parameters.Add("@inProofNumber",SqlDbType.Int).Value = pProofNumber;
             try
             {
                 connection.Open();
                 SqlDataReader reader = GetProofOfPaymentDetails.ExecuteReader();
                 reader.Read();
-                paymentProof.ProofNumber = Convert.ToInt32(reader["ProofNumber"]);
-                paymentProof.Amount = Convert.ToSingle(reader["TotalAmount"]);
-                paymentProof.Date = Convert.ToString(reader["ProofOfPaymentDate"]);
-
+                paymentProof = ConstructPaymentProof(reader);
                 GetProofOfPaymentDetails.Parameters.Clear();
-
                 connection.Close();
             }
             catch (Exception e)
@@ -138,6 +167,37 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
                 throw (e);
             }
             return paymentProof;
+        }
+        
+        private PaymentProofModel ConstructPaymentProof(SqlDataReader reader)
+        {
+            PaymentProofModel paymentProof = new PaymentProofModel();
+            
+            paymentProof.ProofNumber = Convert.ToInt32(reader["ProofNumber"]);
+            paymentProof.Amount = Convert.ToSingle(reader["TotalAmount"]);
+            paymentProof.Date = Convert.ToString(reader["ProofOfPaymentDate"]);
+
+            return paymentProof;
+        }
+
+        public int ExecuteNonQueryCommand(SqlCommand command)
+        {
+            var returnParameter = command.Parameters.Add("@ReturnVal", SqlDbType.Int);
+            returnParameter.Direction = ParameterDirection.ReturnValue;
+
+            try
+            {
+                connection.Open();
+                command.ExecuteNonQuery();
+                int result = (int)returnParameter.Value;
+                connection.Close();
+                command.Parameters.Clear();
+                return result;
+            }
+            catch (Exception e)
+            {
+                throw (e);
+            }
         }
 
     }

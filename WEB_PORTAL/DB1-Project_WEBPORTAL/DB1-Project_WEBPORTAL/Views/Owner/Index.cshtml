@@ -43,7 +43,7 @@
             </td>
             <td>
                 @{
-                    if (owner.DocType == "Cedula Juridica")
+                    if (owner.DocType == IConstants.LEGAL_OWNER_DOCTYPE)
                     {
                         <a asp-action="EditLegal" asp-route-pDocValue="@owner.DocValue">
                             <input type="submit" value="Editar" class="btn btn-success"/>
