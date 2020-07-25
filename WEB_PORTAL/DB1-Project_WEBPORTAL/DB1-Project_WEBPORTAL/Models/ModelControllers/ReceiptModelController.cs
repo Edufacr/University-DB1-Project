@@ -16,7 +16,7 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
         private SqlCommand GetSelectedReceipts;
         private SqlCommand PaySelectedReceipts;
         private SqlCommand SelectReceipt;
-        private SqlCommand CreateSelectedReceiptTable;
+        private SqlCommand ClearSelectedReceiptTable;
         
         
         public static ReceiptModelController Singleton;
@@ -43,11 +43,11 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
             PaySelectedReceipts = new SqlCommand("SP_paySelectedReceipts",connection);
             PaySelectedReceipts.CommandType = CommandType.StoredProcedure;
             
-            SelectReceipt = new SqlCommand("SP_SelectReceipt ",connection);
+            SelectReceipt = new SqlCommand("SP_selectReceipt ",connection);
             SelectReceipt.CommandType = CommandType.StoredProcedure;
             
-            CreateSelectedReceiptTable = new SqlCommand("SP_CreateSelectedReceiptTable",connection);
-            CreateSelectedReceiptTable.CommandType = CommandType.StoredProcedure;
+            ClearSelectedReceiptTable = new SqlCommand("SP_clearSelectedReceiptTable",connection);
+            ClearSelectedReceiptTable.CommandType = CommandType.StoredProcedure;
             
         }
 
@@ -63,7 +63,7 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
         
         public int ExecuteCreateSelectedReceiptTable()
         {
-            return ExecuteNonQueryCommand(CreateSelectedReceiptTable);
+            return ExecuteNonQueryCommand(ClearSelectedReceiptTable);
         }
 
         public int ExecuteSelectReceipt(int pReceiptNumber)
