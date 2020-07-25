@@ -30,7 +30,6 @@ BEGIN TRY
         FROM activeReceiptsWithMoratoryRate ar
             INNER JOIN DB1P_SelectedReceipts sr
                 ON ar.ReceiptNumber = sr.ReceiptNumber
-
         WHERE ar.DueDate < @Date
 
 	UNION
