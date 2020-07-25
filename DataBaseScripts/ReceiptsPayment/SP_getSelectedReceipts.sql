@@ -25,7 +25,7 @@ BEGIN TRY
 		FROM DB1P_ChargeConcepts 
 			WHERE Id = @IdMoratoryInterestCC;
 	
-	SELECT NULL AS ReceiptNumber,@NameMoratoryInterestCC AS ChargeConceptName,@Date AS ReceiptDate,NULL AS DueDate,
+	SELECT 0 AS ReceiptNumber,@NameMoratoryInterestCC AS ChargeConceptName,@Date AS ReceiptDate,NULL AS DueDate,
 			Amount = (Amount*MoratoryInterestRate/365)* ABS(DATEDIFF(day,DueDate,@Date))
         FROM activeReceiptsWithMoratoryRate ar
             INNER JOIN DB1P_SelectedReceipts sr
