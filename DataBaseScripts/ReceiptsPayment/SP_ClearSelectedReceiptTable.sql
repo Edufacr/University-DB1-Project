@@ -7,7 +7,7 @@ GO
 -- Create date: 
 -- Description:	Selects a receipts and inserts it in the selected to payment temp table
 -- =============================================
-CREATE OR ALTER PROCEDURE SP_ClearSelectedReceiptsTable
+CREATE OR ALTER PROCEDURE SP_clearSelectedReceiptsTable
 	-- Add the parameters for the stored procedure here
 AS
 BEGIN
@@ -16,7 +16,8 @@ BEGIN
 	SET NOCOUNT ON;
     -- Insert statements for procedure here
 BEGIN TRY
-	RETURN -50003
+	DELETE DB1P_SelectedReceipts;
+	RETURN 1;
 END TRY
 BEGIN CATCH
 	RETURN @@Error * -1
