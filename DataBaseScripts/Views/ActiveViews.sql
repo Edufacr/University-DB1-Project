@@ -113,7 +113,7 @@ GO
 
 CREATE OR ALTER VIEW activeReceiptsWithMoratoryRate
 AS
-    SELECT r.Id_ChargeConcept,r.Id_Property,r.Date,r.DueDate,r.Amount,cc.MoratoryInterestRate
+    SELECT r.ReceiptNumber,r.Id_ChargeConcept,r.Id_Property,r.Date,r.DueDate,r.Amount,cc.MoratoryInterestRate
     FROM activeReceipts r
 		INNER JOIN DB1P_ChargeConcepts cc
 			ON cc.Id = r.Id_ChargeConcept

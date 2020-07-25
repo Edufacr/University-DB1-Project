@@ -13,6 +13,12 @@ COMMIT
 --Create tables
 BEGIN TRANSACTION
 GO
+
+DROP TABLE IF EXISTS dbo.DB1P_SelectedReceipts;
+CREATE TABLE dbo.DB1P_SelectedReceipts
+	(
+	ReceiptNumber INT,
+	) ON [PRIMARY]
 DROP TABLE IF EXISTS dbo.DB1P_ChangeLog;
 CREATE TABLE dbo.DB1P_ChangeLog
 	(
