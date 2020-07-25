@@ -46,7 +46,7 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
             SelectReceipt = new SqlCommand("SP_selectReceipt ",connection);
             SelectReceipt.CommandType = CommandType.StoredProcedure;
             
-            ClearSelectedReceiptTable = new SqlCommand("SP_clearSelectedReceiptTable",connection);
+            ClearSelectedReceiptTable = new SqlCommand("SP_clearSelectedReceiptsTable",connection);
             ClearSelectedReceiptTable.CommandType = CommandType.StoredProcedure;
             
         }
