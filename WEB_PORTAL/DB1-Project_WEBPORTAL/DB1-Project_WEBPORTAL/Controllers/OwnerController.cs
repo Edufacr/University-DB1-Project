@@ -174,9 +174,9 @@ namespace DB1_Project_WEBPORTAL.Controllers
             try
             {
                 OwnerModel owner = ownerController.ExcecuteGetOwnersByDocValue(pDocValue, pDocType)[0];
-                if (owner.DocType == "Cedula Juridica")
+                if (owner.DocType == IConstants.LEGAL_OWNER_DOCTYPE)
                 {
-                    return RedirectToAction("DetailsLegal", new {pDocValue = owner.DocValue, pRequestType = 1});
+                    return RedirectToAction("DetailsLegal", new {pDocValue = owner.DocValue, pRequestType = IConstants.ADMIN_REQUESTTYPE});
                 }
                 List<PropertyModel> properties = propertyController.ExecuteGetPropertiesOfOwner(owner);
                 ViewData["Properties"] = properties;
@@ -195,7 +195,7 @@ namespace DB1_Project_WEBPORTAL.Controllers
             try
             {
                 LegalOwnerModel legalOwner = legalOwnerController.ExecuteGetLegalOwnerByDocValue(pDocValue)[0];
-                OwnerModel owner = ownerController.ExcecuteGetOwnersByDocValue(pDocValue, "Cedula Juridica")[0];
+                OwnerModel owner = ownerController.ExcecuteGetOwnersByDocValue(pDocValue, IConstants.LEGAL_OWNER_DOCTYPE)[0];
                 List<PropertyModel> properties = propertyController.ExecuteGetPropertiesOfOwner(owner);
                 ViewData["Properties"] = properties;
                 ViewData["RequestType"] = pRequestType;
@@ -233,7 +233,7 @@ namespace DB1_Project_WEBPORTAL.Controllers
             }
 
             return RedirectToAction("Details",
-                new {pDocType = pRelation.DocType, pDocValue = pRelation.DocValue, pRequestType = 3});
+                new {pDocType = pRelation.DocType, pDocValue = pRelation.DocValue, pRequestType = IConstants.RETURN_TO_INDEX_REQUESTTYPE});
         }
         
         public IActionResult DeleteProperty(string pDocType, string pDocValue, int pPropertyNumber)
@@ -245,7 +245,7 @@ namespace DB1_Project_WEBPORTAL.Controllers
             ownerController.ExecuteDeleteOwnerOfProperty(relation);
             
             return RedirectToAction("Details",
-                new {pDocType = relation.DocType, pDocValue = relation.DocValue, pRequestType = 1});
+                new {pDocType = relation.DocType, pDocValue = relation.DocValue, pRequestType = IConstants.ADMIN_REQUESTTYPE});
         }
         
         

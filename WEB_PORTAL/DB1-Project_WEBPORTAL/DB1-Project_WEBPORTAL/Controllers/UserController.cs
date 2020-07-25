@@ -79,7 +79,6 @@ namespace DB1_Project_WEBPORTAL.Controllers
             }
             catch (IndexOutOfRangeException e)
             {
-                Console.Write("MAMAPICHAAAAAS");
                 return NotFound();
             }
         }
@@ -109,7 +108,7 @@ namespace DB1_Project_WEBPORTAL.Controllers
             }
 
             return RedirectToAction("Details",
-                new {pUsername = pRelation.Name, pRequestType = 3});
+                new {pUsername = pRelation.Name, pRequestType = IConstants.RETURN_TO_INDEX_REQUESTTYPE});
         }
         
         public IActionResult DeleteProperty(string pUsername, int pPropertyNumber)
@@ -120,7 +119,7 @@ namespace DB1_Project_WEBPORTAL.Controllers
             userController.ExecuteDeleteUserOfProperty(relation);
             
             return RedirectToAction("Details",
-                new {pUsername = relation.Name, pRequestType = 1});
+                new {pUsername = relation.Name, pRequestType = IConstants.ADMIN_REQUESTTYPE});
         }
         
     }

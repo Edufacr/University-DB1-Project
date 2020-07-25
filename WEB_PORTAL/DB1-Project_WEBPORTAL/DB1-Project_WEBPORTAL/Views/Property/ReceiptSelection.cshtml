@@ -1,0 +1,102 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutUserInterface.cshtml";
+    List<ReceiptModel> receipts = ViewData["PendingReceipts"] as List<ReceiptModel>;
+    int? propertyNumber = ViewData["PropertyNumber"] as int?;
+}
+
+<h1> Recibos Pendientes </h1>
+<a href='javascript:history.go(-1)'>Volver</a>
+<hr />
+<table class="table table-striped">
+    <h5>Seleccione los recibos a pagar</h5>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => receipts[0].ReceiptNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => receipts[0].ChargeConceptName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => receipts[0].Amount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => receipts[0].ReceiptDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => receipts[0].DueDate)
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        @for(int index = 0; index < receipts.Count ; index++)
+        {
+            string id = "CheckBox"+index;
+            <tr>
+                <th>
+                    @Html.DisplayFor(model => receipts[index].ReceiptNumber)
+                </th>
+                <th>
+                    @Html.DisplayFor(model => receipts[index].ChargeConceptName)
+                </th>
+                <th>
+                    @Html.DisplayFor(model => receipts[index].Amount)
+                </th>
+                <th>
+                    @Html.DisplayFor(model => receipts[index].ReceiptDate)
+                </th>
+                <th>
+                    @Html.DisplayFor(model => receipts[index].DueDate)
+                </th>
+                <th>
+                    <a>
+                        <input type="checkbox" onclick="SelectReceipt(@receipts[index].ReceiptNumber,'@id');" id="@id"/>
+                    </a>
+                </th>                   
+            </tr>
+        }
+        </tbody>
+    </table>
+    <hr />
+</table>
+<div>
+    @Html.ActionLink(
+        "Tramitar Pago",
+       "PaymentPreview",
+       "Property",
+       new {pPropertyNumber = propertyNumber},
+       new {@class = "btn btn-success"})
+</div>
+
+
+@section Scripts{
+    <script>
+         @*$(function() {
+            $('#add_receipt').click(function() {
+                
+                SelectReceipt().done(function(value) {
+                    alert(value); //waits until ajax is completed
+                });
+                return false;
+            });
+        });*@  
+        function SelectReceipt(receiptNumber,id) { 
+            $.ajax({ url: "SelectReceipt" , 
+                    data:{ pReceiptNumber:receiptNumber },
+                    success: function(data) {
+                        if (data === @IConstants.NOT_OLDER_RECEIPT_ERROR){
+                            alert("No se pudo agregar el recibo.\n" +
+                                  "Se encontraron recibos pendientes más viejos del mismo concepto de cobro.");
+                            $("#"+id).prop("checked", false);
+                        }
+                    },
+                    error: function() {
+                        alert('Error occured');
+                    }
+            }); 
+        }
+    </script>
+}

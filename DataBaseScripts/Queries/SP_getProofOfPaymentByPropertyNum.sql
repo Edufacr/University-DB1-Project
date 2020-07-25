@@ -22,14 +22,23 @@ BEGIN TRY
     EXEC @Exists = SP_validateProperty @inPropertyNum
     IF(@Exists = 1)
     BEGIN
-        SELECT @Id_Property = Id
-            FROM DB1P_Properties
-            WHERE @inPropertyNum = PropertyNumber
+        SELECT 
+			@Id_Property = Id
+        FROM 
+			DB1P_Properties
+        WHERE 
+			@inPropertyNum = PropertyNumber
 
-        SELECT ProofNumber,PaymentDate,TotalAmount
-            FROM ProofOfPaymentsWithIdProperty
-            WHERE @Id_Property = Id_Property
-            ORDER BY PaymentDate DESC;
+        SELECT 
+			ProofNumber
+			,PaymentDate as ProofOfPaymentDate
+			,TotalAmount
+        FROM 
+			ProofOfPaymentsWithIdProperty
+        WHERE 
+			@Id_Property = Id_Property
+        ORDER BY 
+			PaymentDate DESC;
             
         RETURN @@ROWCOUNT;
     END
