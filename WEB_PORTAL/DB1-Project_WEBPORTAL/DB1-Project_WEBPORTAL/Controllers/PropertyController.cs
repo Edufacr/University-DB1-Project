@@ -238,15 +238,15 @@ namespace DB1_Project_WEBPORTAL.Controllers
             PropertyModel property = propertyController.ExecuteGetPropertyInfoByPropertyNumber(pPropertyNumber)[0];
             List<ReceiptModel> pendingReceipts = ReceiptController.ExecuteGetPropertyPendingReceipts(property.PropertyNumber);
             ViewData["PendingReceipts"] = pendingReceipts;
-           // ReceiptController.ExecuteCreateSelectedReceiptTable();
+            ReceiptController.ExecuteCreateSelectedReceiptTable();
             ViewData["PropertyNumber"] = pPropertyNumber;
             return View();
         }
         
         public int SelectReceipt(int pReceiptNumber)
         {
-            //int selection = ReceiptController.ExecuteSelectReceipt(pReceiptNumber);
-            return -50003;
+            int selection = ReceiptController.ExecuteSelectReceipt(pReceiptNumber);
+            return selection;
         }
 
         public IActionResult PaymentPreview(int? pPropertyNumber)

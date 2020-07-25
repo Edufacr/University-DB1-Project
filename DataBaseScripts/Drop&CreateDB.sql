@@ -1,4 +1,4 @@
-USE [DB1-Project]
+  USE [DB1-Project]
 --Estas son como opciones default que trae el server pero para que esten igual mejor las pongo
 BEGIN TRANSACTION
 SET QUOTED_IDENTIFIER ON
@@ -232,6 +232,57 @@ CREATE TABLE dbo.DB1P_ProofOfPayment
 	TotalAmount MONEY NOT NULL,
 	Active BIT NOT NULL DEFAULT 1
 	)  ON [PRIMARY]
+
+DROP TABLE IF EXISTS dbo.DB1P_AP_Receipts;
+CREATE TABLE dbo.DB1P_AP_Receipts
+	(
+	Id int NOT NULL,
+	IdMovement int NULL,
+	MonthlyInterest money NOT NULL,
+	Amortization money NOT NULL,
+	PaymentTermsLeft int NOT NULL
+	)  ON [PRIMARY]
+
+DROP TABLE IF EXISTS dbo.DB1P_AP_Movements;
+CREATE TABLE dbo.DB1P_AP_Movements
+	(
+	Id int NOT NULL,
+	IdAP int NOT NULL,
+	IdMovType int NOT NULL,
+	Amount money NOT NULL,
+	MonthlyInterest money NOT NULL,
+	PaymentTermsLeft int NOT NULL,
+	NewBalance money NOT NULL,
+	Date date NOT NULL,
+	InsertedAt datetime NOT NULL
+	)  ON [PRIMARY]
+GO
+
+DROP TABLE IF EXISTS dbo.DB1P_AP_MovementTypes;
+CREATE TABLE dbo.DB1P_AP_MovementTypes
+	(
+	Id int NOT NULL,
+	Name varchar(100) NOT NULL
+	)  ON [PRIMARY]
+GO
+
+DROP TABLE IF EXISTS dbo.DB1P_APs;
+CREATE TABLE dbo.DB1P_APs
+	(
+	Id int NOT NULL,
+	IdProperty int NOT NULL,
+	IdProofOfPayment int NOT NULL,
+	InitialAmount money NOT NULL,
+	Balance money NOT NULL,
+	AnnualInterestRate decimal(4, 2) NOT NULL,
+	PaymentTerms int NOT NULL,
+	PaymentTermsLeft int NOT NULL,
+	FeeValue money NOT NULL,
+	InsertedAt datetime NOT NULL,
+	UpdatedAt datetime NOT NULL
+	)  ON [PRIMARY]
+GO
+
 GO
 COMMIT
 
@@ -320,6 +371,33 @@ ALTER TABLE dbo.DB1P_Properties ADD CONSTRAINT
 	(
 	Id
 	) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
+ALTER TABLE dbo.DB1P_AP_MovementTypes ADD CONSTRAINT
+	PK_DB1P_AP_MovementTypes PRIMARY KEY CLUSTERED 
+	(
+	Id
+	) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
+ALTER TABLE dbo.DB1P_APs ADD CONSTRAINT
+	PK_DB1P_APs PRIMARY KEY CLUSTERED 
+	(
+	Id
+	) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
+
+ALTER TABLE dbo.DB1P_AP_Movements ADD CONSTRAINT
+	PK_DB1P_AP_Movements PRIMARY KEY CLUSTERED 
+	(
+	Id
+	) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
+ALTER TABLE dbo.DB1P_AP_Receipts ADD CONSTRAINT
+	PK_DB1P_AP_Receipts PRIMARY KEY CLUSTERED 
+	(
+	Id
+	) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
+
 
 --Foreign Keys
 
@@ -642,4 +720,54 @@ ALTER TABLE dbo.DB1P_Receipt ADD CONSTRAINT
 	Id
 	) ON UPDATE  NO ACTION 
 	 ON DELETE  NO ACTION 
+
+ALTER TABLE dbo.DB1P_AP_Movements ADD CONSTRAINT
+	FK_DB1P_AP_Movements_DB1P_APs FOREIGN KEY
+	(
+	IdAP
+	) REFERENCES dbo.DB1P_APs
+	(
+	Id
+	) ON UPDATE  NO ACTION 
+	 ON DELETE  NO ACTION 
+	
+--ALTER TABLE dbo.DB1P_AP_Movements SET (LOCK_ESCALATION = TABLE)
+--ALTER TABLE dbo.DB1P_Receipt SET (LOCK_ESCALATION = TABLE)
+
+ALTER TABLE dbo.DB1P_AP_Movements ADD CONSTRAINT
+	FK_DB1P_AP_Movements_DB1P_AP_MovementTypes FOREIGN KEY
+	(
+	IdMovType
+	) REFERENCES dbo.DB1P_AP_MovementTypes
+	(
+	Id
+	) ON UPDATE  NO ACTION 
+	 ON DELETE  NO ACTION 
+
+--ALTER TABLE dbo.DB1P_Receipt SET (LOCK_ESCALATION = TABLE)
+
+ALTER TABLE dbo.DB1P_AP_Receipts ADD CONSTRAINT
+	FK_DB1P_AP_Receipts_DB1P_Receipt FOREIGN KEY
+	(
+	Id
+	) REFERENCES dbo.DB1P_Receipt
+	(
+	Id
+	) ON UPDATE  NO ACTION 
+	 ON DELETE  NO ACTION 
+
+
+
+ALTER TABLE dbo.DB1P_AP_Receipts ADD CONSTRAINT
+	FK_DB1P_AP_Receipts_DB1P_AP_Movements FOREIGN KEY
+	(
+	IdMovement
+	) REFERENCES dbo.DB1P_AP_Movements
+	(
+	Id
+	) ON UPDATE  NO ACTION 
+	 ON DELETE  NO ACTION 
+
+--ALTER TABLE dbo.DB1P_AP_Receipts SET (LOCK_ESCALATION = TABLE)
+
 COMMIT
