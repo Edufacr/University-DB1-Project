@@ -246,7 +246,7 @@ CREATE TABLE dbo.DB1P_AP_Receipts
 DROP TABLE IF EXISTS dbo.DB1P_AP_Movements;
 CREATE TABLE dbo.DB1P_AP_Movements
 	(
-	Id int NOT NULL,
+	Id int NOT NULL IDENTITY(1,1),
 	IdAP int NOT NULL,
 	IdMovType int NOT NULL,
 	Amount money NOT NULL,
@@ -269,7 +269,7 @@ GO
 DROP TABLE IF EXISTS dbo.DB1P_APs;
 CREATE TABLE dbo.DB1P_APs
 	(
-	Id int NOT NULL,
+	Id int NOT NULL IDENTITY(1,1),
 	IdProperty int NOT NULL,
 	IdProofOfPayment int NOT NULL,
 	InitialAmount money NOT NULL,
