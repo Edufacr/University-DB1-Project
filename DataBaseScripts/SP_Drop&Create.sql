@@ -785,7 +785,17 @@ BEGIN
 
 		ALTER TABLE dbo.DB1P_AP_Receipts SET (LOCK_ESCALATION = TABLE)
 
+		DROP TABLE IF EXISTS dbo.DB1P_ConfigurationTable;
+		CREATE TABLE dbo.DB1P_ConfigurationTable
+			(
+			Id INT NOT NULL IDENTITY (1, 1),
+			AnnualInterestRate decimal(4,2) DEFAULT 20.0
+			)  ON [PRIMARY]
+		
 		COMMIT
+
+		INSERT INTO DB1P_ConfigurationTable (AnnualInterestRate) VALUES (20.0)
+		
 	END TRY
 	BEGIN CATCH
 		RETURN @@Error * -1

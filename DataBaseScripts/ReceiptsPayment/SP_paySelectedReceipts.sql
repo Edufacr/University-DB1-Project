@@ -68,7 +68,7 @@ BEGIN TRY
 							ON  ar.ReceiptNumber = sr.ReceiptNumber
 
 		COMMIT TRANSACTION
-		RETURN 1;
+		RETURN @IdProofOfPayment;
 	END
 	RETURN -50004 --Empty selection
 END TRY
