@@ -13,10 +13,7 @@ BEGIN
 
     DECLARE @IdProperty         INT;
     DECLARE @IdProofOfPayment   INT;
-    DECLARE @PaymentTerms       INT;
-    DECLARE @PaymentTermsLeft   INT;
     DECLARE @OriginalAmount     MONEY;
-    DECLARE @Balance            MONEY;
     DECLARE @FeeValue           MONEY;
     DECLARE @InsertAt           DATETIME;
     DECLARE @UpdateAt           DATETIME;
@@ -41,12 +38,6 @@ BEGIN TRY
                                     WHERE
                                         c.Id = 1 )
         SET 
-            @PaymentTerms = @inPaymentTerms;
-        SET 
-            @PaymentTermsLeft = @inPaymentTerms;
-        SET 
-            @Balance = 0;
-        SET 
             @InsertAt = GETDATE();
         SET
             @UpdateAt = GETDATE();
@@ -58,7 +49,7 @@ BEGIN TRY
         
         -- R = P [(i (1 + i)n) / ((1 + i)n – 1)]
         SET
-            @FeeValue = @OriginalAmount * ( ( @AnnualInterestRate * POWER( 1 + @AnnualInterestRate , @PaymentTerms ) ) / (POWER( 1 + @AnnualInterestRate , @PaymentTerms ) - 1) )
+            @FeeValue = @OriginalAmount * ( ( @AnnualInterestRate * POWER( 1 + @AnnualInterestRate , @inPaymentTerms ) ) / (POWER( 1 + @AnnualInterestRate , @inPaymentTerms ) - 1) )
     
         INSERT INTO
             dbo.DB1P_APs([IdProperty]
@@ -75,10 +66,10 @@ BEGIN TRY
             (@IdProperty
             ,@IdProofOfPayment
             ,@OriginalAmount
-            ,@Balance
+            ,0                      --> Balance
             ,@AnnualInterestRate
-            ,@PaymentTerms
-            ,@PaymentTermsLeft
+            ,@inPaymentTerms
+            ,@inPaymentTerms        --> PaymentTermsLeft
             ,@FeeValue
             ,@InsertAt
             ,@UpdateAt)
