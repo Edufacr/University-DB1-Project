@@ -66,9 +66,10 @@ BEGIN TRY
 			--Se marcan como pagados los recibos
 			UPDATE DB1P_Receipt
 				SET [Status] = 1
-					FROM activeReceipts ar
-						INNER JOIN DB1P_SelectedReceipts sr
-							ON  ar.ReceiptNumber = sr.ReceiptNumber
+					WHERE Id IN 
+						(SELECT ReceiptNumber
+							FROM DB1P_SelectedReceipts
+						)
 
 		COMMIT TRANSACTION
 		RETURN @IdProofOfPayment;
