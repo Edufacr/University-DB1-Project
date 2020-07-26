@@ -44,10 +44,12 @@ BEGIN
                                             WHEN @IdCC = @IdReconnectionCC THEN @IdWaterCC -- If its reconnection it has to check for water CC instead
                                             ELSE @IdCC 
                                         END
+									AND 
+									ReceiptNumber
+										NOT IN (
+											SELECT ReceiptNumber
+												FROM DB1P_SelectedReceipts)
                             ORDER BY [Date]
-							EXCEPT
-							SELECT ReceiptNumber 
-								FROM DB1P_SelectedReceipts
 						) AS NotSelected;
 				IF
 				(
