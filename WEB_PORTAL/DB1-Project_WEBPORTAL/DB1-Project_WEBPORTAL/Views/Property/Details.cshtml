@@ -94,7 +94,7 @@
 </div> 
 <hr />
 <h3>Propietarios</h3>
-@if (RequestType != 0)
+@if (ILoggedUser.LoggedUser.isAdmin)
 {
     <p>
         <a asp-action="InsertOwner" asp-route-pPropertyNumber="@Model.PropertyNumber" >
@@ -132,7 +132,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => owner.DocValue)
                 </td>
-                @if (RequestType != 0)
+                @if (ILoggedUser.LoggedUser.isAdmin)
                 {
                     <td>
                         @Html.ActionLink(
@@ -159,10 +159,10 @@ else
 }
 
 <hr />
-@if (RequestType != 0)
+@if (ILoggedUser.LoggedUser.isAdmin)
 {
     <h3>Usuarios</h3>
-    @if (RequestType != 0)
+    @if (ILoggedUser.LoggedUser.isAdmin)
     {
         <p>
             <a asp-action="InsertUser" asp-route-pPropertyNumber="@Model.PropertyNumber" >
@@ -504,7 +504,7 @@ else
     <p>No hay conceptos de cobro ligados a esta propiedad.</p>
 }
 
-@if (RequestType == 0)
+@if (!ILoggedUser.LoggedUser.isAdmin)
 {
     @if (pendingReceipts.Count > 0)
     {
