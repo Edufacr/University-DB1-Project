@@ -21,6 +21,7 @@ DECLARE @IdMoratoryInterestCC INT;
 DECLARE @NumOfMoratoryInterest INT;
 DECLARE @IdProofOfPayment INT;
 DECLARE @TotalAmount MONEY;
+DECLARE @Error INT;
 BEGIN TRY
 	SET @IdMoratoryInterestCC = 11; --MoratoryInterest ID from xml
 	SET @Date = GETDATE();
@@ -39,6 +40,8 @@ BEGIN TRY
 						INNER JOIN DB1P_SelectedReceipts sr
 							ON ar.ReceiptNumber = sr.ReceiptNumber
 					WHERE ar.DueDate < @Date
+					
+			SELECT @NumOfMoratoryInterest = @@ROWCOUNT;
 			
 			INSERT INTO DB1P_SelectedReceipts (ReceiptNumber)
 				SELECT TOP (@NumOfMoratoryInterest) Id
@@ -63,17 +66,20 @@ BEGIN TRY
 			--Se marcan como pagados los recibos
 			UPDATE DB1P_Receipt
 				SET [Status] = 1
-					FROM activeReceipts ar
-						INNER JOIN DB1P_SelectedReceipts sr
-							ON  ar.ReceiptNumber = sr.ReceiptNumber
+					WHERE Id IN 
+						(SELECT ReceiptNumber
+							FROM DB1P_SelectedReceipts
+						)
 
 		COMMIT TRANSACTION
-		RETURN 1;
+		RETURN @IdProofOfPayment;
 	END
 	RETURN -50004 --Empty selection
 END TRY
 BEGIN CATCH
-	RETURN @@Error * -1
+	SET @Error = @@Error * -1;
+	ROLLBACK
+	RETURN @Error;
 END CATCH
 END
 GO
