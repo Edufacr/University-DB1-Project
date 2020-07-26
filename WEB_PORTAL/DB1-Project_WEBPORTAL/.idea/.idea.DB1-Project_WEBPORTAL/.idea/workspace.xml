@@ -2,11 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dabc68ef-a88a-4eeb-83a8-22526c9de378" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../../DataBaseScripts/AP/SP_generateAP.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../../DataBaseScripts/AP/SP_generateAP.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../DataBaseScripts/Tests/FromDB_APTesting.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../../DataBaseScripts/Tests/FromDB_APTesting.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.DB1-Project_WEBPORTAL/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DB1-Project_WEBPORTAL/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/DBConnection.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/DBConnection.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/ChargeConceptModelController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/ChargeConceptModelController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/ReceiptModelController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/ReceiptModelController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/PaymentPreview.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/PaymentPreview.cshtml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -267,6 +265,7 @@
       <workItem from="1595544599086" duration="19058000" />
       <workItem from="1595599665680" duration="12309000" />
       <workItem from="1595623716921" duration="1183000" />
+      <workItem from="1595740249898" duration="744000" />
     </task>
     <servers />
   </component>

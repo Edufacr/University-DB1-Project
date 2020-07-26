@@ -18,8 +18,10 @@ BEGIN
     DECLARE @InsertAt           DATETIME;
     DECLARE @UpdateAt           DATETIME;
     DECLARE @AnnualInterestRate DECIMAL(4,2);
+    DECLARE @Error INT;
 
 BEGIN TRY
+
     BEGIN TRANSACTION
 
         SET
@@ -29,6 +31,8 @@ BEGIN TRY
                                 activeProperties as p
                             WHERE
                                 p.PropertyNumber = @inPropertyNumber )
+        
+        IF @IdProperty IS NULL PRINT 'IdProperty'
 
         SET
             @AnnualInterestRate = ( SELECT 
@@ -37,20 +41,39 @@ BEGIN TRY
                                         DB1P_ConfigurationTable as c
                                     WHERE
                                         c.Id = 1 )
+
+        IF @AnnualInterestRate IS NULL PRINT 'AnnualInterestRate'
+        
         SET 
             @InsertAt = GETDATE();
+
+        IF @InsertAt IS NULL PRINT 'InsertAt'
+
         SET
             @UpdateAt = GETDATE();
 
+        IF @UpdateAt IS NULL PRINT 'UpdateAt'
+
+
+        EXEC 
+            dbo.SP_getSelectedTotalAmount 
+            @outTotal = @OriginalAmount OUTPUT;
+
+        IF @OriginalAmount IS NULL PRINT 'OriginalAmount'
+
         EXEC 
             @IdProofOfPayment = dbo.SP_paySelectedReceipts;
-        EXEC 
-            dbo.SP_getSelectedTotalAmount @outTotal = @OriginalAmount OUTPUT;
+
+        IF @IdProofOfPayment IS NULL PRINT 'IdProofOfPayment'
+
+        
         
         -- R = P [(i (1 + i)n) / ((1 + i)n – 1)]
         SET
             @FeeValue = @OriginalAmount * ( ( @AnnualInterestRate * POWER( 1 + @AnnualInterestRate , @inPaymentTerms ) ) / (POWER( 1 + @AnnualInterestRate , @inPaymentTerms ) - 1) )
     
+        IF @FeeValue IS NULL PRINT 'FeeValue'
+
         INSERT INTO
             dbo.DB1P_APs([IdProperty]
                         ,[IdProofOfPayment]
@@ -80,7 +103,11 @@ BEGIN TRY
 END TRY
 BEGIN CATCH
 
-	RETURN @@Error * -1
+    SET @Error = @@Error
+
+    IF @@TRANCOUNT > 0
+        ROLLBACK
+	RETURN @Error
 
 END CATCH
 END

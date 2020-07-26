@@ -12,7 +12,7 @@ EXEC SP_XML_UsersFill;
 GO
 
 EXEC SP_XML_OperationsFill
-GO 
+GO
 
 EXEC SP_selectReceipt 19;
 GO
@@ -25,11 +25,14 @@ GO
 
 EXEC SP_selectReceipt 1052;
 GO
-SELECT * FROM dbo.DB1P_SelectedReceipts
 
-DECLARE @out MONEY;
-EXEC SP_getSelectedTotalAmount @outTotal = @out;
-PRINT @out 
+SELECT * FROM dbo.DB1P_APs
+
+DECLARE @var INT;
+EXEC @var = SP_generateAP 1160169, 10
+PRINT @var
+
+SELECT * FROM dbo.DB1P_APs
 
 EXEC SP_clearSelectedReceiptsTable;
 
