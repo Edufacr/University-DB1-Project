@@ -3,6 +3,13 @@
 @{
     int? RequestType = ViewData["RequestType"] as int?;
     ViewData["Title"] = "Delete";
+
+    if(ILoggedUser.LoggedUser.isAdmin){
+        ViewData["TitlePendingButton"] = "AP";
+    }
+    else{
+        ViewData["TitlePendingButton"] = "Pagar";
+    }
     
     if (RequestType == IConstants.USER_REQUESTTYPE || RequestType == IConstants.RETURN_TO_USER_INDEX_REQUESTTYPE)
     {
@@ -504,112 +511,108 @@ else
     <p>No hay conceptos de cobro ligados a esta propiedad.</p>
 }
 
-@if (!ILoggedUser.LoggedUser.isAdmin)
+@if (pendingReceipts.Count > 0)
 {
-    @if (pendingReceipts.Count > 0)
-    {
-        <h5>Recibos Pendientes</h5>
-        <a asp-action="ReceiptSelection" asp-route-pPropertyNumber="@Model.PropertyNumber">
-            <input type="submit" value="Pagar" class="btn btn-success"/>
-        </a>
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => pendingReceipts[0].ReceiptNumber)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => pendingReceipts[0].ChargeConceptName)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => pendingReceipts[0].Amount)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => pendingReceipts[0].ReceiptDate)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => pendingReceipts[0].DueDate)
-                    </th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach(var pendingReceipt in pendingReceipts)
-                {
-                    <tr>
-                        <th>
-                            @Html.DisplayFor(model => pendingReceipt.ReceiptNumber)
-                        </th>
-                        <th>
-                            @Html.DisplayFor(model => pendingReceipt.ChargeConceptName)
-                        </th>
-                        <th>
-                            @Html.DisplayFor(model => pendingReceipt.Amount)
-                        </th>
-                        <th>
-                            @Html.DisplayFor(model => pendingReceipt.ReceiptDate)
-                        </th>
-                        <th>
-                            @Html.DisplayFor(model => pendingReceipt.DueDate)
-                        </th>
-                    </tr>
-                }
-                </tbody>
-            </table>
-        <hr />
-    }
-    else
-    {
-        <p>No hay registro de recibos pendientes ligados a esta propiedad.</p>
-    }
-        
-    @if (paymentProofs.Count > 0)
-    {
-        <h5>Comprobantes de Pago</h5>
+    <h5>Recibos Pendientes</h5>
+    <a asp-action="ReceiptSelection" asp-route-pPropertyNumber="@Model.PropertyNumber">
+        <input type="submit" value = @ViewData["TitlePendingButton"] class="btn btn-success"/>
+    </a>
         <table class="table table-striped">
             <thead>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => paymentProofs[0].ProofNumber)
+                    @Html.DisplayNameFor(model => pendingReceipts[0].ReceiptNumber)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => paymentProofs[0].Amount)
+                    @Html.DisplayNameFor(model => pendingReceipts[0].ChargeConceptName)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => paymentProofs[0].Date)
+                    @Html.DisplayNameFor(model => pendingReceipts[0].Amount)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => pendingReceipts[0].ReceiptDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => pendingReceipts[0].DueDate)
                 </th>
             </tr>
             </thead>
             <tbody>
-            @foreach(var paymentProof in paymentProofs)
+            @foreach(var pendingReceipt in pendingReceipts)
             {
                 <tr>
-                    
                     <th>
-                        @Html.DisplayFor(model => paymentProof.ProofNumber)
+                        @Html.DisplayFor(model => pendingReceipt.ReceiptNumber)
                     </th>
                     <th>
-                        @Html.DisplayFor(model => paymentProof.Amount)
+                        @Html.DisplayFor(model => pendingReceipt.ChargeConceptName)
                     </th>
                     <th>
-                        @Html.DisplayFor(model => paymentProof.Date)
+                        @Html.DisplayFor(model => pendingReceipt.Amount)
                     </th>
-                    <td>
-                        <a asp-action="ProofOfPaymentDetails" asp-route-pProofNumber="@paymentProof.ProofNumber">
-                            <input type="submit" value="Ver Recibos" class="btn btn-warning"/>
-                        </a>
-                    </td>
+                    <th>
+                        @Html.DisplayFor(model => pendingReceipt.ReceiptDate)
+                    </th>
+                    <th>
+                        @Html.DisplayFor(model => pendingReceipt.DueDate)
+                    </th>
                 </tr>
             }
             </tbody>
         </table>
-        <hr />
-    }
-        else
-        {
-            <p>No hay registro de comprobantes de pago en esta propiedad.</p>
-        }
-    
+    <hr />
 }
+else
+{
+    <p>No hay registro de recibos pendientes ligados a esta propiedad.</p>
+}
+    
+@if (paymentProofs.Count > 0)
+{
+    <h5>Comprobantes de Pago</h5>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => paymentProofs[0].ProofNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => paymentProofs[0].Amount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => paymentProofs[0].Date)
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach(var paymentProof in paymentProofs)
+        {
+            <tr>
+                
+                <th>
+                    @Html.DisplayFor(model => paymentProof.ProofNumber)
+                </th>
+                <th>
+                    @Html.DisplayFor(model => paymentProof.Amount)
+                </th>
+                <th>
+                    @Html.DisplayFor(model => paymentProof.Date)
+                </th>
+                <td>
+                    <a asp-action="ProofOfPaymentDetails" asp-route-pProofNumber="@paymentProof.ProofNumber">
+                        <input type="submit" value="Ver Recibos" class="btn btn-warning"/>
+                    </a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+    <hr />
+}
+    else
+    {
+        <p>No hay registro de comprobantes de pago en esta propiedad.</p>
+    }
 
 
 
