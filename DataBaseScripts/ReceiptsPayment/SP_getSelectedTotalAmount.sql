@@ -9,6 +9,9 @@ GO
 -- =============================================
 CREATE OR ALTER PROCEDURE SP_getSelectedTotalAmount
 	-- Add the parameters for the stored procedure here
+	
+	@outTotal MONEY OUTPUT
+
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
@@ -19,7 +22,7 @@ DECLARE @Date DATE;
 DECLARE @MoratoryInterestTable TABLE (Amount MONEY);
 DECLARE @MoratoryTotal MONEY;
 DECLARE @ReceiptTotal MONEY;
-DECLARE @Total MONEY;
+
 BEGIN TRY
 	SET @Date = GETDATE();
     
@@ -40,10 +43,8 @@ BEGIN TRY
 				INNER JOIN DB1P_SelectedReceipts sr
 					ON sr.ReceiptNumber = ar.ReceiptNumber 
 
-	SET @Total = @MoratoryTotal + @ReceiptTotal
-
-    SELECT @Total;
-
+	SET @outTotal = @MoratoryTotal + @ReceiptTotal
+	
 END TRY
 BEGIN CATCH
 	RETURN @@Error * -1
