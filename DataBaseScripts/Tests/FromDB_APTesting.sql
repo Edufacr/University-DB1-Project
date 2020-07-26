@@ -4,7 +4,6 @@ GO
 
 EXEC SP_DropNCreate;
 GO
-
 EXEC SP_XML_EntityFill;
 EXEC SP_XML_CcFill;
 EXEC SP_XML_IdTypesFill;
@@ -13,11 +12,7 @@ EXEC SP_XML_UsersFill;
 GO
 
 EXEC SP_XML_OperationsFill
-GO
-
---¡¡ HAY QUE CORRER TRIGGERS DESPUES DEL DROP & CREATE !!
-
-SELECT * FROM dbo.DB1P_SelectedReceipts
+GO 
 
 EXEC SP_selectReceipt 19;
 GO
@@ -30,6 +25,13 @@ GO
 
 EXEC SP_selectReceipt 1052;
 GO
+SELECT * FROM dbo.DB1P_SelectedReceipts
+
+DECLARE @out MONEY;
+EXEC SP_getSelectedTotalAmount @outTotal = @out;
+PRINT @out 
+
+EXEC SP_clearSelectedReceiptsTable;
 
 
 
