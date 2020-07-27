@@ -794,7 +794,7 @@ BEGIN
 		
 		COMMIT
 
-		INSERT INTO DB1P_ConfigurationTable (AnnualInterestRate) VALUES (20.0)
+		INSERT INTO DB1P_ConfigurationTable (AnnualInterestRate) VALUES (0.2)
 		
 	END TRY
 	BEGIN CATCH

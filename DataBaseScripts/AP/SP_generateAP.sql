@@ -11,13 +11,14 @@ BEGIN
 	SET NOCOUNT ON;
     -- Insert statements for procedure here
 
-    DECLARE @IdProperty         INT;
-    DECLARE @IdProofOfPayment   INT;
-    DECLARE @OriginalAmount     MONEY;
-    DECLARE @FeeValue           MONEY;
-    DECLARE @InsertAt           DATETIME;
-    DECLARE @UpdateAt           DATETIME;
-    DECLARE @AnnualInterestRate DECIMAL(4,2);
+    DECLARE @IdProperty          INT;
+    DECLARE @IdProofOfPayment    INT;
+    DECLARE @OriginalAmount      MONEY;
+    DECLARE @FeeValue            MONEY;
+    DECLARE @InsertAt            DATETIME;
+    DECLARE @UpdateAt            DATETIME;
+    DECLARE @AnnualInterestRate  DECIMAL(4,2);
+    DECLARE @MonthlyInterestRate DECIMAL(4,2);
     DECLARE @Error INT;
 
 BEGIN TRY
@@ -43,6 +44,9 @@ BEGIN TRY
                                         c.Id = 1 )
 
         IF @AnnualInterestRate IS NULL PRINT 'AnnualInterestRate'
+
+        SET 
+            @MonthlyInterestRate = @AnnualInterestRate / 12;
         
         SET 
             @InsertAt = GETDATE();
@@ -70,7 +74,7 @@ BEGIN TRY
         
         -- R = P [(i (1 + i)n) / ((1 + i)n – 1)]
         SET
-            @FeeValue = @OriginalAmount * ( ( @AnnualInterestRate * POWER( 1 + @AnnualInterestRate , @inPaymentTerms ) ) / (POWER( 1 + @AnnualInterestRate , @inPaymentTerms ) - 1) )
+            @FeeValue = @OriginalAmount * ( ( @MonthlyInterestRate * POWER( 1 + @MonthlyInterestRate , @inPaymentTerms ) ) / (POWER( 1 + @MonthlyInterestRate , @inPaymentTerms ) - 1) )
     
         IF @FeeValue IS NULL PRINT 'FeeValue'
 

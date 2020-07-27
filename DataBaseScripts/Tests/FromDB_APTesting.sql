@@ -31,7 +31,7 @@ SELECT * FROM dbo.DB1P_APs
 DECLARE @var INT;
 EXEC @var = SP_generateAP 1160169, 10
 PRINT @var
-
+ 
 SELECT * FROM dbo.DB1P_APs
 
 EXEC SP_clearSelectedReceiptsTable;
