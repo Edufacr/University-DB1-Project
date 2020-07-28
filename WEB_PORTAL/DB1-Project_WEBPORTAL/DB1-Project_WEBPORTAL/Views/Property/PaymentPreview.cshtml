@@ -79,6 +79,25 @@
     </table>
     <hr />
 </table>
+<table class="table table-striped">
+    <tr>
+        <th>
+            Plazo en meses:
+        </th>
+        <th>
+            Monto a pagar por cuota:
+        </th>
+    </tr>
+    <tr>
+        <td>
+            <input type="number" id="PaymentTerms" placeholder = "Number of months" value = "1" name="Plazo" min="1" max="100">
+        </td>
+        <td>
+            Monto a pagar por cuota:
+        </td>
+    </tr>
+</table>
+<hr />
 <div>
     @Html.ActionLink(
     ViewData["PayButtonTitle"] as String,
