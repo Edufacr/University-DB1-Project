@@ -15,6 +15,11 @@
     }
     
 }
+<head>
+    <style>
+        #total {text-align: right;}
+    </style>
+</head>
 
 <h1> Información del Pago </h1>
 
@@ -32,13 +37,13 @@
                 @Html.DisplayNameFor(model => selection[0].ChargeConceptName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => selection[0].Amount)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => selection[0].ReceiptDate)
             </th>
             <th>
                 @Html.DisplayNameFor(model => selection[0].DueDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => selection[0].Amount)
             </th>
         </tr>
         </thead>
@@ -53,17 +58,23 @@
                     @Html.DisplayFor(model => selectedReceipt.ChargeConceptName)
                 </th>
                 <th>
-                    @Html.DisplayFor(model => selectedReceipt.Amount)
-                </th>
-                <th>
                     @Html.DisplayFor(model => selectedReceipt.ReceiptDate)
                 </th>
                 <th>
                     @Html.DisplayFor(model => selectedReceipt.DueDate)
                 </th>
+                <th>
+                    @Html.DisplayFor(model => selectedReceipt.Amount)
+                </th>
             </tr>
         }
         </tbody>
+        <tfoot>
+            <tr>
+                <th id="total" right colspan="4">Total: </th>
+                <th>Total</th>
+            </tr>
+        </tfoot>
     </table>
     <hr />
 </table>
