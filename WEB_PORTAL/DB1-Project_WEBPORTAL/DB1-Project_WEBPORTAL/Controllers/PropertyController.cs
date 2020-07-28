@@ -252,8 +252,11 @@ namespace DB1_Project_WEBPORTAL.Controllers
         public IActionResult PaymentPreview(int? pPropertyNumber)
         {
             List<ReceiptModel> selectedReceipts = ReceiptController.ExecuteGetSelectedReceipts();
+            double totalAmount = ReceiptController.ExecuteGetSelectedReceiptsTotal();
+            
             ViewData["Selection"] = selectedReceipts;
             ViewData["PropertyNumber"] = pPropertyNumber;
+            ViewData["TotalAmount"] = totalAmount;
             
             return View();
         }

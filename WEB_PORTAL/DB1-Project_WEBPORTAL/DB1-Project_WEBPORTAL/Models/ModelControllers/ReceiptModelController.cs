@@ -18,6 +18,7 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
         private SqlCommand PaySelectedReceiptsWithAP;
         private SqlCommand SelectReceipt;
         private SqlCommand ClearSelectedReceiptTable;
+        private SqlCommand GetSelectedReceiptsTotal;
         
         
         public static ReceiptModelController Singleton;
@@ -40,6 +41,9 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
             
             GetSelectedReceipts = new SqlCommand("SP_getSelectedReceipts",connection);
             GetSelectedReceipts.CommandType = CommandType.StoredProcedure;
+
+            GetSelectedReceiptsTotal = new SqlCommand("SP_getSelectedTotalAmount",connection);
+            GetSelectedReceiptsTotal.CommandType = CommandType.StoredProcedure;
             
             PaySelectedReceipts = new SqlCommand("SP_paySelectedReceipts",connection);
             PaySelectedReceipts.CommandType = CommandType.StoredProcedure;
@@ -97,6 +101,22 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
         public List<ReceiptModel> ExecuteGetSelectedReceipts()
         {
             return ExecuteQueryCommand(GetSelectedReceipts);
+        }
+        public double ExecuteGetSelectedReceiptsTotal(){
+            GetSelectedReceiptsTotal.Parameters.Add("@outTotal",SqlDbType.Money).Direction = ParameterDirection.Output;
+            try
+            {
+                connection.Open();
+                GetSelectedReceiptsTotal.ExecuteNonQuery();
+                connection.Close();
+                double total = Convert.ToDouble(GetSelectedReceiptsTotal.Parameters["@outTotal"].Value);
+                GetSelectedReceiptsTotal.Parameters.Clear();
+                return total;
+            }
+            catch (Exception e)
+            {
+                throw (e);
+            }
         }
         
         
