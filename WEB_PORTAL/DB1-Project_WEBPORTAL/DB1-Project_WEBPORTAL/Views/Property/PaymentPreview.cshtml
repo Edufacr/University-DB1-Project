@@ -51,28 +51,28 @@
         @foreach(var selectedReceipt in selection)
         {
             <tr>
-                <th>
+                <td>
                     @Html.DisplayFor(model => selectedReceipt.ReceiptNumber)
-                </th>
-                <th>
+                </td>
+                <td>
                     @Html.DisplayFor(model => selectedReceipt.ChargeConceptName)
-                </th>
-                <th>
+                </td>
+                <td>
                     @Html.DisplayFor(model => selectedReceipt.ReceiptDate)
-                </th>
-                <th>
+                </td>
+                <td>
                     @Html.DisplayFor(model => selectedReceipt.DueDate)
-                </th>
-                <th>
+                </td>
+                <td>
                     @Html.DisplayFor(model => selectedReceipt.Amount)
-                </th>
+                </td>
             </tr>
         }
         </tbody>
         <tfoot>
             <tr>
                 <th id="total" right colspan="4">Total: </th>
-                <th>Total</th>
+                <td>Total</td>
             </tr>
         </tfoot>
     </table>
