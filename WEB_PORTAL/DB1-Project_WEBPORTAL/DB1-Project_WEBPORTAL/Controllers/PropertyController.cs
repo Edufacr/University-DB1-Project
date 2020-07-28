@@ -258,15 +258,20 @@ namespace DB1_Project_WEBPORTAL.Controllers
             return View();
         }
 
-        public IActionResult PaySelectedReceipts(int pPropertyNumber)
+        public IActionResult PaySelectedReceipts(int pPropertyNumber,int pRequestType,int? pPaymentTerms)
         {
-
-            ReceiptController.ExecutePaySelectedReceipts();
-            
+            if(pRequestType == IConstants.RETURN_TO_USER_INDEX_REQUESTTYPE){
+                ReceiptController.ExecutePaySelectedReceipts();
+            }
+            else
+            {
+                if (pPaymentTerms.HasValue)
+                {
+                  ReceiptController.ExecutePaySelectedReceiptsWithAP((int)pPaymentTerms);  
+                }  
+            }
             return RedirectToAction("Details",
-                new {pPropertyNumber, pRequestType = IConstants.RETURN_TO_USER_INDEX_REQUESTTYPE});
-            
+                new {pPropertyNumber, pRequestType =pRequestType});
         }
-        
     }
 }

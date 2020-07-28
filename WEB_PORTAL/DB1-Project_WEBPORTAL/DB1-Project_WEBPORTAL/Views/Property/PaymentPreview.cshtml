@@ -3,6 +3,17 @@
     Layout = "~/Views/Shared/_LayoutUserInterface.cshtml";
     List<ReceiptModel> selection = ViewData["Selection"] as List<ReceiptModel>;
     int? propertyNumber = ViewData["PropertyNumber"] as int?;
+    int cancelButtonRequestType;
+    if(ILoggedUser.LoggedUser.isAdmin){
+        cancelButtonRequestType = IConstants.RETURN_TO_INDEX_REQUESTTYPE;
+        ViewData["PayButtonTitle"] = "Crear arreglo de pago";
+    }
+    else
+    {
+        cancelButtonRequestType = IConstants.RETURN_TO_USER_INDEX_REQUESTTYPE;
+        ViewData["PayButtonTitle"] = "Pagar";
+    }
+    
 }
 
 <h1> Información del Pago </h1>
@@ -58,17 +69,17 @@
 </table>
 <div>
     @Html.ActionLink(
+    ViewData["PayButtonTitle"] as String,
+    "PaySelectedReceipts",
+    "Property",
+    new {pPropertyNumber = propertyNumber,pRequestType = cancelButtonRequestType},
+    new {@class = "btn btn-success"})
+</div>  
+<div>
+    @Html.ActionLink(
     "Cancelar",
     "Details",
     "Property",
-    new {pPropertyNumber = propertyNumber, pRequestType = IConstants.RETURN_TO_USER_INDEX_REQUESTTYPE}, 
+    new {pPropertyNumber = propertyNumber, pRequestType = cancelButtonRequestType}, 
     new {@class = "btn btn-danger"})
-</div>
-<div>
-    @Html.ActionLink(
-        "Pagar",
-       "PaySelectedReceipts",
-       "Property",
-       new {pPropertyNumber = propertyNumber},
-       new {@class = "btn btn-success"})
 </div>
