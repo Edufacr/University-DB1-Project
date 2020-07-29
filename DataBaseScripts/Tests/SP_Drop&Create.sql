@@ -96,6 +96,12 @@ BEGIN
 			PercentageValue REAL NOT NULL
 			)  ON [PRIMARY]
 
+		DROP TABLE IF EXISTS dbo.DB1P_CalculatedFee_CC;
+		CREATE TABLE dbo.DB1P_CalculatedFee_CC
+			(
+			Id int NOT NULL
+			)  ON [PRIMARY]
+
 		DROP TABLE IF EXISTS dbo.DB1P_MoratoryInterest_CC;
 		CREATE TABLE dbo.DB1P_MoratoryInterest_CC
 			(
@@ -635,6 +641,18 @@ BEGIN
 
 		ALTER TABLE dbo.DB1P_Percentage_CC ADD CONSTRAINT
 			FK_DB1P_Percentage_CC_DB1P_ChargeConcepts FOREIGN KEY
+			(
+			Id
+			) REFERENCES dbo.DB1P_ChargeConcepts
+			(
+			Id
+			) ON UPDATE  NO ACTION 
+			ON DELETE  NO ACTION 
+			
+		ALTER TABLE dbo.DB1P_Percentage_CC SET (LOCK_ESCALATION = TABLE)
+
+		ALTER TABLE dbo.DB1P_CalculatedFee_CC ADD CONSTRAINT
+			FK_DB1P_CalculatedFee_CC_DB1P_ChargeConcepts FOREIGN KEY
 			(
 			Id
 			) REFERENCES dbo.DB1P_ChargeConcepts

@@ -117,6 +117,8 @@ BEGIN TRY
                 1,               --> Id del tipo de movimiento (DEBITO)
                 @inPaymentTerms  --> Cantidad de plazos ingresada por el usuario*/
 
+        EXEC SP_insertCC_onPropety @inPropertyNumber, 'Cuota Calculada'
+
     COMMIT TRANSACTION
     RETURN 1;
 	

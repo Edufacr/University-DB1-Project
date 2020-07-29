@@ -34,7 +34,8 @@ EXEC @var = SP_generateAP 1160169, 10
 PRINT @var
 
 SELECT * FROM dbo.DB1P_APs;
-
+SELECT * FROM dbo.DB1P_ChargeConcepts;
+SELECT * FROM dbo.DB1P_CalculatedFee_CC;
 EXEC SP_clearSelectedReceiptsTable;
 
 
