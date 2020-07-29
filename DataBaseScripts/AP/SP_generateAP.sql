@@ -11,9 +11,11 @@ BEGIN
 	SET NOCOUNT ON;
     -- Insert statements for procedure here
 
+    DECLARE @IdAP                INT;
     DECLARE @IdProperty          INT;
     DECLARE @IdProofOfPayment    INT;
     DECLARE @OriginalAmount      MONEY;
+    DECLARE @InitialBalance      MONEY;
     DECLARE @FeeValue            MONEY;
     DECLARE @InsertAt            DATETIME;
     DECLARE @UpdateAt            DATETIME;
@@ -47,6 +49,9 @@ BEGIN TRY
 
         SET 
             @MonthlyInterestRate = @AnnualInterestRate / 12;
+
+        SET 
+            @InitialBalance = 0;
         
         SET 
             @InsertAt = GETDATE();
@@ -93,13 +98,24 @@ BEGIN TRY
             (@IdProperty
             ,@IdProofOfPayment
             ,@OriginalAmount
-            ,0                      --> Balance
+            ,0
             ,@AnnualInterestRate
             ,@inPaymentTerms
             ,@inPaymentTerms        --> PaymentTermsLeft
             ,@FeeValue
             ,@InsertAt
             ,@UpdateAt)
+
+        SET @IdAP = SCOPE_IDENTITY();
+        
+        EXEC 
+            SP_APMovement 
+                @OriginalAmount, --> Cantidad del movimiento
+                @InitialBalance, --> Saldo actual
+                0,               --> Interes del mes (como no hay al ser un débito, va en 0)
+                @IdAP,            --> Id del Arreglo de pago
+                1,               --> Id del tipo de movimiento (DEBITO)
+                @inPaymentTerms  --> Cantidad de plazos ingresada por el usuario*/
 
     COMMIT TRANSACTION
     RETURN 1;

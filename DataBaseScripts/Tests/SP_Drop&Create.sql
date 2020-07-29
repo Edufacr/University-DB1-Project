@@ -789,7 +789,7 @@ BEGIN
 		CREATE TABLE dbo.DB1P_ConfigurationTable
 			(
 			Id INT NOT NULL IDENTITY (1, 1),
-			AnnualInterestRate decimal(4,2) DEFAULT 20.0
+			AnnualInterestRate decimal(4,2)
 			)  ON [PRIMARY]
 		
 		COMMIT
