@@ -113,11 +113,11 @@ BEGIN TRY
                 @OriginalAmount, --> Cantidad del movimiento
                 @InitialBalance, --> Saldo actual
                 0,               --> Interes del mes (como no hay al ser un débito, va en 0)
-                @IdAP,            --> Id del Arreglo de pago
+                @IdAP,           --> Id del Arreglo de pago
                 1,               --> Id del tipo de movimiento (DEBITO)
                 @inPaymentTerms  --> Cantidad de plazos ingresada por el usuario*/
 
-        EXEC SP_insertCC_onPropety @inPropertyNumber, 'Cuota Calculada'
+        EXEC SP_insertCC_onPropety @inPropertyNumber, 'Cuota Calculada', @InsertAt
 
     COMMIT TRANSACTION
     RETURN 1;
