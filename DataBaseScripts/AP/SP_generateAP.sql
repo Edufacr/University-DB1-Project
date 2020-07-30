@@ -33,33 +33,22 @@ BEGIN TRY
                                 activeProperties as p
                             WHERE
                                 p.PropertyNumber = @inPropertyNumber )
-        
-        IF @IdProperty IS NULL PRINT 'IdProperty'
-
+    
         SET 
             @InitialBalance = 0;
         
         SET 
             @InsertAt = @inDate;
 
-        IF @InsertAt IS NULL PRINT 'InsertAt'
-
         SET
             @UpdateAt = GETDATE();
-
-        IF @UpdateAt IS NULL PRINT 'UpdateAt'
-
 
         EXEC 
             dbo.SP_getSelectedTotalAmount 
             @outTotal = @OriginalAmount OUTPUT;
 
-        IF @OriginalAmount IS NULL PRINT 'OriginalAmount'
-
         EXEC 
             @IdProofOfPayment = dbo.SP_paySelectedReceipts;
-
-        IF @IdProofOfPayment IS NULL PRINT 'IdProofOfPayment'
 
         EXEC SP_calculateFeeValue @OriginalAmount,@inPaymentTerms, @FeeValue OUTPUT, @AnnualInterestRate OUTPUT;
 
@@ -99,7 +88,9 @@ BEGIN TRY
                 1,               --> Id del tipo de movimiento (DEBITO)
                 @inPaymentTerms  --> Cantidad de plazos ingresada por el usuario*/
 
-        EXEC SP_insertCC_onPropety @inPropertyNumber, 'Cuota Calculada', @InsertAt
+
+        EXEC -- Inserta el concepto de cobro en la propiedad del AP 
+            SP_insertCC_onPropety @inPropertyNumber, 'Cuota Calculada', @InsertAt
 
     COMMIT TRANSACTION
     

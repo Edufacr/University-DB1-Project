@@ -17,28 +17,7 @@ INSERT INTO DB1P_AP_MovementTypes (Id,Name) VALUES (2,'Credito')
 EXEC SP_XML_OperationsFill
 GO
 
-EXEC SP_selectReceipt 1;
-GO
-EXEC SP_selectReceipt 7;
-GO
-EXEC SP_selectReceipt 9;
-GO
-EXEC SP_selectReceipt 14;
-GO
-EXEC SP_selectReceipt 499;
-GO
-EXEC SP_selectReceipt 879;
-GO
-EXEC SP_selectReceipt 1084;
-GO
-EXEC SP_selectReceipt 439;
-GO
-
 SELECT * FROM dbo.DB1P_SelectedReceipts;
-
-DECLARE @var INT;
-EXEC @var = SP_generateAP 3107084, 10
-PRINT @var
 
 SELECT * FROM dbo.DB1P_APs;
 SELECT * FROM dbo.DB1P_ConfigurationTable
@@ -46,11 +25,6 @@ SELECT * FROM dbo.DB1P_ConfigurationTable
 DECLARE @Date DATE
 SET @Date = GETDATE()
 
-EXEC SP_payAPTerm 1, @Date 
-EXEC SP_payAPTerm 1, @Date 
-EXEC SP_payAPTerm 1, @Date 
-EXEC SP_payAPTerm 1, @Date 
-EXEC SP_payAPTerm 1, @Date 
 EXEC SP_payAPTerm 1, @Date 
 EXEC SP_payAPTerm 1, @Date 
 EXEC SP_payAPTerm 1, @Date 
