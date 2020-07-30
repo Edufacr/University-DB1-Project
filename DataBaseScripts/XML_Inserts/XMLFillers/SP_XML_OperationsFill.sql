@@ -25,6 +25,8 @@ BEGIN TRY
 	DECLARE @PropertiesValueChange TABLE (PropertyNum int,Value MONEY, [Date] DATE);
 	DECLARE @TransConsumo TABLE (Id int PRIMARY KEY IDENTITY(1,1),IdMovType int, PropertyNum int,ConsumptionReading int,Description VARCHAR(50) ,Date Date);
 	DECLARE @Payments TABLE(Id int PRIMARY KEY IDENTITY(1,1),ReceiptType INT, PropertyNum INT,Date DATE);
+	--<AP NumFinca="1565045" Plazo="5"/>
+	DECLARE @APs AS APsTable;
 	DECLARE @TodayPayments AS TodayPaymentsTable;
 	DECLARE @TodayTransConsumo AS TodayConsumptionMovsTable ;
 	DECLARE @Dates TABLE (Id INT PRIMARY KEY IDENTITY(1,1), Date DATE)
@@ -72,6 +74,13 @@ BEGIN TRY
 			SELECT ReceiptType,PropertyNum,Date
 			FROM OPENXML(@docHandle,'/Operaciones_por_Dia/OperacionDia/Pago') 
 			WITH (ReceiptType INT '@TipoRecibo',PropertyNum INT '@NumFinca',Date DATE '../@fecha')
+
+		INSERT INTO @APs(PropertyNumber,PaymentTerms,InsertionDate)
+			SELECT PropertyNumber,PaymentTerms,InsertionDate
+			FROM OPENXML(@docHandle,'/Operaciones_por_Dia/OperacionDia/AP') 
+			WITH (PropertyNumber INT '@NumFinca',PaymentTerms INT '@Plazo',InsertionDate DATE '../@fecha')
+		
+		SELECT * FROM @Aps
 
 		WHILE(@dayCounter <= @lastDay)
 		BEGIN
@@ -243,13 +252,18 @@ BEGIN TRY
 						WHERE cdr.[Status] = 1 AND cdr.Id_Reconnection IS NULL;
 
 			COMMIT TRANSACTION Reconnection
-
+			
+			EXEC 
+				SP_XML_APCreations 
+					@APs, 
+					@currentDate
 
 		SET @dayCounter  = @dayCounter + 1
 		END		
 
 		EXEC sp_xml_removedocument @docHandle;		 																	  
 	COMMIT TRANSACTION Main
+
 END TRY
 BEGIN CATCH
 	--ROLLBACK

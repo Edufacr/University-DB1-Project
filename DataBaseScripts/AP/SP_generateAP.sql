@@ -2,8 +2,10 @@
 
 CREATE OR ALTER PROCEDURE SP_generateAP
 
-    @inPropertyNumber int,
-    @inPaymentTerms int
+    @inPropertyNumber INT,
+    @inPaymentTerms   INT,
+    @inDate           DATE
+
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
@@ -49,7 +51,7 @@ BEGIN TRY
             @InitialBalance = 0;
         
         SET 
-            @InsertAt = GETDATE();
+            @InsertAt = @inDate;
 
         IF @InsertAt IS NULL PRINT 'InsertAt'
 
