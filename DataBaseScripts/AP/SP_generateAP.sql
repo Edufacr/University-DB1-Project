@@ -20,12 +20,10 @@ BEGIN
     DECLARE @InsertAt            DATETIME;
     DECLARE @UpdateAt            DATETIME;
     DECLARE @AnnualInterestRate  DECIMAL(4,2);
-    DECLARE @MonthlyInterestRate DECIMAL(4,2);
     DECLARE @Error INT;
+    DECLARE @MonthlyInterest     DECIMAL(6,6);
 
 BEGIN TRY
-
-    BEGIN TRANSACTION
 
         SET
             @IdProperty = ( SELECT 
@@ -46,9 +44,6 @@ BEGIN TRY
                                         c.Id = 1 )
 
         IF @AnnualInterestRate IS NULL PRINT 'AnnualInterestRate'
-
-        SET 
-            @MonthlyInterestRate = @AnnualInterestRate / 12;
 
         SET 
             @InitialBalance = 0;
@@ -75,13 +70,15 @@ BEGIN TRY
 
         IF @IdProofOfPayment IS NULL PRINT 'IdProofOfPayment'
 
-        
-        
+       SET
+            @MonthlyInterest = (@AnnualInterestRate / 12)
         -- R = P [(i (1 + i)n) / ((1 + i)n – 1)]
         SET
-            @FeeValue = @OriginalAmount * ( ( @MonthlyInterestRate * POWER( 1 + @MonthlyInterestRate , @inPaymentTerms ) ) / (POWER( 1 + @MonthlyInterestRate , @inPaymentTerms ) - 1) )
+            @FeeValue = @OriginalAmount * ( ( @MonthlyInterest * POWER( (1 + @MonthlyInterest) , @inPaymentTerms ) ) 
+                                            / (POWER( (1 + @MonthlyInterest) , @inPaymentTerms ) - 1) )
     
-        IF @FeeValue IS NULL PRINT 'FeeValue'
+    
+    BEGIN TRANSACTION  
 
         INSERT INTO
             dbo.DB1P_APs([IdProperty]
@@ -120,6 +117,7 @@ BEGIN TRY
         EXEC SP_insertCC_onPropety @inPropertyNumber, 'Cuota Calculada', @InsertAt
 
     COMMIT TRANSACTION
+    
     RETURN 1;
 	
 END TRY

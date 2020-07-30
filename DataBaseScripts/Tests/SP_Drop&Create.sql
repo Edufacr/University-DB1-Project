@@ -213,10 +213,7 @@ BEGIN
 		CREATE TABLE dbo.DB1P_AP_Receipts
 			(
 			Id int NOT NULL,
-			IdMovement int NULL,
-			MonthlyInterest money NOT NULL,
-			Amortization money NOT NULL,
-			PaymentTermsLeft int NOT NULL
+			IdMovement int NULL
 			)  ON [PRIMARY]
 
 		DROP TABLE IF EXISTS dbo.DB1P_Receipt;

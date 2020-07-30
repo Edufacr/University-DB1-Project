@@ -23,59 +23,62 @@ BEGIN
     DECLARE @MovAmount    MONEY;
     DECLARE @newBalance   MONEY;
 
+    DECLARE @IdMovement   INT;
+
 BEGIN TRY
+    
+        SET -- Set fechas de insersión y update
+            @Date = GETDATE();
+        SET
+            @InsertedAt = GETDATE();
+        SET
+            @UpdatedAt = GETDATE();
+        
+        SET
+            @MovAmount = @inAmount
 
+        IF @inIdMovType = 1 -- Si es débito le cambia el signo a la cantidad que se va sumar al saldo
+            SET @MovAmount = @MovAmount * -1
+
+        SET 
+            @newBalance = @inCurrentBalance + @MovAmount;
+
+    
     BEGIN TRANSACTION
-    
-    SET -- Set fechas de insersión y update
-        @Date = GETDATE();
-    SET
-        @InsertedAt = GETDATE();
-    SET
-        @UpdatedAt = GETDATE();
-    
-    SET
-        @MovAmount = @inAmount
+        
+        UPDATE -- Update del saldo, plazos restantes y el campo de UpdatedAt de la tabla de AP.
+            DB1P_APs
+        SET
+            Balance          = @newBalance,
+            UpdatedAt        = @UpdatedAt,
+            PaymentTermsLeft = @inPaymentTermsLeft
+        WHERE
+            Id = @inApId;
 
-    IF @inIdMovType = 1 -- Si es débito le cambia el signo a la cantidad que se va sumar al saldo
-        SET @MovAmount = @MovAmount * -1
-
-    SET 
-        @newBalance = @inCurrentBalance + @MovAmount;
-
-
-    
-    UPDATE -- Update del saldo, plazos restantes y el campo de UpdatedAt de la tabla de AP.
-        DB1P_APs
-    SET
-        Balance          = @newBalance,
-        UpdatedAt        = @UpdatedAt,
-        PaymentTermsLeft = @inPaymentTermsLeft
-    WHERE
-        Id = @inApId;
-
-
-    INSERT INTO
-        DB1P_AP_Movements (IdAP,
-                           IdMovType,
-                           Amount,
-                           MonthlyInterest,
-                           PaymentTermsLeft,
-                           NewBalance,
-                           Date,
-                           InsertedAt)
-    VALUES
-        (@inApId,
-        @inIdMovType,
-        @inAmount,
-        @inMonthlyInterest,
-        @inPaymentTermsLeft,
-        @newBalance,
-        @Date,
-        @InsertedAt)
+        INSERT INTO
+            DB1P_AP_Movements (IdAP,
+                               IdMovType,
+                               Amount,
+                               MonthlyInterest,
+                               PaymentTermsLeft,
+                               NewBalance,
+                               Date,
+                               InsertedAt)
+        VALUES
+            (@inApId,
+            @inIdMovType,
+            @inAmount,
+            @inMonthlyInterest,
+            @inPaymentTermsLeft,
+            @newBalance,
+            @Date,
+            @InsertedAt)
+        
+        SET 
+            @IdMovement = SCOPE_IDENTITY();
 
     COMMIT TRANSACTION
-    RETURN 1;
+    RETURN @IdMovement;
 	
 END TRY
 BEGIN CATCH
