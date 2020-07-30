@@ -276,7 +276,7 @@ namespace DB1_Project_WEBPORTAL.Controllers
             {
                 if (pPaymentTerms.HasValue)
                 {
-                  ReceiptController.ExecutePaySelectedReceiptsWithAP((int)pPaymentTerms);  
+                  ReceiptController.ExecutePaySelectedReceiptsWithAP(pPropertyNumber,(int)pPaymentTerms);  
                 }  
             }
             return RedirectToAction("Details",

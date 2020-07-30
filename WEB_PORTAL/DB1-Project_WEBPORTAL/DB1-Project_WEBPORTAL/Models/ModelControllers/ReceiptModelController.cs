@@ -49,8 +49,7 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
             PaySelectedReceipts = new SqlCommand("SP_paySelectedReceipts",connection);
             PaySelectedReceipts.CommandType = CommandType.StoredProcedure;
 
-            //! Agregar SP que cree un AP y pague los recibos
-            PaySelectedReceiptsWithAP = new SqlCommand("SP_paySelectedReceipts",connection);
+            PaySelectedReceiptsWithAP = new SqlCommand("SP_generateAP",connection);
             PaySelectedReceiptsWithAP.CommandType = CommandType.StoredProcedure;
             
             SelectReceipt = new SqlCommand("SP_selectReceipt ",connection);
@@ -74,8 +73,9 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
         {
             return ExecuteNonQueryCommand(PaySelectedReceipts);
         }
-        public int ExecutePaySelectedReceiptsWithAP(int pPaymentTerms)
+        public int ExecutePaySelectedReceiptsWithAP(int pPropertyNumber, int pPaymentTerms)
         {
+            PaySelectedReceiptsWithAP.Parameters.Add("@inPropertyNumber",SqlDbType.Int).Value = pPropertyNumber;
             PaySelectedReceiptsWithAP.Parameters.Add("@inPaymentTerms",SqlDbType.Int).Value = pPaymentTerms;
             return ExecuteNonQueryCommand(PaySelectedReceiptsWithAP);
         }

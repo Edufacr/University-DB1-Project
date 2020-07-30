@@ -103,12 +103,9 @@
 
 <hr />
 <div>
-    @Html.ActionLink(
-    ViewData["PayButtonTitle"] as String,
-    "PaySelectedReceipts",
-    "Property",
-    new {pPropertyNumber = propertyNumber,pRequestType = cancelButtonRequestType},
-    new {@class = "btn btn-success"})
+    <button id="PayButton" class="btn btn-success">
+        @ViewData["PayButtonTitle"]
+    </button>
 </div>  
 <div>
     @Html.ActionLink(
@@ -118,17 +115,25 @@
     new {pPropertyNumber = propertyNumber, pRequestType = cancelButtonRequestType}, 
     new {@class = "btn btn-danger"})
 </div>
+
+
 <script>
-document.getElementById("PaymentTerms").addEventListener('input',(event) => FeeValueChange())
-function FeeValueChange(params) {
+var termsElement = document.getElementById("PaymentTerms");
+if(termsElement){
+  termsElement.addEventListener('input',(event) => FeeValueChange());
+}
+document.getElementById("PayButton").onclick = payReceiptAction;
+
+function FeeValueChange(params) 
+{
     var total = document.getElementById("totalValue").innerHTML;
-    var terms = document.getElementById("PaymentTerms").value;
-    //document.getElementById("FeeAmount").innerHTML = terms;  
+    var terms = document.getElementById("PaymentTerms").value; 
     getValueChange(terms,total).done(function(value) {
         alert(value); //waits until ajax is completed
     });
 }
-function getValueChange(terms,total){
+function getValueChange(terms,total)
+{
     $.ajax({
         url: 'GetFeeAmount',
         data: { pTotal: total, pTerms: terms},
@@ -142,5 +147,33 @@ function getValueChange(terms,total){
         }
     });
 }
-
+function payReceiptAction(params) 
+{
+    var propertyNumber = @propertyNumber;
+    var requestType = @cancelButtonRequestType;
+    var terms = 0; 
+    if(termsElement){
+        terms = termsElement.document.getElementById("PaymentTerms").value;
+    }
+    console.log(propertyNumber)
+    payReceipt(propertyNumber,requestType,terms).done(function(value) {
+       alert(value); //waits until ajax is completed
+    }
+    );
+}
+function payReceipt(propertyNumber,requestType,terms)
+{
+    $.ajax({
+        url: 'PaySelectedReceipts',
+        data: { pPropertyNumber: propertyNumber, pRequestType: requestType, pPaymentTerms: terms},
+        success: function(data) {
+        alert("Recibo pagado exitosamente");
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            alert(jqXHR.status);
+            alert(textStatus);
+            alert(errorThrown);
+        }
+    });
+}
 </script>
