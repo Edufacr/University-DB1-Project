@@ -73,13 +73,15 @@
         <tfoot>
             <tr>
                 <th id="total" right colspan="4">Total: </th>
-                <td>@totalAmount</td>
+                <td id = "totalValue">@totalAmount</td>
             </tr>
         </tfoot>
     </table>
     <hr />
 </table>
-<table class="table table-striped">
+@if (ILoggedUser.LoggedUser.isAdmin)
+{
+   <table class="table table-striped">
     <tr>
         <th>
             Plazo en meses:
@@ -90,13 +92,15 @@
     </tr>
     <tr>
         <td>
-            <input type="number" id="PaymentTerms" placeholder = "Number of months" value = "1" name="Plazo" min="1" max="100">
+            <input type="number" id="PaymentTerms" placeholder = "Number of months" value = "1" name="Plazo" min="1">
         </td>
-        <td>
+        <td id = "FeeAmount">
             Monto a pagar por cuota:
         </td>
     </tr>
-</table>
+    </table> 
+}
+
 <hr />
 <div>
     @Html.ActionLink(
@@ -114,3 +118,29 @@
     new {pPropertyNumber = propertyNumber, pRequestType = cancelButtonRequestType}, 
     new {@class = "btn btn-danger"})
 </div>
+<script>
+document.getElementById("PaymentTerms").addEventListener('input',(event) => FeeValueChange())
+function FeeValueChange(params) {
+    var total = document.getElementById("totalValue").innerHTML;
+    var terms = document.getElementById("PaymentTerms").value;
+    //document.getElementById("FeeAmount").innerHTML = terms;  
+    getValueChange(terms,total).done(function(value) {
+        alert(value); //waits until ajax is completed
+    });
+}
+function getValueChange(terms,total){
+    $.ajax({
+        url: 'GetFeeAmount',
+        data: { pTotal: total, pTerms: terms},
+        success: function(data) {
+            $('#FeeAmount').html(data);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            alert(jqXHR.status);
+            alert(textStatus);
+            alert(errorThrown);
+        }
+    });
+}
+
+</script>

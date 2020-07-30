@@ -249,6 +249,12 @@ namespace DB1_Project_WEBPORTAL.Controllers
             return selection;
         }
 
+        public PartialViewResult GetFeeAmount(double pTotal, int pTerms)
+        {
+            double fee = 99;
+            return PartialView("_PartialView",fee);
+        }
+
         public IActionResult PaymentPreview(int? pPropertyNumber)
         {
             List<ReceiptModel> selectedReceipts = ReceiptController.ExecuteGetSelectedReceipts();
