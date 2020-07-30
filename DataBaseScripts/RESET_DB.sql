@@ -11,5 +11,8 @@ EXEC SP_XML_MovTypeFill;
 EXEC SP_XML_UsersFill;
 GO
 
+INSERT INTO DB1P_AP_MovementTypes (Id,Name) VALUES (1,'Debito')
+INSERT INTO DB1P_AP_MovementTypes (Id,Name) VALUES (2,'Credito')
+
 EXEC SP_XML_OperationsFill
 GO 

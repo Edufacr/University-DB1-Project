@@ -96,6 +96,12 @@ BEGIN
 			PercentageValue REAL NOT NULL
 			)  ON [PRIMARY]
 
+		DROP TABLE IF EXISTS dbo.DB1P_CalculatedFee_CC;
+		CREATE TABLE dbo.DB1P_CalculatedFee_CC
+			(
+			Id int NOT NULL
+			)  ON [PRIMARY]
+
 		DROP TABLE IF EXISTS dbo.DB1P_MoratoryInterest_CC;
 		CREATE TABLE dbo.DB1P_MoratoryInterest_CC
 			(
@@ -207,10 +213,7 @@ BEGIN
 		CREATE TABLE dbo.DB1P_AP_Receipts
 			(
 			Id int NOT NULL,
-			IdMovement int NULL,
-			MonthlyInterest money NOT NULL,
-			Amortization money NOT NULL,
-			PaymentTermsLeft int NOT NULL
+			IdMovement int NULL
 			)  ON [PRIMARY]
 
 		DROP TABLE IF EXISTS dbo.DB1P_Receipt;
@@ -645,6 +648,18 @@ BEGIN
 			
 		ALTER TABLE dbo.DB1P_Percentage_CC SET (LOCK_ESCALATION = TABLE)
 
+		ALTER TABLE dbo.DB1P_CalculatedFee_CC ADD CONSTRAINT
+			FK_DB1P_CalculatedFee_CC_DB1P_ChargeConcepts FOREIGN KEY
+			(
+			Id
+			) REFERENCES dbo.DB1P_ChargeConcepts
+			(
+			Id
+			) ON UPDATE  NO ACTION 
+			ON DELETE  NO ACTION 
+			
+		ALTER TABLE dbo.DB1P_Percentage_CC SET (LOCK_ESCALATION = TABLE)
+
 		ALTER TABLE dbo.DB1P_MoratoryInterest_CC ADD CONSTRAINT
 			PK_DB1P_MoratoryInterest_CC PRIMARY KEY CLUSTERED 
 			(
@@ -789,12 +804,12 @@ BEGIN
 		CREATE TABLE dbo.DB1P_ConfigurationTable
 			(
 			Id INT NOT NULL IDENTITY (1, 1),
-			AnnualInterestRate decimal(4,2) DEFAULT 20.0
+			AnnualInterestRate decimal(4,2)
 			)  ON [PRIMARY]
 		
 		COMMIT
 
-		INSERT INTO DB1P_ConfigurationTable (AnnualInterestRate) VALUES (20.0)
+		INSERT INTO DB1P_ConfigurationTable (AnnualInterestRate) VALUES (0.2)
 		
 	END TRY
 	BEGIN CATCH

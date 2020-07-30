@@ -44,7 +44,7 @@ BEGIN TRY
 					ON sr.ReceiptNumber = ar.ReceiptNumber 
 
 	SET @outTotal = @MoratoryTotal + @ReceiptTotal
-	
+
 END TRY
 BEGIN CATCH
 	RETURN @@Error * -1
