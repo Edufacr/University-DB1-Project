@@ -53,6 +53,10 @@ BEGIN TRY
 		SELECT Id,Amount
 		FROM @xmlTable where CCType = 'CC Interes Moratorio';
 
+		INSERT INTO DB1P_CalculatedFee_CC (Id)
+		SELECT Id
+		FROM @xmlTable where CCType = 'Cuota Calculada';
+
 		EXEC sp_xml_removedocument @docHandle; -- Remove the internal representation of the XML document.
 	COMMIT
 	RETURN 1;

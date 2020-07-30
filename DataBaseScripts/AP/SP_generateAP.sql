@@ -11,16 +11,18 @@ BEGIN
 	SET NOCOUNT ON;
     -- Insert statements for procedure here
 
-    DECLARE @IdProperty         INT;
-    DECLARE @IdProofOfPayment   INT;
-    DECLARE @OriginalAmount     MONEY;
-    DECLARE @FeeValue           MONEY;
-    DECLARE @InsertAt           DATETIME;
-    DECLARE @UpdateAt           DATETIME;
-    DECLARE @AnnualInterestRate DECIMAL(4,2);
+    DECLARE @IdAP                INT;
+    DECLARE @IdProperty          INT;
+    DECLARE @IdProofOfPayment    INT;
+    DECLARE @OriginalAmount      MONEY;
+    DECLARE @InitialBalance      MONEY;
+    DECLARE @FeeValue            MONEY;
+    DECLARE @InsertAt            DATETIME;
+    DECLARE @UpdateAt            DATETIME;
+    DECLARE @AnnualInterestRate  DECIMAL(4,2);
+    DECLARE @Error INT;
 
 BEGIN TRY
-    BEGIN TRANSACTION
 
         SET
             @IdProperty = ( SELECT 
@@ -29,28 +31,38 @@ BEGIN TRY
                                 activeProperties as p
                             WHERE
                                 p.PropertyNumber = @inPropertyNumber )
+        
+        IF @IdProperty IS NULL PRINT 'IdProperty'
 
-        SET
-            @AnnualInterestRate = ( SELECT 
-                                        c.AnnualInterestRate
-                                    FROM 
-                                        DB1P_ConfigurationTable as c
-                                    WHERE
-                                        c.Id = 1 )
+        SET 
+            @InitialBalance = 0;
+        
         SET 
             @InsertAt = GETDATE();
+
+        IF @InsertAt IS NULL PRINT 'InsertAt'
+
         SET
             @UpdateAt = GETDATE();
 
+        IF @UpdateAt IS NULL PRINT 'UpdateAt'
+
+
+        EXEC 
+            dbo.SP_getSelectedTotalAmount 
+            @outTotal = @OriginalAmount OUTPUT;
+
+        IF @OriginalAmount IS NULL PRINT 'OriginalAmount'
+
         EXEC 
             @IdProofOfPayment = dbo.SP_paySelectedReceipts;
-        EXEC 
-            dbo.SP_getSelectedTotalAmount @outTotal = @OriginalAmount OUTPUT;
-        
-        -- R = P [(i (1 + i)n) / ((1 + i)n – 1)]
-        SET
-            @FeeValue = @OriginalAmount * ( ( @AnnualInterestRate * POWER( 1 + @AnnualInterestRate , @inPaymentTerms ) ) / (POWER( 1 + @AnnualInterestRate , @inPaymentTerms ) - 1) )
-    
+
+        IF @IdProofOfPayment IS NULL PRINT 'IdProofOfPayment'
+
+        EXEC SP_calculateFeeValue @OriginalAmount,@inPaymentTerms, @FeeValue OUTPUT, @AnnualInterestRate OUTPUT;
+
+    BEGIN TRANSACTION  
+
         INSERT INTO
             dbo.DB1P_APs([IdProperty]
                         ,[IdProofOfPayment]
@@ -66,7 +78,7 @@ BEGIN TRY
             (@IdProperty
             ,@IdProofOfPayment
             ,@OriginalAmount
-            ,0                      --> Balance
+            ,0
             ,@AnnualInterestRate
             ,@inPaymentTerms
             ,@inPaymentTerms        --> PaymentTermsLeft
@@ -74,13 +86,31 @@ BEGIN TRY
             ,@InsertAt
             ,@UpdateAt)
 
+        SET @IdAP = SCOPE_IDENTITY();
+        
+        EXEC 
+            SP_APMovement 
+                @OriginalAmount, --> Cantidad del movimiento
+                @InitialBalance, --> Saldo actual
+                0,               --> Interes del mes (como no hay al ser un débito, va en 0)
+                @IdAP,           --> Id del Arreglo de pago
+                1,               --> Id del tipo de movimiento (DEBITO)
+                @inPaymentTerms  --> Cantidad de plazos ingresada por el usuario*/
+
+        EXEC SP_insertCC_onPropety @inPropertyNumber, 'Cuota Calculada', @InsertAt
+
     COMMIT TRANSACTION
+    
     RETURN 1;
 	
 END TRY
 BEGIN CATCH
 
-	RETURN @@Error * -1
+    SET @Error = @@Error
+
+    IF @@TRANCOUNT > 0
+        ROLLBACK
+	RETURN @Error
 
 END CATCH
 END
