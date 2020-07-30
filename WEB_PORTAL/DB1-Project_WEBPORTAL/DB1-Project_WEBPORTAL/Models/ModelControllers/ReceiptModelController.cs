@@ -106,10 +106,14 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
             GetSelectedReceiptsTotal.Parameters.Add("@outTotal",SqlDbType.Money).Direction = ParameterDirection.Output;
             try
             {
+                double total = 0;
                 connection.Open();
                 GetSelectedReceiptsTotal.ExecuteNonQuery();
                 connection.Close();
-                double total = Convert.ToDouble(GetSelectedReceiptsTotal.Parameters["@outTotal"].Value);
+                var outTotal = GetSelectedReceiptsTotal.Parameters["@outTotal"].Value;
+                if(!outTotal.Equals(DBNull.Value)){
+                    total = Convert.ToDouble(outTotal);
+                }
                 GetSelectedReceiptsTotal.Parameters.Clear();
                 return total;
             }
