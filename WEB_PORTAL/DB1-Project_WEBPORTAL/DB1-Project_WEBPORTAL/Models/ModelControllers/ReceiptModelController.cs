@@ -19,6 +19,7 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
         private SqlCommand SelectReceipt;
         private SqlCommand ClearSelectedReceiptTable;
         private SqlCommand GetSelectedReceiptsTotal;
+        private SqlCommand GetFeeAmount;
         
         
         public static ReceiptModelController Singleton;
@@ -57,6 +58,10 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
             
             ClearSelectedReceiptTable = new SqlCommand("SP_clearSelectedReceiptsTable",connection);
             ClearSelectedReceiptTable.CommandType = CommandType.StoredProcedure;
+
+            //!agregar SP que hace el calculo de la cuota
+            GetFeeAmount = new SqlCommand("",connection);
+            GetFeeAmount.CommandType = CommandType.StoredProcedure;
 
             
         }
@@ -97,6 +102,11 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
             GetPropertyPendingReceipts.Parameters.Add("@inPropertyNum", SqlDbType.Int).Value = pPropertyNumber;
             return ExecuteQueryCommand(GetPropertyPendingReceipts);
         }
+        public double ExecuteGetFeeAmount(double pTotal,int pTerms){
+            GetFeeAmount.Parameters.Add("",SqlDbType.Money).Value = pTotal;
+            GetFeeAmount.Parameters.Add("",SqlDbType.Int).Value = pTerms;
+            return ExecuteOutputParameterQuerry("@outFee",GetFeeAmount);
+        }
 
         public List<ReceiptModel> ExecuteGetSelectedReceipts()
         {
@@ -104,26 +114,8 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
         }
         public double ExecuteGetSelectedReceiptsTotal(){
             GetSelectedReceiptsTotal.Parameters.Add("@outTotal",SqlDbType.Money).Direction = ParameterDirection.Output;
-            try
-            {
-                double total = 0;
-                connection.Open();
-                GetSelectedReceiptsTotal.ExecuteNonQuery();
-                connection.Close();
-                var outTotal = GetSelectedReceiptsTotal.Parameters["@outTotal"].Value;
-                if(!outTotal.Equals(DBNull.Value)){
-                    total = Convert.ToDouble(outTotal);
-                }
-                GetSelectedReceiptsTotal.Parameters.Clear();
-                return total;
-            }
-            catch (Exception e)
-            {
-                throw (e);
-            }
+            return ExecuteOutputParameterQuerry("@outTotal",GetSelectedReceiptsTotal);
         }
-        
-        
         public List<ReceiptModel> ExecuteQueryCommand(SqlCommand command)
         {
             List<ReceiptModel> result = new List<ReceiptModel>();
@@ -227,6 +219,25 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
                 int result = (int)returnParameter.Value;
                 connection.Close();
                 command.Parameters.Clear();
+                return result;
+            }
+            catch (Exception e)
+            {
+                throw (e);
+            }
+        }
+        public double ExecuteOutputParameterQuerry(string pParameterName,SqlCommand pCommand){
+            try
+            {
+                double result = 0;
+                connection.Open();
+                pCommand.ExecuteNonQuery();
+                connection.Close();
+                var outParameter = pCommand.Parameters[pParameterName].Value;
+                if(!outParameter.Equals(DBNull.Value)){
+                    result = Convert.ToDouble(outParameter);
+                }
+                pCommand.Parameters.Clear();
                 return result;
             }
             catch (Exception e)
