@@ -59,8 +59,7 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
             ClearSelectedReceiptTable = new SqlCommand("SP_clearSelectedReceiptsTable",connection);
             ClearSelectedReceiptTable.CommandType = CommandType.StoredProcedure;
 
-            //!agregar SP que hace el calculo de la cuota
-            GetFeeAmount = new SqlCommand("",connection);
+            GetFeeAmount = new SqlCommand("SP_calculateFeeValue",connection);
             GetFeeAmount.CommandType = CommandType.StoredProcedure;
 
             
@@ -103,9 +102,10 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
             return ExecuteQueryCommand(GetPropertyPendingReceipts);
         }
         public double ExecuteGetFeeAmount(double pTotal,int pTerms){
-            GetFeeAmount.Parameters.Add("",SqlDbType.Money).Value = pTotal;
-            GetFeeAmount.Parameters.Add("",SqlDbType.Int).Value = pTerms;
-            return ExecuteOutputParameterQuerry("@outFee",GetFeeAmount);
+            GetFeeAmount.Parameters.Add("@inOriginalAmount",SqlDbType.Money).Value = pTotal;
+            GetFeeAmount.Parameters.Add("@inPaymentTerms",SqlDbType.Int).Value = pTerms;
+            GetFeeAmount.Parameters.Add("@outAnnualInterestRate",SqlDbType.Decimal).Value = 0;
+            return ExecuteOutputParameterQuerry("@outFeeValue",GetFeeAmount);
         }
 
         public List<ReceiptModel> ExecuteGetSelectedReceipts()
@@ -113,7 +113,6 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
             return ExecuteQueryCommand(GetSelectedReceipts);
         }
         public double ExecuteGetSelectedReceiptsTotal(){
-            GetSelectedReceiptsTotal.Parameters.Add("@outTotal",SqlDbType.Money).Direction = ParameterDirection.Output;
             return ExecuteOutputParameterQuerry("@outTotal",GetSelectedReceiptsTotal);
         }
         public List<ReceiptModel> ExecuteQueryCommand(SqlCommand command)
@@ -230,6 +229,7 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
             try
             {
                 double result = 0;
+                pCommand.Parameters.Add(pParameterName,SqlDbType.Money).Direction = ParameterDirection.Output;
                 connection.Open();
                 pCommand.ExecuteNonQuery();
                 connection.Close();

@@ -251,7 +251,7 @@ namespace DB1_Project_WEBPORTAL.Controllers
 
         public PartialViewResult GetFeeAmount(double pTotal, int pTerms)
         {
-            double fee = 99;
+            double fee = ReceiptController.ExecuteGetFeeAmount(pTotal,pTerms);
             return PartialView("_PartialView",fee);
         }
 
