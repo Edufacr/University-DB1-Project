@@ -23,7 +23,6 @@ BEGIN
     DECLARE @UpdateAt            DATETIME;
     DECLARE @AnnualInterestRate  DECIMAL(4,2);
     DECLARE @Error INT;
-    DECLARE @MonthlyInterest     DECIMAL(6,6);
 
 BEGIN TRY
 
@@ -36,16 +35,6 @@ BEGIN TRY
                                 p.PropertyNumber = @inPropertyNumber )
         
         IF @IdProperty IS NULL PRINT 'IdProperty'
-
-        SET
-            @AnnualInterestRate = ( SELECT 
-                                        c.AnnualInterestRate
-                                    FROM 
-                                        DB1P_ConfigurationTable as c
-                                    WHERE
-                                        c.Id = 1 )
-
-        IF @AnnualInterestRate IS NULL PRINT 'AnnualInterestRate'
 
         SET 
             @InitialBalance = 0;
@@ -72,14 +61,8 @@ BEGIN TRY
 
         IF @IdProofOfPayment IS NULL PRINT 'IdProofOfPayment'
 
-       SET
-            @MonthlyInterest = (@AnnualInterestRate / 12)
-        -- R = P [(i (1 + i)n) / ((1 + i)n – 1)]
-        SET
-            @FeeValue = @OriginalAmount * ( ( @MonthlyInterest * POWER( (1 + @MonthlyInterest) , @inPaymentTerms ) ) 
-                                            / (POWER( (1 + @MonthlyInterest) , @inPaymentTerms ) - 1) )
-    
-    
+        EXEC SP_calculateFeeValue @OriginalAmount,@inPaymentTerms, @FeeValue OUTPUT, @AnnualInterestRate OUTPUT;
+
     BEGIN TRANSACTION  
 
         INSERT INTO
