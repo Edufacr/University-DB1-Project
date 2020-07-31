@@ -106,6 +106,12 @@
     <button id="PayButton" class="btn btn-success">
         @ViewData["PayButtonTitle"]
     </button>
+    @Html.ActionLink(
+    "Test",
+    "PaySelectedReceipt",
+    "Property",
+    new {pPropertyNumber = propertyNumber,pRequestType = cancelButtonRequestType},
+    new {@class = "btn btn-success"})
 </div>  
 <div>
     @Html.ActionLink(
@@ -116,13 +122,28 @@
     new {@class = "btn btn-danger"})
 </div>
 
-
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script>
 var termsElement = document.getElementById("PaymentTerms");
 if(termsElement){
   termsElement.addEventListener('input',(event) => FeeValueChange());
 }
-document.getElementById("PayButton").onclick = payReceiptAction;
+$(document).ready(function(){    
+        
+    $("#PayButton").click(function(event){
+        event.preventDefault();
+        var propertyNumber = @propertyNumber;
+        var requestType = @cancelButtonRequestType;
+        console.log(propertyNumber)
+        console.log(requestType)
+        if(termsElement){
+            window.location.href = "PaySelectedReceipts" + "?pPropertyNumber=" + propertyNumber + "&pRequestType=" + requestType + "&pPaymentTerms="+ $("#PaymentTerms").val();
+        }
+        else{
+            window.location.href = "PaySelectedReceipts" + "?pPropertyNumber=" + propertyNumber + "&pRequestType=" + requestType
+        }
+    });
+})
 
 function FeeValueChange(params) 
 {
@@ -139,35 +160,6 @@ function getValueChange(terms,total)
         data: { pTotal: total, pTerms: terms},
         success: function(data) {
             $('#FeeAmount').html(data);
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-            alert(jqXHR.status);
-            alert(textStatus);
-            alert(errorThrown);
-        }
-    });
-}
-function payReceiptAction(params) 
-{
-    var propertyNumber = @propertyNumber;
-    var requestType = @cancelButtonRequestType;
-    var terms = 0; 
-    if(termsElement){
-        terms = termsElement.document.getElementById("PaymentTerms").value;
-    }
-    console.log(propertyNumber)
-    payReceipt(propertyNumber,requestType,terms).done(function(value) {
-       alert(value); //waits until ajax is completed
-    }
-    );
-}
-function payReceipt(propertyNumber,requestType,terms)
-{
-    $.ajax({
-        url: 'PaySelectedReceipts',
-        data: { pPropertyNumber: propertyNumber, pRequestType: requestType, pPaymentTerms: terms},
-        success: function(data) {
-        alert("Recibo pagado exitosamente");
         },
         error: function(jqXHR, textStatus, errorThrown) {
             alert(jqXHR.status);
