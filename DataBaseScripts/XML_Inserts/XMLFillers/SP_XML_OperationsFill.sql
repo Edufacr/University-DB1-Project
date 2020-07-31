@@ -80,7 +80,6 @@ BEGIN TRY
 			FROM OPENXML(@docHandle,'/Operaciones_por_Dia/OperacionDia/AP') 
 			WITH (PropertyNumber INT '@NumFinca',PaymentTerms INT '@Plazo',InsertionDate DATE '../@fecha')
 		
-		SELECT * FROM @Aps
 
 		WHILE(@dayCounter <= @lastDay)
 		BEGIN
@@ -256,6 +255,9 @@ BEGIN TRY
 			EXEC 
 				SP_XML_APCreations 
 					@APs, 
+					@currentDate
+			EXEC
+				SP_XML_APTermPayment
 					@currentDate
 
 		SET @dayCounter  = @dayCounter + 1

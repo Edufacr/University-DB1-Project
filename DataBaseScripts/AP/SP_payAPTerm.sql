@@ -52,7 +52,7 @@ BEGIN TRY
     
     SET
         @Amortization = @FeeValue - @MonthlyInterest;
-    
+       
     IF @LeftPaymentTerms = 0 -- Si es el último pago, agarra todo lo que queda como monto del mismo.
         SET 
             @Amortization = -@CurrentBalance;

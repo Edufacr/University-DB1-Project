@@ -4,6 +4,7 @@ GO
 
 EXEC SP_DropNCreate;
 GO
+
 EXEC SP_XML_EntityFill;
 EXEC SP_XML_CcFill;
 EXEC SP_XML_IdTypesFill;
@@ -17,20 +18,17 @@ INSERT INTO DB1P_AP_MovementTypes (Id,Name) VALUES (2,'Credito')
 EXEC SP_XML_OperationsFill
 GO
 
-SELECT * FROM dbo.DB1P_SelectedReceipts;
+SELECT * FROM DB1P_AP_Receipts
 
-SELECT * FROM dbo.DB1P_APs;
-SELECT * FROM dbo.DB1P_ConfigurationTable
+SELECT 
+    m.Id, m.IdAp,m.Amount, m.MonthlyInterest, m.PaymentTermsLeft, m.NewBalance
+FROM 
+    dbo.DB1P_AP_Movements as m
+ORDER BY
+    m.IdAp ASC,
+    m.PaymentTermsLeft DESC;
 
-DECLARE @Date DATE
-SET @Date = GETDATE()
-
-EXEC SP_payAPTerm 1, @Date 
-EXEC SP_payAPTerm 1, @Date 
-EXEC SP_payAPTerm 1, @Date 
-EXEC SP_payAPTerm 1, @Date 
-EXEC SP_payAPTerm 1, @Date 
-
+/*
 SELECT Amount,MonthlyInterest,PaymentTermsLeft,NewBalance FROM dbo.DB1P_AP_Movements;
 SELECT * FROM activeReceipts WHERE Id_Property = 11
 
