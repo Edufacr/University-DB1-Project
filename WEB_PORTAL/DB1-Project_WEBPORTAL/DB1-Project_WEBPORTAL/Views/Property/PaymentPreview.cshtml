@@ -106,12 +106,6 @@
     <button id="PayButton" class="btn btn-success">
         @ViewData["PayButtonTitle"]
     </button>
-    @Html.ActionLink(
-    "Test",
-    "PaySelectedReceipt",
-    "Property",
-    new {pPropertyNumber = propertyNumber,pRequestType = cancelButtonRequestType},
-    new {@class = "btn btn-success"})
 </div>  
 <div>
     @Html.ActionLink(
