@@ -87,9 +87,16 @@
                     data:{ pReceiptNumber:receiptNumber },
                     success: function(data) {
                         if (data === @IConstants.NOT_OLDER_RECEIPT_ERROR){
-                            alert("No se pudo agregar el recibo.\n" +
+                            if($("#"+id).val){
+                                alert("No se pudo des seleccionar el recibo.\n" +
+                                  "Se encontraron recibos seleccionados más nuevos del mismo concepto de cobro.");
+                                $("#"+id).prop("checked", true);
+                            }
+                            else{
+                                alert("No se pudo agregar el recibo.\n" +
                                   "Se encontraron recibos pendientes más viejos del mismo concepto de cobro.");
-                            $("#"+id).prop("checked", false);
+                                $("#"+id).prop("checked", false);
+                            }
                         }
                     },
                     error: function() {

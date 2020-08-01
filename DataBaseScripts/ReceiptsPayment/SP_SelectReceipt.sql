@@ -17,15 +17,29 @@ BEGIN
 	SET NOCOUNT ON;
     -- Insert statements for procedure here
 	DECLARE @ReturnValue INT;
+	DECLARE @IdSelection INT;
 	BEGIN TRY
-		EXEC @ReturnValue = SP_validateReceiptSelection @inReceiptNumber
-		
-		IF(@ReturnValue > 0)
-		BEGIN
-			INSERT INTO DB1P_SelectedReceipts(ReceiptNumber)
-			VALUES(@inReceiptNumber);
-		END
-		
+		SELECT @IdSelection = ReceiptNumber 
+			FROM DB1P_SelectedReceipts
+				WHERE @inReceiptNumber = ReceiptNumber;
+		IF(@IdSelection IS NOT NULL)
+			BEGIN 
+				EXEC @ReturnValue = SP_validateReceiptUnselection @inReceiptNumber
+				IF(@ReturnValue > 0)
+					BEGIN
+						DELETE DB1P_SelectedReceipts
+							WHERE @inReceiptNumber = ReceiptNumber;
+					END
+			END
+		ELSE
+			BEGIN 
+				EXEC @ReturnValue = SP_validateReceiptSelection @inReceiptNumber
+				IF(@ReturnValue > 0)
+					BEGIN
+						INSERT INTO DB1P_SelectedReceipts(ReceiptNumber)
+						VALUES(@inReceiptNumber);
+					END
+			END
 		RETURN @ReturnValue;
 	END TRY
 BEGIN CATCH

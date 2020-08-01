@@ -24,3 +24,4 @@ VALUES('a','a',1,1)
 
 INSERT INTO DB1P_PropertiesUsers (Property_Id, User_Id,Active)
 VALUES(44,27,1)
+--SELECT *  FROM DB1P_APs

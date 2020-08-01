@@ -133,7 +133,7 @@ namespace DB1_Project_WEBPORTAL.Controllers
                 FixedCcController.ExecuteGetCCsOnProperty(property);
             List<ReceiptModel> pendingReceipts = ReceiptController.ExecuteGetPropertyPendingReceipts(property.PropertyNumber);
             List<PaymentProofModel> paymentProofs = ReceiptController.ExecuteGetPropertyPaymentProofs(property.PropertyNumber);
-            List<ApModel> apsList =  ApController.ExecuteGetAps();
+            List<ApModel> apsList =  ApController.ExecuteGetAps(property.PropertyNumber);
             
             ViewData["Owners"] = owners;
             ViewData["Users"] = users;
@@ -292,8 +292,8 @@ namespace DB1_Project_WEBPORTAL.Controllers
             ViewData["ApMovements"] = list;
             return View(ap);
         }
-        public IActionResult ReceiptDetails(int pApNumber){
-            ReceiptModel model = ReceiptController.ExecuteGetReceiptDetailsWithAp(pApNumber);
+        public IActionResult ReceiptDetails(int pMovNumber){
+            ReceiptModel model = ReceiptController.ExecuteGetReceiptDetailsWithAp(pMovNumber);
             return View(model);
         }
     }

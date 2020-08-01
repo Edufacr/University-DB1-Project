@@ -34,6 +34,7 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers{
                     ApMovementModel apMove = new ApMovementModel();
                     
                     apMove.MovNumber = Convert.ToInt32(reader["MovNumber"]);
+                    apMove.MovTypeName = Convert.ToString(reader["MovTypeName"]);
                     apMove.Amount = Convert.ToDouble(reader["Amount"]);                    
                     apMove.MonthlyInterest = Convert.ToDouble(reader["MonthlyInterest"]);
                     apMove.PaymentTermsLeft = Convert.ToInt32(reader["PaymentTermsLeft"]);
@@ -51,7 +52,8 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers{
             }
             return resultList;
         }
-        public List<ApModel> ExecuteGetAps(){
+        public List<ApModel> ExecuteGetAps(int pPropertyNum){
+            GetAps.Parameters.Add("@inPropertyNum",SqlDbType.Int).Value = pPropertyNum;
             return ExecuteQuerryCommand(GetAps);
         }
         private List<ApModel> ExecuteQuerryCommand(SqlCommand command){
@@ -67,7 +69,7 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers{
                     ap.Balance = Convert.ToDouble(reader["Balance"]);
                     ap.FeeValue = Convert.ToDouble(reader["FeeValue"]);
                     ap.InitialAmount = Convert.ToInt32(reader["InitialAmount"]);
-                    ap.MoratoryInterestRate = (float)Convert.ToDouble(reader["MoratoryInterestRate"]);
+                    ap.AnnualInterestRate = (float)Convert.ToDouble(reader["AnnualInterestRate"]);
                     ap.PaymentTerms = Convert.ToInt32(reader["PaymentTerms"]);
                     ap.PaymentTermsLeft = Convert.ToInt32(reader["PaymentTermsLeft"]);
                     ap.InsertedAt = Convert.ToDateTime(reader["InsertedAt"]);

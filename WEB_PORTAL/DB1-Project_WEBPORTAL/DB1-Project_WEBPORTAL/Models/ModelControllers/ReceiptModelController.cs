@@ -63,17 +63,17 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
             GetFeeAmount.CommandType = CommandType.StoredProcedure;
 
             GetReceiptDetailsWithAp = new SqlCommand("SP_getReceiptWithAp",connection);
-            GetFeeAmount.CommandType = CommandType.StoredProcedure;
-
-            
+            GetReceiptDetailsWithAp.CommandType = CommandType.StoredProcedure;            
         }
 
         public static ReceiptModelController getInstance()
         {
             return Singleton ??= new ReceiptModelController();
         }
-        public ReceiptModel ExecuteGetReceiptDetailsWithAp(int pApNumber){
-            GetReceiptDetailsWithAp.Parameters.Add("@inApNumber",SqlDbType.Int).Value = pApNumber;
+        public ReceiptModel ExecuteGetReceiptDetailsWithAp(int pMovNumber){
+            Console.WriteLine(pMovNumber);
+            GetReceiptDetailsWithAp.Parameters.Add("@inMovNumber",SqlDbType.Int).Value = pMovNumber;
+            Console.WriteLine(GetReceiptDetailsWithAp.Parameters["@inMovNumber"].Value);
             return ExecuteQueryCommand(GetReceiptDetailsWithAp)[0];
         }
 
@@ -85,6 +85,7 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
         {
             PaySelectedReceiptsWithAP.Parameters.Add("@inPropertyNumber",SqlDbType.Int).Value = pPropertyNumber;
             PaySelectedReceiptsWithAP.Parameters.Add("@inPaymentTerms",SqlDbType.Int).Value = pPaymentTerms;
+            PaySelectedReceiptsWithAP.Parameters.Add("@inDate",SqlDbType.Date).Value = DateTime.Today;
             return ExecuteNonQueryCommand(PaySelectedReceiptsWithAP);
         }
         

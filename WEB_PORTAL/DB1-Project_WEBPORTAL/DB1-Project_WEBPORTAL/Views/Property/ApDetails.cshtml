@@ -46,10 +46,10 @@
         </p>
         <hr />
         <dt>
-            @Html.DisplayNameFor(model => model.MoratoryInterestRate)
+            @Html.DisplayNameFor(model => model.AnnualInterestRate)
         </dt>
         <p>
-            @Html.DisplayFor(model => model.MoratoryInterestRate)
+            @Html.DisplayFor(model => model.AnnualInterestRate)
         </p>
         <hr />
         <dt>
@@ -114,26 +114,26 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayNameFor(model => movement.MovTypeName)
+                    @Html.DisplayFor(model => movement.MovTypeName)
                 </td>
                 <td>
-                    @Html.DisplayNameFor(model => movement.Date)
+                    @Html.DisplayFor(model => movement.Date)
                 </td>
                 <td>
-                    @Html.DisplayNameFor(model => movement.Amount)
+                    @Html.DisplayFor(model => movement.Amount)
                 </td>
                 <td>
-                    @Html.DisplayNameFor(model => movement.NewBalance)
+                    @Html.DisplayFor(model => movement.NewBalance)
                 </td>
                 <td>
-                    @Html.DisplayNameFor(model => movement.PaymentTermsLeft)
+                    @Html.DisplayFor(model => movement.PaymentTermsLeft)
                 </td>
                 <td>
-                    @Html.DisplayNameFor(model => movement.MonthlyInterest)
+                    @Html.DisplayFor(model => movement.MonthlyInterest)
                 </td>
             @if(ILoggedUser.LoggedUser.isAdmin){
                 <td>
-                    @Html.DisplayNameFor(model => movement.InsertedAt)
+                    @Html.DisplayFor(model => movement.InsertedAt)
                 </td>
             }
                 <td>

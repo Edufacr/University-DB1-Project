@@ -166,7 +166,6 @@ BEGIN
 			CONSTRAINT AK_Resp_DocValue UNIQUE(Resp_DocValue,Resp_DocType_Id),
 			Active bit NOT NULL
 			)  ON [PRIMARY]
-
 		DROP TABLE IF EXISTS dbo.DB1P_Owners;
 		CREATE TABLE dbo.DB1P_Owners
 			(
@@ -206,39 +205,39 @@ BEGIN
 		DROP TABLE IF EXISTS dbo.DB1P_ReconnectionReceipt;
 		CREATE TABLE dbo.DB1P_ReconnectionReceipt
 			(
-			Id int NOT NULL
+				Id int NOT NULL
 			)  ON [PRIMARY]
 
 		DROP TABLE IF EXISTS dbo.DB1P_AP_Receipts;
 		CREATE TABLE dbo.DB1P_AP_Receipts
 			(
-			Id int NOT NULL,
-			IdMovement int NULL
+				Id int NOT NULL,
+				IdMovement int NULL
 			)  ON [PRIMARY]
 
 		DROP TABLE IF EXISTS dbo.DB1P_Receipt;
 		CREATE TABLE dbo.DB1P_Receipt
 			(
-			Id int NOT NULL IDENTITY (1, 1),
-			Id_ChargeConcept int NOT NULL,
-			Id_Property int NOT NULL,
-			Date DATE NOT NULL,
-			DueDate DATE,	
-			Amount MONEY NOT NULL,
-			Status TINYINT NOT NULL DEFAULT 0
+				Id int NOT NULL IDENTITY (1, 1),
+				Id_ChargeConcept int NOT NULL,
+				Id_Property int NOT NULL,
+				Date DATE NOT NULL,
+				DueDate DATE,	
+				Amount MONEY NOT NULL,
+				Status TINYINT NOT NULL DEFAULT 0
 			)  ON [PRIMARY]
 			
 		DROP TABLE IF EXISTS dbo.DB1P_Properties;
 		CREATE TABLE dbo.DB1P_Properties
 			(
-			Id int NOT NULL IDENTITY (1, 1),
-			Value money NOT NULL,
-			Address varchar(100) NOT NULL,
-			PropertyNumber int NOT NULL,
-			CONSTRAINT AK_PropertyNumber UNIQUE(PropertyNumber),
-			AccumulatedM3 int NOT NULL DEFAULT 0,
-			AccumulatedLRM3 int NOT NULL DEFAULT 0,
-			Active bit NOT NULL
+				Id int NOT NULL IDENTITY (1, 1),
+				Value money NOT NULL,
+				Address varchar(100) NOT NULL,
+				PropertyNumber int NOT NULL,
+				CONSTRAINT AK_PropertyNumber UNIQUE(PropertyNumber),
+				AccumulatedM3 int NOT NULL DEFAULT 0,
+				AccumulatedLRM3 int NOT NULL DEFAULT 0,
+				Active bit NOT NULL
 			)  ON [PRIMARY]
 		DROP TABLE IF EXISTS dbo.DB1P_ChargeConcepts;
 		CREATE TABLE dbo.DB1P_ChargeConcepts
@@ -253,10 +252,10 @@ BEGIN
 		DROP TABLE IF EXISTS dbo.DB1P_ProofOfPayment;
 		CREATE TABLE dbo.DB1P_ProofOfPayment
 			(
-			Id int NOT NULL IDENTITY (1, 1),
-			Date DATE NOT NULL,
-			TotalAmount MONEY NOT NULL,
-			Active BIT NOT NULL DEFAULT 1
+				Id int NOT NULL IDENTITY (1, 1),
+				Date DATE NOT NULL,
+				TotalAmount MONEY NOT NULL,
+				Active BIT NOT NULL DEFAULT 1
 			)  ON [PRIMARY]
 
 
@@ -264,40 +263,39 @@ BEGIN
 		DROP TABLE IF EXISTS dbo.DB1P_AP_Movements;
 		CREATE TABLE dbo.DB1P_AP_Movements
 			(
-			Id int NOT NULL IDENTITY(1,1),
-			IdAP int NOT NULL,
-			IdMovType int NOT NULL,
-			Amount money NOT NULL,
-			MonthlyInterest money NOT NULL,
-			PaymentTermsLeft int NOT NULL,
-			NewBalance money NOT NULL,
-			Date date NOT NULL,
-			InsertedAt datetime NOT NULL
+				Id int NOT NULL IDENTITY(1,1),
+				IdAP int NOT NULL,
+				IdMovType int NOT NULL,
+				Amount money NOT NULL,
+				MonthlyInterest money NOT NULL,
+				PaymentTermsLeft int NOT NULL,
+				NewBalance money NOT NULL,
+				Date date NOT NULL,
+				InsertedAt datetime NOT NULL
 			)  ON [PRIMARY]
 		
 
 		DROP TABLE IF EXISTS dbo.DB1P_AP_MovementTypes;
 		CREATE TABLE dbo.DB1P_AP_MovementTypes
 			(
-			Id int NOT NULL,
-			Name varchar(100) NOT NULL
+				Id int NOT NULL,
+				Name varchar(100) NOT NULL
 			)  ON [PRIMARY]
 		
-
 		DROP TABLE IF EXISTS dbo.DB1P_APs;
 		CREATE TABLE dbo.DB1P_APs
 			(
-			Id int NOT NULL IDENTITY(1,1),
-			IdProperty int NOT NULL,
-			IdProofOfPayment int NOT NULL,
-			InitialAmount money NOT NULL,
-			Balance money NOT NULL,
-			AnnualInterestRate decimal(4, 2) NOT NULL,
-			PaymentTerms int NOT NULL,
-			PaymentTermsLeft int NOT NULL,
-			FeeValue money NOT NULL,
-			InsertedAt datetime NOT NULL,
-			UpdatedAt datetime NOT NULL
+				Id int NOT NULL IDENTITY(1,1),
+				IdProperty int NOT NULL,
+				IdProofOfPayment int NOT NULL,
+				InitialAmount money NOT NULL,
+				Balance money NOT NULL,
+				AnnualInterestRate decimal(4, 2) NOT NULL,
+				PaymentTerms int NOT NULL,
+				PaymentTermsLeft int NOT NULL,
+				FeeValue money NOT NULL,
+				InsertedAt datetime NOT NULL,
+				UpdatedAt datetime NOT NULL
 			)  ON [PRIMARY]
 		
 
@@ -809,7 +807,7 @@ BEGIN
 		
 		COMMIT
 
-		INSERT INTO DB1P_ConfigurationTable (AnnualInterestRate) VALUES (0.2)
+		INSERT INTO DB1P_ConfigurationTable (AnnualInterestRate) VALUES (0.1)
 		
 	END TRY
 	BEGIN CATCH

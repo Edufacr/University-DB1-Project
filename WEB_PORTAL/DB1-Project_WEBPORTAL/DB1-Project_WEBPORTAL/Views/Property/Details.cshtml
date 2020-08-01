@@ -625,7 +625,7 @@ else
                     @Html.DisplayNameFor(model => aps[0].ApNumber)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => aps[0].MoratoryInterestRate)
+                    @Html.DisplayNameFor(model => aps[0].AnnualInterestRate)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => aps[0].InitialAmount)
@@ -642,14 +642,6 @@ else
                 <th>
                     @Html.DisplayNameFor(model => aps[0].FeeValue)
                 </th>
-            @if(ILoggedUser.LoggedUser.isAdmin){
-                <th>
-                    @Html.DisplayNameFor(model => aps[0].InsertedAt)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => aps[0].UpdatedAt)
-                </th>
-            }
             </tr>
         </thead>
         <tbody>
@@ -657,34 +649,26 @@ else
         {
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => ap.ApNumber)
+                    @Html.DisplayFor(model => ap.ApNumber)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => ap.MoratoryInterestRate)
+                    @Html.DisplayFor(model => ap.AnnualInterestRate)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => ap.InitialAmount)
+                    @Html.DisplayFor(model => ap.InitialAmount)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => ap.Balance)
+                    @Html.DisplayFor(model => ap.Balance)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => ap.PaymentTermsLeft)
+                    @Html.DisplayFor(model => ap.PaymentTermsLeft)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => ap.PaymentTerms)
+                    @Html.DisplayFor(model => ap.PaymentTerms)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => ap.FeeValue)
+                    @Html.DisplayFor(model => ap.FeeValue)
                 </th>
-            @if(ILoggedUser.LoggedUser.isAdmin){
-                <th>
-                    @Html.DisplayNameFor(model => ap.InsertedAt)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => ap.UpdatedAt)
-                </th>
-            }
                 <td>
                     <a asp-action="ApDetails" asp-route-pApNumber="@ap.ApNumber">
                         <input type="submit" value="Ver Movimientos" class="btn btn-warning"/>
