@@ -19,15 +19,20 @@ BEGIN
     DECLARE @IdReceipt int;
     DECLARE @ApCCName VARCHAR(50);
 BEGIN TRY
+    
     SELECT @IdReceipt = ReceiptNumber
-        FROM completeAPReceipts;
+    FROM completeAPReceipts AS r
+    WHERE r.MovId = @inMovNumber;
+
     SELECT @ApCCName = Name
-        FROM completeCCs
-        WHERE Id = 12;
+    FROM completeCCs
+    WHERE Id = 12;
+
     IF(@IdReceipt IS NOT NULL)
     BEGIN
         SELECT ReceiptNumber,@ApCCName as ChargeConceptName,Amount,DueDate,Date AS ReceiptDate
-            FROM completeAPReceipts
+        FROM completeAPReceipts AS r
+        WHERE r.ReceiptNumber = @IdReceipt
     END
     RETURN -50002
 END TRY
