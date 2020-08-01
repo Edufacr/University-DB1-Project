@@ -44,15 +44,18 @@ BEGIN TRY
     WHERE
         ap.Id = @inIdAP;
 
+    SET -- Decremento de los plazos restantes
+        @LeftPaymentTerms -= 1;
+
     SET -- Set de el interés del mes y la amortización.
         @MonthlyInterest = -@CurrentBalance * (@AnnualInterest / 12);
     
     SET
         @Amortization = @FeeValue - @MonthlyInterest;
-    
-    SET -- Decremento de los plazos restantes
-        @LeftPaymentTerms -= 1;
-
+       
+    IF @LeftPaymentTerms = 0 -- Si es el último pago, agarra todo lo que queda como monto del mismo.
+        SET 
+            @Amortization = -@CurrentBalance;
 
     -- SET DE LOS PARÁMETROS PARA EL RECIBO --
 
