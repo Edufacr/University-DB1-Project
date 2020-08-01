@@ -23,6 +23,8 @@ namespace DB1_Project_WEBPORTAL.Controllers
             (MIConceptChargeModelController)MIConceptChargeModelController.getInstance();
         
         private ReceiptModelController ReceiptController = ReceiptModelController.getInstance();
+
+        private ApModelController ApController = ApModelController.getInstance();
         
         // GET
         public IActionResult Index()
@@ -129,11 +131,9 @@ namespace DB1_Project_WEBPORTAL.Controllers
                 MoratoryInterestsCcController.ExecuteGetCCsOnProperty(property);
             List<CcModel> fixedCcs = 
                 FixedCcController.ExecuteGetCCsOnProperty(property);
-
-            List<ReceiptModel> paidReceipts = ReceiptController.ExecuteGetPropertyPaidReceipts(property.PropertyNumber);
             List<ReceiptModel> pendingReceipts = ReceiptController.ExecuteGetPropertyPendingReceipts(property.PropertyNumber);
-            
             List<PaymentProofModel> paymentProofs = ReceiptController.ExecuteGetPropertyPaymentProofs(property.PropertyNumber);
+            List<ApModel> apsList =  ApController.ExecuteGetAps(property.PropertyNumber);
             
             ViewData["Owners"] = owners;
             ViewData["Users"] = users;
@@ -144,10 +144,9 @@ namespace DB1_Project_WEBPORTAL.Controllers
             ViewData["PercentageCCs"] = percentageCcs;
             ViewData["MoratoryIntsCCs"] = moratoryCcs;
             ViewData["FixedCCs"] = fixedCcs;
-
-            ViewData["PaidReceipts"] = paidReceipts;
             ViewData["PendingReceipts"] = pendingReceipts;
-            ViewData["PaymentPaymentProofs"] = paymentProofs;
+            ViewData["PaymentProofs"] = paymentProofs;
+            ViewData["ApsList"] = apsList;
             
             return View(property);
         }
@@ -177,7 +176,7 @@ namespace DB1_Project_WEBPORTAL.Controllers
             }
 
             return RedirectToAction("Details",
-                new {pPropertyNumber = pRelation.PropertyNumber, pRequestType = 3});
+                new {pPropertyNumber = pRelation.PropertyNumber, pRequestType = IConstants.RETURN_TO_INDEX_REQUESTTYPE});
         }
         
         public IActionResult DeleteOwner(string pDocType, string pDocValue, int pPropertyNumber)
@@ -189,7 +188,7 @@ namespace DB1_Project_WEBPORTAL.Controllers
             ownerController.ExecuteDeleteOwnerOfProperty(relation);
             
             return RedirectToAction("Details",
-                new {pPropertyNumber = relation.PropertyNumber, pRequestType = 1});
+                new {pPropertyNumber = relation.PropertyNumber, pRequestType = IConstants.ADMIN_REQUESTTYPE});
         }
         
         [HttpGet]
@@ -217,7 +216,7 @@ namespace DB1_Project_WEBPORTAL.Controllers
             }
 
             return RedirectToAction("Details",
-                new {pPropertyNumber = pRelation.PropertyNumber, pRequestType = 3});
+                new {pPropertyNumber = pRelation.PropertyNumber, pRequestType = IConstants.RETURN_TO_INDEX_REQUESTTYPE});
         }
         
         public IActionResult DeleteUser(string pUsername, int pPropertyNumber)
@@ -230,6 +229,72 @@ namespace DB1_Project_WEBPORTAL.Controllers
             return RedirectToAction("Details",
                 new {pPropertyNumber = relation.PropertyNumber, pRequestType = 1});
         }
+        [HttpGet]
+        public IActionResult ProofOfPaymentDetails (int pProofNumber){
+            PaymentProofModel proofOfPayment = ReceiptController.ExecuteGetProofOfPaymentDetails(pProofNumber);
+            List<ReceiptModel> receipts = ReceiptController.ExecuteGetProofOfPaymentReceipts(pProofNumber);
+            ViewData["ReceiptsPoP"] = receipts;
+            return View(proofOfPayment);
+        }
+
+        public IActionResult ReceiptSelection(int pPropertyNumber)
+        {
+            PropertyModel property = propertyController.ExecuteGetPropertyInfoByPropertyNumber(pPropertyNumber)[0];
+            List<ReceiptModel> pendingReceipts = ReceiptController.ExecuteGetPropertyPendingReceipts(property.PropertyNumber);
+            ViewData["PendingReceipts"] = pendingReceipts;
+            ReceiptController.ExecuteCreateSelectedReceiptTable();
+            ViewData["PropertyNumber"] = pPropertyNumber;
+            return View();
+        }
         
+        public int SelectReceipt(int pReceiptNumber)
+        {
+            int selection = ReceiptController.ExecuteSelectReceipt(pReceiptNumber);
+            return selection;
+        }
+
+        public PartialViewResult GetFeeAmount(double pTotal, int pTerms)
+        {
+            double fee = ReceiptController.ExecuteGetFeeAmount(pTotal,pTerms);
+            return PartialView("_PartialView",fee);
+        }
+
+        public IActionResult PaymentPreview(int? pPropertyNumber)
+        {
+            List<ReceiptModel> selectedReceipts = ReceiptController.ExecuteGetSelectedReceipts();
+            double totalAmount = ReceiptController.ExecuteGetSelectedReceiptsTotal();
+            
+            ViewData["Selection"] = selectedReceipts;
+            ViewData["PropertyNumber"] = pPropertyNumber;
+            ViewData["TotalAmount"] = totalAmount;
+            
+            return View();
+        }
+
+        public IActionResult PaySelectedReceipts(int pPropertyNumber,int pRequestType,int? pPaymentTerms)
+        {
+            if(pRequestType == IConstants.RETURN_TO_USER_INDEX_REQUESTTYPE){
+                ReceiptController.ExecutePaySelectedReceipts();
+            }
+            else
+            {
+                if (pPaymentTerms.HasValue)
+                {
+                  ReceiptController.ExecutePaySelectedReceiptsWithAP(pPropertyNumber,(int)pPaymentTerms);  
+                }  
+            }
+            return RedirectToAction("Details",
+                new {pPropertyNumber, pRequestType =pRequestType});
+        }
+        public IActionResult ApDetails(int pApNumber){
+            List<ApMovementModel> list = ApController.ExecuteGetMovementsByApNumber(pApNumber);
+            ApModel ap = ApController.ExecuteGetApDetails(pApNumber);
+            ViewData["ApMovements"] = list;
+            return View(ap);
+        }
+        public IActionResult ReceiptDetails(int pMovNumber){
+            ReceiptModel model = ReceiptController.ExecuteGetReceiptDetailsWithAp(pMovNumber);
+            return View(model);
+        }
     }
 }

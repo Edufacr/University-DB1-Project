@@ -5,9 +5,9 @@ GO
 -- =============================================
 -- Author:		Eduardo Madrigal Marín
 -- Create date: 
--- Description:	get pending receipts
+-- Description:	get pop for a given property num
 -- =============================================
-CREATE OR ALTER PROCEDURE SP_getPendingReceipts
+CREATE OR ALTER PROCEDURE SP_getProofOfPaymentByPropertyNum
 	-- Add the parameters for the stored procedure here
     @inPropertyNum INT
 AS
@@ -22,15 +22,24 @@ BEGIN TRY
     EXEC @Exists = SP_validateProperty @inPropertyNum
     IF(@Exists = 1)
     BEGIN
-        SELECT @Id_Property = Id
-            FROM DB1P_Properties
-            WHERE @inPropertyNum = PropertyNumber
+        SELECT 
+			@Id_Property = Id
+        FROM 
+			DB1P_Properties
+        WHERE 
+			@inPropertyNum = PropertyNumber
 
-        SELECT ReceiptNumber,cc.Name AS ChargeConceptName,Date AS ReceiptDate,DueDate,Amount
-            FROM activeReceipts 
-                INNER JOIN DB1P_ChargeConcepts cc
-                    ON cc.Id = Id_ChargeConcept
-            WHERE @Id_Property = Id_Property;
+        SELECT 
+			ProofNumber
+			,PaymentDate as ProofOfPaymentDate
+			,TotalAmount
+        FROM 
+			ProofOfPaymentsWithIdProperty
+        WHERE 
+			@Id_Property = Id_Property
+        ORDER BY 
+			PaymentDate DESC;
+            
         RETURN @@ROWCOUNT;
     END
 	RETURN -50002

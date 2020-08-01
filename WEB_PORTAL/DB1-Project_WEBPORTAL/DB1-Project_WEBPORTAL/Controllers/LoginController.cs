@@ -32,7 +32,7 @@ namespace DB1_Project_WEBPORTAL.Controllers
                         return RedirectToAction("Index", "Home", new { pLoggedUser = user});
                     }
 
-                    return RedirectToAction("Details", "User", new { pLoggedUSer = user, pUsername , pRequestType = 0});
+                    return RedirectToAction("Details", "User", new { pLoggedUSer = user, pUsername , pRequestType = IConstants.USER_REQUESTTYPE});
 
 
                 }

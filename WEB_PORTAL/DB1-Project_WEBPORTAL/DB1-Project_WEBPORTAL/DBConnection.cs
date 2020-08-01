@@ -1,5 +1,4 @@
 using System.Data.SqlClient;
-using University_DB1_FirstProject.Interfaces;
 
 namespace DB1_Project_WEBPORTAL
 {

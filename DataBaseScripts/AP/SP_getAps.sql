@@ -5,9 +5,9 @@ GO
 -- =============================================
 -- Author:		Eduardo Madrigal Marín
 -- Create date: 
--- Description:	get pending receipts
+-- Description:	get Aps
 -- =============================================
-CREATE OR ALTER PROCEDURE SP_getPendingReceipts
+CREATE OR ALTER PROCEDURE SP_getAps
 	-- Add the parameters for the stored procedure here
     @inPropertyNum INT
 AS
@@ -26,11 +26,10 @@ BEGIN TRY
             FROM DB1P_Properties
             WHERE @inPropertyNum = PropertyNumber
 
-        SELECT ReceiptNumber,cc.Name AS ChargeConceptName,Date AS ReceiptDate,DueDate,Amount
-            FROM activeReceipts 
-                INNER JOIN DB1P_ChargeConcepts cc
-                    ON cc.Id = Id_ChargeConcept
-            WHERE @Id_Property = Id_Property;
+        SELECT Id as ApNumber,InitialAmount,Balance,AnnualInterestRate,PaymentTerms,
+                PaymentTermsLeft,FeeValue,InsertedAt,UpdatedAt
+            FROM DB1P_APs
+            WHERE @Id_Property = IdProperty;
         RETURN @@ROWCOUNT;
     END
 	RETURN -50002

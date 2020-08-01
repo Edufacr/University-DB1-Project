@@ -1,0 +1,52 @@
+@model ReceiptModel
+@{
+    int receiptNumber = Model.ReceiptNumber;
+}
+<h1>
+    Recibo
+</h1>
+<h4>
+    Número de Recibo: @receiptNumber
+</h4>
+<div>
+    <a href='javascript:history.go(-1)'>Volver</a>
+</div>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ReceiptNumber)
+        </dt>
+        <p>
+            @Html.DisplayFor(model => model.ReceiptNumber)
+        </p>
+        <hr />
+        <dt>
+            @Html.DisplayNameFor(model => model.ChargeConceptName)
+        </dt>
+        <p>
+            @Html.DisplayFor(model => model.ChargeConceptName)
+        </p>
+        <hr />
+        <dt>
+            @Html.DisplayNameFor(model => model.Amount)
+        </dt>
+        <p>
+            @Html.DisplayFor(model => model.Amount)
+        </p>
+        <hr />
+        <dt>
+            @Html.DisplayNameFor(model => model.ReceiptDate)
+        </dt>
+        <p>
+            @Html.DisplayFor(model => model.ReceiptDate)
+        </p>
+        <hr />
+        <dt>
+            @Html.DisplayNameFor(model => model.DueDate)
+        </dt>
+        <p>
+            @Html.DisplayFor(model => model.DueDate)
+        </p>
+</div> 
+<hr />

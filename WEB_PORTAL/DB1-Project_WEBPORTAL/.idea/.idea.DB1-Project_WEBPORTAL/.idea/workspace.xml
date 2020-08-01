@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dabc68ef-a88a-4eeb-83a8-22526c9de378" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../../DataBaseScripts/AP/SP_generateAP.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../../DataBaseScripts/AP/SP_generateAP.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../DataBaseScripts/Tests/FromDB_APTesting.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../../DataBaseScripts/Tests/FromDB_APTesting.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.DB1-Project_WEBPORTAL/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DB1-Project_WEBPORTAL/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/ChangesHistoryController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/ChangesHistoryController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/ChangesHistory/Details.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/ChangesHistory/Details.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/ChangesHistory/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/ChangesHistory/Index.cshtml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,6 +25,9 @@
     <expand />
     <select />
   </component>
+  <component name="FavoritesManager">
+    <favorites_list name="DB1-Project_WEBPORTAL" />
+  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -37,100 +39,91 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/ChargeConcept/Index.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/ChargeConceptController.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/CcModel.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/UserPropertyModel.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ChangeModel.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/PaymentPreview.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/MoratoryInterestCcModel.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/PercentageCcModel.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/FixedCcModel.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/IConstants.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/UserModel.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/PercentageCcModel.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ConsumptionCcModel.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ErrorViewModel.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/IConnectionStrings.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ReceiptModel.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/PercentageCC_onPropertyModel.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/OwnerModel.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/CcModel.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/FixedCC_onPropertyModel.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ILoggedUser.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/PaymentProofModel.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/OwnerUpdateModel.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/OwnerPropertyModel.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ConsumptionCC_onPropertyModel.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/PropertyModel.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/MoratoryInterestCC_onProperty.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/LegalOwnerModel.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/ChangesHistory/Filter.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/ChangesHistory/Index.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/ChangesHistory/Details.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/ChargeConcept/EditConsumption.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/ChargeConcept/Index.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/ChargeConcept/EditMoratoryInterest.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/HomeController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/ChargeConceptController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/ChargeConcept/EditPercentage.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/ChargeConcept/EditFixed.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/ChangesHistoryController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/PropertyController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/InsertUser.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/OwnerController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/UserController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/Index.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/LoginController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/Delete.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/Details.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/Create.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/Edit.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/InsertOwner.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Shared/_NonHeaderLayout.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Shared/_Layout.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Shared/_LayoutUserInterface.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Owner/InsertProperty.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Owner/Index.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Owner/EditLegal.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Owner/Create.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Owner/CreateLegal.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/ReceiptSelection.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Owner/Edit.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Owner/Delete.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Owner/Details.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Owner/DetailsLegal.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Login/Index.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/User/InsertProperty.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/User/Delete.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/User/Index.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/User/Create.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Login/Index.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/LoginController.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/PropertyController.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/UserController.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/ChargeConcept/EditMoratoryInterest.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/OwnerController.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/ChargeConcept/EditPercentage.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/ChargeConcept/EditConsumption.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/User/InsertProperty.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Home/Privacy.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/User/Details.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Startup.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Home/Index.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Shared/_Layout.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/OwnerModel.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/LegalOwnerModel.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/InsertUser.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/InsertOwner.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ConsumptionCC_onPropertyModel.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ErrorViewModel.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/PropertyModel.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/Index.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Owner/Index.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/UserModel.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ChangeModel.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Home/Privacy.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/DBConnection.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Program.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/FixedConceptChargeModelController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/ConsumptionChargeConceptModelController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/ChargeConceptModelController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/ReceiptModelController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/ChangeModelController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/UserModelController.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/OwnerModelController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/MIConceptChargeModelController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/LegalOwnerModelController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/PropertyModelController.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/ChangeModelController.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/ChargeConceptModelController.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/ChangesHistory/Details.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Shared/_LayoutUserInterface.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/ChargeConcept/EditFixed.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/IConnectionStrings.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/ChangesHistory/Index.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/FixedCC_onPropertyModel.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/PercentageCC_onPropertyModel.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/MoratoryInterestCC_onProperty.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Owner/DetailsLegal.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Owner/CreateLegal.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/ChangesHistory/Filter.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/Details.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/Delete.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/FixedConceptChargeModelController.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/ChangesHistoryController.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/MIConceptChargeModelController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/PercentageChargeConceptModelController.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/Edit.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Owner/InsertProperty.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/ConsumptionChargeConceptModelController.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/UserPropertyModel.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/OwnerPropertyModel.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/User/Details.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/ReceiptModelController.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/PaymentProofModel.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Program.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Shared/_NonHeaderLayout.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ReceiptModel.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ILoggedUser.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/DBConnection.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Owner/EditLegal.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Startup.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/HomeController.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Owner/Details.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Owner/Edit.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Owner/Delete.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/OwnerUpdateModel.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Owner/Create.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/Create.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/OwnerModelController.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/PercentageCC_onPropertyModel.cs" />
-        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/MoratoryInterestCC_onProperty.cs" />
-        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/FixedCC_onPropertyModel.cs" />
-        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ConsumptionCC_onPropertyModel.cs" />
-        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/MoratoryInterestCcModel.cs" />
-        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/PercentageCcModel.cs" />
-        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/ChargeConceptModelController.cs" />
-        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/CcModel.cs" />
-        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ConsumptionCcModel.cs" />
-        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/ChargeConcept/EditConsumption.cshtml" />
-        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/ChargeConcept/EditPercentage.cshtml" />
-        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/FixedConceptChargeModelController.cs" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/FixedCcModel.cs" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/MIConceptChargeModelController.cs" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/PercentageChargeConceptModelController.cs" />
@@ -143,21 +136,13 @@
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/Receipt.cs" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ProofOfPayment.cs" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/ReciptModelController.cs" />
-        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ReceiptModel.cs" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/PaymentProof.cs" />
-        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/ReceiptModelController.cs" />
-        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/Details.cshtml" />
-        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Owner/Index.cshtml" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Home/Index.cshtml" />
-        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/UserController.cs" />
-        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/PropertyController.cs" />
-        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/OwnerController.cs" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/HomeController.cs" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Shared/_NonHeaderLayout.cshtml" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Shared/_Layout.cshtml" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Shared/_LayoutUserInterface.cshtml" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ILoggedUser.cs" />
-        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/LoginController.cs" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/PropertyModelController.cs" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/UserModelController.cs" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/OwnerModelController.cs" />
@@ -170,6 +155,26 @@
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/ChangesHistory/Index.cshtml" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/ChangesHistory/Details.cshtml" />
         <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/ChangesHistoryController.cs" />
+        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/PaymentProofModel.cs" />
+        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ReceiptModel.cs" />
+        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/ReceiptPayment.cshtml.cs" />
+        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/ReceiptPayment.cshtml" />
+        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/Selection.cs" />
+        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/LoginController.cs" />
+        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Owner/Index.cshtml" />
+        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/OwnerController.cs" />
+        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/UserController.cs" />
+        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/PreviewPayment.cshtml.cs" />
+        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/PreviewPayment.cshtml" />
+        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/IConstants.cs" />
+        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/Details.cshtml" />
+        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Controllers/PropertyController.cs" />
+        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/ReceiptSelection.cshtml" />
+        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/DBConnection.cs" />
+        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/ChargeConceptModelController.cs" />
+        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/IConnectionStrings.cs" />
+        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Models/ModelControllers/ReceiptModelController.cs" />
+        <option value="$PROJECT_DIR$/DB1-Project_WEBPORTAL/Views/Property/PaymentPreview.cshtml" />
       </list>
     </option>
   </component>
@@ -255,6 +260,12 @@
       <workItem from="1594701369466" duration="6958000" />
       <workItem from="1594755017764" duration="12816000" />
       <workItem from="1594931085435" duration="15160000" />
+      <workItem from="1595469621835" duration="3664000" />
+      <workItem from="1595540641962" duration="422000" />
+      <workItem from="1595544599086" duration="19058000" />
+      <workItem from="1595599665680" duration="12309000" />
+      <workItem from="1595623716921" duration="1183000" />
+      <workItem from="1595740249898" duration="744000" />
     </task>
     <servers />
   </component>
@@ -284,25 +295,25 @@
       <screen x="-1200" y="0" width="1200" height="1560" />
     </state>
     <state x="-1108" y="92" width="1016" height="1376" key="DiffContextDialog/0.0.1536.824/-1200.0.1200.1560@-1200.0.1200.1560" timestamp="1594417877362" />
-    <state width="1157" height="361" key="GridCell.Tab.0.bottom" timestamp="1594950079789">
+    <state width="1157" height="615" key="GridCell.Tab.0.bottom" timestamp="1595711711771">
       <screen x="-1200" y="0" width="1200" height="1560" />
     </state>
-    <state width="1157" height="361" key="GridCell.Tab.0.bottom/0.0.1536.824/-1200.0.1200.1560@-1200.0.1200.1560" timestamp="1594950079789" />
+    <state width="1157" height="615" key="GridCell.Tab.0.bottom/0.0.1536.824/-1200.0.1200.1560@-1200.0.1200.1560" timestamp="1595711711771" />
     <state width="1493" height="566" key="GridCell.Tab.0.bottom/0.0.1536.824/-1200.0.1200.1560@0.0.1536.824" timestamp="1594364625295" />
-    <state width="1157" height="361" key="GridCell.Tab.0.center" timestamp="1594950079789">
+    <state width="1157" height="615" key="GridCell.Tab.0.center" timestamp="1595711711771">
       <screen x="-1200" y="0" width="1200" height="1560" />
     </state>
-    <state width="1157" height="361" key="GridCell.Tab.0.center/0.0.1536.824/-1200.0.1200.1560@-1200.0.1200.1560" timestamp="1594950079789" />
+    <state width="1157" height="615" key="GridCell.Tab.0.center/0.0.1536.824/-1200.0.1200.1560@-1200.0.1200.1560" timestamp="1595711711771" />
     <state width="1493" height="566" key="GridCell.Tab.0.center/0.0.1536.824/-1200.0.1200.1560@0.0.1536.824" timestamp="1594364625295" />
-    <state width="1157" height="361" key="GridCell.Tab.0.left" timestamp="1594950079789">
+    <state width="1157" height="615" key="GridCell.Tab.0.left" timestamp="1595711711771">
       <screen x="-1200" y="0" width="1200" height="1560" />
     </state>
-    <state width="1157" height="361" key="GridCell.Tab.0.left/0.0.1536.824/-1200.0.1200.1560@-1200.0.1200.1560" timestamp="1594950079789" />
+    <state width="1157" height="615" key="GridCell.Tab.0.left/0.0.1536.824/-1200.0.1200.1560@-1200.0.1200.1560" timestamp="1595711711771" />
     <state width="1493" height="566" key="GridCell.Tab.0.left/0.0.1536.824/-1200.0.1200.1560@0.0.1536.824" timestamp="1594364625295" />
-    <state width="1157" height="361" key="GridCell.Tab.0.right" timestamp="1594950079789">
+    <state width="1157" height="615" key="GridCell.Tab.0.right" timestamp="1595711711771">
       <screen x="-1200" y="0" width="1200" height="1560" />
     </state>
-    <state width="1157" height="361" key="GridCell.Tab.0.right/0.0.1536.824/-1200.0.1200.1560@-1200.0.1200.1560" timestamp="1594950079789" />
+    <state width="1157" height="615" key="GridCell.Tab.0.right/0.0.1536.824/-1200.0.1200.1560@-1200.0.1200.1560" timestamp="1595711711771" />
     <state width="1493" height="566" key="GridCell.Tab.0.right/0.0.1536.824/-1200.0.1200.1560@0.0.1536.824" timestamp="1594364625295" />
     <state width="498" height="446" key="SwitcherDM" timestamp="1594533333419">
       <screen x="-1200" y="0" width="1200" height="1560" />
@@ -328,9 +339,13 @@
       <screen x="-1200" y="0" width="1200" height="1560" />
     </state>
     <state x="-885" y="278" width="781" height="418" key="dock-window-3/0.0.1536.824/-1200.0.1200.1560@-1200.0.1200.1560" timestamp="1594701525140" />
-    <state x="-944" y="370" key="run.anything.popup" timestamp="1593288198196">
+    <state x="-944" y="370" key="run.anything.popup" timestamp="1595608074032">
       <screen x="-1200" y="0" width="1200" height="1560" />
     </state>
-    <state x="-944" y="370" key="run.anything.popup/0.0.1536.824/-1200.0.1200.1560@-1200.0.1200.1560" timestamp="1593288198196" />
+    <state x="-944" y="370" key="run.anything.popup/0.0.1536.824/-1200.0.1200.1560@-1200.0.1200.1560" timestamp="1595608074032" />
+    <state x="-937" y="355" key="search.everywhere.popup" timestamp="1595564010709">
+      <screen x="-1200" y="0" width="1200" height="1560" />
+    </state>
+    <state x="-937" y="355" key="search.everywhere.popup/0.0.1536.824/-1200.0.1200.1560@-1200.0.1200.1560" timestamp="1595564010709" />
   </component>
 </project>
