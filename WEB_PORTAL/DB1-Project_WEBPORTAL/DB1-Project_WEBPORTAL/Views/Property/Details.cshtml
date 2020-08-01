@@ -33,9 +33,7 @@
     
     List<ReceiptModel> pendingReceipts = ViewData["PendingReceipts"] as List<ReceiptModel>;
     List<PaymentProofModel> paymentProofs = ViewData["PaymentProofs"] as List<PaymentProofModel>;
-
-    //!List of Aps from view
-    List<ApModel> aps = new List<ApModel>();
+    List<ApModel> aps = ViewData["ApsList"] as List<ApModel>;
     
 }
 
