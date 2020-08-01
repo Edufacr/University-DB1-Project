@@ -26,7 +26,7 @@ BEGIN TRY
         WHERE Id = 12;
     IF(@IdReceipt IS NOT NULL)
     BEGIN
-        SELECT ReceiptNumber,@ApCCName,Amount,DueDate,Date AS ReceiptDate
+        SELECT ReceiptNumber,@ApCCName as ChargeConceptName,Amount,DueDate,Date AS ReceiptDate
             FROM completeAPReceipts
     END
     RETURN -50002
