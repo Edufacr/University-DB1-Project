@@ -25,7 +25,6 @@ BEGIN TRY
 	DECLARE @PropertiesValueChange TABLE (PropertyNum int,Value MONEY, [Date] DATE);
 	DECLARE @TransConsumo TABLE (Id int PRIMARY KEY IDENTITY(1,1),IdMovType int, PropertyNum int,ConsumptionReading int,Description VARCHAR(50) ,Date Date);
 	DECLARE @Payments TABLE(Id int PRIMARY KEY IDENTITY(1,1),ReceiptType INT, PropertyNum INT,Date DATE);
-	--<AP NumFinca="1565045" Plazo="5"/>
 	DECLARE @APs AS APsTable;
 	DECLARE @TodayPayments AS TodayPaymentsTable;
 	DECLARE @TodayTransConsumo AS TodayConsumptionMovsTable ;
@@ -39,7 +38,6 @@ BEGIN TRY
 	DECLARE @NumOfReconnectionReceipts INT;
 	DECLARE @dayCounter int
 	DECLARE @lastDay int
-	BEGIN TRANSACTION Main
 		EXEC SP_XML_GetOperationsXML @xmlDocument OUTPUT;
 		EXEC sp_xml_preparedocument @docHandle OUTPUT, @xmlDocument; 
 
@@ -264,11 +262,9 @@ BEGIN TRY
 		END		
 
 		EXEC sp_xml_removedocument @docHandle;		 																	  
-	COMMIT TRANSACTION Main
-
 END TRY
 BEGIN CATCH
-	--ROLLBACK
+	ROLLBACK
 	return @@Error * -1
 END CATCH
 
