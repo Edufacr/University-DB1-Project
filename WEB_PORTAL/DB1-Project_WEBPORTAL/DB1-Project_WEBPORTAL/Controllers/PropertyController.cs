@@ -290,7 +290,11 @@ namespace DB1_Project_WEBPORTAL.Controllers
             List<ApMovementModel> list = ApController.ExecuteGetMovementsByApNumber(pApNumber);
             ApModel ap = ApController.ExecuteGetApDetails(pApNumber);
             ViewData["ApMovements"] = list;
-            return View("ApDetails",ap);
+            return View(ap);
+        }
+        public IActionResult ReceiptDetails(int pApNumber){
+            ReceiptModel model = ReceiptController.ExecuteGetReceiptDetailsWithAp(pApNumber);
+            return View(model);
         }
     }
 }

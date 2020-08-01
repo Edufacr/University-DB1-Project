@@ -20,7 +20,8 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
         private SqlCommand ClearSelectedReceiptTable;
         private SqlCommand GetSelectedReceiptsTotal;
         private SqlCommand GetFeeAmount;
-        
+
+        private SqlCommand GetReceiptDetailsWithAp;
         
         public static ReceiptModelController Singleton;
         
@@ -61,12 +62,19 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
             GetFeeAmount = new SqlCommand("SP_calculateFeeValue",connection);
             GetFeeAmount.CommandType = CommandType.StoredProcedure;
 
+            GetReceiptDetailsWithAp = new SqlCommand("SP_getReceiptWithAp",connection);
+            GetFeeAmount.CommandType = CommandType.StoredProcedure;
+
             
         }
 
         public static ReceiptModelController getInstance()
         {
             return Singleton ??= new ReceiptModelController();
+        }
+        public ReceiptModel ExecuteGetReceiptDetailsWithAp(int pApNumber){
+            GetReceiptDetailsWithAp.Parameters.Add("@inApNumber",SqlDbType.Int).Value = pApNumber;
+            return ExecuteQueryCommand(GetReceiptDetailsWithAp)[0];
         }
 
         public int ExecutePaySelectedReceipts()
@@ -245,6 +253,7 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
                 throw (e);
             }
         }
+
 
     }
 }
