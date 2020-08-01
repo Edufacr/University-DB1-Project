@@ -642,14 +642,6 @@ else
                 <th>
                     @Html.DisplayNameFor(model => aps[0].FeeValue)
                 </th>
-            @if(ILoggedUser.LoggedUser.isAdmin){
-                <th>
-                    @Html.DisplayNameFor(model => aps[0].InsertedAt)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => aps[0].UpdatedAt)
-                </th>
-            }
             </tr>
         </thead>
         <tbody>
@@ -677,14 +669,6 @@ else
                 <th>
                     @Html.DisplayFor(model => ap.FeeValue)
                 </th>
-            @if(ILoggedUser.LoggedUser.isAdmin){
-                <th>
-                    @Html.DisplayFor(model => ap.InsertedAt)
-                </th>
-                <th>
-                    @Html.DisplayFor(model => ap.UpdatedAt)
-                </th>
-            }
                 <td>
                     <a asp-action="ApDetails" asp-route-pApNumber="@ap.ApNumber">
                         <input type="submit" value="Ver Movimientos" class="btn btn-warning"/>
