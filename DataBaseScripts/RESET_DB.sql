@@ -16,3 +16,11 @@ INSERT INTO DB1P_AP_MovementTypes (Id,Name) VALUES (2,'Credito')
 
 EXEC SP_XML_OperationsFill
 GO 
+
+INSERT INTO DB1P_Users
+VALUES('b','b',0,1)
+INSERT INTO DB1P_Users
+VALUES('a','a',1,1)
+
+INSERT INTO DB1P_PropertiesUsers (Property_Id, User_Id,Active)
+VALUES(44,27,1)
