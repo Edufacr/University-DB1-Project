@@ -292,8 +292,8 @@ namespace DB1_Project_WEBPORTAL.Controllers
             ViewData["ApMovements"] = list;
             return View(ap);
         }
-        public IActionResult ReceiptDetails(int pApNumber){
-            ReceiptModel model = ReceiptController.ExecuteGetReceiptDetailsWithAp(pApNumber);
+        public IActionResult ReceiptDetails(int pMovNumber){
+            ReceiptModel model = ReceiptController.ExecuteGetReceiptDetailsWithAp(pMovNumber);
             return View(model);
         }
     }

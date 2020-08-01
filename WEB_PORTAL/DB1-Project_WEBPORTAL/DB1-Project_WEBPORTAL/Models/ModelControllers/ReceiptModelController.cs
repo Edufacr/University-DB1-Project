@@ -72,8 +72,8 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
         {
             return Singleton ??= new ReceiptModelController();
         }
-        public ReceiptModel ExecuteGetReceiptDetailsWithAp(int pApNumber){
-            GetReceiptDetailsWithAp.Parameters.Add("@inApNumber",SqlDbType.Int).Value = pApNumber;
+        public ReceiptModel ExecuteGetReceiptDetailsWithAp(int pMovNumber){
+            GetReceiptDetailsWithAp.Parameters.Add("@inMovNumber",SqlDbType.Int).Value = pMovNumber;
             return ExecuteQueryCommand(GetReceiptDetailsWithAp)[0];
         }
 
