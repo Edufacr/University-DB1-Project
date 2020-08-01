@@ -3,7 +3,24 @@
     Layout = "~/Views/Shared/_LayoutUserInterface.cshtml";
     List<ReceiptModel> selection = ViewData["Selection"] as List<ReceiptModel>;
     int? propertyNumber = ViewData["PropertyNumber"] as int?;
+    double? totalAmount = ViewData["TotalAmount"] as double?;
+    int cancelButtonRequestType;
+    if(ILoggedUser.LoggedUser.isAdmin){
+        cancelButtonRequestType = IConstants.RETURN_TO_INDEX_REQUESTTYPE;
+        ViewData["PayButtonTitle"] = "Crear arreglo de pago";
+    }
+    else
+    {
+        cancelButtonRequestType = IConstants.RETURN_TO_USER_INDEX_REQUESTTYPE;
+        ViewData["PayButtonTitle"] = "Pagar";
+    }
+    
 }
+<head>
+    <style>
+        #total {text-align: right;}
+    </style>
+</head>
 
 <h1> Información del Pago </h1>
 
@@ -21,13 +38,13 @@
                 @Html.DisplayNameFor(model => selection[0].ChargeConceptName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => selection[0].Amount)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => selection[0].ReceiptDate)
             </th>
             <th>
                 @Html.DisplayNameFor(model => selection[0].DueDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => selection[0].Amount)
             </th>
         </tr>
         </thead>
@@ -35,40 +52,115 @@
         @foreach(var selectedReceipt in selection)
         {
             <tr>
-                <th>
+                <td>
                     @Html.DisplayFor(model => selectedReceipt.ReceiptNumber)
-                </th>
-                <th>
+                </td>
+                <td>
                     @Html.DisplayFor(model => selectedReceipt.ChargeConceptName)
-                </th>
-                <th>
-                    @Html.DisplayFor(model => selectedReceipt.Amount)
-                </th>
-                <th>
+                </td>
+                <td>
                     @Html.DisplayFor(model => selectedReceipt.ReceiptDate)
-                </th>
-                <th>
+                </td>
+                <td>
                     @Html.DisplayFor(model => selectedReceipt.DueDate)
-                </th>
+                </td>
+                <td>
+                    @Html.DisplayFor(model => selectedReceipt.Amount)
+                </td>
             </tr>
         }
         </tbody>
+        <tfoot>
+            <tr>
+                <th id="total" right colspan="4">Total: </th>
+                <td id = "totalValue">@totalAmount</td>
+            </tr>
+        </tfoot>
     </table>
     <hr />
 </table>
+@if (ILoggedUser.LoggedUser.isAdmin)
+{
+   <table class="table table-striped">
+    <tr>
+        <th>
+            Plazo en meses:
+        </th>
+        <th>
+            Monto a pagar por cuota:
+        </th>
+    </tr>
+    <tr>
+        <td>
+            <input type="number" id="PaymentTerms" placeholder = "Number of months" value = "1" name="Plazo" min="1">
+        </td>
+        <td id = "FeeAmount">
+            Monto a pagar por cuota:
+        </td>
+    </tr>
+    </table> 
+}
+
+<hr />
+<div>
+    <button id="PayButton" class="btn btn-success">
+        @ViewData["PayButtonTitle"]
+    </button>
+</div>  
 <div>
     @Html.ActionLink(
     "Cancelar",
     "Details",
     "Property",
-    new {pPropertyNumber = propertyNumber, pRequestType = IConstants.RETURN_TO_USER_INDEX_REQUESTTYPE}, 
+    new {pPropertyNumber = propertyNumber, pRequestType = cancelButtonRequestType}, 
     new {@class = "btn btn-danger"})
 </div>
-<div>
-    @Html.ActionLink(
-        "Pagar",
-       "PaySelectedReceipts",
-       "Property",
-       new {pPropertyNumber = propertyNumber},
-       new {@class = "btn btn-success"})
-</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script>
+var termsElement = document.getElementById("PaymentTerms");
+if(termsElement){
+  termsElement.addEventListener('input',(event) => FeeValueChange());
+}
+$(document).ready(function(){    
+        
+    $("#PayButton").click(function(event){
+        event.preventDefault();
+        var propertyNumber = @propertyNumber;
+        var requestType = @cancelButtonRequestType;
+        console.log(propertyNumber)
+        console.log(requestType)
+        if(termsElement){
+            window.location.href = "PaySelectedReceipts" + "?pPropertyNumber=" + propertyNumber + "&pRequestType=" + requestType + "&pPaymentTerms="+ $("#PaymentTerms").val();
+        }
+        else{
+            window.location.href = "PaySelectedReceipts" + "?pPropertyNumber=" + propertyNumber + "&pRequestType=" + requestType
+        }
+    });
+})
+
+function FeeValueChange(params) 
+{
+    var total = document.getElementById("totalValue").innerHTML;
+    var terms = document.getElementById("PaymentTerms").value; 
+    getValueChange(terms,total).done(function(value) {
+        alert(value); //waits until ajax is completed
+    });
+}
+function getValueChange(terms,total)
+{
+    $.ajax({
+        url: 'GetFeeAmount',
+        data: { pTotal: total, pTerms: terms},
+        success: function(data) {
+            $('#FeeAmount').html(data);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            alert(jqXHR.status);
+            alert(textStatus);
+            alert(errorThrown);
+        }
+    });
+}
+window.onload = FeeValueChange();
+</script>

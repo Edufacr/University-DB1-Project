@@ -23,6 +23,8 @@ namespace DB1_Project_WEBPORTAL.Controllers
             (MIConceptChargeModelController)MIConceptChargeModelController.getInstance();
         
         private ReceiptModelController ReceiptController = ReceiptModelController.getInstance();
+
+        private ApModelController ApController = ApModelController.getInstance();
         
         // GET
         public IActionResult Index()
@@ -131,6 +133,7 @@ namespace DB1_Project_WEBPORTAL.Controllers
                 FixedCcController.ExecuteGetCCsOnProperty(property);
             List<ReceiptModel> pendingReceipts = ReceiptController.ExecuteGetPropertyPendingReceipts(property.PropertyNumber);
             List<PaymentProofModel> paymentProofs = ReceiptController.ExecuteGetPropertyPaymentProofs(property.PropertyNumber);
+            List<ApModel> apsList =  ApController.ExecuteGetAps();
             
             ViewData["Owners"] = owners;
             ViewData["Users"] = users;
@@ -143,6 +146,7 @@ namespace DB1_Project_WEBPORTAL.Controllers
             ViewData["FixedCCs"] = fixedCcs;
             ViewData["PendingReceipts"] = pendingReceipts;
             ViewData["PaymentProofs"] = paymentProofs;
+            ViewData["ApsList"] = apsList;
             
             return View(property);
         }
@@ -249,24 +253,48 @@ namespace DB1_Project_WEBPORTAL.Controllers
             return selection;
         }
 
+        public PartialViewResult GetFeeAmount(double pTotal, int pTerms)
+        {
+            double fee = ReceiptController.ExecuteGetFeeAmount(pTotal,pTerms);
+            return PartialView("_PartialView",fee);
+        }
+
         public IActionResult PaymentPreview(int? pPropertyNumber)
         {
             List<ReceiptModel> selectedReceipts = ReceiptController.ExecuteGetSelectedReceipts();
+            double totalAmount = ReceiptController.ExecuteGetSelectedReceiptsTotal();
+            
             ViewData["Selection"] = selectedReceipts;
             ViewData["PropertyNumber"] = pPropertyNumber;
+            ViewData["TotalAmount"] = totalAmount;
             
             return View();
         }
 
-        public IActionResult PaySelectedReceipts(int pPropertyNumber)
+        public IActionResult PaySelectedReceipts(int pPropertyNumber,int pRequestType,int? pPaymentTerms)
         {
-
-            ReceiptController.ExecutePaySelectedReceipts();
-            
+            if(pRequestType == IConstants.RETURN_TO_USER_INDEX_REQUESTTYPE){
+                ReceiptController.ExecutePaySelectedReceipts();
+            }
+            else
+            {
+                if (pPaymentTerms.HasValue)
+                {
+                  ReceiptController.ExecutePaySelectedReceiptsWithAP(pPropertyNumber,(int)pPaymentTerms);  
+                }  
+            }
             return RedirectToAction("Details",
-                new {pPropertyNumber, pRequestType = IConstants.RETURN_TO_USER_INDEX_REQUESTTYPE});
-            
+                new {pPropertyNumber, pRequestType =pRequestType});
         }
-        
+        public IActionResult ApDetails(int pApNumber){
+            List<ApMovementModel> list = ApController.ExecuteGetMovementsByApNumber(pApNumber);
+            ApModel ap = ApController.ExecuteGetApDetails(pApNumber);
+            ViewData["ApMovements"] = list;
+            return View(ap);
+        }
+        public IActionResult ReceiptDetails(int pApNumber){
+            ReceiptModel model = ReceiptController.ExecuteGetReceiptDetailsWithAp(pApNumber);
+            return View(model);
+        }
     }
 }

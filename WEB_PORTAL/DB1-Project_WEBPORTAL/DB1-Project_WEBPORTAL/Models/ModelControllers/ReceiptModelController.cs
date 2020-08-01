@@ -15,9 +15,13 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
         private SqlCommand GetProofOfPaymentDetails;
         private SqlCommand GetSelectedReceipts;
         private SqlCommand PaySelectedReceipts;
+        private SqlCommand PaySelectedReceiptsWithAP;
         private SqlCommand SelectReceipt;
         private SqlCommand ClearSelectedReceiptTable;
-        
+        private SqlCommand GetSelectedReceiptsTotal;
+        private SqlCommand GetFeeAmount;
+
+        private SqlCommand GetReceiptDetailsWithAp;
         
         public static ReceiptModelController Singleton;
         
@@ -39,15 +43,28 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
             
             GetSelectedReceipts = new SqlCommand("SP_getSelectedReceipts",connection);
             GetSelectedReceipts.CommandType = CommandType.StoredProcedure;
+
+            GetSelectedReceiptsTotal = new SqlCommand("SP_getSelectedTotalAmount",connection);
+            GetSelectedReceiptsTotal.CommandType = CommandType.StoredProcedure;
             
             PaySelectedReceipts = new SqlCommand("SP_paySelectedReceipts",connection);
             PaySelectedReceipts.CommandType = CommandType.StoredProcedure;
+
+            PaySelectedReceiptsWithAP = new SqlCommand("SP_generateAP",connection);
+            PaySelectedReceiptsWithAP.CommandType = CommandType.StoredProcedure;
             
             SelectReceipt = new SqlCommand("SP_selectReceipt ",connection);
             SelectReceipt.CommandType = CommandType.StoredProcedure;
             
             ClearSelectedReceiptTable = new SqlCommand("SP_clearSelectedReceiptsTable",connection);
             ClearSelectedReceiptTable.CommandType = CommandType.StoredProcedure;
+
+            GetFeeAmount = new SqlCommand("SP_calculateFeeValue",connection);
+            GetFeeAmount.CommandType = CommandType.StoredProcedure;
+
+            GetReceiptDetailsWithAp = new SqlCommand("SP_getReceiptWithAp",connection);
+            GetFeeAmount.CommandType = CommandType.StoredProcedure;
+
             
         }
 
@@ -55,10 +72,20 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
         {
             return Singleton ??= new ReceiptModelController();
         }
+        public ReceiptModel ExecuteGetReceiptDetailsWithAp(int pApNumber){
+            GetReceiptDetailsWithAp.Parameters.Add("@inApNumber",SqlDbType.Int).Value = pApNumber;
+            return ExecuteQueryCommand(GetReceiptDetailsWithAp)[0];
+        }
 
         public int ExecutePaySelectedReceipts()
         {
             return ExecuteNonQueryCommand(PaySelectedReceipts);
+        }
+        public int ExecutePaySelectedReceiptsWithAP(int pPropertyNumber, int pPaymentTerms)
+        {
+            PaySelectedReceiptsWithAP.Parameters.Add("@inPropertyNumber",SqlDbType.Int).Value = pPropertyNumber;
+            PaySelectedReceiptsWithAP.Parameters.Add("@inPaymentTerms",SqlDbType.Int).Value = pPaymentTerms;
+            return ExecuteNonQueryCommand(PaySelectedReceiptsWithAP);
         }
         
         public int ExecuteCreateSelectedReceiptTable()
@@ -82,13 +109,20 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
             GetPropertyPendingReceipts.Parameters.Add("@inPropertyNum", SqlDbType.Int).Value = pPropertyNumber;
             return ExecuteQueryCommand(GetPropertyPendingReceipts);
         }
+        public double ExecuteGetFeeAmount(double pTotal,int pTerms){
+            GetFeeAmount.Parameters.Add("@inOriginalAmount",SqlDbType.Money).Value = pTotal;
+            GetFeeAmount.Parameters.Add("@inPaymentTerms",SqlDbType.Int).Value = pTerms;
+            GetFeeAmount.Parameters.Add("@outAnnualInterestRate",SqlDbType.Decimal).Value = 0;
+            return ExecuteOutputParameterQuerry("@outFeeValue",GetFeeAmount);
+        }
 
         public List<ReceiptModel> ExecuteGetSelectedReceipts()
         {
             return ExecuteQueryCommand(GetSelectedReceipts);
         }
-        
-        
+        public double ExecuteGetSelectedReceiptsTotal(){
+            return ExecuteOutputParameterQuerry("@outTotal",GetSelectedReceiptsTotal);
+        }
         public List<ReceiptModel> ExecuteQueryCommand(SqlCommand command)
         {
             List<ReceiptModel> result = new List<ReceiptModel>();
@@ -199,6 +233,27 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
                 throw (e);
             }
         }
+        public double ExecuteOutputParameterQuerry(string pParameterName,SqlCommand pCommand){
+            try
+            {
+                double result = 0;
+                pCommand.Parameters.Add(pParameterName,SqlDbType.Money).Direction = ParameterDirection.Output;
+                connection.Open();
+                pCommand.ExecuteNonQuery();
+                connection.Close();
+                var outParameter = pCommand.Parameters[pParameterName].Value;
+                if(!outParameter.Equals(DBNull.Value)){
+                    result = Convert.ToDouble(outParameter);
+                }
+                pCommand.Parameters.Clear();
+                return result;
+            }
+            catch (Exception e)
+            {
+                throw (e);
+            }
+        }
+
 
     }
 }
