@@ -18,7 +18,7 @@ BEGIN
     -- Insert statements for procedure here
 DECLARE @IdAP INT;
 BEGIN TRY
-    SELECT @IdAp 
+    SELECT @IdAP = Id
         FROM DB1P_APs
         WHERE @inApNumber = Id;
     IF(@IdAP IS NOT NULL)
@@ -27,7 +27,7 @@ BEGIN TRY
                 PaymentTermsLeft,FeeValue,InsertedAt,UpdatedAt
             FROM DB1P_APs
             WHERE @IdAP = Id;
-        RETURN @IdAp;
+        RETURN @IdAP;
     END
 	RETURN -50002
 END TRY
