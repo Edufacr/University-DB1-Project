@@ -33,6 +33,9 @@
     
     List<ReceiptModel> pendingReceipts = ViewData["PendingReceipts"] as List<ReceiptModel>;
     List<PaymentProofModel> paymentProofs = ViewData["PaymentProofs"] as List<PaymentProofModel>;
+
+    //!List of Aps from view
+    List<ApModel> aps = new List<ApModel>();
     
 }
 
@@ -609,11 +612,93 @@ else
     </table>
     <hr />
 }
-    else
-    {
-        <p>No hay registro de comprobantes de pago en esta propiedad.</p>
-    }
+else
+{
+    <p>No hay registro de comprobantes de pago en esta propiedad.</p>
+}
 
-
-
-
+@if (aps.Count > 0)
+{
+    <h5>Arreglos de pago</h5>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => aps[0].ApNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => aps[0].MoratoryInterestRate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => aps[0].InitialAmount)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => aps[0].Balance)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => aps[0].PaymentTermsLeft)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => aps[0].PaymentTerms)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => aps[0].FeeValue)
+                </th>
+            @if(ILoggedUser.LoggedUser.isAdmin){
+                <th>
+                    @Html.DisplayNameFor(model => aps[0].InsertedAt)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => aps[0].UpdatedAt)
+                </th>
+            }
+            </tr>
+        </thead>
+        <tbody>
+        @foreach(var ap in aps)
+        {
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => ap.ApNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => ap.MoratoryInterestRate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => ap.InitialAmount)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => ap.Balance)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => ap.PaymentTermsLeft)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => ap.PaymentTerms)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => ap.FeeValue)
+                </th>
+            @if(ILoggedUser.LoggedUser.isAdmin){
+                <th>
+                    @Html.DisplayNameFor(model => ap.InsertedAt)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => ap.UpdatedAt)
+                </th>
+            }
+                <td>
+                    <a asp-action="ApDetails" asp-route-pApNumber="@ap.ApNumber">
+                        <input type="submit" value="Ver Movimientos" class="btn btn-warning"/>
+                    </a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+    <hr />
+}
+else
+{
+    <p>No hay registro de arreglos de pago en esta propiedad.</p>
+}
