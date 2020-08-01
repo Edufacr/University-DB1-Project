@@ -85,6 +85,7 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers
         {
             PaySelectedReceiptsWithAP.Parameters.Add("@inPropertyNumber",SqlDbType.Int).Value = pPropertyNumber;
             PaySelectedReceiptsWithAP.Parameters.Add("@inPaymentTerms",SqlDbType.Int).Value = pPaymentTerms;
+            PaySelectedReceiptsWithAP.Parameters.Add("@inDate",SqlDbType.Date).Value = DateTime.Today;
             return ExecuteNonQueryCommand(PaySelectedReceiptsWithAP);
         }
         
