@@ -10,6 +10,7 @@ AS
         r.Date,
         r.DueDate,
         r.Amount,
+        ap_m.Id as MovId,
         ap_m.Amount AS Amortization,
         ap_m.MonthlyInterest,
         ap_m.PaymentTermsLeft
