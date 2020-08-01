@@ -23,6 +23,8 @@ namespace DB1_Project_WEBPORTAL.Controllers
             (MIConceptChargeModelController)MIConceptChargeModelController.getInstance();
         
         private ReceiptModelController ReceiptController = ReceiptModelController.getInstance();
+
+        private ApModelController ApController = ApModelController.getInstance();
         
         // GET
         public IActionResult Index()
@@ -131,6 +133,7 @@ namespace DB1_Project_WEBPORTAL.Controllers
                 FixedCcController.ExecuteGetCCsOnProperty(property);
             List<ReceiptModel> pendingReceipts = ReceiptController.ExecuteGetPropertyPendingReceipts(property.PropertyNumber);
             List<PaymentProofModel> paymentProofs = ReceiptController.ExecuteGetPropertyPaymentProofs(property.PropertyNumber);
+            List<ApModel> apsList =  ApController.ExecuteGetAps();
             
             ViewData["Owners"] = owners;
             ViewData["Users"] = users;
@@ -143,6 +146,7 @@ namespace DB1_Project_WEBPORTAL.Controllers
             ViewData["FixedCCs"] = fixedCcs;
             ViewData["PendingReceipts"] = pendingReceipts;
             ViewData["PaymentProofs"] = paymentProofs;
+            ViewData["ApsList"] = apsList;
             
             return View(property);
         }
@@ -281,6 +285,12 @@ namespace DB1_Project_WEBPORTAL.Controllers
             }
             return RedirectToAction("Details",
                 new {pPropertyNumber, pRequestType =pRequestType});
+        }
+
+        //! Crear view para Movements
+        public IActionResult ApDetails(int pApNumber){
+            ApController.ExecuteGetMovementsByApNumber(pApNumber);
+            return View();
         }
     }
 }
