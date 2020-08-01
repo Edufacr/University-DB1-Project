@@ -3,6 +3,13 @@
     int apNumber = Model.ApNumber;
     string DebitString = "Debito";
     List<ApMovementModel> apMovements = ViewData["ApMovements"] as List<ApMovementModel>;
+    if(ILoggedUser.LoggedUser.isAdmin){
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_LayoutUserInterface.cshtml";
+    }
 }
 <h1>
     Detalles AP

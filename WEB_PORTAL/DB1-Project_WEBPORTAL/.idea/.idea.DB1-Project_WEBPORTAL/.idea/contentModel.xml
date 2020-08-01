@@ -24,6 +24,8 @@
         <e p="IConnectionStrings.cs" t="Include" />
         <e p="IConstants.cs" t="Include" />
         <e p="Models" t="Include">
+          <e p="ApModel.cs" t="Include" />
+          <e p="ApMovementModel.cs" t="Include" />
           <e p="CcModel.cs" t="Include" />
           <e p="ChangeModel.cs" t="Include" />
           <e p="ConsumptionCC_onPropertyModel.cs" t="Include" />
@@ -34,6 +36,7 @@
           <e p="ILoggedUser.cs" t="Include" />
           <e p="LegalOwnerModel.cs" t="Include" />
           <e p="ModelControllers" t="Include">
+            <e p="ApModelController.cs" t="Include" />
             <e p="ChangeModelController.cs" t="Include" />
             <e p="ChargeConceptModelController.cs" t="Include" />
             <e p="ConsumptionChargeConceptModelController.cs" t="Include" />
@@ -106,6 +109,7 @@
             <e p="InsertProperty.cshtml" t="Include" />
           </e>
           <e p="Property" t="Include">
+            <e p="ApDetails.cshtml" t="Include" />
             <e p="Create.cshtml" t="Include" />
             <e p="Delete.cshtml" t="Include" />
             <e p="Details.cshtml" t="Include" />
@@ -115,12 +119,14 @@
             <e p="InsertUser.cshtml" t="Include" />
             <e p="PaymentPreview.cshtml" t="Include" />
             <e p="ProofOfPaymentDetails.cshtml" t="Include" />
+            <e p="ReceiptDetails.cshtml" t="Include" />
             <e p="ReceiptSelection.cshtml" t="Include" />
           </e>
           <e p="Shared" t="Include">
             <e p="_Layout.cshtml" t="Include" />
             <e p="_LayoutUserInterface.cshtml" t="Include" />
             <e p="_NonHeaderLayout.cshtml" t="Include" />
+            <e p="_PartialView.cshtml" t="Include" />
             <e p="_ValidationScriptsPartial.cshtml" t="Include" />
             <e p="Error.cshtml" t="Include" />
           </e>

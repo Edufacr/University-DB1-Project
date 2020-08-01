@@ -1,6 +1,13 @@
 @model ReceiptModel
 @{
     int receiptNumber = Model.ReceiptNumber;
+    if(ILoggedUser.LoggedUser.isAdmin){
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_LayoutUserInterface.cshtml";
+    }
 }
 <h1>
     Recibo
