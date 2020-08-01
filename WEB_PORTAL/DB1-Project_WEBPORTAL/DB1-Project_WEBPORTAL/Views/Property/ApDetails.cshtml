@@ -1,6 +1,7 @@
 @model ApModel
 @{
     int apNumber = Model.ApNumber;
+    string DebitString = "Debito";
     List<ApMovementModel> apMovements = ViewData["ApMovements"] as List<ApMovementModel>;
 }
 <h1>
@@ -73,6 +74,12 @@
         <p>
             @Html.DisplayFor(model => model.InsertedAt)
         </p>
+        <dt>
+            @Html.DisplayNameFor(model => model.UpdatedAt)
+        </dt>
+        <p>
+            @Html.DisplayFor(model => model.UpdatedAt)
+        </p>
         <hr />
     }
     </dl>
@@ -136,6 +143,7 @@
                     @Html.DisplayFor(model => movement.InsertedAt)
                 </td>
             }
+            @if(movement.MovTypeName != DebitString){
                 <td>
                     @Html.ActionLink(
                         "Ver Recibo",
@@ -144,6 +152,8 @@
                         new {pMovNumber = movement.MovNumber},
                         new {@class = "btn btn-warning"})
                 </td>
+            }
+
             </tr>
         }
         </tbody>
