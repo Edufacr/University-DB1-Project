@@ -4,7 +4,7 @@ go
 CREATE OR ALTER VIEW completeAPReceipts
 AS
     SELECT 
-        r.Id AS ReceiptNumer,
+        r.Id AS ReceiptNumber,
         r.Id_ChargeConcept,
         r.Id_Property,
         r.Date,
