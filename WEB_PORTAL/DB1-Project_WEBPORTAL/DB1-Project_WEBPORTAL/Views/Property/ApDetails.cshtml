@@ -1,0 +1,155 @@
+@model ApModel
+@{
+    int apNumber = Model.ApNumber;
+    List<ApMovementModel> apMovements = ViewData["ApMovements"] as List<ApMovementModel>;
+}
+<h1>
+    Detalles AP
+</h1>
+<h4>
+    Número de AP: @apNumber
+</h4>
+<div>
+    <a href='javascript:history.go(-1)'>Volver</a>
+</div>
+<hr />
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ApNumber)
+        </dt>
+        <p>
+            @Html.DisplayFor(model => model.ApNumber)
+        </p>
+        <hr />
+        <dt>
+            @Html.DisplayNameFor(model => model.Balance)
+        </dt>
+        <p>
+            @Html.DisplayFor(model => model.Balance)
+        </p>
+        <hr />
+        <dt>
+            @Html.DisplayNameFor(model => model.FeeValue)
+        </dt>
+        <p>
+            @Html.DisplayFor(model => model.FeeValue)
+        </p>
+        <hr />
+        <dt>
+            @Html.DisplayNameFor(model => model.InitialAmount)
+        </dt>
+        <p>
+            @Html.DisplayFor(model => model.InitialAmount)
+        </p>
+        <hr />
+        <dt>
+            @Html.DisplayNameFor(model => model.MoratoryInterestRate)
+        </dt>
+        <p>
+            @Html.DisplayFor(model => model.MoratoryInterestRate)
+        </p>
+        <hr />
+        <dt>
+            @Html.DisplayNameFor(model => model.PaymentTerms)
+        </dt>
+        <p>
+            @Html.DisplayFor(model => model.PaymentTerms)
+        </p>
+        <hr />
+        <dt>
+            @Html.DisplayNameFor(model => model.PaymentTermsLeft)
+        </dt>
+        <p>
+            @Html.DisplayFor(model => model.PaymentTermsLeft)
+        </p>
+        <hr />
+    @if(ILoggedUser.LoggedUser.isAdmin){
+        <dt>
+            @Html.DisplayNameFor(model => model.InsertedAt)
+        </dt>
+        <p>
+            @Html.DisplayFor(model => model.InsertedAt)
+        </p>
+        <hr />
+    }
+    </dl>
+</div> 
+<hr />
+<h3>Movimientos del AP</h3>
+@if (apMovements.Count > 0)
+{
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => apMovements[0].MovTypeName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => apMovements[0].Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => apMovements[0].Amount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => apMovements[0].NewBalance)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => apMovements[0].PaymentTermsLeft)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => apMovements[0].MonthlyInterest)
+            </th>
+        @if(ILoggedUser.LoggedUser.isAdmin){
+            <th>
+                @Html.DisplayNameFor(model => apMovements[0].InsertedAt)
+            </th>
+        }
+        </tr>
+        </thead>
+        <tbody>
+        @foreach(var movement in apMovements)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => movement.MovTypeName)
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model => movement.Date)
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model => movement.Amount)
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model => movement.NewBalance)
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model => movement.PaymentTermsLeft)
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model => movement.MonthlyInterest)
+                </td>
+            @if(ILoggedUser.LoggedUser.isAdmin){
+                <td>
+                    @Html.DisplayNameFor(model => movement.InsertedAt)
+                </td>
+            }
+                <td>
+                    @Html.ActionLink(
+                        "Ver Recibo",
+                        "ApReceiptDetails",
+                        "Property",
+                        new {pMovNumber = movement.MovNumber},
+                        new {@class = "btn btn-warning"})
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+else
+{
+    <p> No existen movimientos ligados a este AP.</p>
+}

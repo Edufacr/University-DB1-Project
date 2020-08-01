@@ -286,11 +286,11 @@ namespace DB1_Project_WEBPORTAL.Controllers
             return RedirectToAction("Details",
                 new {pPropertyNumber, pRequestType =pRequestType});
         }
-
-        //! Crear view para Movements
         public IActionResult ApDetails(int pApNumber){
-            ApController.ExecuteGetMovementsByApNumber(pApNumber);
-            return View();
+            List<ApMovementModel> list = ApController.ExecuteGetMovementsByApNumber(pApNumber);
+            ApModel ap = ApController.ExecuteGetApDetails(pApNumber);
+            ViewData["ApMovements"] = list;
+            return View("ApDetails",ap);
         }
     }
 }
