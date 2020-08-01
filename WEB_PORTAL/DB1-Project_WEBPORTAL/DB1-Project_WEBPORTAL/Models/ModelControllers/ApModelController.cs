@@ -10,27 +10,25 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers{
         public static ApModelController Singleton;
         protected SqlConnection connection;
         //SPs
-        private SqlCommand getAps;
-        private SqlCommand getMovementsByApNumber;
-
-        private SqlCommand getApDetails;
+        private SqlCommand GetAps;
+        private SqlCommand GetMovementsByApNumber;
+        private SqlCommand GetApDetails;
 
         public static ApModelController getInstance(){
             return Singleton ??= new ApModelController();
         }
-
         public ApModel ExecuteGetApDetails(int pApNumber){
-            getApDetails.Parameters.Add("@inApNumber",SqlDbType.Int).Value = pApNumber;
-            List<ApModel> list = ExecuteQuerryCommand(getApDetails);
+            GetApDetails.Parameters.Add("@inApNumber",SqlDbType.Int).Value = pApNumber;
+            List<ApModel> list = ExecuteQuerryCommand(GetApDetails);
             return list[0];
         }
         public List<ApMovementModel> ExecuteGetMovementsByApNumber(int pApNumber){
             List<ApMovementModel> resultList = new List<ApMovementModel>();
             try{
                 connection.Open();
-                getMovementsByApNumber.Parameters.Add("@inApNumber",SqlDbType.Int).Value = pApNumber;
+                GetMovementsByApNumber.Parameters.Add("@inApNumber",SqlDbType.Int).Value = pApNumber;
 
-                SqlDataReader reader = getMovementsByApNumber.ExecuteReader();
+                SqlDataReader reader = GetMovementsByApNumber.ExecuteReader();
                 while (reader.Read())
                 {
                     ApMovementModel apMove = new ApMovementModel();
@@ -45,7 +43,7 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers{
 
                     resultList.Add(apMove);
                 }
-                getMovementsByApNumber.Parameters.Clear();
+                GetMovementsByApNumber.Parameters.Clear();
                 connection.Close();
             }
             catch (Exception e){
@@ -54,7 +52,7 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers{
             return resultList;
         }
         public List<ApModel> ExecuteGetAps(){
-            return ExecuteQuerryCommand(getAps);
+            return ExecuteQuerryCommand(GetAps);
         }
         private List<ApModel> ExecuteQuerryCommand(SqlCommand command){
             List<ApModel> resultList = new List<ApModel>();
@@ -88,13 +86,14 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers{
         private ApModelController(){
             connection = DBConnection.getInstance().Connection;
 
-            getMovementsByApNumber = new SqlCommand("SP_getMovementsByApNumber",connection);
-            getMovementsByApNumber.CommandType = CommandType.StoredProcedure;
+            GetMovementsByApNumber = new SqlCommand("SP_getMovementsByApNumber",connection);
+            GetMovementsByApNumber.CommandType = CommandType.StoredProcedure;
             
-            getAps = new SqlCommand("SP_getAps",connection);
-            getAps.CommandType = CommandType.StoredProcedure;
-        }
-            
-    }
+            GetAps = new SqlCommand("SP_getAps",connection);
+            GetAps.CommandType = CommandType.StoredProcedure;
 
+            GetApDetails = new SqlCommand("SP_getApDetails",connection);
+            GetApDetails.CommandType = CommandType.StoredProcedure;
+        }   
+    }
 }
