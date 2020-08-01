@@ -34,6 +34,7 @@ namespace DB1_Project_WEBPORTAL.Models.ModelControllers{
                     ApMovementModel apMove = new ApMovementModel();
                     
                     apMove.MovNumber = Convert.ToInt32(reader["MovNumber"]);
+                    apMove.MovTypeName = Convert.ToString(reader["MovTypeName"]);
                     apMove.Amount = Convert.ToDouble(reader["Amount"]);                    
                     apMove.MonthlyInterest = Convert.ToDouble(reader["MonthlyInterest"]);
                     apMove.PaymentTermsLeft = Convert.ToInt32(reader["PaymentTermsLeft"]);
