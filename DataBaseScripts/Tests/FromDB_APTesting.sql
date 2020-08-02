@@ -18,6 +18,16 @@ INSERT INTO DB1P_AP_MovementTypes (Id,Name) VALUES (2,'Credito')
 EXEC SP_XML_OperationsFill
 GO
 
+INSERT INTO DB1P_Users
+VALUES('b','b',0,1)
+INSERT INTO DB1P_Users
+VALUES('a','a',1,1)
+
+INSERT INTO DB1P_PropertiesUsers (Property_Id, User_Id,Active)
+VALUES(44,27,1)
+INSERT INTO DB1P_PropertiesUsers (Property_Id, User_Id,Active)
+VALUES(11,27,1)
+
 SELECT * FROM DB1P_AP_Receipts
 
 SELECT 
@@ -28,12 +38,8 @@ ORDER BY
     m.IdAp ASC,
     m.PaymentTermsLeft DESC;
 
-/*
-SELECT Amount,MonthlyInterest,PaymentTermsLeft,NewBalance FROM dbo.DB1P_AP_Movements;
-SELECT * FROM activeReceipts WHERE Id_Property = 11
 
-EXEC SP_clearSelectedReceiptsTable;
---*/
+
 
 
 

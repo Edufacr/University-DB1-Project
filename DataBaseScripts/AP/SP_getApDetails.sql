@@ -25,8 +25,9 @@ BEGIN TRY
     BEGIN
         SELECT Id as ApNumber,InitialAmount,Balance,AnnualInterestRate,PaymentTerms,
                 PaymentTermsLeft,FeeValue,InsertedAt,UpdatedAt
-            FROM DB1P_APs
-            WHERE @IdAP = Id;
+        FROM DB1P_APs
+        WHERE @IdAP = Id;
+        
         RETURN @IdAP;
     END
 	RETURN -50002
