@@ -1,16 +1,18 @@
 ﻿@{
     ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_LayoutUserInterface.cshtml";
+    
     List<ReceiptModel> selection = ViewData["Selection"] as List<ReceiptModel>;
     int? propertyNumber = ViewData["PropertyNumber"] as int?;
     double? totalAmount = ViewData["TotalAmount"] as double?;
     int cancelButtonRequestType;
     if(ILoggedUser.LoggedUser.isAdmin){
+        Layout = "~/Views/Shared/_Layout.cshtml";
         cancelButtonRequestType = IConstants.RETURN_TO_INDEX_REQUESTTYPE;
         ViewData["PayButtonTitle"] = "Crear arreglo de pago";
     }
     else
     {
+        Layout = "~/Views/Shared/_LayoutUserInterface.cshtml";
         cancelButtonRequestType = IConstants.RETURN_TO_USER_INDEX_REQUESTTYPE;
         ViewData["PayButtonTitle"] = "Pagar";
     }

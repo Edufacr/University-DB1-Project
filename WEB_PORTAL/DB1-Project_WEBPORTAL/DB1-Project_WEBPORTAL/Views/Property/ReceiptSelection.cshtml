@@ -1,9 +1,15 @@
 ﻿
 @{
     ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_LayoutUserInterface.cshtml";
     List<ReceiptModel> receipts = ViewData["PendingReceipts"] as List<ReceiptModel>;
     int? propertyNumber = ViewData["PropertyNumber"] as int?;
+    if(ILoggedUser.LoggedUser.isAdmin){
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_LayoutUserInterface.cshtml";
+    }
 }
 
 <h1> Recibos Pendientes </h1>
@@ -87,15 +93,15 @@
                     data:{ pReceiptNumber:receiptNumber },
                     success: function(data) {
                         if (data === @IConstants.NOT_OLDER_RECEIPT_ERROR){
-                            if($("#"+id).val){
-                                alert("No se pudo des seleccionar el recibo.\n" +
-                                  "Se encontraron recibos seleccionados más nuevos del mismo concepto de cobro.");
-                                $("#"+id).prop("checked", true);
-                            }
-                            else{
+                            if($("#"+id).is(':checked')){
                                 alert("No se pudo agregar el recibo.\n" +
                                   "Se encontraron recibos pendientes más viejos del mismo concepto de cobro.");
                                 $("#"+id).prop("checked", false);
+                            }
+                            else{
+                                alert("No se pudo des seleccionar el recibo.\n" +
+                                  "Se encontraron recibos seleccionados más nuevos del mismo concepto de cobro.");
+                                $("#"+id).prop("checked", true);
                             }
                         }
                     },

@@ -15,9 +15,12 @@ CREATE OR ALTER PROCEDURE dbo.SP_calculateFeeValue
 
 AS
 BEGIN
+    
     DECLARE @AnnualInterestRate  DECIMAL(4,2);
     DECLARE @MonthlyInterest     DECIMAL(6,6);
-	BEGIN TRY
+	
+    BEGIN TRY
+        
         SET
             @AnnualInterestRate = ( SELECT 
                                         c.AnnualInterestRate
@@ -27,13 +30,15 @@ BEGIN
                                         c.Id = 1 );
         SET
             @MonthlyInterest = (@AnnualInterestRate / 12);
-        -- R = P [(i (1 + i)n) / ((1 + i)n – 1)]
+        
+        -- R = P [(i (1 + i)^n) / ((1 + i)^n – 1)]
         SET
             @OutFeeValue = @inOriginalAmount * ( ( @MonthlyInterest * POWER( (1 + @MonthlyInterest) , @inPaymentTerms ) ) 
-                                            / (POWER( (1 + @MonthlyInterest) , @inPaymentTerms ) - 1) )
+                                                     / (POWER( (1 + @MonthlyInterest) , @inPaymentTerms ) - 1) )
 
         SET @outAnnualInterestRate = @AnnualInterestRate;
-	END TRY
+	
+    END TRY
 	BEGIN CATCH
 		RETURN @@Error * -1
 	END CATCH		

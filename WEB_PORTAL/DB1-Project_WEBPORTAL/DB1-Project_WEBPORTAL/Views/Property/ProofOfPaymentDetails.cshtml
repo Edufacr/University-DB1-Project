@@ -1,7 +1,13 @@
 @model PaymentProofModel
 @{
     ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    if(ILoggedUser.LoggedUser.isAdmin){
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_LayoutUserInterface.cshtml";
+    }
     List<ReceiptModel> receipts = ViewData["ReceiptsPoP"] as List<ReceiptModel>;
 }
 <h1>Comprobantes</h1>
