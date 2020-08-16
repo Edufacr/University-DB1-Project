@@ -18,17 +18,18 @@ BEGIN
 
 BEGIN TRY
 
-    BEGIN TRANSACTION
+
 
         SET -- Saca la cantidad de APs que se generaron en la simulación para ver cuantas veces pasar por el ciclo
             @APQuantity = ( SELECT 
-                                COUNT(*)
+                                COUNT(1)
                             FROM 
                                 dbo.DB1P_APs)
 
         SET -- Accede al día de la fecha actual
             @CurrentDay = DAY(@inCurrentDate)
-        
+
+    BEGIN TRANSACTION
         WHILE @IterationId <= @APQuantity
             BEGIN
 
